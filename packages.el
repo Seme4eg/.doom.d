@@ -15,6 +15,8 @@
 (package! smex) ;; Package to get completion in ~M-x~ menu (and most used commands will be at top)
 (package! ag)
 (package! wgrep-ag)
+(package! popup-kill-ring)
+(package! org-bullets)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

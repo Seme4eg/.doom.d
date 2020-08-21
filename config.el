@@ -66,7 +66,6 @@
       use-dialog-box nil)
 
 ;; environment -> hooks
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; (add-hook 'markdown-mode-hook 'auto-fill-mode)
 
 ;; modes
@@ -108,9 +107,126 @@
 ;;             (define-key ag-mode-map (kbd "n") 'evil-search-next)
 ;;             (define-key ag-mode-map (kbd "N") 'evil-search-previous)))
 
+;; treemacs
 (setq treemacs-silent-filewatch              t ;; nil
       ;; treemacs-project-follow-cleanup        t ;; nil
       treemacs-silent-refresh                t ;; nil
       ;; treemacs-sorting                       'alphabetic-desc
       treemacs-space-between-root-nodes      nil ;; t
       treemacs-width                         32) ;; 35
+
+;; org
+(setq org-log-done t ;; enable logging when tasks are complete
+      ;; open code edit buffers in the same window
+      ;; org-src-window-setup 'current-window
+      org-use-speed-commands t
+      org-return-follows-link t
+      org-hide-emphasis-markers t)
+
+;; org-mode agenda options
+(setq org-deadline-warning-days 7) ;; warn of any deadlines in next 7 days
+(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+(setq org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled))
+;;don't show tasks that are scheduled or have deadlines in the normal todo list
+;; (setq org-agenda-todo-ignore-deadlines (quote all))
+;; (setq org-agenda-todo-ignore-scheduled (quote all))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (abbrev-mode)
+            (flyspell-mode)
+            (auto-fill-mode)))
+;; now after typing '<el TAB' u will get code block with 'emacs-lisp' src
+(add-to-list 'org-structure-template-alist
+             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+
+
+;; ==================== DEV ====================
+
+;; web-mode
+(setq web-mode-markup-indent-offset 2
+      ;; web-mode-script-padding 2 ; now is 1
+      web-mode-css-indent-offset 2
+      web-mode-code-indent-offset 2
+      web-mode-attr-indent-offset t
+      web-mode-sql-indent-offset 2
+      web-mode-enable-current-column-highlight t
+      web-mode-enable-current-element-highlight t)
+
+;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (yas-activate-extra-mode 'js2-mode)
+            (prettier-js-mode)))
+
+(add-hook 'vue-mode-hook
+          (lambda ()
+            (yas-activate-extra-mode 'js2-mode)
+            (prettier-js-mode)))
+
+;; js2
+(setq js2-basic-offset 2)
+
+;; (setq-default js2-global-externs (list "window" "module" "require" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON" "jQuery" "$"))
+;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+(add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;; js2refactor
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "<spc> r")
+;; (define-key key-translation-map (kbd ",r") (kbd "C-c b"))
+
+;; js-prettier
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+;; (setq prettier-js-args '(
+;;                          "--trailing-comma" "all"
+;;                          "--single-quote" "true"
+;;                          "--arrow-parens" "avoid"
+;;                          "--space-before-function-paren" "true"
+;;                          ))
+
+;; smartparens
+;; ~C-M-Space {key}~ - wrap region (or just try pressing {key} when region is active)
+(map! :leader
+      "mu" 'sp-unwrap-sexp
+      "mk" 'sp-kill-sexp
+      "mr" 'sp-rewrap-sexp ;; also 'swap-enclosing-sexp might be useful
+      "mn" 'sp-forward-sexp
+      "mp" 'sp-backward-sexp
+      "ms" 'sp-slurp-hybrid-sexp ;; take next expression in cur parens
+      )
+
+;; other pkgs
+(setq emmet-indentation 2
+      emmet-move-cursor-between-quotes t)
+
+(map! :leader "j" 'avy-goto-char)
+
+;; (use-package dmenu
+;;   :init (evil-leader/set-key "d" 'dmenu))
+
+(map! :leader "y" 'popup-kill-ring)
+
+(defun evil-window-split()
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+
+(defun evil-window-vsplit()
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+
+(defun sad/insert-line-before (times)
+  ;; insert a line 'above' cur. cursor position
+  (interactive "p")
+  (save-excursion
+    (move-beginning-of-line 1)
+    (newline times)))
+
+(global-set-key (kbd "C-S-o") 'sad/insert-line-before) ;; `C-6 {binded kbd}`
