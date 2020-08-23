@@ -123,6 +123,8 @@
       org-return-follows-link t
       org-hide-emphasis-markers t)
 
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
 ;; org-mode agenda options
 (setq org-deadline-warning-days 7) ;; warn of any deadlines in next 7 days
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
