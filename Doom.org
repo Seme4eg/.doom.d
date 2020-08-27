@@ -46,6 +46,10 @@ spc b u - save this file as root
 
 or u just could type 'sudo' and then M-r in commandline
 
+** other
+explain-pause-mode - explain-pause-top shows a top-like view of the things Emacs has been doing
+[[https://github.com/hlissner/doom-snippets][doom-snippets]]
+
 * free kbds
 C-;
 spc-ret

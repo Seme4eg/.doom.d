@@ -108,10 +108,9 @@
 ;;             (define-key ag-mode-map (kbd "N") 'evil-search-previous)))
 
 ;; treemacs
-(setq treemacs-silent-filewatch              t ;; nil
+(setq ;; treemacs-silent-filewatch              t ;; nil
       ;; treemacs-project-follow-cleanup        t ;; nil
-      treemacs-silent-refresh                t ;; nil
-      ;; treemacs-sorting                       'alphabetic-desc
+      ;; treemacs-silent-refresh                t ;; nil
       treemacs-space-between-root-nodes      nil ;; t
       treemacs-width                         32) ;; 35
 
@@ -138,9 +137,10 @@
             (abbrev-mode)
             (flyspell-mode)
             (auto-fill-mode)))
+
 ;; now after typing '<el TAB' u will get code block with 'emacs-lisp' src
-(add-to-list 'org-structure-template-alist
-             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+(after! org (add-to-list 'org-structure-template-alist
+             '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
 
 
 ;; ==================== DEV ====================
@@ -166,7 +166,10 @@
 (add-hook 'vue-mode-hook
           (lambda ()
             (yas-activate-extra-mode 'js2-mode)
+            (setq evil-auto-indent nil)
             (prettier-js-mode)))
+
+(add-hook 'js2-mode-hook 'prettier-js-mode)
 
 ;; js2
 (setq js2-basic-offset 2)
