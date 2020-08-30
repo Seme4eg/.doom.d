@@ -57,6 +57,12 @@
   (defadvice evil-ex-search-next (after advice-for-evil-ex-search-next activate)
     (evil-scroll-line-to-center (line-number-at-pos))))
 
+(setq doom-font (font-spec :family "Source Code Pro" :size 16 :weight 'light))
+
+(setq better-jumper-context 'buffer) ;; for now
+
+(map! :leader "gv" 'git-gutter:popup-hunk)
+
 ;; environment --> major
 
 (setq-default indent-tab-mode nil)
@@ -78,8 +84,7 @@
 
 ;; kbds
 
-(map! "C-;" 'comment-or-uncomment-region
-      :leader
+(map! :leader
       "bo" 'switch-to-buffer
       "os" 'doom/open-scratch-buffer
       "x" 'counsel-M-x)
@@ -172,7 +177,8 @@
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 
 ;; js2
-(setq js2-basic-offset 2)
+;; (setq js2-basic-offset 2)
+(setq js-indent-level 2)
 
 ;; (setq-default js2-global-externs (list "window" "module" "require" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON" "jQuery" "$"))
 ;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
@@ -207,8 +213,6 @@
 ;; other pkgs
 (setq emmet-indentation 2
       emmet-move-cursor-between-quotes t)
-
-(map! :leader "j" 'avy-goto-char)
 
 ;; (use-package dmenu
 ;;   :init (evil-leader/set-key "d" 'dmenu))

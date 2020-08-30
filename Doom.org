@@ -34,6 +34,31 @@ config (re)load - spc f P / spc h r r respectively
 - zen - zen-mixed-patch-mode can be activated in org and md modes, no shortcut
 - file-templates - ~C-h v file-templates~
 - lookup - ~M-x +lookup~.. prefix seems generally to be ~spc c~
+- git-gutter-fringe - ~spc g~
+- evil-arg - [[https://github.com/wcsmith/evil-args#functionality][arguments operations]] (like ~dia~ / ~daa~)
+- evil-easymotion - better 'avy' ([[https://github.com/PythonNut/evil-easymotion][docs]]); prefix - ~gs~; look for commands by
+  starting with 'evilem'
+- evil-lion - port of [[https://github.com/tommcdo/vim-lion][vim-lion]], which allows to align text by some CHAR; ~gl/L
+  {motion} {char}~
+- evil-nerd-commenter - comment operator, ~gc {motion}~
+- evil-numbers - works like C-a/C-x in vim, but here it is ~g-/g=~
+- evil-snipe - gives 's' key same functionality as 'f', but expects 2 chars
+- evil-visualstar - make a visual selection with ~v~ or ~V~, and then hit ~*/#~ to
+  search that selection forward/backward respectively
+- git-timemachine - view file =x= time ago; [[https://github.com/emacsmirror/git-timemachine][docs]]
+- *magit-gitflow* - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]] plugin for magit.el; Press ~C-f~ in magit status buffer and you will be presented with the gitflow popup menu
+- github-review - This package contains a handful of Emacs commands to review
+  GitHub pull request without leaving Emacs. Start by calling
+  ~github-review-start~; [[https://github.com/charignon/github-review][docs]]
+- org-yt - youtube links (with imgs) in org mode; [[https://github.com/TobiasZawada/org-yt][docs]] here, example below (also
+  press ~zi~ to toggle inline images display)
+
+[[yt:o9Phw-cJqBQ][lo-fi beats]]
+
+- org-toc - helps you to have an up-to-date table of contents in org files
+  without exporting. [[https://github.com/snosov1/toc-org#use][docs]]
+- org-clipboard - exports buffer / selected text to clipboard, ~spc n y/Y~ (look
+  up the commands to see docs)
 
 ** org
 org-capture -> ~spc X~
@@ -49,8 +74,30 @@ or u just could type 'sudo' and then M-r in commandline
 ** other
 explain-pause-mode - explain-pause-top shows a top-like view of the things Emacs has been doing
 [[https://github.com/hlissner/doom-snippets][doom-snippets]]
+- evil-escape - analog of ~C-[~, lookup var =evil-escape-key-sequence=
+- evil-exchange - ~gx/X~, text exchange tool ([[https://github.com/Dewdrops/evil-exchange][docs]])
 
 * free kbds
 C-;
 spc-ret
 spc-l
+
+* things set up in doom
+- better-jumper, [[https://github.com/gilbertw1/better-jumper#comparison-with-evil-jump][here]] is it's comparison to evil-jump
+- evil-embrace, didn't find any setup for this package in doom
+- evil-indent-plus - [[https://github.com/TheBB/evil-indent-plus][package]] that ain't set up in doom for some reason; it
+  provides six new text object to evil based on indentation
+- evil-traces - enables visual previews for certain evil-ex commands (port of traces.vim)
+- evil-textobj-anyblock - gives a text object that will select the closest of
+  (), {}, [], <>, '', "", ` `, or “” by default. This can be convenient for
+  operating on the closest block without having to type its symbol. But it isn't
+  set up here in doom
+- evil-quick-diff - used to diff and edit two separate blocks of text
+- *evil-collection* - collection of Evil bindings for the parts of Emacs that Evil
+  does not cover properly by default, such as help-mode, M-x calendar, Eshell
+  and more ([[https://github.com/emacs-evil/evil-collection][docs]])
+- quickrun - Execute current buffer; [[https://github.com/emacsorphanage/quickrun][docs]]
+- dumb-jump - jump to definition, but it seems to be not bound to any hotkey,
+  ~gd~ - go to definition
+- ivy-xref - interface to select from xref candidates. how to use *???*
+- macrostep - interactive macro-expander, haven't used yet
