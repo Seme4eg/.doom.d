@@ -53,6 +53,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
 (after! evil
   (defadvice evil-ex-search-next (after advice-for-evil-ex-search-next activate)
     (evil-scroll-line-to-center (line-number-at-pos))))
@@ -66,8 +68,8 @@
 ;; environment --> major
 
 (setq-default indent-tab-mode nil)
+(setq-default fill-column 110) ;; must be a default value to work
 (setq tab-width 2
-      fill-column 110 ;; must be (?) a default value to work
       echo-keystokes 0.1
       use-dialog-box nil)
 
@@ -101,6 +103,8 @@
       "pG" 'counsel-projectile-git-grep
       "pO" 'counsel-projectile-org-capture
       "pS" 'ag-project)
+
+(setq projectile-project-search-path '("~/git/"))
 
 (setq ag-highlight-search t
       ag-reuse-buffers t

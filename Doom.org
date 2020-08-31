@@ -12,17 +12,17 @@ All commands below are used with ~./doom~ prefix:
 File 'packages.el' stores information about which packages u would like to install on top of what doom
 provides. Read this file, it's written there what 2 do.
 
-what i installed:
+* to do
+[[https://www.passwordstore.org][pass]]
+[[https://github.com/zakkak/emacs-password-store][password-store]]
+*org*
+*eshell*
 
 * kbds
-from old config - ~(global-set-key (kbd "C-<tab>") 'dabbrev-expand)~
-key in new 1 - ~M-/~
-
+dabbrev-expand - ~C-<tab>~ -> ~M-/~
 "w" 'save-buffer is now ~f s~
 "bm" 'ibuffer is now ~b i~
-
-config (re)load - spc f P / spc h r r respectively
-
+config (re)load - ~spc f P~ / ~spc h r r~ respectively
 
 * packages
 - treemacs prefix - spc o (p/P)
@@ -46,10 +46,10 @@ config (re)load - spc f P / spc h r r respectively
 - evil-visualstar - make a visual selection with ~v~ or ~V~, and then hit ~*/#~ to
   search that selection forward/backward respectively
 - git-timemachine - view file =x= time ago; [[https://github.com/emacsmirror/git-timemachine][docs]]
-- *magit-gitflow* - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]] plugin for magit.el; Press ~C-f~ in magit status buffer and you will be presented with the gitflow popup menu
+- *magit-gitflow* - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]] plugin for magit.el; Press ~C-f~ in magit status buffer
+  and you will be presented with the gitflow popup menu
 - github-review - This package contains a handful of Emacs commands to review
-  GitHub pull request without leaving Emacs. Start by calling
-  ~github-review-start~; [[https://github.com/charignon/github-review][docs]]
+  GitHub pull request without leaving Emacs. Start by calling ~github-review-start~; [[https://github.com/charignon/github-review][docs]]
 - org-yt - youtube links (with imgs) in org mode; [[https://github.com/TobiasZawada/org-yt][docs]] here, example below (also
   press ~zi~ to toggle inline images display)
 
@@ -59,28 +59,23 @@ config (re)load - spc f P / spc h r r respectively
   without exporting. [[https://github.com/snosov1/toc-org#use][docs]]
 - org-clipboard - exports buffer / selected text to clipboard, ~spc n y/Y~ (look
   up the commands to see docs)
+- drag-stuff - just go ~M-x drag-stuff~.. Allows to swap lines, words and not only
 
 ** org
 org-capture -> ~spc X~
 org-agenda -> ~spc o A~
 
 ** sudo-edit
-spc f u - open file as root
-spc f U - open current file as root
-spc b u - save this file as root
+~spc f u~ - open file as root spc
+~f U~ - open current file as root
+~spc b u~ - save this file as root
 
-or u just could type 'sudo' and then M-r in commandline
+or u just could type 'sudo' and then ~M-r~ in commandline
 
 ** other
-explain-pause-mode - explain-pause-top shows a top-like view of the things Emacs has been doing
-[[https://github.com/hlissner/doom-snippets][doom-snippets]]
+explain-pause-mode - explain-pause-top shows a top-like view of the things Emacs has been doing [[https://github.com/hlissner/doom-snippets][doom-snippets]]
 - evil-escape - analog of ~C-[~, lookup var =evil-escape-key-sequence=
 - evil-exchange - ~gx/X~, text exchange tool ([[https://github.com/Dewdrops/evil-exchange][docs]])
-
-* free kbds
-C-;
-spc-ret
-spc-l
 
 * things set up in doom
 - better-jumper, [[https://github.com/gilbertw1/better-jumper#comparison-with-evil-jump][here]] is it's comparison to evil-jump
@@ -89,15 +84,22 @@ spc-l
   provides six new text object to evil based on indentation
 - evil-traces - enables visual previews for certain evil-ex commands (port of traces.vim)
 - evil-textobj-anyblock - gives a text object that will select the closest of
-  (), {}, [], <>, '', "", ` `, or “” by default. This can be convenient for
-  operating on the closest block without having to type its symbol. But it isn't
-  set up here in doom
+  (), {}, [], <>, '', "", ` `, or “” by default. This can be convenient for operating on the closest block
+  without having to type its symbol. But it isn't set up here in doom
 - evil-quick-diff - used to diff and edit two separate blocks of text
 - *evil-collection* - collection of Evil bindings for the parts of Emacs that Evil
-  does not cover properly by default, such as help-mode, M-x calendar, Eshell
-  and more ([[https://github.com/emacs-evil/evil-collection][docs]])
+  does not cover properly by default, such as help-mode, M-x calendar, Eshell and more ([[https://github.com/emacs-evil/evil-collection][docs]])
 - quickrun - Execute current buffer; [[https://github.com/emacsorphanage/quickrun][docs]]
 - dumb-jump - jump to definition, but it seems to be not bound to any hotkey,
   ~gd~ - go to definition
 - ivy-xref - interface to select from xref candidates. how to use *???*
 - macrostep - interactive macro-expander, haven't used yet
+- orgit - defines several Org link types, which can be used to link to certain
+  Magit buffers. User command ~org-store-link~ while such a buffer is current to store a link. Later you can
+  instert it into an org buffer using the command ~org-insert-link~. [[https://github.com/magit/orgit][docs]]
+- link-hint - ~spc s l~ - link-hint-open-link (tool for copying and opening links)
+- writeroom-mode - distraction-free coding/reading, ~spc t z~
+- calfw - calendar framework for emacs, docs [[https://github.com/kiwanami/emacs-calfw][here]]
+
+* free kbds
+C-; spc-ret spc-l
