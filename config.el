@@ -68,7 +68,7 @@
 ;; environment --> major
 
 (setq-default indent-tab-mode nil)
-(setq-default fill-column 110) ;; must be a default value to work
+(setq-default fill-column 100) ;; must be a default value to work
 (setq tab-width 2
       echo-keystokes 0.1
       use-dialog-box nil)
@@ -120,6 +120,7 @@
 (setq ;; treemacs-silent-filewatch              t ;; nil
       ;; treemacs-project-follow-cleanup        t ;; nil
       ;; treemacs-silent-refresh                t ;; nil
+      treemacs-follow-mode t
       treemacs-space-between-root-nodes      nil ;; t
       treemacs-width                         32) ;; 35
 
@@ -176,6 +177,7 @@
           (lambda ()
             (yas-activate-extra-mode 'js2-mode)
             (setq evil-auto-indent nil)
+            (hl-todo-mode)
             (prettier-js-mode)))
 
 (add-hook 'js2-mode-hook 'prettier-js-mode)

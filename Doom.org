@@ -24,6 +24,15 @@ dabbrev-expand - ~C-<tab>~ -> ~M-/~
 "bm" 'ibuffer is now ~b i~
 config (re)load - ~spc f P~ / ~spc h r r~ respectively
 
+** buffers
+~spc b b~ - switch to workspace buffer (~spc ,~ - shortcut)
+~spc b B~ - switch to other buffer (~spc <~ - shortcut)
+~spc b N~ - create new buffer
+
+** multi-edit
+while being on a particular word press ~M-d/D~ find and select next/prev occurrence of this word in the file.
+When selected move with ~C-n/p~ between matches. Press ~RET~ while being on a match to exclude it from selection.
+
 * packages
 - treemacs prefix - spc o (p/P)
 - evil-mc (multiple cursors) - ~gz~ (in visual mode)
