@@ -182,6 +182,11 @@
 
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 
+;; elm
+;; (setq elm-indent-offset 2)
+(add-to-list 'company-backends 'elm-company)
+(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
+
 ;; js2
 ;; (setq js2-basic-offset 2)
 (setq js-indent-level 2)
