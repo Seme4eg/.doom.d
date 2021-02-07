@@ -59,7 +59,7 @@
   (defadvice evil-ex-search-next (after advice-for-evil-ex-search-next activate)
     (evil-scroll-line-to-center (line-number-at-pos))))
 
-(setq doom-font (font-spec :family "Source Code Pro" :size 16 :weight 'light))
+;; (setq doom-font (font-spec :family "Source Code Pro" :size 16 :weight 'light))
 
 (setq better-jumper-context 'buffer) ;; for now
 
@@ -68,13 +68,13 @@
 ;; environment --> major
 
 (setq-default indent-tab-mode nil)
-(setq-default fill-column 100) ;; must be a default value to work
+(setq-default fill-column 80) ;; must be a default value to work
 (setq tab-width 2
       echo-keystokes 0.1
       use-dialog-box nil)
 
 ;; environment -> hooks
-;; (add-hook 'markdown-mode-hook 'auto-fill-mode)
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
 
 ;; modes
 
@@ -196,9 +196,11 @@
 (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
+(add-hook 'js2-mode-hook #'jest-minor-mode)
+
 ;; js2refactor
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
-(js2r-add-keybindings-with-prefix "<spc> r")
+;; (js2r-add-keybindings-with-prefix "<spc> r")
 ;; (define-key key-translation-map (kbd ",r") (kbd "C-c b"))
 
 ;; js-prettier

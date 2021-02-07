@@ -55,7 +55,7 @@ When selected move with ~C-n/p~ between matches. Press ~RET~ while being on a ma
 - evil-visualstar - make a visual selection with ~v~ or ~V~, and then hit ~*/#~ to
   search that selection forward/backward respectively
 - git-timemachine - view file =x= time ago; [[https://github.com/emacsmirror/git-timemachine][docs]]
-- *magit-gitflow* - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]] plugin for magit.el; Press ~C-f~ in magit status buffer
+- *magit-gitflow* - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]] plugin for magit.el; Press ~%~ in magit status buffer
   and you will be presented with the gitflow popup menu
 - github-review - This package contains a handful of Emacs commands to review
   GitHub pull request without leaving Emacs. Start by calling ~github-review-start~; [[https://github.com/charignon/github-review][docs]]

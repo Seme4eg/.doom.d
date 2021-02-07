@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: script tag
+# key: script
+# --
+<script>
+export default {
+  name: '${1:component name}',
+  data() {
+    return {
+      ${2:// data..}
+    }
+  },
+
+  methods: {
+    ${3:// your methods here..}
+  }
+};
+</script>

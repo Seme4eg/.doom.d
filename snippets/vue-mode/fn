@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: vue function
+# key: vuefn
+# --
+${1:name} ($2) {
+  ${3:// code..}
+},

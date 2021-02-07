@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: template
+# key: !    
+# --
+<template lang="pug">
+  $1
+</template>
+
+${2:script}$0

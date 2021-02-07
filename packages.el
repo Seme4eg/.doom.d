@@ -12,6 +12,7 @@
 (package! prettier-js)
 (package! vue-mode)
 (package! js2-mode)
+(package! jest)
 (package! smex) ;; Package to get completion in ~M-x~ menu (and most used commands will be at top)
 (package! ag)
 (package! wgrep-ag)
