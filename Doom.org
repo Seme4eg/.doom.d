@@ -1,31 +1,79 @@
 * Doom
-https://github.com/hlissner/doom-emacs.git - clone this rep into .emacs.d/ (ofc back up your config if u
-had 1)
 
-Doom comes with a commandline tool located in ~~/.emacs.d/bin/~
+File 'packages.el' stores information about which packages u would like to
+install on top of what doom provides. Read this file, it's written there what 2
+do.
 
-All commands below are used with ~./doom~ prefix:
+themes [[https://github.com/hlissner/emacs-doom-themes][here]]
 
-- ~help~ - describe a command or list them all (or u just can use ~-h~ option)
-- ~install~ - install and set up doom emacs for the first time
+[[https://github.com/hlissner/doom-snippets][snippets and how to use / write them]]
 
-File 'packages.el' stores information about which packages u would like to install on top of what doom
-provides. Read this file, it's written there what 2 do.
+[[https://github.com/hlissner/doom-emacs/blob/develop/docs/modules.org][modules and their configs]]
+
+modules i've set up:
+- [[https://github.com/tecosaur/emacs-everywhere][everywhere]]
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/checkers/spell/README.org][spell]]
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/company/README.org#code-completion][company]] - ~C-SPC~ to trigger completion
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/ivy/README.org#ivy-integration-for-various-completing-commands][ivy]] - with shortcuts
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/vertico/README.org#vertico-keybindings][vertico]] - search engine of the future
+- [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/editor/evil/README.org#features][evil]] - with all the juicy ports (including [[https://github.com/emacs-evil/evil-surround#usage][evil-surround]])
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/emacs/dired/README.org#keybindings][dired]] - link for dired shortcuts ([[https://www.youtube.com/watch?v=oZSmlAAbmYs&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=3][youtube dired intro]])
+- [[https://github.com/hlissner/evil-multiedit#usage][evil-multiedit]]
+- [[https://github.com/rmuslimov/browse-at-remote][browse at remote]] - cool git feature
+- [[https://gitlab.com/pidu/git-timemachine][timemachine]] - another cool emacs git feature
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/javascript/README.org#appendix][JS]] - yus!
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/term/vterm/README.org][vterm]] - new terminal
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/eval/README.org#features][eval]] - instead of opening console in all browser tabs...
+- [[file:init.el::(lookup][lookup]] - now i know about ~K~ (in normal mode)
+- [[https://magit.vc/manual/forge/][magit forge]] - and another upgrade, but i also think i might find something
+  useful in [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/magit/README.org#plugins][these]] packages
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/pass/README.org#description][pass]] - ... (needed to install [[https://www.passwordstore.org/][pass]] and create [[https://rtcamp.com/tutorials/linux/gpg-keys/][gpg key]] as well); view [[https://git.zx2c4.com/password-store/about/][pass man
+  page]]
+- [[https://github.com/emacs-lsp/lsp-mode][lsp]] - [[https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/][tutorial]], ~SPC c l~ - prefix ([[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/lsp/README.org#features][doom lsp]] readme page)
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/window-select/README.org#description][window-select]] - avy for windows switching
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/workspaces/README.org#commands--keybindings][workspaces]]
+- ...
+- deft (paste link) - [[https://www.youtube.com/watch?v=mldoUx_wi10&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=22][vid for deft (prob useless)]]
+- org journal (link again) - [[https://www.youtube.com/watch?v=i-nGmSQ5fh0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=23][vid here]]
+- org roam - [[https://www.youtube.com/watch?v=rH3ZH95zjKM&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=24][vid]] and the nest vid as well
+
+
+* Shortcuts
+
+find file - ~SPC .~
+
+find files in doom configuration - ~SPC f p~ (find files in private configuration)
+
+~gs~ .. - and watch what hints give u (ther's lots there, ie ~gs spc~)
+
+also after ~gs spc {search-str}~ type ~?~ and see available command modifier
+
+[[https://www.youtube.com/watch?v=zar4GsOBU0g&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=7][avy quick tutorial]]
 
 * to do
-[[https://www.passwordstore.org][pass]]
-[[https://github.com/zakkak/emacs-password-store][password-store]]
-*org*
-*eshell*
+while vacation:
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
+- check aspell integration (if it is even working with ~spell~) (for now it just
+  highlights everything in this buffer red)
+- check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlisswitcht)
+- redefine my custom keybindings properly like in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=27][this]] vid
+- did we agree to add [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/editorconfig/README.org][this]]? if not - create your own global one
+- make /lookup/ work in js-buffers
+- what to do with [[file:init.el::(debugger][debugger]] mode? (dab-mode afaik)
+
+---
+
+- [[file:init.el::(popup +defaults) ; tame sudden yet inevitable temporary windows][popup]] - how to use this feature?
+- *org*
 
 * kbds
 dabbrev-expand - ~C-<tab>~ -> ~M-/~
-"w" 'save-buffer is now ~f s~
 "bm" 'ibuffer is now ~b i~
 config (re)load - ~spc f P~ / ~spc h r r~ respectively
 
 ** buffers
-~spc b b~ - switch to workspace buffer (~spc ,~ - shortcut)
+~spc b b~ - to workspace buffer (~spc ,~ - shortcut)
 ~spc b B~ - switch to other buffer (~spc <~ - shortcut)
 ~spc b N~ - create new buffer
 
@@ -37,8 +85,7 @@ When selected move with ~C-n/p~ between matches. Press ~RET~ while being on a ma
 - treemacs prefix - spc o (p/P)
 - evil-mc (multiple cursors) - ~gz~ (in visual mode)
 - swiper - ~spc s b~
-- flycheck - ~C-c !~
-- switch windows - spc w C-w 
+- switch windows - spc w C-w
 - workspaces - spc tab
 - zen - zen-mixed-patch-mode can be activated in org and md modes, no shortcut
 - file-templates - ~C-h v file-templates~
@@ -70,21 +117,21 @@ When selected move with ~C-n/p~ between matches. Press ~RET~ while being on a ma
   up the commands to see docs)
 - drag-stuff - just go ~M-x drag-stuff~.. Allows to swap lines, words and not only
 
-** org
+** org :test:
 org-capture -> ~spc X~
 org-agenda -> ~spc o A~
 
-** sudo-edit
-~spc f u~ - open file as root spc
-~f U~ - open current file as root
-~spc b u~ - save this file as root
+[[https://www.youtube.com/watch?v=BRqjaN4-gGQ&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=10][org-links tutorial]]
 
-or u just could type 'sudo' and then ~M-r~ in commandline
+[[https://www.youtube.com/watch?v=DxygfqLrFSU&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=14][org tast (agenda stuff)]] (next video after this 1 is about tasks priority)
 
-** other
-explain-pause-mode - explain-pause-top shows a top-like view of the things Emacs has been doing [[https://github.com/hlissner/doom-snippets][doom-snippets]]
-- evil-escape - analog of ~C-[~, lookup var =evil-escape-key-sequence=
-- evil-exchange - ~gx/X~, text exchange tool ([[https://github.com/Dewdrops/evil-exchange][docs]])
+[[https://www.youtube.com/watch?v=FJq__bBi0nI&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=16][org TAGS power]]
+
+[[https://www.youtube.com/watch?v=SYgsS8Be1ZY&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=17][Org Mode - Using Checkboxes]]
+
+** magit
+
+[[https://www.youtube.com/watch?v=fFuf3hExF5w&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=20][pull requests from within emacs?]] - doesn't work for me, don't see 'forge'
 
 * things set up in doom
 - better-jumper, [[https://github.com/gilbertw1/better-jumper#comparison-with-evil-jump][here]] is it's comparison to evil-jump

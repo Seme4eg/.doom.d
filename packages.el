@@ -10,14 +10,8 @@
 ;(package! some-package)
 
 (package! prettier-js)
-(package! vue-mode)
-(package! js2-mode)
 (package! jest)
-(package! smex) ;; Package to get completion in ~M-x~ menu (and most used commands will be at top)
-(package! ag)
-(package! wgrep-ag)
-(package! popup-kill-ring)
-(package! org-bullets)
+(package! popup-kill-ring) ;; M-y
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

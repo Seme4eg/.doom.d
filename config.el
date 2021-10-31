@@ -61,6 +61,16 @@
 
 ;; (setq doom-font (font-spec :family "Source Code Pro" :size 16 :weight 'light))
 
+;; load colors for icons
+(after! treemacs
+  (setq doom-themes-treemacs-theme "doom-colors"))
+;; If you still want the default icons, this works for me
+;; (after! (doom-themes treemacs)
+;;   (setq doom-themes-treemacs-theme "Default"))
+
+(after! spell-fu
+  (setq spell-fu-idle-delay 0.5))  ; default is 0.25
+
 (setq better-jumper-context 'buffer) ;; for now
 
 (map! :leader "gv" 'git-gutter:popup-hunk)
@@ -86,35 +96,30 @@
 
 ;; kbds
 
-(map! :leader
-      "bo" 'switch-to-buffer
-      "os" 'doom/open-scratch-buffer
-      "x" 'counsel-M-x)
+(map! :leader "x" 'execute-extended-command)
 
+;; does this even work? and is it even needed?
+(set-docsets! 'js2-mode "JavaScript")
+
+;; Enable Gravatars
+;; This will enable gravatars when viewing commits.
+;; The service used by default is Libravatar.
+(setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
+
+(setq
+ doom-theme 'doom-opera
+ org-ellipsis " ▾ "
+ org-bullets-bullet-list '("·")
+ org-tags-column -80
+ )
 
 ;; pkgs
 
-;; (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
-
-;; (smex-initialize)
-;; (!map "M-X" 'smex-major-mode-commands)
-
 (map! :leader
       "pG" 'counsel-projectile-git-grep
-      "pO" 'counsel-projectile-org-capture
-      "pS" 'ag-project)
+      "pO" 'counsel-projectile-org-capture)
 
 (setq projectile-project-search-path '("~/git/"))
-
-(setq ag-highlight-search t
-      ag-reuse-buffers t
-      ag-reuse-window t)
-
-;; (add-hook 'ag-mode-hook
-;;           (lambda ()
-;;             (wgrep-ag-setup)
-;;             (define-key ag-mode-map (kbd "n") 'evil-search-next)
-;;             (define-key ag-mode-map (kbd "N") 'evil-search-previous)))
 
 ;; treemacs
 (setq ;; treemacs-silent-filewatch              t ;; nil
@@ -145,7 +150,6 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (abbrev-mode)
-            (flyspell-mode)
             (auto-fill-mode)))
 
 ;; now after typing '<el TAB' u will get code block with 'emacs-lisp' src
@@ -165,7 +169,7 @@
       web-mode-enable-current-column-highlight t
       web-mode-enable-current-element-highlight t)
 
-;; (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
 
 (add-hook 'web-mode-hook
@@ -173,59 +177,87 @@
             (yas-activate-extra-mode 'js2-mode)
             (prettier-js-mode)))
 
-(add-hook 'vue-mode-hook
-          (lambda ()
-            (yas-activate-extra-mode 'js2-mode)
-            (setq evil-auto-indent nil)
-            (hl-todo-mode)
-            (prettier-js-mode)))
+;; (add-hook 'vue-mode-hook
+;;           (lambda ()
+;;             (yas-activate-extra-mode 'js2-mode)
+;;             (setq evil-auto-indent nil)
+;;             (hl-todo-mode)
+;;             (prettier-js-mode)))
 
-(add-hook 'js2-mode-hook 'prettier-js-mode)
+;; === sh ===
+(add-hook 'sh-mode-hook
+          (lambda ()
+            (interactive)
+            (setq sh-basic-offset 2)))
+(after! sh-script
+  (set-company-backend! 'sh-mode
+    '(company-shell :with company-yasnippet)))
 
 ;; elm
 ;; (setq elm-indent-offset 2)
-(add-to-list 'company-backends 'elm-company)
+;; (add-to-list 'company-backends 'elm-company)
 (add-hook 'elm-mode-hook 'elm-format-on-save-mode)
 
 ;; js2
-;; (setq js2-basic-offset 2)
-(setq js-indent-level 2)
+;; (setq js-indent-level 2)
+(after! js2-mode
+  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
 
-;; (setq-default js2-global-externs (list "window" "module" "require" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON" "jQuery" "$"))
-;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
-(add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;; (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
+;; (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 (add-hook 'js2-mode-hook #'jest-minor-mode)
 
 ;; js2refactor
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
-;; (js2r-add-keybindings-with-prefix "<spc> r")
-;; (define-key key-translation-map (kbd ",r") (kbd "C-c b"))
+;; (setq js2-refactor-keybinding-prefix " r") ;; TODO
+(js2r-add-keybindings-with-prefix "C-c C-m")
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ;                 tide                ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (defun setup-tide-mode ()
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   ;; company is an optional dependency. You have to
+;;   ;; install it separately via package-install
+;;   ;; `M-x package-install [ret] company`
+;;   (company-mode +1))
+
+;; ;; aligns annotation to the right hand side
+;; (setq company-tooltip-align-annotations t)
+
+;; ;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+;; (setq tide-format-options '(:indentSize 2 :tabSize 2))
+
+
+;; TODO: do i even need this thing with new js settings?
 ;; js-prettier
 (add-hook 'js2-mode-hook 'prettier-js-mode)
-;; (setq prettier-js-args '(
-;;                          "--trailing-comma" "all"
-;;                          "--single-quote" "true"
-;;                          "--arrow-parens" "avoid"
-;;                          "--space-before-function-paren" "true"
-;;                          ))
+(setq prettier-js-args '(
+                         "--trailing-comma" "all"
+                         "--single-quote" "true"
+                         "--arrow-parens" "avoid"
+                         "--jsx-bracket-same-line" "true"
+                         "--html-whitespace-sensitivity" "ignore"
+                         ))
 
 ;; smartparens
-;; ~C-M-Space {key}~ - wrap region (or just try pressing {key} when region is active)
-(map! :leader
-      "mu" 'sp-unwrap-sexp
-      "mk" 'sp-kill-sexp
-      "mr" 'sp-rewrap-sexp ;; also 'swap-enclosing-sexp might be useful
-      "mn" 'sp-forward-sexp
-      "mp" 'sp-backward-sexp
-      "ms" 'sp-slurp-hybrid-sexp ;; take next expression in cur parens
-      )
+;; (map! :leader "ms" 'sp-slurp-hybrid-sexp ;; take next expression in cur parens)
 
 ;; other pkgs
-(setq emmet-indentation 2
-      emmet-move-cursor-between-quotes t)
+;; (setq emmet-indentation 2
+;;       emmet-move-cursor-between-quotes t)
 
 ;; (use-package dmenu
 ;;   :init (evil-leader/set-key "d" 'dmenu))
