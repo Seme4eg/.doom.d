@@ -10,11 +10,12 @@ themes [[https://github.com/hlissner/emacs-doom-themes][here]]
 
 [[https://github.com/hlissner/doom-emacs/blob/develop/docs/modules.org][modules and their configs]]
 
+[[https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#looking-up-documentation-and-state-from-within-emacs][looking for help]] - vars, funcs, faces, *bindings*, keys, chars, libs
+
 modules i've set up:
 - [[https://github.com/tecosaur/emacs-everywhere][everywhere]]
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/checkers/spell/README.org][spell]]
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/company/README.org#code-completion][company]] - ~C-SPC~ to trigger completion
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/ivy/README.org#ivy-integration-for-various-completing-commands][ivy]] - with shortcuts
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/vertico/README.org#vertico-keybindings][vertico]] - search engine of the future
 - [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/editor/evil/README.org#features][evil]] - with all the juicy ports (including [[https://github.com/emacs-evil/evil-surround#usage][evil-surround]])
@@ -33,10 +34,7 @@ modules i've set up:
 - [[https://github.com/emacs-lsp/lsp-mode][lsp]] - [[https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/][tutorial]], ~SPC c l~ - prefix ([[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/lsp/README.org#features][doom lsp]] readme page)
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/window-select/README.org#description][window-select]] - avy for windows switching
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/workspaces/README.org#commands--keybindings][workspaces]]
-- ...
-- deft (paste link) - [[https://www.youtube.com/watch?v=mldoUx_wi10&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=22][vid for deft (prob useless)]]
-- org journal (link again) - [[https://www.youtube.com/watch?v=i-nGmSQ5fh0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=23][vid here]]
-- org roam - [[https://www.youtube.com/watch?v=rH3ZH95zjKM&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=24][vid]] and the nest vid as well
+- [[https://github.com/bastibe/org-journal][org journal]] - [[https://www.youtube.com/watch?v=i-nGmSQ5fh0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=23][vid here]]
 
 
 * Shortcuts
@@ -61,11 +59,17 @@ while vacation:
 - did we agree to add [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/editorconfig/README.org][this]]? if not - create your own global one
 - make /lookup/ work in js-buffers
 - what to do with [[file:init.el::(debugger][debugger]] mode? (dab-mode afaik)
+- get treemacs setup work and find out why it's bugging out when doing any
+  operations on files
 
 ---
 
 - [[file:init.el::(popup +defaults) ; tame sudden yet inevitable temporary windows][popup]] - how to use this feature?
 - *org*
+- [[https://github.com/abo-abo/org-download][org-attach]] - wut? u don't use 'directory' method (u use 'attach' instead), u
+  don't dragndrop (even tho it is it's name, but there is no dragndrop
+  functionality), u can start with ~SPC m a a~ and try to find out how to paste
+  inline images into a buffer with custom download directory..
 
 * kbds
 dabbrev-expand - ~C-<tab>~ -> ~M-/~

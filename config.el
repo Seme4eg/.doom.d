@@ -63,7 +63,11 @@
 
 ;; load colors for icons
 (after! treemacs
-  (setq doom-themes-treemacs-theme "doom-colors"))
+  (setq doom-themes-treemacs-theme "doom-colors"
+        treemacs-follow-mode t
+        treemacs-space-between-root-nodes      nil ;; t
+        treemacs-width                         32  ;; 35
+        ))
 ;; If you still want the default icons, this works for me
 ;; (after! (doom-themes treemacs)
 ;;   (setq doom-themes-treemacs-theme "Default"))
@@ -121,13 +125,7 @@
 
 (setq projectile-project-search-path '("~/git/"))
 
-;; treemacs
-(setq ;; treemacs-silent-filewatch              t ;; nil
-      ;; treemacs-project-follow-cleanup        t ;; nil
-      ;; treemacs-silent-refresh                t ;; nil
-      treemacs-follow-mode t
-      treemacs-space-between-root-nodes      nil ;; t
-      treemacs-width                         32) ;; 35
+;; (setq-default org-download-image-dir "~/git/tea/assets")
 
 ;; org
 (setq org-log-done t ;; enable logging when tasks are complete
@@ -136,8 +134,6 @@
       org-use-speed-commands t
       org-return-follows-link t
       org-hide-emphasis-markers t)
-
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; org-mode agenda options
 (setq org-deadline-warning-days 7) ;; warn of any deadlines in next 7 days
@@ -156,33 +152,18 @@
 (after! org (add-to-list 'org-structure-template-alist
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
 
+(setq input-method-history (list "russian-computer")) ;; check if it works
+(setq lsp-vetur-format-default-formatter-html '"prettier")
+
+;; my attempts to make forge work with custom gitlab url...
+;; did not suffice elisp knowledge to do that (not all forge functions were working..)
+;; (after! forge
+;;   (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
+;;                            "gitlab.com" forge-gitlab-repository) forge-alist)
+;;         )
+
 
 ;; ==================== DEV ====================
-
-;; web-mode
-(setq web-mode-markup-indent-offset 2
-      ;; web-mode-script-padding 2 ; now is 1
-      web-mode-css-indent-offset 2
-      web-mode-code-indent-offset 2
-      web-mode-attr-indent-offset t
-      web-mode-sql-indent-offset 2
-      web-mode-enable-current-column-highlight t
-      web-mode-enable-current-element-highlight t)
-
-(add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-
-(add-hook 'web-mode-hook
-          (lambda ()
-            (yas-activate-extra-mode 'js2-mode)
-            (prettier-js-mode)))
-
-;; (add-hook 'vue-mode-hook
-;;           (lambda ()
-;;             (yas-activate-extra-mode 'js2-mode)
-;;             (setq evil-auto-indent nil)
-;;             (hl-todo-mode)
-;;             (prettier-js-mode)))
 
 ;; === sh ===
 (add-hook 'sh-mode-hook
@@ -201,17 +182,8 @@
 ;; js2
 ;; (setq js-indent-level 2)
 (after! js2-mode
+  (add-hook 'js2-mode-hook #'jest-minor-mode)
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
-
-;; (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
-;; (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-(add-hook 'js2-mode-hook #'jest-minor-mode)
-
-;; js2refactor
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
-;; (setq js2-refactor-keybinding-prefix " r") ;; TODO
-(js2r-add-keybindings-with-prefix "C-c C-m")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
