@@ -157,10 +157,9 @@
 
 ;; my attempts to make forge work with custom gitlab url...
 ;; did not suffice elisp knowledge to do that (not all forge functions were working..)
-;; (after! forge
-;;   (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
-;;                            "gitlab.com" forge-gitlab-repository) forge-alist)
-;;         )
+(after! forge
+  (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
+          "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
 
 
 ;; ==================== DEV ====================
@@ -186,53 +185,19 @@
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                        ;                 tide                ;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (defun setup-tide-mode ()
-;;   (interactive)
-;;   (tide-setup)
-;;   (flycheck-mode +1)
-;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-;;   (eldoc-mode +1)
-;;   (tide-hl-identifier-mode +1)
-;;   ;; company is an optional dependency. You have to
-;;   ;; install it separately via package-install
-;;   ;; `M-x package-install [ret] company`
-;;   (company-mode +1))
-
-;; ;; aligns annotation to the right hand side
-;; (setq company-tooltip-align-annotations t)
-
-;; ;; formats the buffer before saving
-;; (add-hook 'before-save-hook 'tide-format-before-save)
-
-;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
-
-;; (setq tide-format-options '(:indentSize 2 :tabSize 2))
-
-
 ;; TODO: do i even need this thing with new js settings?
 ;; js-prettier
-(add-hook 'js2-mode-hook 'prettier-js-mode)
-(setq prettier-js-args '(
-                         "--trailing-comma" "all"
-                         "--single-quote" "true"
-                         "--arrow-parens" "avoid"
-                         "--jsx-bracket-same-line" "true"
-                         "--html-whitespace-sensitivity" "ignore"
-                         ))
+;; (add-hook 'js2-mode-hook 'prettier-js-mode)
+;; (setq prettier-js-args '(
+;;                          "--trailing-comma" "all"
+;;                          "--single-quote" "true"
+;;                          "--arrow-parens" "avoid"
+;;                          "--jsx-bracket-same-line" "true"
+;;                          "--html-whitespace-sensitivity" "ignore"
+;;                          ))
 
 ;; smartparens
 ;; (map! :leader "ms" 'sp-slurp-hybrid-sexp ;; take next expression in cur parens)
-
-;; other pkgs
-;; (setq emmet-indentation 2
-;;       emmet-move-cursor-between-quotes t)
-
-;; (use-package dmenu
-;;   :init (evil-leader/set-key "d" 'dmenu))
 
 (map! :leader "y" 'popup-kill-ring)
 

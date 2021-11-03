@@ -12,6 +12,7 @@
 (package! prettier-js)
 (package! jest)
 (package! popup-kill-ring) ;; M-y
+;; color-identifiers-mode (hook it in prog-mode)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

@@ -1,41 +1,19 @@
 * Doom
 
-File 'packages.el' stores information about which packages u would like to
-install on top of what doom provides. Read this file, it's written there what 2
-do.
-
 themes [[https://github.com/hlissner/emacs-doom-themes][here]]
 
 [[https://github.com/hlissner/doom-snippets][snippets and how to use / write them]]
 
 [[https://github.com/hlissner/doom-emacs/blob/develop/docs/modules.org][modules and their configs]]
 
-[[https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#looking-up-documentation-and-state-from-within-emacs][looking for help]] - vars, funcs, faces, *bindings*, keys, chars, libs
+[[https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#looking-up-documentation-and-state-from-within-emacs][looking for help]] in *ANY* possible way e.g. /vars, funcs, faces, *bindings*, keys,
+chars, libs/
 
 modules i've set up:
-- [[https://github.com/tecosaur/emacs-everywhere][everywhere]]
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/checkers/spell/README.org][spell]]
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/company/README.org#code-completion][company]] - ~C-SPC~ to trigger completion
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/vertico/README.org#vertico-keybindings][vertico]] - search engine of the future
-- [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/editor/evil/README.org#features][evil]] - with all the juicy ports (including [[https://github.com/emacs-evil/evil-surround#usage][evil-surround]])
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/emacs/dired/README.org#keybindings][dired]] - link for dired shortcuts ([[https://www.youtube.com/watch?v=oZSmlAAbmYs&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=3][youtube dired intro]])
-- [[https://github.com/hlissner/evil-multiedit#usage][evil-multiedit]]
-- [[https://github.com/rmuslimov/browse-at-remote][browse at remote]] - cool git feature
-- [[https://gitlab.com/pidu/git-timemachine][timemachine]] - another cool emacs git feature
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/javascript/README.org#appendix][JS]] - yus!
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/term/vterm/README.org][vterm]] - new terminal
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/eval/README.org#features][eval]] - instead of opening console in all browser tabs...
-- [[file:init.el::(lookup][lookup]] - now i know about ~K~ (in normal mode)
-- [[https://magit.vc/manual/forge/][magit forge]] - and another upgrade, but i also think i might find something
-  useful in [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/magit/README.org#plugins][these]] packages
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/pass/README.org#description][pass]] - ... (needed to install [[https://www.passwordstore.org/][pass]] and create [[https://rtcamp.com/tutorials/linux/gpg-keys/][gpg key]] as well); view [[https://git.zx2c4.com/password-store/about/][pass man
-  page]]
-- [[https://github.com/emacs-lsp/lsp-mode][lsp]] - [[https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/][tutorial]], ~SPC c l~ - prefix ([[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/lsp/README.org#features][doom lsp]] readme page)
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/window-select/README.org#description][window-select]] - avy for windows switching
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/workspaces/README.org#commands--keybindings][workspaces]]
 - [[https://github.com/bastibe/org-journal][org journal]] - [[https://www.youtube.com/watch?v=i-nGmSQ5fh0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=23][vid here]]
-
 
 * Shortcuts
 
@@ -43,11 +21,13 @@ find file - ~SPC .~
 
 find files in doom configuration - ~SPC f p~ (find files in private configuration)
 
-~gs~ .. - and watch what hints give u (ther's lots there, ie ~gs spc~)
+dabbrev-expand - ~M-/~
+"bm" 'ibuffer is now ~b i~
+config (re)load - ~spc f P~ / ~spc h r r~ respectively
 
-also after ~gs spc {search-str}~ type ~?~ and see available command modifier
-
-[[https://www.youtube.com/watch?v=zar4GsOBU0g&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=7][avy quick tutorial]]
+Copy contents of any popup buffer -
+~C-; / SPC a~ - embark-act Prompt the user for an action and perform it and then
+press ~S~ for =embark-collect-snapshot=
 
 * to do
 while vacation:
@@ -71,57 +51,15 @@ while vacation:
   functionality), u can start with ~SPC m a a~ and try to find out how to paste
   inline images into a buffer with custom download directory..
 
-* kbds
-dabbrev-expand - ~C-<tab>~ -> ~M-/~
-"bm" 'ibuffer is now ~b i~
-config (re)load - ~spc f P~ / ~spc h r r~ respectively
-
-** buffers
-~spc b b~ - to workspace buffer (~spc ,~ - shortcut)
-~spc b B~ - switch to other buffer (~spc <~ - shortcut)
-~spc b N~ - create new buffer
-
-** multi-edit
-while being on a particular word press ~M-d/D~ find and select next/prev occurrence of this word in the file.
-When selected move with ~C-n/p~ between matches. Press ~RET~ while being on a match to exclude it from selection.
 
 * packages
-- treemacs prefix - spc o (p/P)
-- evil-mc (multiple cursors) - ~gz~ (in visual mode)
-- swiper - ~spc s b~
-- switch windows - spc w C-w
-- workspaces - spc tab
-- zen - zen-mixed-patch-mode can be activated in org and md modes, no shortcut
-- file-templates - ~C-h v file-templates~
-- lookup - ~M-x +lookup~.. prefix seems generally to be ~spc c~
-- git-gutter-fringe - ~spc g~
-- evil-arg - [[https://github.com/wcsmith/evil-args#functionality][arguments operations]] (like ~dia~ / ~daa~)
-- evil-easymotion - better 'avy' ([[https://github.com/PythonNut/evil-easymotion][docs]]); prefix - ~gs~; look for commands by
-  starting with 'evilem'
-- evil-lion - port of [[https://github.com/tommcdo/vim-lion][vim-lion]], which allows to align text by some CHAR; ~gl/L
-  {motion} {char}~
-- evil-nerd-commenter - comment operator, ~gc {motion}~
-- evil-numbers - works like C-a/C-x in vim, but here it is ~g-/g=~
-- evil-snipe - gives 's' key same functionality as 'f', but expects 2 chars
-- evil-visualstar - make a visual selection with ~v~ or ~V~, and then hit ~*/#~ to
-  search that selection forward/backward respectively
-- git-timemachine - view file =x= time ago; [[https://github.com/emacsmirror/git-timemachine][docs]]
-- *magit-gitflow* - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]] plugin for magit.el; Press ~%~ in magit status buffer
-  and you will be presented with the gitflow popup menu
-- github-review - This package contains a handful of Emacs commands to review
-  GitHub pull request without leaving Emacs. Start by calling ~github-review-start~; [[https://github.com/charignon/github-review][docs]]
+- link-hint - ~spc s l~ - use avy to open a visible link
 - org-yt - youtube links (with imgs) in org mode; [[https://github.com/TobiasZawada/org-yt][docs]] here, example below (also
   press ~zi~ to toggle inline images display)
 
 [[yt:o9Phw-cJqBQ][lo-fi beats]]
 
-- org-toc - helps you to have an up-to-date table of contents in org files
-  without exporting. [[https://github.com/snosov1/toc-org#use][docs]]
-- org-clipboard - exports buffer / selected text to clipboard, ~spc n y/Y~ (look
-  up the commands to see docs)
-- drag-stuff - just go ~M-x drag-stuff~.. Allows to swap lines, words and not only
-
-** org :test:
+** org
 org-capture -> ~spc X~
 org-agenda -> ~spc o A~
 
@@ -133,33 +71,100 @@ org-agenda -> ~spc o A~
 
 [[https://www.youtube.com/watch?v=SYgsS8Be1ZY&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=17][Org Mode - Using Checkboxes]]
 
-** magit
+- org-clipboard - exports buffer / selected text to clipboard, ~spc n y/Y~ (look
+  up the commands to see docs)
 
-[[https://www.youtube.com/watch?v=fFuf3hExF5w&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=20][pull requests from within emacs?]] - doesn't work for me, don't see 'forge'
+** git [[file:~/.emacs.d/modules/tools/magit/README.org::*Plugins][#plugins]]
 
-* things set up in doom
-- better-jumper, [[https://github.com/gilbertw1/better-jumper#comparison-with-evil-jump][here]] is it's comparison to evil-jump
-- evil-embrace, didn't find any setup for this package in doom
-- evil-indent-plus - [[https://github.com/TheBB/evil-indent-plus][package]] that ain't set up in doom for some reason; it
-  provides six new text object to evil based on indentation
-- evil-traces - enables visual previews for certain evil-ex commands (port of traces.vim)
-- evil-textobj-anyblock - gives a text object that will select the closest of
-  (), {}, [], <>, '', "", ` `, or “” by default. This can be convenient for operating on the closest block
-  without having to type its symbol. But it isn't set up here in doom
-- evil-quick-diff - used to diff and edit two separate blocks of text
-- *evil-collection* - collection of Evil bindings for the parts of Emacs that Evil
-  does not cover properly by default, such as help-mode, M-x calendar, Eshell and more ([[https://github.com/emacs-evil/evil-collection][docs]])
-- quickrun - Execute current buffer; [[https://github.com/emacsorphanage/quickrun][docs]]
-- dumb-jump - jump to definition, but it seems to be not bound to any hotkey,
-  ~gd~ - go to definition
-- ivy-xref - interface to select from xref candidates. how to use *???*
-- macrostep - interactive macro-expander, haven't used yet
-- orgit - defines several Org link types, which can be used to link to certain
-  Magit buffers. User command ~org-store-link~ while such a buffer is current to store a link. Later you can
-  instert it into an org buffer using the command ~org-insert-link~. [[https://github.com/magit/orgit][docs]]
-- link-hint - ~spc s l~ - link-hint-open-link (tool for copying and opening links)
-- writeroom-mode - distraction-free coding/reading, ~spc t z~
-- calfw - calendar framework for emacs, docs [[https://github.com/kiwanami/emacs-calfw][here]]
+[[https://magit.vc/manual/forge/][forge]] - for now can't set it up, view [[https://github.com/magit/forge/discussions/432][this discussion]]. ([[https://www.youtube.com/watch?v=fFuf3hExF5w&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=20][quick vid tut]])
 
-* free kbds
-C-; spc-ret spc-l
+[[https://github.com/emacsmirror/git-timemachine][git-timemachine]] - view file =x= time ago; ~SPC h b b timemachine~ for kbds. ~SPC g
+t~ to toggle mode.
+
+[[https://github.com/rmuslimov/browse-at-remote][browse at remote]] - easiest way to open particular link on
+github/gitlab/bitbucket/stash/git.savannah.gnu.org/sourcehut from Emacs:
+- ~SPC g Y~ - Copy homepage URL of current project to clipboard.
+- ~SPC g y~ - Copy URL to current file (and line if selection is active) to
+  clipboard.
+- ~SPC g o h~ - Open homepage for current project in browser.
+- ~SPC g o o~ - Open URL to current file (and line if selection is active) in
+  browser
+
+*magit-gitflow* - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]] plugin for magit.el; Press ~%~ in magit status buffer and
+you will be presented with the gitflow popup menu
+
+** evil [[file:~/.emacs.d/modules/editor/evil/README.org::*Features][#features]]
+
+[[https://github.com/emacs-evil/evil-collection][evil-collection]] - plugin used as a foundation for flag =+everywhere=, which
+enables evilified keybinds everywhere possible.
+
+[[https://github.com/PythonNut/evil-easymotion][evil-easymotion]] - ~gs ..~ and watch what hints give u (ther's lots there, ie ~gs
+spc~); also - [[https://www.youtube.com/watch?v=zar4GsOBU0g&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][quick vid]] tutorial. When given a selection type ~?~ to see possible
+command modifier /(kill-move, kill-stay, teleport, mark, yank ...)/. Look for
+commands by starting with =evilem=. (~SPC m b b evilem~)
+
+[[https://github.com/emacs-evil/evil-surround#usage][evil-surround]] - ~ys~, ~cs~, ~ds~ ..
+
+[[https://github.com/hlissner/evil-multiedit#usage][evil-multiedit]] - ~M-d / D~ , ~RET~ to exclude, ~C-M-D~ to restore last group. Ex
+command that allows to invoke evil-multiedit with a regular expression -
+=ie[dit]=. There is also a [[https://www.youtube.com/watch?v=zXdT5jY_ui0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][quick vid tut]].
+
+_evil-mc_ - ~gz~ prefix. Which-key available, so u can c which kbds r there. Or ~SPC
+h b b~ -> /evil-mc/..
+
+_evil-nerd-commenter_ - comment any viable text objects (below). ~gc {motion}~
+Inobvious keys after it:
+- l - line
+- c - line
+- r - region
+- . - ? -- evilnc-copy-and-comment-operator ?
+- \ - comment current line and enter insert mode on point
+
+[[https://github.com/edkolev/evil-lion#usage][evil-lion]] - allows to align text by some CHAR; ~gl/L {motion} {char}~
+
+evil-numbers - works like C-a/C-x in vim, but here it is ~g-/g=~
+
+[[file:~/.emacs.d/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
+
++ evil-indent-plus - provides six new text objects to evil based on
+  indentation:
+  + ii: A block of text with the same or higher indentation.
+  + ai: The same as ii, plus whitespace.
+  + iI: A block of text with the same or higher indentation, including the first
+    line above with less indentation.
+  + aI: The same as iI, plus whitespace.
+  + iJ: A block of text with the same or higher indentation, including the first
+    line above and below with less indentation.
+  + aJ: The same as iJ, plus whitespace.
+
+** Development TODO
+
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/javascript/README.org#appendix][JS]] - yus!
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/eval/README.org#features][eval]] - instead of opening console in all browser tabs...
+- [[file:init.el::(lookup][lookup]] - now i know about ~K~ (in normal mode); ~M-x +lookup~.. prefix seems
+  generally to be ~spc c~
+- [[https://github.com/emacs-lsp/lsp-mode][lsp]] - [[https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/][tutorial]], ~SPC c l~ - prefix ([[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/lsp/README.org#features][doom lsp]] readme page)
+
+** Navigation TODO
+
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/emacs/dired/README.org#keybindings][dired]] - link for dired shortcuts ([[https://www.youtube.com/watch?v=oZSmlAAbmYs&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=3][youtube dired intro]])
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/window-select/README.org#description][window-select]] - avy for windows switching ~spc w C-w~ / ~C-w C-w~
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/workspaces/README.org#commands--keybindings][workspaces]] - spc tab
+
+** Utility
+
+- [[https://github.com/tecosaur/emacs-everywhere#usage][everywhere]] - Invoke Emacs everywhere
+- better-jumper, [[https://github.com/gilbertw1/better-jumper#comparison-with-evil-jump][here]] is it's comparison to evil-jump. Basically its ~C-i / o~
+  functionality. But if u type ~M-x better-..~ u will get all its possible
+  functions, among which is =better-jumper-jump-newest=, which doesn't have kbd,
+  but jus keep it in mind. Nothing else interesting there.
+- evil-quick-diff - used to diff and edit two separate blocks of text. And
+  again.. just ~M-x evil-quick..~ to see the commands (only 2 r usefull there and
+  they don't have a kdb bound to them)
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/pass/README.org#description][pass]] - ~M-x pass~; view [[https://git.zx2c4.com/password-store/about/][pass man page]]
+- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/term/vterm/README.org][vterm]] - new terminal
+- [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
+
+* unused kbds
+
+C-; spc-ret spc-l spc-k spc-j
