@@ -36,7 +36,7 @@
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       ;;indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -100,7 +100,7 @@
        (lookup +docsets)              ; navigate your code and its documentation
        lsp
        ;; NOTE: don't forget.. there is FORGE, but at that time u couldn't use it
-       (magit +forge)             ; a git porcelain for Emacs
+       magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        (pass +auth)              ; password manager for nerds REVIEW
        pdf               ; pdf enhancements
@@ -144,6 +144,7 @@
        (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
+       ;; TODO: at least try it out?
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
@@ -158,6 +159,7 @@
        (org
         +dragndrop
         +journal
+        ;; +noter TODO: test it out, maybe there is a way i can use it
         +pretty)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more

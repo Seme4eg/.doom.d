@@ -157,9 +157,9 @@
 
 ;; my attempts to make forge work with custom gitlab url...
 ;; did not suffice elisp knowledge to do that (not all forge functions were working..)
-(after! forge
-  (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
-          "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
+;; (after! forge
+;;   (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
+;;           "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
 
 
 ;; ==================== DEV ====================
@@ -198,8 +198,6 @@
 
 ;; smartparens
 ;; (map! :leader "ms" 'sp-slurp-hybrid-sexp ;; take next expression in cur parens)
-
-(map! :leader "y" 'popup-kill-ring)
 
 (defun evil-window-split()
   (interactive)

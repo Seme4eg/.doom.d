@@ -9,9 +9,8 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 
-(package! prettier-js)
+(package! prettier-js) ;; REVIEW: do i still need it after lsp is here?
 (package! jest)
-(package! popup-kill-ring) ;; M-y
 ;; color-identifiers-mode (hook it in prog-mode)
 
 ;; To install a package directly from a remote git repo, you must specify a
