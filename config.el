@@ -195,27 +195,3 @@
 ;;                          "--jsx-bracket-same-line" "true"
 ;;                          "--html-whitespace-sensitivity" "ignore"
 ;;                          ))
-
-;; smartparens
-;; (map! :leader "ms" 'sp-slurp-hybrid-sexp ;; take next expression in cur parens)
-
-(defun evil-window-split()
-  (interactive)
-  (split-window-below)
-  (balance-windows)
-  (other-window 1))
-
-(defun evil-window-vsplit()
-  (interactive)
-  (split-window-right)
-  (balance-windows)
-  (other-window 1))
-
-(defun sad/insert-line-before (times)
-  ;; insert a line 'above' cur. cursor position
-  (interactive "p")
-  (save-excursion
-    (move-beginning-of-line 1)
-    (newline times)))
-
-(global-set-key (kbd "C-S-o") 'sad/insert-line-before) ;; `C-6 {binded kbd}`

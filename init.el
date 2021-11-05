@@ -100,7 +100,7 @@
        (lookup +docsets)              ; navigate your code and its documentation
        lsp
        ;; NOTE: don't forget.. there is FORGE, but at that time u couldn't use it
-       magit             ; a git porcelain for Emacs
+       (magit +forge)             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        (pass +auth)              ; password manager for nerds REVIEW
        pdf               ; pdf enhancements
