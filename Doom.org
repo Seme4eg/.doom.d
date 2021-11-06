@@ -722,7 +722,6 @@ SPC c d (+lookup/definition) - Jump to the definition of IDENTIFIER (defaults to
 SPC h O (+lookup/online) - Look up QUERY in the browser using PROVIDER.        
 
 ** Navigation
-
 *** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]] 
 
 avy for windows switching ~spc w C-w~ / ~C-w C-w~

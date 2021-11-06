@@ -83,7 +83,7 @@
 
 (setq-default indent-tab-mode nil)
 (setq-default fill-column 80) ;; must be a default value to work
-(setq display-fill-column-indicator 80) ;; default?
+(setq-default display-fill-column-indicator 80) ;; default?
 (setq tab-width 2
       echo-keystokes 0.1
       use-dialog-box nil)
@@ -158,9 +158,9 @@
 
 ;; my attempts to make forge work with custom gitlab url...
 ;; did not suffice elisp knowledge to do that (not all forge functions were working..)
-;; (after! forge
-;;   (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
-;;           "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
+(after! forge
+  (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
+          "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
 
 
 ;; ==================== DEV ====================
