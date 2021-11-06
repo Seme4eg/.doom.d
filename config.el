@@ -55,13 +55,9 @@
 
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-(after! evil
-  (defadvice evil-ex-search-next (after advice-for-evil-ex-search-next activate)
-    (evil-scroll-line-to-center (line-number-at-pos))))
-
 ;; (setq doom-font (font-spec :family "Source Code Pro" :size 16 :weight 'light))
 
-;; load colors for icons
+;; colors for treemacs icons
 (after! treemacs
   (setq doom-themes-treemacs-theme "doom-colors"
         treemacs-follow-mode t
@@ -81,26 +77,19 @@
 
 ;; environment --> major
 
-(setq-default indent-tab-mode nil)
-(setq-default fill-column 80) ;; must be a default value to work
+(global-subword-mode 1)
+(setq-default fill-column 80) ;; 70, must be a default value to work
 (setq-default display-fill-column-indicator 80) ;; default?
-(setq tab-width 2
-      echo-keystokes 0.1
-      use-dialog-box nil)
+(setq tab-width 2)
+      ;; use-dialog-box nil)
 
 ;; environment -> hooks
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
-
-;; modes
-
-(delete-selection-mode t)
-;; automatically save/restore sessions ; breaks with perspective
-;; (desktop-save-mode 1)
-(global-prettify-symbols-mode t)
-(global-subword-mode 1)
+(add-hook 'org-mode-hook
+          (lambda ()
+            (auto-fill-mode)))
 
 ;; kbds
-
 (map! :leader "x" 'execute-extended-command)
 
 ;; does this even work? and is it even needed?
@@ -114,19 +103,12 @@
 (setq
  doom-theme 'doom-opera
  org-ellipsis " ▾ "
- org-bullets-bullet-list '("·")
+ ;; org-bullets-bullet-list '("·")
  org-tags-column -80
  )
 
 ;; pkgs
-
-(map! :leader
-      "pG" 'counsel-projectile-git-grep
-      "pO" 'counsel-projectile-org-capture)
-
 (setq projectile-project-search-path '("~/git/"))
-
-;; (setq-default org-download-image-dir "~/git/tea/assets")
 
 ;; org
 (setq org-log-done t ;; enable logging when tasks are complete
@@ -144,16 +126,12 @@
 ;; (setq org-agenda-todo-ignore-deadlines (quote all))
 ;; (setq org-agenda-todo-ignore-scheduled (quote all))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (abbrev-mode)
-            (auto-fill-mode)))
-
+;; TODO: how to do it with evil embrace?
 ;; now after typing '<el TAB' u will get code block with 'emacs-lisp' src
 (after! org (add-to-list 'org-structure-template-alist
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
 
-(setq input-method-history (list "russian-computer")) ;; check if it works
+(setq input-method-history (list "russian-computer")) ;; FIXME still doesn't switch
 (setq lsp-vetur-format-default-formatter-html '"prettier")
 
 ;; my attempts to make forge work with custom gitlab url...
@@ -161,7 +139,6 @@
 (after! forge
   (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
           "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
-
 
 ;; ==================== DEV ====================
 
