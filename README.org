@@ -685,7 +685,7 @@ instead of opening console in all browser tabs...
 - :n  "gR" / ~M-r~ - #'+eval/buffer
 - :v  "gR"  #'+eval:replace-region
 
-*** lookup [[file:~/.emacs.d/modules/tools/lookup/README.org::*Features][#features]] 
+*** lookup [[file:~/.emacs.d/modules/tools/lookup/README.org::*Features][#features]]
 
 - :nv "K"   #'+lookup/documentation
 - :nv "gd"  #'+lookup/definition
@@ -709,10 +709,10 @@ instead of opening console in all browser tabs...
 - SPC h O (+lookup/online) - Look up QUERY in the browser using PROVIDER.
 
 ** Navigation
-*** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]] 
+*** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]]
 
 avy for windows switching ~spc w C-w~ / ~C-w C-w~
-  
+
 *** [[file:~/.emacs.d/modules/ui/workspaces/README.org::*Commands & Keybindings][workspaces]] - besides =spc tab..= :
 - ~C-t~   #'+workspace/new
 - ~C-S-t~ / ~spc tab tab~ #'+workspace/display
