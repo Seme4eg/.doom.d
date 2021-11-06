@@ -79,7 +79,7 @@
 
 (global-subword-mode 1)
 (setq-default fill-column 80) ;; 70, must be a default value to work
-(setq-default display-fill-column-indicator 80) ;; default?
+(setq-default display-fill-column-indicator-column 80)
 (setq tab-width 2)
       ;; use-dialog-box nil)
 

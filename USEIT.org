@@ -86,3 +86,15 @@ spc t - *toggle*:
 :nv "g@"    #'+evil:apply-macro
 :nv "gx"    #'evil-exchange
 :nv "gy"    #'+evil:yank-unindented
+
+
+*PLUGINS:*
+
+gs.. , gc..
+
+~ys~, ~cs~, ~ds~ .. Also:
+- :v "S" #'evil-surround-region
+- :o "s" #'evil-surround-edit
+- :o "S" #'evil-Surround-edit
+
+Learn [[file:~/.emacs.d/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
