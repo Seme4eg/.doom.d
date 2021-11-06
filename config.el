@@ -83,6 +83,7 @@
 
 (setq-default indent-tab-mode nil)
 (setq-default fill-column 80) ;; must be a default value to work
+(setq display-fill-column-indicator 80) ;; default?
 (setq tab-width 2
       echo-keystokes 0.1
       use-dialog-box nil)

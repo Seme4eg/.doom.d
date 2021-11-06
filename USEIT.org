@@ -1,0 +1,88 @@
+any vertico completion -> ~C-; L~ = embark-collect-life (capturing any commands
+completion!). Copy contents of any popup buffer.
+
+~C-S-f~ / ~spc t F~ - #'toggle-frame-fullscreen
+~C-`~   #'+popup/toggle - USE
+
+In minibuffer:
+- ~C-a~   #'move-beginning-of-line
+- ~C-w~   #'doom/delete-backward-word
+- ~C-u~   #'evil-delete-back-to-indentation
+
+"Switch to last buffer" "`"    #'evil-switch-to-windows-last-buffer
+"Resume last search"    "'"
+
+spc tab - *workspace*:
+- "Display tab bar"           "TAB" #'+workspace/display
+- "Switch workspace"          "."   #'+workspace/switch-to
+- "Switch to last workspace"  "`"   #'+workspace/other
+
+spc b - *buffers*:
+- "Set bookmark"                "m"   #'bookmark-set
+- "Delete bookmark"             "M"   #'bookmark-delete
+
+spc c - *code*:
+- "Format buffer/region" "f"   #'+format/region-or-buffer
+... also - :n  "gQ" #'+format:region
+
+*Create file* (also):
+- "Find file from here"         "F"   #'+default/find-file-under-here
+- "Find file"                   "f"   #'find-file
+
+spc g - *magit*:
+- "Magit dispatch"            "/"   #'magit-dispatch
+- "Magit file dispatch"       "."   #'magit-file-dispatch
+
+spc i - *inset*:
+- "From evil register"            "r"   #'evil-ex-registers
+- "Unicode"                       "u"   #'insert-char
+- "From clipboard"                "y"   #'+default/yank-pop
+
+spc p - *project*:
+"Browse other project"         ">" #'doom/browse-in-other-project
+"Find file in other project"   "F" #'doom/find-file-in-other-project
+"Find recent project files"    "r" #'projectile-recentf
+
+spc q - *quit/session*:
+"Restart & restore Emacs"      "r" #'doom/restart-and-restore
+
+spc s - *search*:
+- "Search all open buffers"      "B"
+- "Search current directory"     "d" #'+default/search-cwd
+- "Search other directory"       "D" #'+default/search-other-cwd
+- "Jump to visible link"         "l" #'link-hint-open-link
+- "Jump list"                    "j" #'evil-show-jumps
+- "Jump to bookmark"             "m" #'bookmark-jump
+- "Look up online"               "o" #'+lookup/online
+- "Look up online (w/ prompt)"   "O" #'+lookup/online-select
+- "Search buffer for thing at point" "S"
+
+spc w - *windows*:
+- "S"       #'+evil/window-split-and-follow
+- "V"       #'+evil/window-vsplit-and-follow
+- "C-C"     #'ace-delete-window
+
+spc t - *toggle*:
+- "Fill Column Indicator"        "c" #'global-display-fill-column-indicator-mode
+
+:n  "zx" #'kill-this-buffer
+:n  "]w" #'+workspace/switch-right
+:n  "[w" #'+workspace/switch-left
+:m  "gt" #'+workspace/switch-right
+:m  "gT" #'+workspace/switch-left
+:n  "gp" #'+evil/reselect-paste
+:v  "gp" #'+evil/paste-preserve-register
+:v  "@"  #'+evil:apply-macro
+:n  "g@" #'+evil:apply-macro
+
+:n  ~] SPC~ / ~[ SPC~  #'+evil/insert-newline-below/above
+:m  ~]c~ / ~[c~   #'+evil/next-comment / '+evil/previous-comment
+:m  ~]e~ / ~[e~   #'next-error / 'previous-error
+:m  ~]h~ / ~[h~   #'outline-next/prev-visible-heading
+:m  ~]m~ / ~[m~   #'+evil/next/prev-beginning-of-method
+:m  ~]M~ / ~[M~   #'+evil/next-end-of-method / '+evil/previous-end-of-method
+:n  ~[o~ / ~]o~   #'+evil/insert-newline-above / '+evil/insert-newline-below
+:n  "gQ" #'+format:region
+:nv "g@"    #'+evil:apply-macro
+:nv "gx"    #'evil-exchange
+:nv "gy"    #'+evil:yank-unindented

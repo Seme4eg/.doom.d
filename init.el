@@ -65,7 +65,7 @@
        ;;parinfer          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
-       ;;word-wrap         ; soft wrapping with language-aware indent REVIEW
+       ;;word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
        (dired
@@ -78,9 +78,7 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;;eshell            ; the elisp shell that works everywhere REVIEW
-       ;;shell             ; simple shell REPL for Emacs
-       ;;term              ; basic terminal emulator for Emacs
+       ;;eshell            ; the elisp shell that works everywhere
        vterm             ; the best terminal emulation in Emacs
 
        :checkers
@@ -102,7 +100,7 @@
        ;; NOTE: don't forget.. there is FORGE, but at that time u couldn't use it
        (magit +forge)             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
-       (pass +auth)              ; password manager for nerds REVIEW
+       (pass +auth)              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
@@ -184,7 +182,7 @@
        ;;zig               ; C, but simpler
 
        :email
-       (mu4e +gmail) ;; REVIEW
+       (mu4e +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 
