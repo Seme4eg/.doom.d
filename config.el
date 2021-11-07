@@ -55,12 +55,12 @@
 
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-;; (setq doom-font (font-spec :family "Source Code Pro" :size 16 :weight 'light))
+(setq doom-font (font-spec :family "Source Code Pro" :size 16))
 
 ;; colors for treemacs icons
 (after! treemacs
+  (treemacs-follow-mode)
   (setq doom-themes-treemacs-theme "doom-colors"
-        treemacs-follow-mode t
         treemacs-space-between-root-nodes      nil ;; t
         treemacs-width                         32  ;; 35
         ))
@@ -68,25 +68,23 @@
 ;; (after! (doom-themes treemacs)
 ;;   (setq doom-themes-treemacs-theme "Default"))
 
-(after! spell-fu
-  (setq spell-fu-idle-delay 0.5))  ; default is 0.25
-
 (setq better-jumper-context 'buffer) ;; for now
 
 (map! :leader "gv" 'git-gutter:popup-hunk)
 
 ;; environment --> major
 
-(global-subword-mode 1)
+(global-subword-mode)
+(global-display-fill-column-indicator-mode)
+(global-auto-revert-mode)
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
+
 (setq-default
  fill-column 80 ;; 70, must be a default value to work
- global-display-fill-column-indicator-mode t
  display-fill-column-indicator-column 80
- ispell-dictionary "en"
  )
 
 ;; environment -> hooks
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
 (add-hook 'org-mode-hook
           (lambda ()
             (auto-fill-mode)))
@@ -97,28 +95,78 @@
 ;; does this even work? and is it even needed?
 (set-docsets! 'js2-mode "JavaScript")
 
-;; Enable Gravatars
+;; Enable Gravatars REVIEW does it even works?
 ;; This will enable gravatars when viewing commits.
 ;; The service used by default is Libravatar.
 (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
 
 (setq
  doom-theme 'doom-opera
- org-ellipsis " ▾ "
- ;; org-bullets-bullet-list '("·")
- org-tags-column -80
  )
 
 ;; pkgs
 (setq projectile-project-search-path '("~/git/"))
 
 ;; org
-(setq org-log-done t ;; enable logging when tasks are complete
-      ;; open code edit buffers in the same window
-      ;; org-src-window-setup 'current-window
-      org-use-speed-commands t
-      org-return-follows-link t
-      org-hide-emphasis-markers t)
+
+;; (add-hook! 'org-mode-hook (company-mode -1))
+;; (add-hook! 'org-capture-mode-hook (company-mode -1))
+
+(setq
+  ;; org-src-window-setup 'current-window
+  org-ellipsis " ▾ "
+  org-tags-column -80
+  org-hide-emphasis-markers t
+  ;; org-agenda-files (ignore-errors (directory-files +org-dir t "\\.org$" t))
+  ;; +org-capture-todo-file "tasks.org"
+  )
+
+;; journal setup
+(setq
+  org-journal-date-prefix "#+TITLE: "
+  org-journal-time-prefix "* "
+  org-journal-date-format "%a, %Y-%a-%d"
+  org-journal-file-format "%Y-%m-%d.org")
+
+(after! org
+  (set-face-attribute 'org-link nil
+                      :weight 'normal
+                      :background nil)
+  (set-face-attribute 'org-code nil
+                      :foreground "#a9a1e1"
+                      :background nil)
+  (set-face-attribute 'org-date nil
+                      :foreground "#5B6268"
+                      :background nil)
+  (set-face-attribute 'org-level-1 nil
+                      :foreground "steelblue2"
+                      :background nil
+                      :height 1.2
+                      :weight 'normal)
+  (set-face-attribute 'org-level-2 nil
+                      :foreground "slategray2"
+                      :background nil
+                      :height 1.0
+                      :weight 'normal)
+  (set-face-attribute 'org-level-3 nil
+                      :foreground "SkyBlue2"
+                      :background nil
+                      :height 1.0
+                      :weight 'normal)
+  (set-face-attribute 'org-level-4 nil
+                      :foreground "DodgerBlue2"
+                      :background nil
+                      :height 1.0
+                      :weight 'normal)
+  (set-face-attribute 'org-level-5 nil
+                      :weight 'normal)
+  (set-face-attribute 'org-level-6 nil
+                      :weight 'normal)
+  (set-face-attribute 'org-document-title nil
+                      :foreground "SlateGray1"
+                      :background nil
+                      :height 1.75
+                      :weight 'bold))
 
 ;; org-mode agenda options
 ;; TODO: how to do it with evil embrace?
@@ -127,6 +175,7 @@
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
 
 (setq input-method-history (list "russian-computer")) ;; FIXME still doesn't switch
+
 (setq lsp-vetur-format-default-formatter-html '"prettier")
 
 ;; my attempts to make forge work with custom gitlab url...
@@ -144,22 +193,8 @@
 
 ;; elm
 ;; (add-to-list 'company-backends 'elm-company)
-(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
+;; (add-hook 'elm-mode-hook 'elm-format-on-save-mode)
 
-;; js2
-;; (setq js-indent-level 2)
 (after! js2-mode
   (add-hook 'js2-mode-hook #'jest-minor-mode)
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
-
-
-;; TODO: do i even need this thing with new js settings?
-;; js-prettier
-;; (add-hook 'js2-mode-hook 'prettier-js-mode)
-;; (setq prettier-js-args '(
-;;                          "--trailing-comma" "all"
-;;                          "--single-quote" "true"
-;;                          "--arrow-parens" "avoid"
-;;                          "--jsx-bracket-same-line" "true"
-;;                          "--html-whitespace-sensitivity" "ignore"
-;;                          ))

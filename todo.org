@@ -1,0 +1,16 @@
+* Inbox
+** TODO reason-mode [[https://github.com/reasonml-editor/reason-mode][#docs]]
+
+[[https://reasonml.github.io][Reason]] lets you write simple, fast and quality type safe code while leveraging
+both the JavaScript & OCaml ecosystems.
+
+** TODO setup Indium maybe [[https://github.com/NicolasPetton/Indium][#docs]]
+
+A JavaScript development environment for Emacs.
+
+Indium connects to a browser tab or nodejs process and provides many features
+for JavaScript development
+
+** TODO auto ru ispell in ru buffers
+
+make ispell automatically (somehow, prob hook?) set ru dictionary for ru buffers

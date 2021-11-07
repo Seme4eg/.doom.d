@@ -10,29 +10,28 @@ themes [[https://github.com/hlissner/emacs-doom-themes][here]]
 - ~SPC h r t~ doom/reload-theme Reload the current Emacs theme.
 
 * to do
-while vacation: [13%]
+while vacation: [42%]
 - [ ] [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
 - [X] check aspell integration - [[elisp:ispell-change-dictionary]]
-- [ ] check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlist); find out why he
-  has different org heading symbols
+- [X] check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlist)
 - [ ] redefine my custom keybindings properly like in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=27][this]] vid
 - [ ] make /lookup/ work in js-buffers
 - [ ] [[https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript][dap-mode for node]] - figure out js *debugging*
-- [ ] get treemacs setup work and find out why it's bugging out when doing any
-  operations on files
-- [ ] (mu4e +gmail) ;; REVIEW (init.el); also ~spc s s mu4e~ this buffer to get more
-  input data.
-- [ ] learn [[https://github.com/bastibe/org-journal][org journal]] - [[https://www.youtube.com/watch?v=i-nGmSQ5fh0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=23][vid here]]
+- [X] get treemacs setup work
+- [ ] ([[http://pragmaticemacs.com/mu4e-tutorials/][mu4e]] +gmail) ;; REVIEW (init.el); also ~spc s s mu4e~ this buffer to get
+  more input data.
 
 -----
 
 - [ ] ~SPC h i~ - yes.. all this knowledge can be yours
-- [ ] *org*
+- [X] *org*
+  - [X] acknowledge orgnowledge
+  - [X] learn [[https://github.com/bastibe/org-journal][org journal]]
 - [X] [[https://orgmode.org/manual/Attachments.html][org-attachments]] - ~spc m a~ prefix, sir.. everything else in =org-readme=
 - [ ] set up irc telegram, emacs-desctop, eww (browser parser)
-- [ ] what is 'timer', 'char timer'? ~spc s s timer~..
-- [ ] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to use
-  it? (=+ranger= flag)
+- [X] what is 'timer', 'char timer'? ~spc s s timer~..
+- [ ] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to
+  use it? (=+ranger= flag)
 
 * Shortcuts
 
@@ -272,7 +271,7 @@ _Magit:_
 - "Unicode"                       "u"   #'insert-char
 - "From clipboard"                "y"   #'+default/yank-pop
 
-*** <leader> n - notes TODO - org
+*** <leader> n - notes
 
 - "Search notes for symbol"      "*" #'+default/search-notes-for-symbol-at-point
 - "Org agenda"                   "a" #'org-agenda
@@ -574,8 +573,7 @@ commands by starting with =evilem=. (~SPC m b b evilem~). Also:
 - "a" (evilem-create #'evil-forward-arg)
 - "A" (evilem-create #'evil-backward-arg)
 - "s" #'evil-avy-goto-char-2
-- "SPC" (cmd! (let ((current-prefix-arg t)) (evil-avy-goto-char-timer)))
-- "/" #'evil-avy-goto-char-timer))
+- "SPC" / "/" - #'evil-avy-goto-char-timer))
 
 [[https://github.com/emacs-evil/evil-surround#usage][evil-surround]] - ~ys~, ~cs~, ~ds~ .. Also:
 - :v "S" #'evil-surround-region
@@ -727,6 +725,17 @@ Omni-completion :prefix "C-x":
 - =C-;= or =<leader> a= - Open an ~embark-act~ menu to chose a useful action
 - =C-c C-;= - export the current candidate list to a buffer
 
+*** syntax [[file:~/.emacs.d/modules/checkers/syntax/README.org::*Features][#flycheck-features]]
+
+Most of flycheck's features are under =C-c !=, regardless of whether evil mode is
+used.
+
+Evil Specific:
+- SPC t f - Toggle Flycheck
+- SPC c x - List errors
+- ] e     - Next error
+- [ e     - Prevous error
+
 *** spell (dictionary) [[file:~/.emacs.d/modules/checkers/spell/README.org::+TITLE: checkers/spell][#source]] [[https://gitlab.com/ideasman42/emacs-spell-fu][spell-fu]]
 
 Flycheck might be slow and won't be running automatically as of emacs 28, that's
@@ -735,7 +744,16 @@ why i use default option - /spell-fu/.
 Dictionary is set by =ispell-dictionary= variable. Can be changed locally with the
 function =ispell-change-dictionary=.
 
-;; evil already defines 'z=' to `ispell-word' = correct word at point
+For now i removed spell from my init & config files cuz don't need those.
+Settings i used (besides having /aspell, aspell-en, aspell-ru/ installed on pc):
+#+begin_src elisp
+(after! spell-fu
+  (setq spell-fu-idle-delay 0.5))  ; default is 0.25
+(setq-default ispell-dictionary "en")
+#+end_src
+
+Evil already defines 'z=' to `ispell-word' = correct word at point
+
 - :n  "zg"   #'+spell/add-word
 - :n  "zw"   #'+spell/remove-word
 - :m  "[s"   #'+spell/previous-error
