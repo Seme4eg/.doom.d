@@ -1,0 +1,511 @@
+* General doom kbds
+
+_Sources:_ [[http://pragmaticemacs.com/org-mode-tutorials/][pragmaticemacs]]
+
+- M-H/L - promote / demote subtree
+- m-h/l/k/j - move line / object / anything {direction}
+- z o/c     - org/open(close)-fold
+
+~SPC m s s~ / ~C-c /~ (org-sparse-tree) - Create a sparse tree, prompt for the
+details. To get back to normal tree view - 2x =TAB=.
+
+~SPC m ,~ (org-switchb) - Switch between Org buffers.
+# With C-u prefix, restrict available buffers to files.
+# With C-u C-u prefix, restrict available buffers to agenda files.
+
+~SPC m /~ / ~SPC m g G~ - counsel-org-goto-all
+
+*Shift + arrows - change heading todo status!*
+
+# General prefix seems to be `SPC m`
+
+Props:
+- SPC m o   - org-set-property
+- SPC m c E - org-set-effort
+- C-c C-x E - org-inc-effort
+
+Other kdbs:
+- SPC m e   - org-export-dispatch
+- SPC m '   - org-edit-special
+- SPC m g i - org-id-goto
+- C-c C-x !       org-reload
+
+* Navigation / editing
+While on headline / list in <insert-state>:
+C-d (org-metaleft) - decrease at point
+C-t (org-metaright) - increase at point
+
+** navigation
+With [ / ] prefix:
+- c - org-babel-previous(next)-src-block
+- l - org-previous(next)-link
+- h - org-backward(forward)-heading-same-level
+
+~SPC m . / SPC m g g~ - Jump to an Org heading.
+
+- g H       - evil-org-top
+- g h       - org-up-element
+- g k/j     - org-backward(forward)-element
+- g s h     - org/goto-visible heading with avy
+- SPC m g v - org/goto-visible
+
+** editing
+g Q - org-fill-paragraph
+z n - org-tree-to-indirect-buffer
+
+*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
+E - element
+e - object
+R - subtree
+r - greater-element
+
+* Headings
+- ~SPC m */h~ - toggle heading (heading -> text / text -> heading)
+- ~C-M-RET~  org-insert-subheading
+- ~C-M-RET~ - Insert a new subheading and demote it.
+- ~M-S-RET~ - Insert a new TODO heading with the same level
+- ~SPC n S~ - Jump to an Org headline in ‘org-agenda-files’.
+
+* Text formatting
+
+: *bold*
+: /italic/
+: +strikethrough+
+: =literal text=
+: _underlined_
+: ~code~
+
+> ~code~ generally appears the same as literal text
+
+_Formatted blocks of text_ (can be expanded with ~tab~ and edited with ~C-c '~):
+- ~<e~ - example block into which you can type text that you don't want org to
+  mess with like a [[link]]
+- ~<q~ - encloses text that you want to appear as a quotation
+- ~<c~ - centred text (only after it is exported tho)
+
+** Executing source code blocks
+Org-mode can execute your source code blocks and add the output to
+your file. This part of org-mode is called babel
+
+#+BEGIN_SRC sh
+  echo "Hello $USER! Today is `date`"
+  exit
+#+END_SRC
+
+> text below is executed via ~C-c C-c~, while cursor on block above
+
+#+RESULTS:
+: Hello sad! Today is Пт авг 16 15:00:47 MSK 2019
+
+** Source code blocks
+After 'python' keyword on line below you can write the output of the
+code to a var and use it in next code-block
+#+NAME: pythonic-numbers
+#+BEGIN_SRC python :results list
+  import random
+  return [random.randrange(1, 20)
+          for i in range( random.randrange(1, 20))]
+#+END_SRC
+
+after u execute this (~C-c C-c~) the output will appear below and
+'pythonic-numbers' will contain value
+
+#+BEGIN_SRC emacs-lisp :var numbers=pythonic-numbers
+  (length numbers)
+#+END_SRC
+
+
+* Links and images
+
+Open links just with ~RET~
+
+~SPC m l~ prefix:
+- l org-insert-link
+- c org-cliplink - Takes a URL from the clipboard and inserts an
+  org-mode link with the title of a page found by the URL into the current
+  buffer
+- L org-insert-all-links
+- S org-insert-last-stored-link
+
+- i org-id-store-link
+- s org-store-link
+- d +org/remove-link (at point)
+- t *org-toggle-link-display*
+
+[[http://pragmaticemacs.com/emacs/org-mode-basics-iii-add-links-and-images-to-you-notes/][how to paste local img/gifs into document]]
+
+z i      org-toggle-inline-images
+
+~spc n l~ (org-store-link) - store link (to be able to choose it later from the
+~spc m l l~ popup menu)
+
+** internal links
+: [[heading-name][description (optional)]] - link to a heading in cur. file
+: .. or (in visual mode) spc m l l -> heading name -> description (optional)
+
+Links to custom IDs will point to the corresponding headline. The preferred
+match for a text link is a dedicated target: the same string in double angular
+brackets, like ‘<<My Target>>’.
+
+: [[my target]] - link to 'my target' above
+
+If no dedicated target exists, the link will then try to match the exact name of
+an element within the buffer. Naming is done with the #+NAME keyword:
+
+#+NAME: some name
+content here
+
+[[some name]] - link to content with #id
+
+** external links [[https://orgmode.org/manual/External-Links.html][#docs]]
+
+# Just some examples (there r much more types of external links in org)
+
+~spc m l l~ -> /file:/ -> link to a file
+
+To add particular headline / linenumber to the link add /::{headline \
+line-number}/ in the end of a link.
+
+[[file:emacs_tut.md::Basics][link to 'Basics' in file 'emacs_tut' in this repo]]
+
+Elisp link (any elisp code or available emacs command):
+
+: [[elisp:org-agenda][My org agenda]]
+
+* Attachments
+=org-attach-directory= - Customize where attachments will be downloaded. You can
+set this value per-file with =# -*- org-attach-directory: "~/some/path/"; -*-=
+
+Prefix ~SPC m a~ ↓
+
+- l - +org/attach-file-and-insert-link
+- D - org-attach-delete-all
+- O - org-attach-open-in-emacs
+- n - org-attach-new
+- R - org-attach-reveal-in-emacs
+- o - org-attach-open
+- S - org-attach-sync
+- r - org-attach-reveal
+- a - org-attach
+- s - org-attach-set-directory
+- d - org-attach-delete-one
+- u - org-attach-url
+- f - +org/find-file-in-attachments
+
+
+* Lists
+
+To update type of a list or just rerender it cuz u changed anything - ~C-c C-c~
+
+~SPC m i~ - org-toggle-item
+
+** list
+- start a line with ~-~
+- C-RET / C-S-RET - new list item below / above and enter insert mode
+- ~M-RET~ - new list item and remain in normal mode
+- nested lists:
+  - ~M-h/l~ to indent nested entry
+- reorder list items with ~M-j/k~ just like with section headings
+- *change bullet style using S-left and S-right*
+
+** checklists [0/4] [0%]
+- [ ] M-S-RET new checkbox item
+- [ ] ~RET~ - =dwim= command - /do what i mean/, which in this case toggles state of a
+  TODO entry
+- [ ] while ~C-c C-c~ / ~spc m x~ will just check/uncheck it
+  - [ ] sub item
+- [ ] track the number of items by adding ~[/]~ or [0%] to the end of a line above
+  a checklist (and then press ~C-c C-c~) - this updates when you check items off.
+
+** definition lists
+- definition lists :: these are useful sometime
+- item 2 :: M-RET again gives another item
+
+* Tags                                                            :tags:example:
+
+Tags can be attached to any headline. Each headline can have multiple tags. Tags
+r inheritant (all nested headings also have their parents' tag, but it doesn't
+show)
+
+- SPC m q (org-set-tags-command) - Set the tags for the current visible entry.
+- SPC n m / SPC o a m (org-tags-view) - Show all headlines for all
+  ‘org-agenda-files’ matching tag
+- SPC m s a (org-toggle-archive-tag) - Toggle the archive tag for the current headline.
+
+SPC m s s -> m - use sparse tree to show only those headings matching given tag.
+
+C-c C-x q - org-toggle-tags-groups (dunno what exactly it does tho 🤔)
+
+* Clock
+:PROPERTIES:
+:Effort:   0:30
+:END:
+:LOGBOOK:
+CLOCK: [2021-11-07 Вс 01:50]--[2021-11-07 Вс 01:54] =>  0:04
+CLOCK: [2021-11-07 Вс 01:49]--[2021-11-07 Вс 01:50] =>  0:01
+CLOCK: [2021-11-07 Вс 01:48]--[2021-11-07 Вс 01:49] =>  0:01
+:END:
+
+- SPC n C  org-clock-cancel
+- SPC n o  org-clock-goto
+- SPC n c  +org/toggle-last-clock
+
+~SPC m c~ prefix:
+- i - org-clock-in - start the clock onthe current item
+- o - org-clock-out - stop the currently running clock.
+- g - org-clock-goto - go to the currently clocked-in entry, or to the most
+  recently clocked one
+- l - +org/toggle-last-clock - toggle last clocked item.
+- I - org-clock-in-last - clock in the last closed clocked item.
+- c - org-clock-cancel - cancel the running clock by removing the start
+  timestamp.
+- r - org-resolve-clocks - resolve all currently open Org clocks.
+- R - org-clock-report - update or create a table containing a report about
+
+Don't see much usage:
+- e - org-clock-modify-effort-estimate
+  clocked time.
+- d - org-clock-mark-default-task
+- =/- - Increase / decrease CLOCK timestamps at cursor.
+
+C-c C-x C-d (org-clock-display) - Show subtree times in the entire buffer. By
+default, show the total time for the range defined in
+org-clock-display-default-range.  With C-u prefix, show the total time for today
+instead.
+
+* Ultimate agenda guide
+
+=org-agenda-files= - stores all your agenda files. They add up automatically when
+there is a new entry in any file.
+
+SPC m t  org-todo *important* - display all statuses possible
+SPC m T  org-todo-list
+<M-S-return>    org-insert-todo-heading
+
+~SPC X~ / ~SPC n n~ - org-capture
+
+~SPC n N~ - org-capture-goto-target -- Go to the target location of a capture
+template.
+
+*Main org-agenda prefix* - ~SPC o a~ ↓
+- a - org-agenda (/also/  ~SPC o A~ / ~SPC n a~)
+- t - org-todo-list
+- m - org-tags-view
+- v - org-search-view
+
+*Date/deadline* prefix ~SPC m d~ ↓
+t - org-time-stamp
+T - org-time-stamp-inactive
+s - org-schedule
+d - org-deadline
+
+*Notes* prefix ~SPC n~:
+- F - +default/browse-notes -- see all files with your notes including agendas
+  and todos
+- S - +default/org-notes-headlines -- Jump to an Org headline in
+  org-agenda-files.
+- s - +default/org-notes-search -- Perform a text search on org-directory.
+- t - org-todo-list
+- v - org-search-view - Show all entries that contain a phrase or words or
+  regular expressions.
+
+C-S-h/l/k/j - org-shift[direction]
+
+SPC m A  org-archive-subtree -- C-h f *important*
+
+SPC m x  org-toggle-checkbox
+
+SPC m g x       org-capture-goto-last-stored
+
+SPC m s p d     org-priority-down
+SPC m s p u     org-priority-up
+SPC m s p p     org-priority
+
+C-#      org-table-rotate-recalc-marks
+C-'      org-cycle-agenda-files
+
+C-c C-x <       org-agenda-set-restriction-lock
+C-c C-x >       org-agenda-remove-restriction-lock
+
+** Viewing agenda
+~, oa t~ - view todo tasks
+~, oa n~ - display list of scheduled tasks and unscheduled tasks below it
+
+- $ :: cross an item off your list. which marks it as done
+     and archives the item in a file called todo.org_archive
+- ~Shift + up/down~ :: change priority or an item
+- ~E~ :: view notes to go with item
+
+Edited ~org-capture-templates~ so all new tasks will be today's date by default.
+
+~Shift + arrows~ - edit date
+
+
+* Refiling | [[https://orgmode.org/manual/Refile-and-Copy.html][docs]]
+When reviewing the captured data, you may want to refile or to copy some of the
+entries into a different list, for example into a project. Cutting, finding the
+right location, and then pasting the note is cumbersome. To simplify this
+process, you can use =refile=.
+
+SPC m r/s r (org-refile) - Move the entry or entries at point to another hea...
+
+Refile current heading .. :
+- SPC m r v (+org/refile-to-visible) - .. as first child of visible ...
+- SPC m r O (+org/refile-to-other-buffer) - .. to another, living org buf...
+- SPC m r o (+org/refile-to-other-window) - .. to an org buffer visible i...
+- SPC m r f (+org/refile-to-file) - .. to a particular org file.
+- SPC m r l (+org/refile-to-last-location) - .. to the last node you refil...
+- SPC m r c (+org/refile-to-running-clock) - .. to the currently clocked i...
+- SPC m r . (+org/refile-to-current-file) - .. to elsewhere in the curren...
+
+SPC m g r (org-refile-goto-last-stored) - Go to the location where the last
+refile was stored.
+
+C-c C-M-w (org-refile-reverse) Refile while temporarily toggling ‘org-reverse-no...
+C-c M-w (org-refile-copy) Like ‘org-refile’, but preserve the refiled subtree.
+
+* Org publishing
+[[https://orgmode.org/manual/Publishing.html#Publishing][docs]]
+
+SPC m P P       org-publish-current-project
+SPC m P p       org-publish
+SPC m P a       org-publish-all
+SPC m P s       org-publish-sitemap
+SPC m P f       org-publish-current-file
+
+* Footnotes
+SPC m f (org-footnote-new) - insert a footnote in current document
+C-c C-x f (org-footnote-action)
+
+* Other rarely used stuff
+** Tables
+
+SPC m b -       org-table-insert-hline
+SPC m b f       org-table-edit-formulas
+SPC m b R       org-table-recalculate-buffer-tables
+SPC m b h       org-table-field-info
+SPC m b a       org-table-align
+SPC m b b       org-table-blank-field
+SPC m b r       org-table-recalculate
+SPC m b c       org-table-create-or-convert-from-region
+SPC m b s       org-table-sort-lines
+SPC m b e       org-table-edit-field
+
+SPC m b t f     org-table-toggle-formula-debugger
+SPC m b t o     org-table-toggle-coordinate-overlays
+SPC m b i H     org-table-hline-and-move
+SPC m b i h     org-table-insert-hline
+SPC m b i c     org-table-insert-column
+SPC m b i r     org-table-insert-row
+SPC m b d c     org-table-delete-column
+SPC m b d r     org-table-kill-row
+
+1) when you get to the "s" of comments, press TAB to go to the next line
+2) go up to the previous line and use C-c - to add the row of dashes
+3) next enter a few lines of data, using TAB to go through the cells
+4) move rows and columns around using M-arrow and insert or delete rows and columns using M-S-arrow
+
+| ID | x | y | comments     |
+|----+---+---+--------------|
+| a  | 1 | 2 | some         |
+| b  | 3 | 4 | some comment |
+
+`C-c |` - create an empty table / convert selected text to a table
+
+ID  x   y
+A   2   4
+B   3   9
+
+`M-x org-table-export` -- save tables to their own files (while cursor in the table)
+
+> For the format, type orgtbl-to and press TAB to see the available
+options (e.g. orgtbl-to-csv will convert to csv in the output file)
+
+*** Formulae
+use formulae to do arithmetic on tables, and use them like a spreadsheet.
+
+more [[http://orgmode.org/worg/org-tutorials/org-spreadsheet-intro.html][info]]
+**** unknown/unclear purpose kbds
+Minor Mode Bindings:
+
+C-c " a  orgtbl-ascii-plot
+C-c " g  org-plot/gnuplot
+C-c C-x C-a     org-archive-subtree-default
+C-c C-x C-c     org-columns
+C-c C-x C-f     org-emphasize
+C-c C-x A       org-archive-to-archive-sibling
+C-c C-x C-l     org-latex-preview
+C-c C-x G       org-feed-goto-inbox
+C-c C-x I       org-info-find-node
+C-c C-x P       org-set-property-and-value
+C-c C-x [       org-reftex-citation
+C-c C-x \       org-toggle-pretty-entities
+C-c C-x C-r     org-toggle-radio-button
+C-c C-x C-s     org-archive-subtree
+C-c C-x a       org-toggle-archive-tag
+C-c C-x C-t     org-toggle-time-stamp-overlays
+C-c C-x b       org-tree-to-indirect-buffer
+C-c C-x C-u     org-dblock-update
+C-c C-x c       org-clone-subtree-with-time-shift
+C-c C-x d       org-insert-drawer
+C-c C-x C-w     org-cut-special
+C-c C-x C-y     org-paste-special
+C-c C-x g       org-feed-update-all
+C-c C-x o       org-toggle-ordered-property
+C-c C-x p       org-set-property
+C-c C-x !       org-reload
+C-c C-x q       org-toggle-tags-groups
+C-c C-x v       org-copy-visible
+C-c C-x x       org-dynamic-block-insert-dblock
+** Babel
+*Org-narrow* prefix ~C-x n~ ↓
+b - org-narrow-to-block
+s - org-narrow-to-subtree
+e - org-narrow-to-element
+
+*Org-babel* prefix - ~C-c C-v~ ↓
+a - sha1-hash
+b - execute-buffer
+c - check-src-block
+d - demarcate-block
+e - execute-maybe
+f - tangle-file
+g - goto-named-src-block
+h - describe-bindings
+i - lob-ingest
+j - insert-header-arg
+k - remove-result-one-or-many
+l - load-in-session
+n - next-src-block
+o - open-src-block-result
+p - previous-src-block
+r - goto-named-result
+s - execute-subtree
+t - tangle
+u - goto-src-block-head
+v - expand-src-block
+x - do-key-sequence-in-edit-buffer
+z - switch-to-session-with-code
+I - view-src-block-info
+TAB - view-src-block-info
+C-a - sha1-hash
+
+** Exporting .org file
+
+_org-clipboard_ - exports buffer / selected text to clipboard, ~spc n y/Y~ (look up
+the commands to see docs)
+
+~SPC m e~ (org-export-dispatch) - export file, then choose needed options
+
+Examples:
+~h o~ - export to HTML and open it
+~l o~ - export to latex and compile it to produce a pdf and open it
+
+Also check how to tweak the look of exported file [[http://pragmaticemacs.com/emacs/org-mode-basics-v-exporting-your-notes/][here]]
+** Timer
+C-c C-x .       org-timer
+C-c C-x 0       org-timer-start
+C-c C-x ,       org-timer-pause-or-continue
+C-c C-x ;       org-timer-set-timer
+C-c C-x -       org-timer-item
+C-c C-x _       org-timer-stop
