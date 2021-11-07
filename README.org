@@ -6,37 +6,32 @@ funcs, faces, *bindings*, keys, chars, libs/
 config reload - ~spc h r r~
 
 themes [[https://github.com/hlissner/emacs-doom-themes][here]]
-~SPC h t~   load-theme Load Custom theme named THEME from its file and p...
-~SPC h r t~ doom/reload-theme Reload the current Emacs theme.
+- ~SPC h t~   load-theme Load Custom theme named THEME from its file and p...
+- ~SPC h r t~ doom/reload-theme Reload the current Emacs theme.
 
 * to do
-while vacation:
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
-- check aspell integration (if it is even working with ~spell~) (for now it just
-  highlights everything in this buffer red)
-- check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlist); find out why he
+while vacation: [13%]
+- [ ] [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
+- [X] check aspell integration - [[elisp:ispell-change-dictionary]]
+- [ ] check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlist); find out why he
   has different org heading symbols
-- redefine my custom keybindings properly like in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=27][this]] vid
-- make /lookup/ work in js-buffers
-- [[https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript][dap-mode for node]] - figure out js *debugging*
-- get treemacs setup work and find out why it's bugging out when doing any
+- [ ] redefine my custom keybindings properly like in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=27][this]] vid
+- [ ] make /lookup/ work in js-buffers
+- [ ] [[https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript][dap-mode for node]] - figure out js *debugging*
+- [ ] get treemacs setup work and find out why it's bugging out when doing any
   operations on files
-- (mu4e +gmail) ;; REVIEW (init.el); also ~spc s s mu4e~ this buffer to get more
+- [ ] (mu4e +gmail) ;; REVIEW (init.el); also ~spc s s mu4e~ this buffer to get more
   input data.
-- set up [[https://gitlab.com/ideasman42/emacs-spell-fu][spell-fu]] and it's backend, cuz flycheck might be slow and won't be
-  running automatically as of emacs 28
+- [ ] learn [[https://github.com/bastibe/org-journal][org journal]] - [[https://www.youtube.com/watch?v=i-nGmSQ5fh0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=23][vid here]]
 
 -----
 
-- ~SPC h i~ - yes.. all this knowledge can be yours
-- *org*
-- [[https://github.com/abo-abo/org-download][org-attach]] - wut? u don't use 'directory' method (u use 'attach' instead), u
-  don't dragndrop (even tho it is it's name, but there is no dragndrop
-  functionality), u can start with ~SPC m a a~ and try to find out how to paste
-  inline images into a buffer with custom download directory..
-- set up irc telegram, emacs-desctop, eww (browser parser)
-- what is 'timer', 'char timer'? ~spc s s timer~..
-- dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to use
+- [ ] ~SPC h i~ - yes.. all this knowledge can be yours
+- [ ] *org*
+- [X] [[https://orgmode.org/manual/Attachments.html][org-attachments]] - ~spc m a~ prefix, sir.. everything else in =org-readme=
+- [ ] set up irc telegram, emacs-desctop, eww (browser parser)
+- [ ] what is 'timer', 'char timer'? ~spc s s timer~..
+- [ ] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to use
   it? (=+ranger= flag)
 
 * Shortcuts
@@ -548,53 +543,6 @@ Other stuff:
 - (:after dired :n "gr" #'revert-buffer)
 
 * packages
-** org
-
-org-capture -> ~spc X~
-
-org-agenda -> ~spc o A~
-
-_Vids:_
-- [[https://www.youtube.com/watch?v=BRqjaN4-gGQ&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=10][links]]
-- [[https://www.youtube.com/watch?v=DxygfqLrFSU&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=14][tasks (agenda stuff)]] (next video after this 1 is about tasks priority)
-- [[https://www.youtube.com/watch?v=FJq__bBi0nI&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=16][TAGS power]]
-- [[https://www.youtube.com/watch?v=SYgsS8Be1ZY&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=17][Todo checkboxes]]
-- [[https://github.com/bastibe/org-journal][org journal]] - [[https://www.youtube.com/watch?v=i-nGmSQ5fh0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=23][vid here]]
-
-- org-yt - youtube links (with imgs) in org mode; [[https://github.com/TobiasZawada/org-yt][docs]] here, example below (also
-  press ~zi~ to toggle inline images display)
-
-[[yt:o9Phw-cJqBQ][lo-fi beats]]
-
-_org-clipboard_ - exports buffer / selected text to clipboard, ~spc n y/Y~ (look up
-the commands to see docs)
-
-*** Headings navigation | TLDR: ~gsh~ #'+org/goto-visible (.. heading with avy)
-
-- ~C-M-RET~ - Insert a new subheading and demote it.
-- ~M-S-RET~ - Insert a new TODO heading with the same level
-- ~SPC n S~ - Jump to an Org headline in ‘org-agenda-files’.
-- ~SPC m h~ - Convert headings to normal text, or items or text...
-- ~SPC m . / SPC m g g~ - Jump to an Org heading.
-- ~[ h~ - org-backward-heading-same-level
-- ~] h~ - org-forward-heading-same-level
-
-*** Org-refile (Move the entry or entries at point to somewhere else)
-
-=spc h b b org refile= ...
-
-~SPC m s(r) r~ / ~C-c C-w~ - (org-refile)
-~SPC m r v~ - (+org/refile-to-visible)
-~SPC m r O~ - (+org/refile-to-other-buffer)
-~SPC m r o~ - (+org/refile-to-other-window)
-~SPC m r f~ - (+org/refile-to-file)
-~SPC m r l~ - (+org/refile-to-last-location)
-~SPC m r c~ - (+org/refile-to-running-clock)
-~SPC m r .~ - (+org/refile-to-current-file)
-~SPC m g r~ - (org-refile-goto-last-stored)
-~C-c C-M-w~ - (org-refile-reverse)
-~C-c M-w~   - (org-refile-copy)
-
 ** git [[file:~/.emacs.d/modules/tools/magit/README.org::*Plugins][#plugins]]
 
 [[https://magit.vc/manual/forge/][forge]] - for now can't set it up, view [[https://github.com/magit/forge/discussions/432][this discussion]]. ([[https://www.youtube.com/watch?v=fFuf3hExF5w&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=20][quick vid tut]])
@@ -779,7 +727,13 @@ Omni-completion :prefix "C-x":
 - =C-;= or =<leader> a= - Open an ~embark-act~ menu to chose a useful action
 - =C-c C-;= - export the current candidate list to a buffer
 
-*** spell (dictionary) [[file:~/.emacs.d/modules/checkers/spell/README.org::+TITLE: checkers/spell][#source]]
+*** spell (dictionary) [[file:~/.emacs.d/modules/checkers/spell/README.org::+TITLE: checkers/spell][#source]] [[https://gitlab.com/ideasman42/emacs-spell-fu][spell-fu]]
+
+Flycheck might be slow and won't be running automatically as of emacs 28, that's
+why i use default option - /spell-fu/.
+
+Dictionary is set by =ispell-dictionary= variable. Can be changed locally with the
+function =ispell-change-dictionary=.
 
 ;; evil already defines 'z=' to `ispell-word' = correct word at point
 - :n  "zg"   #'+spell/add-word

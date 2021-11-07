@@ -15,11 +15,10 @@ details. To get back to normal tree view - 2x =TAB=.
 
 ~SPC m /~ / ~SPC m g G~ - counsel-org-goto-all
 
-*Shift + arrows - change heading todo status!*
+# Shift + arrows also works, but it's a noob way..
+~C-S-h/l/k/j~ (org-shift[direction]) - *change heading status / priority*
 
-# General prefix seems to be `SPC m`
-
-Props:
+*Properties*:
 - SPC m o   - org-set-property
 - SPC m c E - org-set-effort
 - C-c C-x E - org-inc-effort
@@ -192,6 +191,11 @@ Prefix ~SPC m a~ ↓
 - u - org-attach-url
 - f - +org/find-file-in-attachments
 
+*org-yt* - youtube links (with imgs) in org mode; example below (~zi~ to toggle
+inline images display)
+
+[[yt:o9Phw-cJqBQ][lo-fi beats]]
+
 
 * Lists
 
@@ -278,9 +282,9 @@ instead.
 =org-agenda-files= - stores all your agenda files. They add up automatically when
 there is a new entry in any file.
 
-SPC m t  org-todo *important* - display all statuses possible
-SPC m T  org-todo-list
-<M-S-return>    org-insert-todo-heading
+- SPC m t  org-todo *important* - display all statuses possible
+- SPC m T  org-todo-list
+- <M-S-return>    org-insert-todo-heading
 
 ~SPC X~ / ~SPC n n~ - org-capture
 
@@ -294,10 +298,10 @@ template.
 - v - org-search-view
 
 *Date/deadline* prefix ~SPC m d~ ↓
-t - org-time-stamp
-T - org-time-stamp-inactive
-s - org-schedule
-d - org-deadline
+- t - org-time-stamp
+- T - org-time-stamp-inactive
+- s - org-schedule
+- d - org-deadline
 
 *Notes* prefix ~SPC n~:
 - F - +default/browse-notes -- see all files with your notes including agendas
@@ -317,15 +321,14 @@ SPC m x  org-toggle-checkbox
 
 SPC m g x       org-capture-goto-last-stored
 
-SPC m s p d     org-priority-down
-SPC m s p u     org-priority-up
-SPC m s p p     org-priority
+*Priority* prefix ~SPC m s p~ ↓
+- p - org-priority
+- d/u - org-priority-down/up
 
-C-#      org-table-rotate-recalc-marks
-C-'      org-cycle-agenda-files
-
-C-c C-x <       org-agenda-set-restriction-lock
-C-c C-x >       org-agenda-remove-restriction-lock
+Other kbds:
+- C-#      org-table-rotate-recalc-marks
+- C-'      org-cycle-agenda-files
+- C-c C-x < / >       org-agenda-set(remove)-restriction-lock
 
 ** Viewing agenda
 ~, oa t~ - view todo tasks
@@ -349,14 +352,14 @@ process, you can use =refile=.
 
 SPC m r/s r (org-refile) - Move the entry or entries at point to another hea...
 
-Refile current heading .. :
-- SPC m r v (+org/refile-to-visible) - .. as first child of visible ...
-- SPC m r O (+org/refile-to-other-buffer) - .. to another, living org buf...
-- SPC m r o (+org/refile-to-other-window) - .. to an org buffer visible i...
-- SPC m r f (+org/refile-to-file) - .. to a particular org file.
-- SPC m r l (+org/refile-to-last-location) - .. to the last node you refil...
-- SPC m r c (+org/refile-to-running-clock) - .. to the currently clocked i...
-- SPC m r . (+org/refile-to-current-file) - .. to elsewhere in the curren...
+Refile current heading (~SPC m r~ prefix) .. :
+- v (+org/refile-to-visible) -       .. as first child of visible heading
+- O (+org/refile-to-other-buffer)
+- o (+org/refile-to-other-window)
+- f (+org/refile-to-file) -          .. to a particular org file.
+- l (+org/refile-to-last-location) - .. to the last node you refiled
+- c (+org/refile-to-running-clock)
+- . (+org/refile-to-current-file)
 
 SPC m g r (org-refile-goto-last-stored) - Go to the location where the last
 refile was stored.

@@ -78,10 +78,12 @@
 ;; environment --> major
 
 (global-subword-mode 1)
-(setq-default fill-column 80) ;; 70, must be a default value to work
-(setq-default display-fill-column-indicator-column 80)
-(setq tab-width 2)
-      ;; use-dialog-box nil)
+(setq-default
+ fill-column 80 ;; 70, must be a default value to work
+ global-display-fill-column-indicator-mode t
+ display-fill-column-indicator-column 80
+ ispell-dictionary "en"
+ )
 
 ;; environment -> hooks
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
@@ -119,13 +121,6 @@
       org-hide-emphasis-markers t)
 
 ;; org-mode agenda options
-(setq org-deadline-warning-days 7) ;; warn of any deadlines in next 7 days
-(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
-(setq org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled))
-;;don't show tasks that are scheduled or have deadlines in the normal todo list
-;; (setq org-agenda-todo-ignore-deadlines (quote all))
-;; (setq org-agenda-todo-ignore-scheduled (quote all))
-
 ;; TODO: how to do it with evil embrace?
 ;; now after typing '<el TAB' u will get code block with 'emacs-lisp' src
 (after! org (add-to-list 'org-structure-template-alist
@@ -143,16 +138,11 @@
 ;; ==================== DEV ====================
 
 ;; === sh ===
-(add-hook 'sh-mode-hook
-          (lambda ()
-            (interactive)
-            (setq sh-basic-offset 2)))
 (after! sh-script
   (set-company-backend! 'sh-mode
     '(company-shell :with company-yasnippet)))
 
 ;; elm
-;; (setq elm-indent-offset 2)
 ;; (add-to-list 'company-backends 'elm-company)
 (add-hook 'elm-mode-hook 'elm-format-on-save-mode)
 
