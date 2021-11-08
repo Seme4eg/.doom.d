@@ -73,11 +73,9 @@
 (map! :leader "gv" 'git-gutter:popup-hunk)
 
 ;; environment --> major
-
 (global-subword-mode)
 (global-display-fill-column-indicator-mode)
 (global-auto-revert-mode)
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
 
 (setq-default
  fill-column 80 ;; 70, must be a default value to work
@@ -85,9 +83,8 @@
  )
 
 ;; environment -> hooks
-(add-hook 'org-mode-hook
-          (lambda ()
-            (auto-fill-mode)))
+(add-hook 'org-mode-hook 'auto-fill-mode)
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
 
 ;; kbds
 (map! :leader "x" 'execute-extended-command)

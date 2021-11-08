@@ -10,7 +10,7 @@ themes [[https://github.com/hlissner/emacs-doom-themes][here]]
 - ~SPC h r t~ doom/reload-theme Reload the current Emacs theme.
 
 * to do
-while vacation: [42%]
+while vacation: [40%]
 - [ ] [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
 - [X] check aspell integration - [[elisp:ispell-change-dictionary]]
 - [X] check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlist)
@@ -32,6 +32,7 @@ while vacation: [42%]
 - [X] what is 'timer', 'char timer'? ~spc s s timer~..
 - [ ] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to
   use it? (=+ranger= flag)
+- [ ] how to move current workspace to {number} place?
 
 * Shortcuts
 
@@ -724,6 +725,14 @@ Omni-completion :prefix "C-x":
 - ~C-M-j/k~ - #'vertico-next/previous-group
 - =C-;= or =<leader> a= - Open an ~embark-act~ menu to chose a useful action
 - =C-c C-;= - export the current candidate list to a buffer
+
+| Input        | Description                              |
+|--------------+------------------------------------------|
+| =!foo=         | match without literal input =foo=          |
+| =%foo= or =foo%= | perform ~char-fold-to-regexp~ on input =foo= |
+| =`foo= or =foo`= | match input =foo= as an initialism         |
+| ==foo= or =foo== | match only with literal input =foo=        |
+| =~foo= or =foo~= | match input =foo= with fuzzy/flex matching |
 
 *** syntax [[file:~/.emacs.d/modules/checkers/syntax/README.org::*Features][#flycheck-features]]
 

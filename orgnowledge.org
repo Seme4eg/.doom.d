@@ -1,3 +1,5 @@
+#+STARTUP: overview
+
 * General doom kbds
 
 _Sources:_ [[http://pragmaticemacs.com/org-mode-tutorials/][pragmaticemacs]]
@@ -15,29 +17,29 @@ details. To get back to normal tree view - 2x =TAB=.
 
 ~SPC m /~ / ~SPC m g G~ - counsel-org-goto-all
 
-# Shift + arrows also works, but it's a noob way..
-~C-S-h/l/k/j~ (org-shift[direction]) - *change heading status / priority*
-
-*Properties* ↓
-- SPC m o   - org-set-property
-- SPC m c E - org-set-effort
-- C-c C-x E - org-inc-effort
-
 Other kdbs:
 - SPC m e   - org-export-dispatch
 - SPC m g i - org-id-goto
 - C-c C-x !       org-reload
 
-* Navigation / editing
-While on headline / list in <insert-state>:
-C-d (org-metaleft) - decrease at point
-C-t (org-metaright) - increase at point
+* Document Structure [[https://orgmode.org/manual/Document-Structure.html#Document-Structure][#docs]]
+** Initial visibility
 
-** navigation
-With [ / ] prefix:
-- c - org-babel-previous(next)-src-block
-- l - org-previous(next)-link
-- h - org-backward(forward)-heading-same-level
+When Emacs first visits an Org file, the global state is set to showeverything.
+This can be configured through the variable org-startup-folded, or on a per-file
+basis by adding one of the following lines anywhere in the buffer:
+
+Possible =#+STARTUP= values:
+- overview
+- content
+- showall
+- show2levels / show3levels / show4levels / show5levels
+- showeverything
+
+Furthermore, any entries with a ‘VISIBILITY’ property (see Properties and
+Columns) get their visibility adapted accordingly. Allowed values for this
+property are ‘folded’, ‘children’, ‘content’, and ‘all’.
+** Motion
 
 ~SPC m . / SPC m g g~ - Jump to an Org heading.
 
@@ -47,40 +49,103 @@ With [ / ] prefix:
 - g s h     - org/goto-visible heading with avy
 - SPC m g v - org/goto-visible
 
-** editing
-g Q - org-fill-paragraph
+With [ / ] prefix:
+- c - org-babel-previous(next)-src-block
+- l - org-previous(next)-link
+- h - org-backward(forward)-heading-same-level
 
-z n - org-tree-to-indirect-buffer
+** Structure Editing
 
-*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
-- E - element
-- e - object
-- R - subtree
-- r - greater-element
-
-* Headings
-- ~SPC m */h~ - toggle heading (heading -> text / text -> heading)
+- ~C-RET~ / ~C-S-RET~ - insert new heading below / above same level and enter *insert*
+  mode
+- ~M-RET~ - insert new heading same level and remain in *normal* mode
 - ~C-M-RET~  org-insert-subheading
-- ~C-M-RET~ - Insert a new subheading and demote it.
 - ~M-S-RET~ - Insert a new TODO heading with the same level
-- ~SPC n S~ - Jump to an Org headline in ‘org-agenda-files’.
+- ~M-h/l~ - promote / demote heading
 
-* Text formatting
+*Tree/subtree* prefix ~SPC m s~ ↓
+- h - promote subtree
+- l - demote subtree
+- k - move subtree up
+- j - move subtree down
+- d - cut subtree
+- r - refile subtree (instead of copy / paste commands)
+- S - sort same-level entries
+- n - narrow to subtree
+- N - widen (to remove narrowing)
 
-: *bold*
-: /italic/
-: +strikethrough+
-: =literal text=
-: _underlined_
-: ~code~
+~SPC m */h~ - toggle heading (heading -> text / text -> heading)
+
+** Sparse Trees
+
+Construct sparse trees for selected information in an outline tree, so that the
+entire document is folded as much as possible, but the selected information is
+made visible along with the headline structure above it.
+
+~SPC m s s~ - propmts for an extra key to select a sparse-tree creating command.
+
+** Lists
+
+- /Unordered/ list items start with ‘-’, ‘+’, or ‘*’ as bullets.
+- /Ordered/ list items start with a numeral followed by either a period or a right
+  parenthesis, such as ‘1.’
+- /Description/ list items are unordered list items, and contain the separator
+  ‘::’ to distinguish the description term from the description.
+
+To update type of a list or just rerender it cuz u changed anything - ~C-c C-c~
+
+~SPC m i~ - org-toggle-item
+
+Lists have same kbds as [[Structure Editing][headers]] (for creating new / de/pro-moting..)
+
+- ~TAB~ on item to hide it just like normal heading:
+  - nested entry
+- ~C-S-h/l~ (org-shift[direction]) - *change bullet style*
+
+~C-c ^~ - Sort the plain list. Prompt for the sorting method: numerically,
+alphabetically, by time, or by custom function.
+
+** Drawers
+
+Sometimes you want to keep information associated with an entry, but you
+normally do not want to see it. For this, Org mode has drawers. They can contain
+anything but a headline and another drawer.
+
+~C-c C-x d~ - insert drawer at point. With an active region, this command puts the
+region inside the drawer.
+
+:test-drawer:
+This text is inside the drawer
+:END:
+
+With a prefix argument, this command calls org-insert-property-drawer, which
+creates a ‘PROPERTIES’ drawer right below the current headline. Org mode uses
+this special drawer for storing properties (see Properties and Columns). You
+cannot use it for anything else.
+
+You can also arrange for state change notes (see Tracking TODO state changes)
+and clock times (see Clocking Work Time) to be stored in a ‘LOGBOOK’ drawer. If
+you want to store a quick note there, in a similar way to state changes, use:
+
+~C-c C-z~ - Add a time-stamped note to the ‘LOGBOOK’ drawer.
+
+** Blocks
+
+Org mode uses ‘#+BEGIN’ … ‘#+END’ blocks for various purposes from including
+source code examples (see Literal Examples) to capturing time logging
+information (see Clocking Work Time).
+
+You can also get all blocks folded at startup by configuring the variable org-hide-block-startup or on a per-file basis by using
+
+: #+STARTUP: (no)hideblocks
 
 _Formatted blocks of text_ (expand with ~tab~ and edit with ~SPC m '~ / ~C-c '~):
-- ~<e~ - example block into which you can type text that you don't want org to
+- ~<e~ - /example/ block into which you can type text that you don't want org to
   mess with like a [[link]]
-- ~<q~ - encloses text that you want to appear as a quotation
-- ~<c~ - centred text (only after it is exported tho)
+- ~<q~ - /quotation/
+- ~<c~ - /centred/ text (only after it is exported tho 🙁)
 
-** Executing source code blocks
+*** Executing source code blocks
 Org-mode can execute your source code blocks and add the output to
 your file. This part of org-mode is called babel
 
@@ -94,7 +159,7 @@ your file. This part of org-mode is called babel
 #+RESULTS:
 : Hello sad! Today is Пт авг 16 15:00:47 MSK 2019
 
-** Source code blocks
+*** Source code blocks
 
 After 'python' keyword on line below you can write the output of the
 code to a var and use it in next code-block
@@ -112,8 +177,7 @@ after u execute this (~C-c C-c~) the output will appear below and
   (length numbers)
 #+END_SRC
 
-
-* Links and images
+* Hyperlinks [[https://orgmode.org/manual/Hyperlinks.html#Hyperlinks][#docs]]
 
 Open links just with ~RET~
 
@@ -134,16 +198,24 @@ Open links just with ~RET~
 
 z i      org-toggle-inline-images
 
-~spc n l~ (org-store-link) - store link (to be able to choose it later from the
-~spc m l l~ popup menu)
+~spc n l~ (org-store-link) - store link (If the headline has a ‘CUSTOM_ID’
+property, store a link to this custom ID) to be able to choose it later from the
+~spc m l l~ popup menu
 
-** internal links
-: [[heading-name][description (optional)]] - link to a heading in cur. file
-: .. or (in visual mode) spc m l l -> heading name -> description (optional)
+** Internal Links
 
-Links to custom IDs will point to the corresponding headline. The preferred
-match for a text link is a dedicated target: the same string in double angular
-brackets, like ‘<<My Target>>’.
+A link that does not look like a URL—i.e., does not start with a known scheme or
+a file name—refers to the current document.
+
+#+begin_example
+Org provides several refinements to internal navigation within a document. Most
+notably, a construct like ‘[[#my-custom-id]]’ specifically targets the entry
+with the ‘CUSTOM_ID’ property set to ‘my-custom-id’. Also, an internal link
+looking like ‘[[*Some section]]’ points to a headline with the name ‘Some
+section’
+#+end_example
+
+When the link does not belong to any of the cases above, Org looks for a dedicated target: the same string in double angular brackets, like ‘<<My Target>>’.
 
 : [[my target]] - link to 'my target' above
 
@@ -153,22 +225,213 @@ an element within the buffer. Naming is done with the #+NAME keyword:
 #+NAME: some name
 content here
 
-[[some name]] - link to content with #id
+: [[some name]] - link to content with #id
 
-** external links [[https://orgmode.org/manual/External-Links.html][#docs]]
+During export, internal links are used to mark objects and assign them a number.
+Marked objects are then referenced by links pointing to them. In particular,
+links without a description appear as the number assigned to the marked
+object26. In the following excerpt from an Org buffer
 
-# Just some examples (there r much more types of external links in org)
+1. one item
+2. <<target>>another item
+Here we refer to item [[target]].
+
+The last sentence will appear as ‘Here we refer to item 2’ when exported.
+** Radio Targets
+
+Org can automatically turn any occurrences of certain target names in normal
+text into a link. So without explicitly creating a link, the text connects to
+the target radioing its position. Radio targets are enclosed by triple angular
+brackets. For example, a target ‘<<<My Target>>>’ causes each occurrence of ‘my
+target’ in normal text to become activated as a link. The Org file is scanned
+automatically for radio targets only when the file is first loaded into Emacs.
+To update the target list during editing, press ~C-c C-c~ with point on or at a
+target.
+
+** External Links
+
+Just some examples (there r much more types of external links in org):
 
 ~spc m l l~ -> /file:/ -> link to a file
-
-To add particular headline / linenumber to the link add /::{headline \
-line-number}/ in the end of a link.
-
-[[file:emacs_tut.md::Basics][link to 'Basics' in file 'emacs_tut' in this repo]]
 
 Elisp link (any elisp code or available emacs command):
 
 : [[elisp:org-agenda][My org agenda]]
+
+** Search Options in File Links
+
+: [[file:~/code/main.c::255]] - jump to line 255
+: [[file:~/xx.org::My Target]] - Search for a link target ‘<<My Target>>’
+: [[file:~/xx.org::*My Target]] - restrict search to headlines
+: [[file:~/xx.org::#my-custom-id]] - link to headingi wtih 'CUSTOM_ID' prop.
+: [[file:~/xx.org::/regexp/]]
+
+* /TODO Items [[https://orgmode.org/manual/TODO-Items.html#TODO-Items][#docs]]
+** Basic TODO functionality
+- SPC m t  org-todo *important* - display all statuses possible
+- ~C-S-h/l/k/j~ (org-shift[direction]) - *change heading status / priority*
+- SPC m T / SPC n t - org-todo-list - show the global TODO list
+- <M-S-return>    org-insert-todo-heading
+
+** /TODO Extensions
+Setting up keywords for individual files:
+
+: #+TODO: TODO FEEDBACK VERIFY | DONE CANCELED
+: #+TYP_TODO: Fred Sara Lucy Mike | DONE
+
+or a setup for using several sets in parallel:
+
+: #+TODO: TODO(t) | DONE(d)
+: #+TODO: REPORT(r) BUG(b) KNOWNCAUSE(k) | FIXED(f)
+: #+TODO: | CANCELED(c)
+
+** /TODO Dependencies
+
+If an entry has a property ‘ORDERED’, each of its TODO children is blocked until
+all earlier siblings are marked as done. Here is an example:
+
+: * Parent
+: :PROPERTIES:
+: :ORDERED:  t
+: :END:
+: ** TODO a
+: ** TODO b, needs to wait for (a)
+: ** TODO c, needs to wait for (a) and (b)
+
+You can ensure an entry is never blocked by using the ‘NOBLOCKING’ property
+** Progress Logging
+_Closing items_:
+
+The most basic automatic logging is to keep track of when a certain TODO item
+was marked as done: =(setq org-log-done 'time)=
+
+If you want to record a note along with the timestamp: =(setq org-log-done 'note)=
+
+The corresponding in-buffer settings are: =‘#+STARTUP: logdone’= & =‘#+STARTUP:
+lognotedone’=
+
+_Tracking TODO state changes_:
+
+Since it is normally too much to record a note for every state, Org mode expects
+configuration on a per-keyword basis for this. This is achieved by adding
+special markers ‘!’ (for a timestamp) or ‘@’ (for a note with timestamp) in
+parentheses after each keyword. For example, with the setting:
+
+#+begin_src elisp
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+#+end_src
+
+You can use the exact same syntax for setting logging preferences local to a
+buffer:
+
+: #+TODO: TODO(t) WAIT(w@/!) | DONE(d!) CANCELED(c@)
+
+In order to define logging settings that are local to a subtree or a single
+item, define a ‘LOGGING’ property in this entry:
+
+: * TODO Only log when switching to WAIT, and when repeating
+  : :PROPERTIES:
+  : :LOGGING: WAIT(@) logrepeat
+  : :END:
+
+[[https://orgmode.org/manual/Tracking-your-habits.html][Tracking your habits]]
+** Checkboxes (todo list)
+
+Checklists [0/4] [0%]:
+- [ ] M-S-RET new checkbox item
+- [ ] ~RET~ - =dwim= command - /do what i mean/, which in this case toggles state of a
+  TODO entry
+- [ ] while ~C-c C-c~ / ~spc m x~ will just check/uncheck it
+  - [ ] sub item
+- [ ] track the number of items by adding ~[/]~ or [0%] to the end of a line above
+  a checklist (and then press ~C-c C-c~) - this updates when you check items off.
+
+~C-c C-*~ - Turn the whole plain list into a subtree of the current heading.
+Checkboxes (see Checkboxes) become ‘TODO’, respectively ‘DONE’, keywords when
+unchecked, respectively checked.
+
+* Tags :tags:example:
+
+Every headline can contain a list of tags; they occur at the end of the
+headline. Tags are normal words containing letters, numbers, ‘_’, and ‘@’.
+
+Important note: u *cannot* search tags in project, those r per-file
+
+Tags can be attached to any headline. Each headline can have multiple tags. Tags
+r inheritant (all nested headings also have their parents' tag, but it doesn't
+show)
+
+- ~SPC m q~ (org-set-tags-command) - Set the tags for the current visible entry.
+- ~SPC n m~ / ~SPC o a m~ (org-tags-view) - Show all headlines for all
+  ‘org-agenda-files’ matching tag
+- ~SPC m s a~ (org-toggle-archive-tag) - Toggle the archive tag for the current headline.
+
+~SPC m s s~ -> m - use sparse tree to show only those headings matching given tag.
+
+You can also set tags that all entries in a file should inherit just as if these
+tags were defined in a hypothetical level zero that surrounds the entire file:
+
+: #+FILETAGS: :Peter:Boss:Secret:
+
+~C-c C-x q~ - org-toggle-tags-groups (dunno what exactly it does tho 🤔)
+
+Also check [[https://orgmode.org/manual/Setting-Tags.html][fast tag selection]]
+
+* Properties and Columns
+:PROPERTIES:
+:Title:    Goldberg Variations
+:Composer: J.S. Bach
+:Artist:   Glenn Gould
+:Publisher: Deutsche Grammophon
+:NDisks:   1
+:END:
+
+- SPC m o   - org-set-property
+- SPC m c E - org-set-effort
+- C-c C-x E - org-inc-effort
+
+When on PROPERTIES drawer:
+- ~C-c C-c~ (org-property-action) - With point in a property drawer, this executes
+  property commands.
+
+You may define the allowed values for a particular property ‘Xyz’ by setting a
+property ‘Xyz_ALL’. This special property is inherited, so if you set it in a
+level 1 entry, it applies to the entire tree:
+
+: :PROPERTIES:
+: :NDisks_ALL:  1 2 3 4
+: :Publisher_ALL: "Deutsche Grammophon" Philips EMI
+: :END:
+
+Properties can be inserted on buffer level. That means they apply before the
+first headline and can be inherited by all entries in a file. Property blocks
+defined before first headline needs to be located at the top of the buffer,
+allowing only comments above.
+
+Properties can also be defined using lines like:
+
+: #+PROPERTY: NDisks_ALL 1 2 3 4
+
+* Editing
+g Q - org-fill-paragraph
+
+z n - org-tree-to-indirect-buffer
+
+*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
+- E - element
+- e - object
+- R - subtree
+- r - greater-element
+
+* Text formatting
+
+: *bold*
+: /italic/
+: +strikethrough+
+: =literal text=
+: _underlined_
+: ~code~
 
 * Attachments
 =org-attach-directory= - Customize where attachments will be downloaded. You can
@@ -195,49 +458,6 @@ inline images display)
 
 [[yt:o9Phw-cJqBQ][lo-fi beats]]
 
-
-* Lists
-
-To update type of a list or just rerender it cuz u changed anything - ~C-c C-c~
-
-~SPC m i~ - org-toggle-item
-
-- start a line with ~-~
-- C-RET / C-S-RET - new list item below / above and enter insert mode
-- ~M-RET~ - new list item and remain in normal mode
-- nested lists:
-  - ~M-h/l~ to indent nested entry
-- reorder list items with ~M-j/k~ just like with section headings
-# Noob way - S-left and S-right, normal way:
-- ~C-S-h/l~ (org-shift[direction]) - *change bullet style*
-
-** checklists [0/4] [0%]
-- [ ] M-S-RET new checkbox item
-- [ ] ~RET~ - =dwim= command - /do what i mean/, which in this case toggles state of a
-  TODO entry
-- [ ] while ~C-c C-c~ / ~spc m x~ will just check/uncheck it
-  - [ ] sub item
-- [ ] track the number of items by adding ~[/]~ or [0%] to the end of a line above
-  a checklist (and then press ~C-c C-c~) - this updates when you check items off.
-
-** definition lists
-- definition lists :: these are useful sometime
-- item 2 :: M-RET again gives another item
-
-* Tags                                                            :tags:example:
-
-Tags can be attached to any headline. Each headline can have multiple tags. Tags
-r inheritant (all nested headings also have their parents' tag, but it doesn't
-show)
-
-- SPC m q (org-set-tags-command) - Set the tags for the current visible entry.
-- SPC n m / SPC o a m (org-tags-view) - Show all headlines for all
-  ‘org-agenda-files’ matching tag
-- SPC m s a (org-toggle-archive-tag) - Toggle the archive tag for the current headline.
-
-SPC m s s -> m - use sparse tree to show only those headings matching given tag.
-
-C-c C-x q - org-toggle-tags-groups (dunno what exactly it does tho 🤔)
 
 * Clock
 :PROPERTIES:
@@ -276,14 +496,10 @@ default, show the total time for the range defined in
 org-clock-display-default-range.  With C-u prefix, show the total time for today
 instead.
 
-* WAIT Ultimate agenda guide
+* Ultimate agenda guide
 
 =org-agenda-files= - stores all your agenda files. They add up automatically when
 there is a new entry in any file.
-
-- SPC m t  org-todo *important* - display all statuses possible
-- SPC m T  org-todo-list
-- <M-S-return>    org-insert-todo-heading
 
 ~SPC X~ / ~SPC n n~ - org-capture
 
@@ -312,18 +528,12 @@ template. If TEMPLATE-KEY param is nil, the user is queried for the template.
 - v - org-search-view - Show all entries that contain a phrase or words or
   regular expressions.
 
-C-S-h/l/k/j - org-shift[direction]
-
 ~SPC m A~ (org-archive-subtree) - Move the current subtree to the archive. The
 archive can be a certain top-level heading in the current file, or in a
 different file.  The tree will be moved to that location, the subtree heading be
 marked DONE, and the current time will be added.
 
 SPC m g x       org-capture-goto-last-stored
-
-*Priority* prefix ~SPC m s p~ ↓
-- p - org-priority
-- d/u - org-priority-down/up
 
 Other kbds:
 - C-#      org-table-rotate-recalc-marks
@@ -375,7 +585,7 @@ SPC m f (org-footnote-new) - insert a footnote in current document
 C-c C-x f (org-footnote-action)
 
 * Other rarely used stuff
-** Tables
+** Tables [[https://orgmode.org/manual/Tables.html#Tables][#docs]]
 
 ~SPC m b~ prefix ↓
 - - - insert-hline
@@ -485,3 +695,6 @@ also configure Org to automatically upload your exported HTML pages and related
 attachments, such as images and source code files, to a web server.
 
 ~SPC m P~ - prefix
+* Unsorted for now
+
+- ~SPC n S~ - Jump to an Org headline in ‘org-agenda-files’.

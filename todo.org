@@ -1,4 +1,7 @@
 * Inbox
+** TODO how to copy with evil without whitespace?
+
+[[file:~/.doom.d/config.el][file:~/.doom.d/config.el]]
 ** TODO reason-mode [[https://github.com/reasonml-editor/reason-mode][#docs]]
 
 [[https://reasonml.github.io][Reason]] lets you write simple, fast and quality type safe code while leveraging
@@ -14,3 +17,6 @@ for JavaScript development
 ** TODO auto ru ispell in ru buffers
 
 make ispell automatically (somehow, prob hook?) set ru dictionary for ru buffers
+* TODO how to copy with evil without whitespace?
+
+[[file:~/.doom.d/config.el][file:~/.doom.d/config.el]]
