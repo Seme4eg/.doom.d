@@ -8,9 +8,6 @@ _Sources:_ [[http://pragmaticemacs.com/org-mode-tutorials/][pragmaticemacs]]
 - m-h/l/k/j - move line / object / anything {direction}
 - z o/c     - org/open(close)-fold
 
-~SPC m s s~ / ~C-c /~ (org-sparse-tree) - Create a sparse tree, prompt for the
-details. To get back to normal tree view - 2x =TAB=.
-
 ~SPC m ,~ (org-switchb) - Switch between Org buffers.
 # With C-u prefix, restrict available buffers to files.
 # With C-u C-u prefix, restrict available buffers to agenda files.
@@ -21,6 +18,8 @@ Other kdbs:
 - SPC m e   - org-export-dispatch
 - SPC m g i - org-id-goto
 - C-c C-x !       org-reload
+- ~SPC n S~ - Jump to an Org headline in ‘org-agenda-files’.
+- C-c C-c (when in the beg. of the .org buffer) - refresh local setup
 
 * Document Structure [[https://orgmode.org/manual/Document-Structure.html#Document-Structure][#docs]]
 ** Initial visibility
@@ -82,7 +81,10 @@ Construct sparse trees for selected information in an outline tree, so that the
 entire document is folded as much as possible, but the selected information is
 made visible along with the headline structure above it.
 
-~SPC m s s~ - propmts for an extra key to select a sparse-tree creating command.
+~SPC m s s~ / ~C-c /~ (org-sparse-tree) - Create a sparse tree, prompt for the
+details. To get back to normal tree view - 2x =TAB=.
+
+The syntax for the search string is described in [[https://orgmode.org/manual/Matching-tags-and-properties.html][Matching tags and properties]].
 
 ** Lists
 
@@ -351,7 +353,7 @@ Checklists [0/4] [0%]:
 Checkboxes (see Checkboxes) become ‘TODO’, respectively ‘DONE’, keywords when
 unchecked, respectively checked.
 
-* Tags :tags:example:
+* Tags [[https://orgmode.org/manual/Tags.html#Tags][#docs]] :tags:example:
 
 Every headline can contain a list of tags; they occur at the end of the
 headline. Tags are normal words containing letters, numbers, ‘_’, and ‘@’.
@@ -378,7 +380,7 @@ tags were defined in a hypothetical level zero that surrounds the entire file:
 
 Also check [[https://orgmode.org/manual/Setting-Tags.html][fast tag selection]]
 
-* Properties and Columns
+* Properties .. [[https://orgmode.org/manual/Properties-and-Columns.html#Properties-and-Columns][#docs]]
 :PROPERTIES:
 :Title:    Goldberg Variations
 :Composer: J.S. Bach
@@ -388,10 +390,6 @@ Also check [[https://orgmode.org/manual/Setting-Tags.html][fast tag selection]]
 :END:
 
 - SPC m o   - org-set-property
-- SPC m c E - org-set-effort
-- C-c C-x E - org-inc-effort
-
-When on PROPERTIES drawer:
 - ~C-c C-c~ (org-property-action) - With point in a property drawer, this executes
   property commands.
 
@@ -413,27 +411,206 @@ Properties can also be defined using lines like:
 
 : #+PROPERTY: NDisks_ALL 1 2 3 4
 
-* Editing
-g Q - org-fill-paragraph
+[[https://orgmode.org/manual/Special-Properties.html][Special Properties]] - provide an alternative access method to Org mode features,
+like the TODO state or the priority of an entry, discussed in the previous
+chapters. This interface exists so that you can include these states in a column
+view (see Column View), or to use them in queries.
 
-z n - org-tree-to-indirect-buffer
+~C-c / p~ - Create a sparse tree based on the value of a property. If you enclose
+the value in curly braces, it is interpreted as a regular expression and matched
+against the property values.
 
-*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
-- E - element
-- e - object
-- R - subtree
-- r - greater-element
+_Property Inheritance_:
 
-* Text formatting
+Org mode has a few properties for which inheritance is hard-coded:
+- COLUMNS
+- CATEGORY
+- ARCHIVE
+- LOGGING
 
-: *bold*
-: /italic/
-: +strikethrough+
-: =literal text=
-: _underlined_
-: ~code~
+* .. and Columns [[https://orgmode.org/manual/Column-View.html#Column-View][#docs]]
+:PROPERTIES:
+:COLUMNS:  %25ITEM %TAGS %PRIORITY %TODO
+:END:
 
-* Attachments
+Properties can be conveniently edited and viewed in column view.
+
+Setting up a column view first requires defining the columns. This is done by
+defining a column format line.
+
+To specify a format that only applies to a specific tree, add a ‘COLUMNS’
+property to the top node of that tree.
+
+A ‘COLUMNS’ property within a property drawer before first headline will apply
+to the entire file. As an addition to property drawers, keywords can also be
+defined for an entire file using a line like:
+
+: #+COLUMNS: %25ITEM %TAGS %PRIORITY %TODO
+
+[[https://orgmode.org/manual/Column-attributes.html][Column attributes]]
+
+_Using column view:_
+
+- C-c C-x C-c (org-columns) - Turn on column view.
+- ~r~ / ~g~ on a columns view line (org-columns-redo) - Recreate the column view, to
+  include recent changes made in the buffer.
+- ~C-c C-c~ or ~q~ on a columns view line (org-columns-quit) - Exit column view.
+
+_Editing values_:
+
+Use evil keys to move through the column view from field to field.
+
+- 1..9,0 - Directly select the Nth allowed value, 0 selects the 10th value.
+- n/p - Switch to the next/previous allowed value of the field.
+- e - Edit the property at point.
+- v - View the full value of this property.
+- a (org-columns-edit-allowed) - Edit the list of allowed values for this
+property.
+
+_Modifying column view on-the-fly_:
+
+- </> (org-columns-narrow/widen) Make the column narrower/wider by one character.
+- S-M-RIGHT/LEFT (org-columns-new/delete) - Insert a new column, to the left of
+  the current column / Delete the current column.
+
+* Dates and Times
+** Creating Timestamps
+
+[2021-11-09 Вт] - Inactive timestamp. Just like a plain timestamp, but with
+square brackets instead of angular ones. These timestamps are inactive in the
+sense that they do not trigger an entry to show up in the agenda.
+
+- SPC m d t / C-c . (org-time-stamp)    - Prompt for a date/time and insert a ti...
+- SPC m d T (org-time-stamp-inactive)   - Insert an inactive time stamp.
+- SPC m c -/= (org-clock-timestamps-down/up) - In[de]crease CLOCK timestamps at
+  cursor. On the beginning or enclosing bracket of a timestamp, change its type.
+  Within a timestamp, change the item under point.
+- C-c . (org-time-stamp)                - Prompt for a date/time and insert a ti...
+- C-c C-c - Normalize timestamp, insert or fix day name if missing or wrong.
+- C-c < (org-date-from-calendar) - Insert a timestamp corresponding to point
+  date in the calendar.
+- C-c > (org-goto-calendar) Access the Emacs calendar for the current date. If
+  there is a timestamp in the current line, go to the corresponding date
+  instead.
+
+~C-c C-x C-t~ (org-toggle-time-stamp-overlays) - Toggle the use of custom time
+stamp fo...
+** Deadline and Scheduling
+DEADLINE: <2021-12-09 Чт>
+SCHEDULED: <2004-12-25 Sat>
+
+Warning period of 5 days example: ‘DEADLINE: <2004-02-29 Sun -5d>’
+
+SCHEDULED - Meaning: you are planning to start working on that task on the given
+date.
+
+** Clocking commands
+:PROPERTIES:
+:Effort:   0:30
+:END:
+:LOGBOOK:
+CLOCK: [2021-12-07 Вт 01:50]--[2021-11-07 Вс 01:54] => -719:56
+CLOCK: [2021-11-07 Вс 01:49]--[2021-11-07 Вс 01:50] =>  0:01
+CLOCK: [2021-11-07 Вс 01:48]--[2021-11-07 Вс 01:49] =>  0:01
+:END:
+
+~SPC m c~ prefix:
+- i (org-clock-in) - *start* the clock onthe current item
+- o (org-clock-out) - *stop* the currently running clock.
+- I (org-clock-in-last) - *re-clock* in the last closed clocked item.
+- c / spc n C (org-clock-cancel) - *cancel* the running clock.
+- g / SPC n o (org-clock-goto) - *go to* the current clock, or to the most recent.
+- l / SPC n c (+org/toggle-last-clock) - *toggle last* clocked item.
+- r (org-resolve-clocks) - *resolve all* currently open Org clocks.
+
+Don't see much usage:
+- d - org-clock-mark-default-task
+- =/- - Increase / decrease CLOCK timestamps at cursor.
+
+C-c C-x C-d (org-clock-display) - Display time summaries for each subtree in the
+current buffer. This puts overlays at the end of each headline, showing the
+total time recorded under that heading, including the time of any subheadings.
+
+[[https://orgmode.org/manual/The-clock-table.html][The clock table]]: SPC m c R (org-clock-report) - insert / update clock table.
+
+[[https://orgmode.org/manual/Effort-Estimates.html][Effort Estimates]]:
+- SPC m c e - update effort estimate for cur. clock
+- SPC m c E - org-set-effort
+- C-c C-x E - org-inc-effort
+
+** Relative / Countdown Timer
+
+Once started, relative and countdown timers are controlled with the same
+commands.
+
+~C-c C-x~ prefix ↓
+- 0 - org-timer-start - Start or reset the relative timer
+- ; - org-timer-set-timer - Start a countdown timer
+- . - org-timer - Insert a relative time into the buffer. The first time you use
+  this, the timer starts. Using a prefix argument restarts it.
+- , - org-timer-pause-or-continue
+- - org-timer-item - Insert a description list item with the current relative
+  time. With a prefix argument, first reset the timer to 0.
+- _ - org-timer-stop
+
+M-RET (org-insert-heading) - Once the timer list is started, this command will
+insert new timer items.
+
+* Refile and copy [[https://orgmode.org/manual/Refile-and-Copy.html][#docs]]
+When reviewing the captured data, you may want to refile or to copy some of the
+entries into a different list, for example into a project. Cutting, finding the
+right location, and then pasting the note is cumbersome. To simplify this
+process, you can use =refile=.
+
+SPC m r/s r (org-refile) - Move the entry or entries at point to another hea...
+
+Refile current heading (~SPC m r~ prefix) .. :
+- v (+org/refile-to-visible)       - .. as first child of visible heading
+- O (+org/refile-to-other-buffer)
+- o (+org/refile-to-other-window)
+- f (+org/refile-to-file)          - .. to a particular org file.
+- l (+org/refile-to-last-location) - .. to the last node you refiled
+- c (+org/refile-to-running-clock)
+- . (+org/refile-to-current-file)
+
+~SPC m g r~ (org-refile-goto-last-stored) - Jump to the location where org-refile
+last moved a tree to.
+
+C-c M-w (org-refile-copy) Copying works like refiling, except that the original
+note is not deleted.
+
+* Archiving
+
+When a project represented by a (sub)tree is finished, you may want to move the
+tree out of the way and to stop it from contributing to the agenda. Archiving is
+important to keep your working files compact and global searches like the
+construction of agenda views fast.
+
+~SPC m A~ (org-archive-subtree) - Move the current subtree to the archive. The
+archive can be a certain top-level heading in the current file, or in a
+different file.  The tree will be moved to that location, the subtree heading be
+marked DONE, and the current time will be added.
+
+_Internal archiving_:
+
+~SPC m s a~ (org-toggle-archive-tag) - Toggle the archive tag for the current
+headline.
+* Capture and Attachments
+
+** Capture
+~SPC X~ / ~SPC n n~ (org-capture) - Display the capture templates menu.
+
+~SPC n N~ (org-capture-goto-target) - Go to the target location of a capture
+template. If TEMPLATE-KEY param is nil, the user is queried for the template.
+
+~SPC m g x~ (org-capture-goto-last-stored)
+
+# check
+# Edited ~org-capture-templates~ so all new tasks will be today's date by
+# default.
+# ~Shift + arrows~ - edit date
+
+** Attachments
 =org-attach-directory= - Customize where attachments will be downloaded. You can
 set this value per-file with =# -*- org-attach-directory: "~/some/path/"; -*-=
 
@@ -459,52 +636,30 @@ inline images display)
 [[yt:o9Phw-cJqBQ][lo-fi beats]]
 
 
-* Clock
-:PROPERTIES:
-:Effort:   0:30
-:END:
-:LOGBOOK:
-CLOCK: [2021-11-07 Вс 01:50]--[2021-11-07 Вс 01:54] =>  0:04
-CLOCK: [2021-11-07 Вс 01:49]--[2021-11-07 Вс 01:50] =>  0:01
-CLOCK: [2021-11-07 Вс 01:48]--[2021-11-07 Вс 01:49] =>  0:01
-:END:
+* Editing
+g Q - org-fill-paragraph
 
-- SPC n o  org-clock-goto
-- SPC n c  +org/toggle-last-clock
-- SPC n C  org-clock-cancel
+z n - org-tree-to-indirect-buffer
 
-~SPC m c~ prefix:
-- i - org-clock-in - start the clock onthe current item
-- o - org-clock-out - stop the currently running clock.
-- g - org-clock-goto - go to the currently clocked-in entry, or to the most
-  recently clocked one
-- l - +org/toggle-last-clock - toggle last clocked item.
-- I - org-clock-in-last - clock in the last closed clocked item.
-- c - org-clock-cancel - cancel the running clock by removing the start
-  timestamp.
-- r - org-resolve-clocks - resolve all currently open Org clocks.
-- R - org-clock-report - update or create a table containing a report about
+*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
+- E - element
+- e - object
+- R - subtree
+- r - greater-element
 
-Don't see much usage:
-- e - org-clock-modify-effort-estimate
-  clocked time.
-- d - org-clock-mark-default-task
-- =/- - Increase / decrease CLOCK timestamps at cursor.
+* Text formatting
 
-C-c C-x C-d (org-clock-display) - Show subtree times in the entire buffer. By
-default, show the total time for the range defined in
-org-clock-display-default-range.  With C-u prefix, show the total time for today
-instead.
+: *bold*
+: /italic/
+: +strikethrough+
+: =literal text=
+: _underlined_
+: ~code~
 
 * Ultimate agenda guide
 
 =org-agenda-files= - stores all your agenda files. They add up automatically when
 there is a new entry in any file.
-
-~SPC X~ / ~SPC n n~ - org-capture
-
-~SPC n N~ - org-capture-goto-target -- Go to the target location of a capture
-template. If TEMPLATE-KEY param is nil, the user is queried for the template.
 
 *Main org-agenda prefix* - ~SPC o a~ ↓
 - a - org-agenda (/also/  ~SPC o A~ / ~SPC n a~)
@@ -528,22 +683,10 @@ template. If TEMPLATE-KEY param is nil, the user is queried for the template.
 - v - org-search-view - Show all entries that contain a phrase or words or
   regular expressions.
 
-~SPC m A~ (org-archive-subtree) - Move the current subtree to the archive. The
-archive can be a certain top-level heading in the current file, or in a
-different file.  The tree will be moved to that location, the subtree heading be
-marked DONE, and the current time will be added.
-
-SPC m g x       org-capture-goto-last-stored
-
 Other kbds:
 - C-#      org-table-rotate-recalc-marks
 - C-'      org-cycle-agenda-files
 - C-c C-x < / >       org-agenda-set(remove)-restriction-lock
-
-# check
-# Edited ~org-capture-templates~ so all new tasks will be today's date by
-# default.
-# ~Shift + arrows~ - edit date
 
 * Journal
 
@@ -556,29 +699,6 @@ While in a journal file - ~spc n j j~ again to make another entry right away.
 
 Additional: [[https://github.com/bastibe/org-journal#basic-usage][usage with calendar]]
 
-
-* Refiling | [[https://orgmode.org/manual/Refile-and-Copy.html][docs]]
-When reviewing the captured data, you may want to refile or to copy some of the
-entries into a different list, for example into a project. Cutting, finding the
-right location, and then pasting the note is cumbersome. To simplify this
-process, you can use =refile=.
-
-SPC m r/s r (org-refile) - Move the entry or entries at point to another hea...
-
-Refile current heading (~SPC m r~ prefix) .. :
-- v (+org/refile-to-visible) -       .. as first child of visible heading
-- O (+org/refile-to-other-buffer)
-- o (+org/refile-to-other-window)
-- f (+org/refile-to-file) -          .. to a particular org file.
-- l (+org/refile-to-last-location) - .. to the last node you refiled
-- c (+org/refile-to-running-clock)
-- . (+org/refile-to-current-file)
-
-SPC m g r (org-refile-goto-last-stored) - Go to the location where the last
-refile was stored.
-
-C-c C-M-w (org-refile-reverse) Refile while temporarily toggling ‘org-reverse-no...
-C-c M-w (org-refile-copy) Like ‘org-refile’, but preserve the refiled subtree.
 
 * Footnotes
 SPC m f (org-footnote-new) - insert a footnote in current document
@@ -678,15 +798,6 @@ Examples:
 - ~l o~ - export to latex and compile it to produce a pdf and open it
 
 Also check how to tweak the look of exported file [[http://pragmaticemacs.com/emacs/org-mode-basics-v-exporting-your-notes/][here]]
-** Timer
-~C-c C-x~ prefix ↓
-- . - org-timer
-- 0 - org-timer-start
-- , - org-timer-pause-or-continue
-- ; - org-timer-set-timer
-- - org-timer-item
-- _ - org-timer-stop
-
 ** Org publishing [[https://orgmode.org/manual/Publishing.html#Publishing][#docs]]
 
 Org includes a publishing management system that allows you to configure
@@ -696,5 +807,3 @@ attachments, such as images and source code files, to a web server.
 
 ~SPC m P~ - prefix
 * Unsorted for now
-
-- ~SPC n S~ - Jump to an Org headline in ‘org-agenda-files’.
