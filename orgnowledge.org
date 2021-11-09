@@ -270,10 +270,10 @@ Elisp link (any elisp code or available emacs command):
 
 * /TODO Items [[https://orgmode.org/manual/TODO-Items.html#TODO-Items][#docs]]
 ** Basic TODO functionality
-- SPC m t  org-todo *important* - display all statuses possible
+- SPC m t (org-todo)                 - display all statuses possible
 - ~C-S-h/l/k/j~ (org-shift[direction]) - *change heading status / priority*
-- SPC m T / SPC n t - org-todo-list - show the global TODO list
-- <M-S-return>    org-insert-todo-heading
+- SPC m T / SPC n t (org-todo-list)  - show the global TODO list
+- <M-S-return> (org-insert-todo-heading)
 
 ** /TODO Extensions
 Setting up keywords for individual files:

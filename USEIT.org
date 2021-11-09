@@ -1,4 +1,4 @@
-any vertico completion -> ~C-; L~ = embark-collect-life (capturing any commands
+any vertico completion -> ~C-; L/S~ = embark-collect-life (capturing any commands
 completion!). Copy contents of any popup buffer.
 
 ~C-S-f~ / ~spc t F~ - #'toggle-frame-fullscreen
@@ -57,10 +57,10 @@ spc s - *search*:
 - "Look up online (w/ prompt)"   "O" #'+lookup/online-select
 - "Search buffer for thing at point" "S"
 
-spc w - *windows*:
+spc w - *windows* (use ~spc w~ instead of ~C-c w~):
 - "S"       #'+evil/window-split-and-follow
 - "V"       #'+evil/window-vsplit-and-follow
-- "C-C"     #'ace-delete-window
+- "C-c"     #'ace-delete-window
 
 spc t - *toggle*:
 - "Fill Column Indicator"        "c" #'global-display-fill-column-indicator-mode

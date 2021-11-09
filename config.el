@@ -3,38 +3,27 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+(setq
+  ;; Some functionality uses this to identify you,
+  ;; e.g. GPG configuration, email clients, file templates and snippets.
+  user-full-name "sad"
+  user-mail-address "418@duck.com"
 
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
-(setq user-full-name "sad"
-      user-mail-address "somespammail@bk.ru")
+  doom-theme 'doom-opera
+  org-directory "~/org/"
+  ;; Line numbers are pretty slow all around. The performance boost of
+  ;; disabling them outweighs the utility of always keeping them on.
+  ;;    (c) hlissner
+  display-line-numbers-type nil
+  doom-font (font-spec :family "Source Code Pro" :size 16)
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
+  ;; IMO, modern editors have trained a bad habit into us all: a burning need for
+  ;; completion all the time -- as we type, as we breathe, as we pray to the
+  ;; ancient ones -- but how often do you *really* need that information? I say
+  ;; rarely. So opt for manual completion
+  ;;    (c) hlissner
+  company-idle-delay nil
+  )
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -45,17 +34,62 @@
 ;;   this file. Emacs searches the `load-path' when you load packages with
 ;;   `require' or `use-package'.
 ;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
 
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-(setq doom-font (font-spec :family "Source Code Pro" :size 16))
+;; Disable invasive lsp-mode features
+(setq
+  ;; lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
+  lsp-ui-doc-enable nil        ; slow and redundant with K
+  ;; lsp-enable-symbol-highlighting nil
+  )
+
+;; Modules
+
+;; :editor evil
+;; Focus new window after splitting
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+
+;;; :tools magit
+(setq
+  ;; magit-save-repository-buffers nil
+  ;; Don't restore the wconf after quitting magit, it's jarring
+  magit-inhibit-save-previous-winconf t
+  transient-values '((magit-rebase "--autosquash" "--autostash")
+                      (magit-pull "--rebase" "--autostash"))
+  )
+
+;; :ui doom-dashboard
+;; (setq fancy-splash-image (concat doom-private-dir "splash.png"))
+;; Hide the menu for as minimalistic a startup screen as possible.
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+
+;; :app everywhere FIXME: throws error when first loading
+(after! emacs-everywhere
+  ;; Easier to match with a bspwm rule:
+  ;;   bspc rule -a 'Emacs:emacs-everywhere' state=floating sticky=on
+  (setq emacs-everywhere-frame-name-format "emacs-anywhere")
+
+  ;; The modeline is not useful to me in the popup window. It looks much nicer
+  ;; to hide it.
+  (remove-hook 'emacs-everywhere-init-hooks #'hide-mode-line-mode)
+
+  ;; Semi-center it over the target window, rather than at the cursor position
+  ;; (which could be anywhere).
+  (defadvice! center-emacs-everywhere-in-origin-window (frame window-info)
+    :override #'emacs-everywhere-set-frame-position
+    (cl-destructuring-bind (x y width height)
+        (emacs-everywhere-window-geometry window-info)
+      (set-frame-position frame
+                          (+ x (/ width 2) (- (/ width 2)))
+                          (+ y (/ height 2))))))
+
+;; TODO: how to redefine it without last function? so i don't see link for github
+;; (setq +doom-dashboard-functions
+;;       (doom-dashboard-widget-banner
+;;        doom-dashboard-widget-loaded)
+;;       )
 
 ;; colors for treemacs icons
 (after! treemacs
@@ -71,6 +105,9 @@
 (setq better-jumper-context 'buffer) ;; for now
 
 (map! :leader "gv" 'git-gutter:popup-hunk)
+
+;; TODO: wrap a func below eith defadvice so it insets '~' before and after
+(map! :leader "ik" 'edmacro-insert-key)
 
 ;; environment --> major
 (global-subword-mode)
@@ -97,10 +134,6 @@
 ;; The service used by default is Libravatar.
 (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
 
-(setq
- doom-theme 'doom-opera
- )
-
 ;; pkgs
 (setq projectile-project-search-path '("~/git/"))
 
@@ -122,7 +155,7 @@
 (setq
   org-journal-date-prefix "#+TITLE: "
   org-journal-time-prefix "* "
-  org-journal-date-format "%a, %Y-%a-%d"
+  org-journal-date-format "%a, %d-%m-%Y"
   org-journal-file-format "%Y-%m-%d.org")
 
 (after! org
@@ -195,3 +228,8 @@
 (after! js2-mode
   (add-hook 'js2-mode-hook #'jest-minor-mode)
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
+
+;; UI
+
+;; Prevents some cases of Emacs flickering
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
