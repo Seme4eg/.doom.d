@@ -392,6 +392,8 @@ Also check [[https://orgmode.org/manual/Setting-Tags.html][fast tag selection]]
 - SPC m o   - org-set-property
 - ~C-c C-c~ (org-property-action) - With point in a property drawer, this executes
   property commands.
+  - ~c~ (org-compute-property-at-point) Compute the property at point, using
+    the operator and scope from the nearest column format definition.
 
 You may define the allowed values for a particular property ‘Xyz’ by setting a
 property ‘Xyz_ALL’. This special property is inherited, so if you set it in a
@@ -494,7 +496,8 @@ sense that they do not trigger an entry to show up in the agenda.
   instead.
 
 ~C-c C-x C-t~ (org-toggle-time-stamp-overlays) - Toggle the use of custom time
-stamp fo...
+stamp formats.
+
 ** Deadline and Scheduling
 DEADLINE: <2021-12-09 Чт>
 SCHEDULED: <2004-12-25 Sat>
@@ -596,7 +599,6 @@ _Internal archiving_:
 ~SPC m s a~ (org-toggle-archive-tag) - Toggle the archive tag for the current
 headline.
 * Capture and Attachments
-
 ** Capture
 ~SPC X~ / ~SPC n n~ (org-capture) - Display the capture templates menu.
 
@@ -610,12 +612,13 @@ template. If TEMPLATE-KEY param is nil, the user is queried for the template.
 # default.
 # ~Shift + arrows~ - edit date
 
+[[https://orgmode.org/manual/Capture-templates.html][Capture templates]] - what i've done in my config.el file.
+
 ** Attachments
 =org-attach-directory= - Customize where attachments will be downloaded. You can
 set this value per-file with =# -*- org-attach-directory: "~/some/path/"; -*-=
 
 Prefix ~SPC m a~ ↓
-
 - l - +org/attach-file-and-insert-link
 - D - org-attach-delete-all
 - O - org-attach-open-in-emacs
