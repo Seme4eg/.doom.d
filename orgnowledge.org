@@ -141,44 +141,6 @@ You can also get all blocks folded at startup by configuring the variable org-hi
 
 : #+STARTUP: (no)hideblocks
 
-_Formatted blocks of text_ (expand with ~tab~ and edit with ~SPC m '~ / ~C-c '~):
-- ~<e~ - /example/ block into which you can type text that you don't want org to
-  mess with like a [[link]]
-- ~<q~ - /quotation/
-- ~<c~ - /centred/ text (only after it is exported tho 🙁)
-
-*** Executing source code blocks
-Org-mode can execute your source code blocks and add the output to
-your file. This part of org-mode is called babel
-
-#+BEGIN_SRC sh
-  echo "Hello $USER! Today is `date`"
-  exit
-#+END_SRC
-
-> text below is executed via ~C-c C-c~, while cursor on block above
-
-#+RESULTS:
-: Hello sad! Today is Пт авг 16 15:00:47 MSK 2019
-
-*** Source code blocks
-
-After 'python' keyword on line below you can write the output of the
-code to a var and use it in next code-block
-#+NAME: pythonic-numbers
-#+BEGIN_SRC python :results list
-  import random
-  return [random.randrange(1, 20)
-          for i in range( random.randrange(1, 20))]
-#+END_SRC
-
-after u execute this (~C-c C-c~) the output will appear below and
-'pythonic-numbers' will contain value
-
-#+BEGIN_SRC emacs-lisp :var numbers=pythonic-numbers
-  (length numbers)
-#+END_SRC
-
 * Hyperlinks [[https://orgmode.org/manual/Hyperlinks.html#Hyperlinks][#docs]]
 
 Open links just with ~RET~
@@ -195,10 +157,6 @@ Open links just with ~RET~
 - s org-store-link
 - d +org/remove-link (at point)
 - t *org-toggle-link-display*
-
-[[http://pragmaticemacs.com/emacs/org-mode-basics-iii-add-links-and-images-to-you-notes/][how to paste local img/gifs into document]]
-
-z i      org-toggle-inline-images
 
 ~spc n l~ (org-store-link) - store link (If the headline has a ‘CUSTOM_ID’
 property, store a link to this custom ID) to be able to choose it later from the
@@ -582,7 +540,7 @@ last moved a tree to.
 C-c M-w (org-refile-copy) Copying works like refiling, except that the original
 note is not deleted.
 
-* Archiving
+* Archiving [[https://orgmode.org/manual/Archiving.html#Archiving][#docs]]
 
 When a project represented by a (sub)tree is finished, you may want to move the
 tree out of the way and to stop it from contributing to the agenda. Archiving is
@@ -599,7 +557,7 @@ _Internal archiving_:
 ~SPC m s a~ (org-toggle-archive-tag) - Toggle the archive tag for the current
 headline.
 * Capture and Attachments
-** Capture
+** Capture [[https://orgmode.org/manual/Capture.html#Capture][#docs]]
 ~SPC X~ / ~SPC n n~ (org-capture) - Display the capture templates menu.
 
 ~SPC n N~ (org-capture-goto-target) - Go to the target location of a capture
@@ -614,52 +572,55 @@ template. If TEMPLATE-KEY param is nil, the user is queried for the template.
 
 [[https://orgmode.org/manual/Capture-templates.html][Capture templates]] - what i've done in my config.el file.
 
-** Attachments
+** Attachments [[https://orgmode.org/manual/Attachments.html#Attachments][#docs]]
 =org-attach-directory= - Customize where attachments will be downloaded. You can
 set this value per-file with =# -*- org-attach-directory: "~/some/path/"; -*-=
 
 Prefix ~SPC m a~ ↓
-- l - +org/attach-file-and-insert-link
-- D - org-attach-delete-all
-- O - org-attach-open-in-emacs
-- n - org-attach-new
-- R - org-attach-reveal-in-emacs
-- o - org-attach-open
-- S - org-attach-sync
-- r - org-attach-reveal
-- a - org-attach
-- s - org-attach-set-directory
+- a - org-attach - select a file and move it into the task's attachment dir.
+- n - org-attach-new - new attachment as an Emacs buffer
+- S - org-attach-sync - Synchronize the current task with its attachment
+  directory, in case you added attachments yourself.
+- o - org-attach-open - Open current task’s attachment
+- O - org-attach-open-in-emacs - same as above, but force opening in Emacs.
+- r - org-attach-reveal - Open the current task’s attachment directory.
+- R - org-attach-reveal-in-emacs - same, but force using Dired in Emacs.
 - d - org-attach-delete-one
+- D - org-attach-delete-all
+- s - org-attach-set-directory - Set a specific directory as the entry’s
+  attachment directory
+- l - +org/attach-file-and-insert-link
 - u - org-attach-url
 - f - +org/find-file-in-attachments
 
-*org-yt* - youtube links (with imgs) in org mode; example below (~zi~ to toggle
-inline images display)
+Not bound to <leader> system (~C-c C-a~ prefix):
+- b (org-attach-buffer) - select a buffer and save it as a file in the task's
+  attachment directory.
 
-[[yt:o9Phw-cJqBQ][lo-fi beats]]
+_Automatic version-control with Git_:
 
+If the directory attached to an outline node is a Git repository, Org can be
+configured to automatically commit changes to that repository when it sees them:
 
-* Editing
-g Q - org-fill-paragraph
+=(require 'org-attach-git)=
 
-z n - org-tree-to-indirect-buffer
+* Agenda views [[https://orgmode.org/manual/Agenda-Views.html#Agenda-Views][#docs]]
 
-*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
-- E - element
-- e - object
-- R - subtree
-- r - greater-element
+Org can select items based on various criteria and display them in a separate buffer. Six different view types are provided:
 
-* Text formatting
++ an /agenda/ that is like a calendar and shows information for specific dates,
++ a /TODO list/ that covers all unfinished action items,
++ a /match view/, showings headlines based on the tags, properties, and TODO state
+  associated with them,
++ a /text search/ view that shows all entries from multiple files that contain
+  specified keywords,
++ a /stuck projects/ view showing projects that currently do not move along, and
++ /custom views/ that are special searches and combinations of different views.
 
-: *bold*
-: /italic/
-: +strikethrough+
-: =literal text=
-: _underlined_
-: ~code~
+Two variables control how the agenda buffer is displayed and whether the window
+configuration is restored when the agenda exits: org-agenda-window-setup and
+org-agenda-restore-windows-after-quit.
 
-* Ultimate agenda guide
 
 =org-agenda-files= - stores all your agenda files. They add up automatically when
 there is a new entry in any file.
@@ -691,6 +652,193 @@ Other kbds:
 - C-'      org-cycle-agenda-files
 - C-c C-x < / >       org-agenda-set(remove)-restriction-lock
 
+
+* Markup for Rich Contents [[https://orgmode.org/manual/Markup-for-Rich-Contents.html#Markup-for-Rich-Contents][#docs]]
+** Paragraphs
+Paragraphs are separated by at least one empty line. If you need to enforce a
+line break within a paragraph, use ‘\\’ at the end of a line.
+
+#+begin_verse
+To preserve the line breaks,
+indentation and blank lines in a region,
+but otherwise use normal formatting,
+you can use this construct,
+which can also be used to format poetry.
+
+      --- lines from documentation
+#+end_verse
+
+#+begin_quote
+When quoting a passage from another document, it is customary to format this as
+a paragraph that is indented on both the left and the right margin --- docs
+#+end_quote
+
+~<c~ - /centred/ text (only after it is exported tho 🙁):
+
+#+BEGIN_CENTER
+Everything should be made as simple as possible, \\
+but not any simpler
+#+END_CENTER
+
+** Emphasis and Monospace
+: *bold*
+: /italic/
+: _underlined_
+: =verbatim= (literal text)
+: ~code~
+: +strikethrough+ (if you must ..)
+
+Text in the code and verbatim string is not processed for Org specific syntax;
+it is exported verbatim.
+** Subscripts and Superscripts
+‘^’ and ‘_’ are used to indicate super- and subscripts. To increase the
+readability of ASCII text, it is not necessary, but OK, to surround
+multi-character sub- and superscripts with curly braces. For example:
+
+The radius of the sun is R_sun = 6.96 x 10^{8} m.  On the other hand,
+the radius of Alpha Centauri is R_{Alpha Centauri} = 1.28 x R_{sun}.
+
+You can also toggle the visual display of super- and subscripts:
+
+~C-c C-x \~ (org-toggle-pretty-entities) - format sub- and superscripts in a
+WYSIWYM way.
+
+** Special Symbols
+You can use LaTeX-like syntax to insert special symbols—named entities—like ‘\alpha’
+to indicate the Greek letter, or ‘\to’ to indicate an arrow. Completion for these
+symbols is available, just type ‘\’ and your completion keystroke.
+
+A large number of entities is provided, with names taken from both HTML and
+LaTeX; you can comfortably browse the complete list from a dedicated buffer
+using the command org-entities-help. It is also possible to provide your own
+special symbols in the variable org-entities-user.
+
+During export, these symbols are transformed into the native format of the
+exporter back-end. Strings like ‘\alpha’ are exported as ‘&alpha;’ in the HTML
+output, and as ‘\(\alpha\)’ in the LaTeX output. Similarly, ‘\nbsp’ becomes ‘&nbsp;’
+in HTML and ‘~’ in LaTeX.
+
+In addition to regular entities defined above, Org exports in a special way109
+the following commonly used character combinations: ‘\-’ is treated as a shy
+hyphen, ‘--’ and ‘---’ are converted into dashes, and ‘...’ becomes a compact
+set of dots.
+** Literal Exmaples
+#+begin_example
+You can include literal examples that should not be subjected to markup.
+Such examples are typeset in monospace, so this is well suited for source
+code and similar examples.
+
+,* I am no real headline
+#+end_example
+
+However, you must insert a comma right before lines starting with either ‘*’,
+‘,*’, ‘#+’ or ‘,#+’, as those may be interpreted as outlines nodes or some other
+special syntax. Org transparently strips these additional commas whenever it
+accesses the contents of the block ↑
+
+For simplicity when using small examples, you can also start the example lines
+with a colon followed by a space.
+      : There may also be additional whitespace before the colon
+
+Both in ‘example’ and in ‘src’ snippets, you can add a ‘-n’ switch to the end of
+the ‘#+BEGIN’ line, to get the lines of the example numbered. The ‘-n’ takes an
+optional numeric argument specifying the starting line number of the block. If
+you use a ‘+n’ switch, the numbering from the previous numbered snippet is
+continued in the current one. The ‘+n’ switch can also take a numeric argument.
+This adds the value of the argument to the last line of the previous block to
+determine the starting line number.
+
+#+BEGIN_SRC emacs-lisp -n 20
+  ;; This exports with line number 20.
+  (message "This is line 21")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp +n 10
+  ;; This is listed as line 31.
+  (message "This is line 32")
+#+END_SRC
+
+In literal examples, Org interprets strings like ‘(ref:name)’ as labels, and use
+them as targets for special hyperlinks like ‘[[(name)]]’—i.e., the reference name
+enclosed in single parenthesis. In HTML, hovering the mouse over such a link
+remote-highlights the corresponding code line, which is kind of cool.
+
+You can also add a ‘-r’ switch which removes the labels from the source code116.
+With the ‘-n’ switch, links to these references are labeled by the line numbers
+from the code listing. Otherwise links use the labels with no parentheses. Here
+is an example:
+
+#+BEGIN_SRC emacs-lisp -n -r
+  (save-excursion                 (ref:sc)
+     (goto-char (point-min))      (ref:jump)
+#+END_SRC
+In line [[(sc)]] we remember the current position. [[(jump)][Line (jump)]]
+jumps to point-min.
+
+_Formatted blocks of text_ (expand with ~tab~ and edit with ~SPC m '~ / ~C-c '~):
+
+** Images
+[[http://pragmaticemacs.com/emacs/org-mode-basics-iii-add-links-and-images-to-you-notes/][how to paste local img/gifs into document]]
+
+An image is a link to an image file118 that does not have a description part.
+If you wish to define a caption for the image (see Captions) and maybe a label
+for internal cross references (see Internal Links), make sure that the link is
+on a line by itself and precede it with ‘CAPTION’ and ‘NAME’ keywords as
+follows:
+
+#+CAPTION: This is the caption for the next figure link (or table)
+#+NAME:   fig:SED-HR4049
+[[~/Pictures/xXfymMYfBFM.jpg]]
+
+~z i~ - org-toggle-inline-images
+
+*org-yt* - youtube links (with imgs) in org mode:
+
+[[yt:o9Phw-cJqBQ][lo-fi beats]]
+
+** Captions
+
+You can assign a caption to a specific part of a document by inserting a
+‘CAPTION’ keyword immediately before it:
+
+#+CAPTION: This is the caption for the next table (or link)
+| ... | ... |
+|-----+-----|
+
+Optionally, the caption can take the form:
+
+#+CAPTION[Short caption]: Longer caption.
+
+Even though images and tables are prominent examples of captioned structures,
+the same caption mechanism can apply to many others—e.g., LaTeX equations,
+source code blocks. Depending on the export back-end, those may or may not be
+handled.
+** Horizonatal Rules
+
+A line consisting of only dashes, and at least 5 of them, is exported as a
+horizontal line:
+
+-----
+
+** Footnotes [[https://orgmode.org/manual/Creating-Footnotes.html][#docs]]
+SPC m f (org-footnote-new) - insert a footnote in current document
+C-c C-x f (org-footnote-action)
+
+** Other
+
+[[https://orgmode.org/manual/Embedded-LaTeX.html][Embedded LaTeX]]
+
+g Q - org-fill-paragraph
+
+z n - org-tree-to-indirect-buffer
+
+*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
+- E - element
+- e - object
+- R - subtree
+- r - greater-element
+
+
 * Journal
 
 ~SPC n j~ prefix ↓
@@ -702,10 +850,6 @@ While in a journal file - ~spc n j j~ again to make another entry right away.
 
 Additional: [[https://github.com/bastibe/org-journal#basic-usage][usage with calendar]]
 
-
-* Footnotes
-SPC m f (org-footnote-new) - insert a footnote in current document
-C-c C-x f (org-footnote-action)
 
 * Other rarely used stuff
 ** Tables [[https://orgmode.org/manual/Tables.html#Tables][#docs]]
@@ -789,7 +933,7 @@ I - view-src-block-info
 TAB - view-src-block-info
 C-a - sha1-hash
 
-** Exporting .org file
+** Exporting .org file [[https://orgmode.org/manual/Exporting.html#Exporting][#docs]]
 
 _org-clipboard_ - exports buffer / selected text to clipboard, ~spc n y/Y~ (look up
 the commands to see docs)
@@ -810,3 +954,34 @@ attachments, such as images and source code files, to a web server.
 
 ~SPC m P~ - prefix
 * Unsorted for now
+*** Executing source code blocks
+Org-mode can execute your source code blocks and add the output to
+your file. This part of org-mode is called babel
+
+#+BEGIN_SRC sh
+  echo "Hello $USER! Today is `date`"
+  exit
+#+END_SRC
+
+> text below is executed via ~C-c C-c~, while cursor on block above
+
+#+RESULTS:
+: Hello sad! Today is Пт авг 16 15:00:47 MSK 2019
+
+*** Source code blocks
+
+After 'python' keyword on line below you can write the output of the
+code to a var and use it in next code-block
+#+NAME: pythonic-numbers
+#+BEGIN_SRC python :results list
+  import random
+  return [random.randrange(1, 20)
+          for i in range( random.randrange(1, 20))]
+#+END_SRC
+
+after u execute this (~C-c C-c~) the output will appear below and
+'pythonic-numbers' will contain value
+
+#+BEGIN_SRC emacs-lisp :var numbers=pythonic-numbers
+  (length numbers)
+#+END_SRC
