@@ -10,7 +10,6 @@
 ;(package! some-package)
 
 (package! jest)
-(package! nov)
 ;; color-identifiers-mode (hook it in prog-mode)
 
 ;; To install a package directly from a remote git repo, you must specify a

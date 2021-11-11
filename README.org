@@ -30,7 +30,7 @@ font string. You generally only need these two:
 #+end_src
 
 * to do
-while vacation: [40%]
+while vacation: [35%]
 - [ ] [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
 - [X] check aspell integration - [[elisp:ispell-change-dictionary]]
 - [X] check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlist)
@@ -54,6 +54,7 @@ while vacation: [40%]
 - [ ] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to
   use it? (=+ranger= flag)
 - [ ] how to move current workspace to {number} place?
+- [ ] [[https://github.com/chenyanming/calibredb.el#table-of-contents][calibredb]] - learn how to use
 
 * Shortcuts
 
@@ -810,8 +811,10 @@ Evil already defines 'z=' to `ispell-word' = correct word at point
 [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a regular
 expression (regexp) or keywords that you type.
 
-** Nov
+** Nov [[https://depp.brause.cc/nov.el/][#docs]]
 
+SPC - scroll
+n / p - switch chapters
 DEL / S-SPC (nov-scroll-down) - Scroll with ‘scroll-down’ or visit prev...
 RET (nov-browse-url)          - Follow an external url with ‘browse-url’.
 i / t (nov-goto-toc)          - Go to the Table Of Contents index

@@ -39,9 +39,9 @@
 
 ;; Disable invasive lsp-mode features
 (setq
-  ;; lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
+  lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
   lsp-ui-doc-enable nil        ; slow and redundant with K
-  ;; lsp-enable-symbol-highlighting nil
+  lsp-enable-symbol-highlighting nil
   )
 
 ;; Modules
@@ -152,12 +152,12 @@
   )
 
 ;; org capture templates redefining
-(setq org-time-stamp-formats '("%a <%d-%m-%Y>" . "<%a %d-%m-%Y %H:%M>"))
+(setq org-time-stamp-formats '("<%a %d-%m-%Y>" . "<%a %d-%m-%Y %H:%M>"))
 
 (setq org-capture-templates
   '(("a" "New tea" entry
       (file +org-capture-project-notes-file)
-      "%[~/git/tea/template]" :jump-to-captured t :clock-in t :clock-keep t)
+      "%[~/git/tea/template]" :jump-to-captured t :clock-in t :clock-keep t :empty-lines 1)
      ("t" "Personal todo" entry
       (file +org-capture-todo-file)
       "* [ ] %?\n%i\n%a" :prepend t)
@@ -234,8 +234,6 @@
 ;; now after typing '<el TAB' u will get code block with 'emacs-lisp' src
 (after! org (add-to-list 'org-structure-template-alist
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
-
-(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
 (setq input-method-history (list "russian-computer")) ;; FIXME still doesn't switch
 
