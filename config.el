@@ -235,6 +235,8 @@
 (after! org (add-to-list 'org-structure-template-alist
              '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
 
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
 (setq input-method-history (list "russian-computer")) ;; FIXME still doesn't switch
 
 (setq lsp-vetur-format-default-formatter-html '"prettier")

@@ -43,6 +43,7 @@ while vacation: [40%]
 
 -----
 
+- [ ] find out which packages can allow me to read fb2 / ebup within emacs
 - [ ] ~SPC h i~ - yes.. all this knowledge can be yours
 - [X] *org*
   - [X] acknowledge orgnowledge
@@ -808,6 +809,14 @@ Evil already defines 'z=' to `ispell-word' = correct word at point
 * Additional knowledge
 [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a regular
 expression (regexp) or keywords that you type.
+
+** Nov
+
+DEL / S-SPC (nov-scroll-down) - Scroll with ‘scroll-down’ or visit prev...
+RET (nov-browse-url)          - Follow an external url with ‘browse-url’.
+i / t (nov-goto-toc)          - Go to the Table Of Contents index
+~C(M)-k/j~ / ~[ [~ / ~] ]~ / ~g k/j~  - Go to the previous/next document
+g ? (nov-display-metadata)    - View the metadata of the EPUB document ...
 
 * unused kbds
 
