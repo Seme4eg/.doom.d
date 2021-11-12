@@ -30,7 +30,7 @@ font string. You generally only need these two:
 #+end_src
 
 * to do
-while vacation: [35%]
+while vacation: [33%]
 - [ ] [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
 - [X] check aspell integration - [[elisp:ispell-change-dictionary]]
 - [X] check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlist)
@@ -55,6 +55,8 @@ while vacation: [35%]
   use it? (=+ranger= flag)
 - [ ] how to move current workspace to {number} place?
 - [ ] [[https://github.com/chenyanming/calibredb.el#table-of-contents][calibredb]] - learn how to use
+- [ ] (*long-term todo*) - setup [[https://orgmode.org/manual/Citation-handling.html#Citation-handling][citations]] [[https://github.com/bdarcus/citar][frontend]] in [[https://www.bibtex.com/g/bibtex-format/][bibtex]] format and put there
+  some aphorisms
 
 * Shortcuts
 

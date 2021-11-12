@@ -445,7 +445,6 @@ sense that they do not trigger an entry to show up in the agenda.
 - SPC m c -/= (org-clock-timestamps-down/up) - In[de]crease CLOCK timestamps at
   cursor. On the beginning or enclosing bracket of a timestamp, change its type.
   Within a timestamp, change the item under point.
-- C-c . (org-time-stamp)                - Prompt for a date/time and insert a ti...
 - C-c C-c - Normalize timestamp, insert or fix day name if missing or wrong.
 - C-c < (org-date-from-calendar) - Insert a timestamp corresponding to point
   date in the calendar.
@@ -652,7 +651,6 @@ Other kbds:
 - C-'      org-cycle-agenda-files
 - C-c C-x < / >       org-agenda-set(remove)-restriction-lock
 
-
 * Markup for Rich Contents [[https://orgmode.org/manual/Markup-for-Rich-Contents.html#Markup-for-Rich-Contents][#docs]]
 ** Paragraphs
 Paragraphs are separated by at least one empty line. If you need to enforce a
@@ -763,7 +761,7 @@ them as targets for special hyperlinks like ‘[[(name)]]’—i.e., the referen
 enclosed in single parenthesis. In HTML, hovering the mouse over such a link
 remote-highlights the corresponding code line, which is kind of cool.
 
-You can also add a ‘-r’ switch which removes the labels from the source code116.
+You can also add a ‘-r’ switch which removes the labels from the source code.
 With the ‘-n’ switch, links to these references are labeled by the line numbers
 from the code listing. Otherwise links use the labels with no parentheses. Here
 is an example:
@@ -824,19 +822,210 @@ horizontal line:
 SPC m f (org-footnote-new) - insert a footnote in current document
 C-c C-x f (org-footnote-action)
 
-** Other
+** [[https://orgmode.org/manual/Embedded-LaTeX.html][Embedded LaTeX]]
 
-[[https://orgmode.org/manual/Embedded-LaTeX.html][Embedded LaTeX]]
+* Working with Souce Code [[https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code][#docs]]
+** Source code blocks
+Org offers two ways to structure source code in Org documents: in a source code
+block, and directly inline.
 
-g Q - org-fill-paragraph
+A *source code block* conforms to this structure:
 
-z n - org-tree-to-indirect-buffer
+: #+NAME: <name>
+: #+BEGIN_SRC <language> <switches> <header arguments>
+  : <body>
+: #+END_SRC
 
-*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
-- E - element
-- e - object
-- R - subtree
-- r - greater-element
+Org mode offers a command for wrapping existing text in a block (see [[https://orgmode.org/manual/Structure-Templates.html][Structure
+Templates]]).
+
+/Regular use of templates reduces errors, increases accuracy, and maintains
+consistency./
+
+An *inline code block* conforms to this structure:
+
+: src_<language>{<body>} or src_<language>[<header arguments>]{<body>}
+
+- ‘#+NAME: <name>’ :: Optional. Names the source block so it can be called, like
+  a function, from other source blocks or inline code to evaluate or to capture
+  the results. Code from other blocks, other files, and from table formulas (see
+  The Spreadsheet) can use the name to reference a source block. This naming
+  serves the same purpose as naming Org tables. Org mode requires unique names.
+  For duplicate names, Org mode’s behavior is undefined.
+- ‘<switches>’ :: Optional. Switches provide finer control of the code
+  execution, export, and format (see the discussion of switches in [[*Literal Exmaples][Literal
+  Examples]]).
+- ‘<header arguments>’ :: Optional. Heading arguments control many aspects of
+  evaluation, export and tangling of code blocks (see [[Using Header Arguments]]).
+  Using Org’s properties feature, header arguments can be selectively applied to
+  the entire buffer or specific sub-trees of the Org document.
+
+** Unuseful for me at the moment [2021-11-12 Пт]
+*** Using Header Arguments
+All of the following is in [[https://orgmode.org/manual/Using-Header-Arguments.html][docs]]:
+- System-wide header args list and their defaults
+- Apply header arguments buffer-/header-wide
+- Multi-line header arguments per block
+- Highest-priority header arguments in func calls (=#+CALL:=)
+*** Environment of a Code Block
+: :var NAME=ASSIGN
+
+Also in [[https://orgmode.org/manual/Environment-of-a-Code-Block.html][docs]]:
+- passing name by reference (even from another file)
+- passing values when calling source code blocks
+- working with tables
+- using sessions, working directories
+- inserting headers and footers
+*** ... and pretty much everything else u can find in main tree docs..
+
+** Unsorted
+
+~]/[ c~ - next / prev src block
+
+After 'python' keyword on line below you can write the output of the
+code to a var and use it in next code-block
+#+NAME: pythonic-numbers
+#+BEGIN_SRC python :results list
+  import random
+  return [random.randrange(1, 20)
+          for i in range( random.randrange(1, 20))]
+#+END_SRC
+
+after u execute this (~C-c C-c~) the output will appear below and
+'pythonic-numbers' will contain value
+
+#+BEGIN_SRC emacs-lisp :var numbers=pythonic-numbers
+  (length numbers)
+#+END_SRC
+
+
+* Completion #start-of-misc-section
+Complete word at point (with ~C-SPC~ in case of /doom/):
+- At the beginning of an empty headline, complete TODO keywords.
+- After ‘\’, complete TeX symbols supported by the exporter.
+- After ‘:’ in a headline, complete tags. Org deduces the list of tags from the
+  ‘TAGS’ in-buffer option (see Setting Tags), the variable org-tag-alist, or
+  from all tags used in the current buffer.
+- After ‘:’ and not in a headline, complete property keys. The list of keys is
+  constructed dynamically from all keys used in the current buffer.
+- After ‘#+’, complete the special keywords like ‘TYP_TODO’ or file-specific
+  ‘OPTIONS’. After option keyword is complete, pressing M-TAB again inserts
+  example settings for this keyword.
+- After ‘STARTUP’ keyword, complete startup items.
+* Structure Templates
+View var =org-structure-template-alist=
+
+~C-c C-,~ (org-insert-structure-template) - Prompt for a type of block structure,
+and insert the block at point.
+
+.. or just =<{pref.key} TAB=
+
+* The Very Busy C-c C-c Key
+- If column view (see Column View) is on, exit column view.
+- If any highlights shown in the buffer from the creation of a sparse tree, or
+  from clock display, remove such highlights.
+- If point is in one of the special ‘KEYWORD’ lines, scan the buffer for these
+  lines and update the information. Also reset the Org file cache used to
+  temporary store the contents of URLs used as values for keywords like
+  ‘SETUPFILE’.
+- If point is inside a table, realign the table.
+- If point is on a ‘<<<target>>>’, update radio targets and corresponding links
+  in this buffer.
+- If point is on a property line or at the start or end of a property drawer,
+  offer property commands.
+- If point is at a footnote reference, go to the corresponding definition, and
+  vice versa.
+- If point is on a statistics cookie, update it. ([/] and [%] in todo lists)
+- If point is on a numbered item in a plain list, renumber the ordered list.
+- If point is on the ‘#+BEGIN’ line of a dynamic block, the block is updated.
+- If point is at a timestamp, fix the day name in the timestamp.
+
+* In-Buffer Settings [[https://orgmode.org/manual/In_002dbuffer-Settings.html][#docs]]
+In-buffer settings start with ‘#+’, followed by a keyword, a colon, and then a
+word for each setting. Org accepts multiple settings on the same line.
+
+C-c C-c activates any changes to the in-buffer settings.
+
+- ‘#+ARCHIVE: %s_done::’ :: agenda file name :: location
+- ‘#+CATEGORY’ :: category of agenda file
+- ‘#+COLUMNS: %25ITEM ...’ :: default format for columns view. This format
+  applies when columns view is invoked in locations where no ‘COLUMNS’ property
+  applies.
+- ‘#+FILETAGS: :tag1:tag2:tag3:’ :: Set tags that all nested entries inherit.
+- ‘#+PRIORITIES: highest lowest default’ :: This line sets the limits and the
+  default for the priorities. All three must be either letters A–Z or numbers
+  0–9. The highest priority must have a lower ASCII number than the lowest
+  priority.
+- ‘#+PROPERTY: Property_Name Value’ :: This line sets a default inheritance
+  value for entries in the current buffer, most useful for specifying the
+  allowed values of a property.
+- ‘#+SETUPFILE: file’ :: The setup file or a URL pointing to such file is for
+  additional in-buffer settings. Org loads this file and parses it for any
+  settings in it only when Org opens the main file. If URL is specified, the
+  contents are downloaded and stored in a temporary file cache. C-c C-c on the
+  settings line parses and loads the file, and also resets the temporary file
+  cache. Org also parses and loads the document during normal exporting process.
+  Org parses the contents of this document as if it was included in the buffer.
+  It can be another Org file. To visit the file—not a URL—use C-c ' while point
+  is on the line with the file name.
+- ‘#+STARTUP:’ :: Startup options Org uses when first visiting a file.
+  - initial visibility :: [[Initial visibility]]
+  - ‘(no)inlineimages’ :: Show/hide inline images.
+  - logging settigns :: look up docs page for 'em
+  - ‘customtime’ :: Turn on custom format overlays over timestamps (variables
+    org-put-time-stamp-overlays and org-time-stamp-overlay-formats).
+  - footnotes settings :: Those also look up on docs page.
+  - ‘(no)hideblocks’ :: hide/nohide blocks on startup, use these keywords. The
+    corresponding variable is org-hide-block-startup.
+  - ‘entitiespretty(plain)’ :: display of entities as UTF-8/plain characters is
+    governed by the variable org-pretty-entities and the keywords
+- ‘#+TAGS: TAG1(c1) TAG2(c2)’ :: These lines (several such lines are allowed)
+  specify the valid tags in this file, and (potentially) the corresponding fast
+  tag selection keys. The corresponding variable is org-tag-alist.
+- ‘#+TODO:’, ‘#+SEQ_TODO:’, ‘#+TYP_TODO:’ :: set the TODO keywords and their
+  interpretation in the current file. The corresponding variable is
+  org-todo-keywords.
+
+* Org Syntax [[https://orgmode.org/manual/Org-Syntax.html][#docs]]
+Probe the syntax of your org doc with command =org-lint=. From here ~C-j / TAB~ to
+display the offending line.
+
+From [[https://orgmode.org/worg/dev/org-syntax.html][draft on Worg]]:
+
+** Affiliated Keywords
+With the exception of comment, clocks, headlines, inlinetasks, items, node
+properties, planning, property drawers, sections, and table rows, every other
+element type can be assigned attributes.
+
+This is done by adding specific keywords, named “affiliated keywords”, just
+above the element considered, no blank line allowed.
+
+Affiliated keywords are built upon one of the following patterns:
+
+: #+KEY: VALUE
+: #+KEY[OPTIONAL]: VALUE
+: #+ATTR_BACKEND: VALUE
+
+KEY is either “CAPTION”, “HEADER”, “NAME”, “PLOT” or “RESULTS” string.
+
+BACKEND is a string constituted of alpha-numeric characters, hyphens or
+underscores.
+
+OPTIONAL and VALUE can contain any character but a new line. Only “CAPTION” and
+“RESULTS” keywords can have an optional value.
+
+An affiliated keyword can appear more than once if KEY is either “CAPTION” or
+“HEADER” or if its pattern is “#+ATTRBACKEND: VALUE”.
+
+“CAPTION”, “AUTHOR”, “DATE” and “TITLE” keywords can contain objects in their
+value and their optional value, if applicable.
+
+
+* Context Dependent Documentation
+
+~C-c C-x I~ - tries to open a suitable section of the Org manual depending on the
+syntax at point. For example, using it on a headline displays “Document
+Structure” section.
 
 
 * Journal
@@ -954,6 +1143,16 @@ attachments, such as images and source code files, to a web server.
 
 ~SPC m P~ - prefix
 * Unsorted for now
+
+g Q - org-fill-paragraph
+
+z n - org-tree-to-indirect-buffer
+
+*Motions* in =<operator-state>= (~i~ prefix for /inner/; ~a~ for /an/):
+- E - element
+- e - object
+- R - subtree
+- r - greater-element
 *** Executing source code blocks
 Org-mode can execute your source code blocks and add the output to
 your file. This part of org-mode is called babel
@@ -968,20 +1167,3 @@ your file. This part of org-mode is called babel
 #+RESULTS:
 : Hello sad! Today is Пт авг 16 15:00:47 MSK 2019
 
-*** Source code blocks
-
-After 'python' keyword on line below you can write the output of the
-code to a var and use it in next code-block
-#+NAME: pythonic-numbers
-#+BEGIN_SRC python :results list
-  import random
-  return [random.randrange(1, 20)
-          for i in range( random.randrange(1, 20))]
-#+END_SRC
-
-after u execute this (~C-c C-c~) the output will appear below and
-'pythonic-numbers' will contain value
-
-#+BEGIN_SRC emacs-lisp :var numbers=pythonic-numbers
-  (length numbers)
-#+END_SRC
