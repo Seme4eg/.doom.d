@@ -455,6 +455,9 @@ sense that they do not trigger an entry to show up in the agenda.
 ~C-c C-x C-t~ (org-toggle-time-stamp-overlays) - Toggle the use of custom time
 stamp formats.
 
+To set up custom time format look up =format-time-string= function doc in emacs,
+all time-format abbreviations r described there.
+
 ** Deadline and Scheduling
 DEADLINE: <2021-12-09 Чт>
 SCHEDULED: <2004-12-25 Sat>
@@ -1019,7 +1022,6 @@ An affiliated keyword can appear more than once if KEY is either “CAPTION” o
 
 “CAPTION”, “AUTHOR”, “DATE” and “TITLE” keywords can contain objects in their
 value and their optional value, if applicable.
-
 
 * Context Dependent Documentation
 

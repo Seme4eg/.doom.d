@@ -9,6 +9,8 @@ In minibuffer:
 - ~C-w~   #'doom/delete-backward-word
 - ~C-u~   #'evil-delete-back-to-indentation
 
+~gp~ - visual select last paste
+
 <leader>:
 "Switch to last buffer" "`"    #'evil-switch-to-windows-last-buffer
 "Resume last search"    "'"

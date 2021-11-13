@@ -147,8 +147,6 @@
   org-ellipsis " ▾ "
   ;; org-tags-column -80
   org-hide-emphasis-markers t
-  ;; org-agenda-files (ignore-errors (directory-files +org-dir t "\\.org$" t))
-  ;; +org-capture-todo-file "tasks.org"
   )
 
 ;; didn't work out for me cuz https://orgmode.org/manual/Custom-time-format.html
@@ -165,9 +163,12 @@
 (after! org
   ;; org capture templates redefining
   (setq org-capture-templates
-    '(("a" "New tea" entry
+    '(("a" "Tea entry" entry
         (file +org-capture-project-notes-file)
-        "%[~/git/tea/template]" :jump-to-captured t :clock-in t :clock-keep t :empty-lines 1)
+        "%[~/git/tea/templates/newEntry]" :jump-to-captured t :clock-in t :clock-keep t :empty-lines 1)
+       ("b" "Buffer settings" plain
+         (file +org-capture-project-notes-file)
+         "%[~/git/tea/templates/bufferSettings]" :prepend t :immediate-finish t :empty-lines-after 1)
        ("t" "Personal todo" entry
          (file +org-capture-todo-file)
          "* [ ] %?\n%i\n%a" :prepend t)
