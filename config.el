@@ -165,10 +165,18 @@
   (setq org-capture-templates
     '(("a" "Tea entry" entry
         (file +org-capture-project-notes-file)
-        "%[~/git/tea/templates/newEntry]" :jump-to-captured t :clock-in t :clock-keep t :empty-lines 1)
+        "%[~/git/tea/templates/newEntry]"
+        :jump-to-captured t
+        :immediate-finish t
+        :clock-in t
+        :clock-keep t
+        :empty-lines 1)
        ("b" "Buffer settings" plain
          (file +org-capture-project-notes-file)
-         "%[~/git/tea/templates/bufferSettings]" :prepend t :immediate-finish t :empty-lines-after 1)
+         "%[~/git/tea/templates/bufferSettings]"
+         :prepend t
+         :immediate-finish t
+         :empty-lines-after 1)
        ("t" "Personal todo" entry
          (file +org-capture-todo-file)
          "* [ ] %?\n%i\n%a" :prepend t)
@@ -203,22 +211,22 @@
                       :foreground "#5B6268"
                       :background nil)
   (set-face-attribute 'org-level-1 nil
-                      :foreground "steelblue2"
+                      :foreground "#dbf6ff"
                       :background nil
                       :height 1.2
                       :weight 'normal)
   (set-face-attribute 'org-level-2 nil
-                      :foreground "slategray2"
+                      :foreground "#fbeffc"
                       :background nil
                       :height 1.0
                       :weight 'normal)
   (set-face-attribute 'org-level-3 nil
-                      :foreground "SkyBlue2"
+                      :foreground "#b5ddfc"
                       :background nil
                       :height 1.0
                       :weight 'normal)
   (set-face-attribute 'org-level-4 nil
-                      :foreground "DodgerBlue2"
+                      :foreground "#faccfc"
                       :background nil
                       :height 1.0
                       :weight 'normal)

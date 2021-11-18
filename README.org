@@ -58,6 +58,12 @@ while vacation: [33%]
 - [ ] (*long-term todo*) - setup [[https://orgmode.org/manual/Citation-handling.html#Citation-handling][citations]] [[https://github.com/bdarcus/citar][frontend]] in [[https://www.bibtex.com/g/bibtex-format/][bibtex]] format and put there
   some aphorisms
 
+-----
+
+Games in emacs:
+- [ ] [[https://www.masteringemacs.org/article/fun-games-in-emacs][link 1]]
+- [ ] [[https://www.emacswiki.org/emacs/CategoryGames][link 2]]
+
 * Shortcuts
 
 Sources: [[file:~/.emacs.d/modules/config/default/+evil-bindings.el][+evil-bindings.el]], [[https://github.com/hlissner/doom-emacs/blob/96bea9e9ad4f3e3412472fa0f26a19d19be66a1a/modules/config/default/%2Bbindings.el][bindings.el]], [[file:~/.emacs.d/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
@@ -825,4 +831,4 @@ g ? (nov-display-metadata)    - View the metadata of the EPUB document ...
 
 * unused kbds
 
-C-; spc-ret spc-l spc-k spc-j spc-d
+*Q*, C-; spc-ret spc-l spc-k spc-j spc-d

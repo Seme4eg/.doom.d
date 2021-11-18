@@ -82,7 +82,7 @@ entire document is folded as much as possible, but the selected information is
 made visible along with the headline structure above it.
 
 ~SPC m s s~ / ~C-c /~ (org-sparse-tree) - Create a sparse tree, prompt for the
-details. To get back to normal tree view - 2x =TAB=.
+details. To get back to normal tree view - 2x =S-TAB=.
 
 The syntax for the search string is described in [[https://orgmode.org/manual/Matching-tags-and-properties.html][Matching tags and properties]].
 
