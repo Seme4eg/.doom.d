@@ -32,6 +32,7 @@ font string. You generally only need these two:
 * to do
 while vacation: [33%]
 - [ ] [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
+- [X] [[https://github.com/hlissner/doom-emacs/blob/develop/modules/config/literate/README.org][literate]] - make my doom/config.el a .org file
 - [X] check aspell integration - [[elisp:ispell-change-dictionary]]
 - [X] check [[https://github.com/zaiste/.doom.d][his]] private configuration (guy from youtube playlist)
 - [ ] redefine my custom keybindings properly like in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=27][this]] vid
