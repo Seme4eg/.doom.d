@@ -57,11 +57,22 @@ Hlissner:
   )
 #+end_src
 * Keybindings
+Learn how to properly define your custom keybindings you can in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=28][this vid]]
+
 #+begin_src emacs-lisp
-(map! :leader "x" 'execute-extended-command)
-(map! :leader "gv" 'git-gutter:popup-hunk)
+(map! :leader
+      :desc "M-x"
+      "x"
+      'execute-extended-command)
+(map! :leader
+      :desc "Git gutter popup hunk"
+      "gv"
+      'git-gutter:popup-hunk)
 ;; TODO: wrap a func below eith defadvice so it insets '~' before and after
-(map! :leader "ik" 'edmacro-insert-key)
+(map! :leader
+      :desc "Edmacro insert key"
+      "i k"
+      'edmacro-insert-key)
 #+end_src
 * Startup and Global modes
 #+begin_src emacs-lisp
