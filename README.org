@@ -40,16 +40,18 @@ while vacation: [45%]
 - [X] get treemacs setup work
 - [ ] ([[http://pragmaticemacs.com/mu4e-tutorials/][mu4e]] +gmail) ;; REVIEW (init.el); also ~spc s s mu4e~ this buffer to get
   more input data.
+- [ ] learn to use EWW (~spc h i~)
 
 -----
 
 - [X] find out which packages can allow me to read fb2 / ebup within emacs
-- [ ] ~SPC h i~ - yes.. all this knowledge can be yours
+- [X] ~SPC h i~ - yes.. all this knowledge can be yours
 - [X] *org*
   - [X] acknowledge orgnowledge
   - [X] learn [[https://github.com/bastibe/org-journal][org journal]]
 - [X] [[https://orgmode.org/manual/Attachments.html][org-attachments]] - ~spc m a~ prefix, sir.. everything else in =org-readme=
-- [ ] set up irc telegram, emacs-desctop, eww (browser parser)
+- [ ] irc / erc / Rcirc - all irc clients (set 1 of those up for i.e. telegram)
+- [ ] emacs-desctop
 - [X] what is 'timer', 'char timer'? ~spc s s timer~..
 - [ ] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to
   use it? (=+ranger= flag)
@@ -753,6 +755,7 @@ Omni-completion :prefix "C-x":
 - ~C-SPC~   - #'+vertico/embark-preview
 - ~C-j/k~   - #'vertico-next/previous
 - ~C-M-j/k~ - #'vertico-next/previous-group
+# embark - Emacs Mini-Buffer Actions Rooted in Keymaps (spc h i)
 - =C-;= or =<leader> a= - Open an ~embark-act~ menu to chose a useful action
 - =C-c C-;= - export the current candidate list to a buffer
 

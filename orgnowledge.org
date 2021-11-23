@@ -1,6 +1,9 @@
 #+STARTUP: overview
 
-* General doom kbds
+* README
+Majority of this info can be found also in ~spc h i~ -> Org Mode
+
+** General doom kbds
 
 _Sources:_ [[http://pragmaticemacs.com/org-mode-tutorials/][pragmaticemacs]]
 
@@ -608,7 +611,8 @@ configured to automatically commit changes to that repository when it sees them:
 
 * Agenda views [[https://orgmode.org/manual/Agenda-Views.html#Agenda-Views][#docs]]
 
-Org can select items based on various criteria and display them in a separate buffer. Six different view types are provided:
+Org can select items based on various criteria and display them in a separate
+buffer. Six different view types are provided:
 
 + an /agenda/ that is like a calendar and shows information for specific dates,
 + a /TODO list/ that covers all unfinished action items,
@@ -829,9 +833,6 @@ C-c C-x f (org-footnote-action)
 
 * Working with Souce Code [[https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code][#docs]]
 ** Source code blocks
-Org offers two ways to structure source code in Org documents: in a source code
-block, and directly inline.
-
 A *source code block* conforms to this structure:
 
 : #+NAME: <name>
