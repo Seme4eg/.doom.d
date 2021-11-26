@@ -1,3 +1,5 @@
+#+STARTUP: overview hideblocks
+
 * Doom [[file:~/.emacs.d/docs/index.org][#docs-index]] [[file:~/.emacs.d/docs/getting_started.org][#getting-started]] [[file:~/.emacs.d/docs/modules.org][#modules]]
 
 *IMPORTANT* - [[file:~/.emacs.d/docs/getting_started.org::*Looking up documentation and state from within Emacs][Looking up documentation and HELP]] in *ANY* possible way e.g. /vars,
@@ -817,6 +819,78 @@ Evil already defines 'z=' to `ispell-word' = correct word at point
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/pass/README.org#description][pass]] - ~M-x pass~; view [[https://git.zx2c4.com/password-store/about/][pass man page]]
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/term/vterm/README.org][vterm]] - new terminal
 - [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
+
+
+*** EWW
+_While in normal mode:_
+- & (eww-browse-with-external-browser) - in case of trouble viewing a website
+  with EWW
+- H/L (eww-back/forward-url)
+- R (eww-readable) - attampt to determine which part of the doc contains the
+  'readable' text, and will only display this part. This usually gets rid of
+  menus and the like.
+- U (eww-top-url)
+- ^ (eww-up-url)
+- d (eww-download) - download URL (link at cursor otherwise current page).
+  Directory for downloading lies within =eww-download-directory=
+- g (Prefix Command)
+- m (eww-add-bookmark)
+- o (eww)
+- q (quit-window)
+- r (eww-readable)
+- u (eww-up-url)
+- Z Q(Z) (quit-window)
+- [ [ / ] ] (eww-previous/next-url)
+- *z* d (eww-toggle-paragraph-direction)
+- z e (eww-set-character-encoding)
+- z f (eww-toggle-fonts)
+- *g* b (eww-list-bookmarks)
+- g c (url-cookie-list)
+- g h (eww-list-histories) - list browsing history. The history is lost when EWW
+  is quit. If you want to remember websites - use bookmarks. History limit is
+  stored in =eww-history-limit= var.
+- g j/k (eww-next/previous-url)
+- g o (eww-browse-with-external-browser)
+- g t (eww-list-buffers) - get summary of currently opened EWW buffers
+
+-----
+
+- S-SPC        scroll-down-command
+- <S-return>   eww-browse-with-external-browser
+- <backspace>  eww-back-url
+- <backtab>    shr-previous-link
+- <tab>        shr-next-link
+
+- C-M-i  shr-previous-link
+- M-RET  eww-open-in-new-buffer - open URL at point in new buffer
+- M-C eww-toggle-colors - toggle whether to use HTML-specified colors or not.
+  (=shr-use-colors= variable)
+- M-n eww-next-bookmark
+- M-p eww-previous-bookmark
+
+Hotkeys below are the default hotkeys, but they r shadowed by evil everywhere.
+But they r relevant if u enter 'insert mode' in eww buffer:
+#+begin_comment
+TAB (shr-next-link)
+C (url-cookie-list)
+D (eww-toggle-paragraph-direction)
+E (eww-set-character-encoding)
+G (eww)
+H (eww-list-histories)
+S (eww-list-buffers)
+b (eww-add-bookmark)
+g (eww-reload)
+h (describe-mode)
+l/n (eww-back/next-url)
+p/r (eww-previous/forward-url)
+s (eww-switch-to-buffer)
+t (eww-top-url)
+v (eww-view-source)
+w (eww-copy-page-url) - copy current page's url to kill ring
+DEL (scroll-down-command)
+<delete> (scroll-down-command)
+#+end_comment
+
 
 * Additional knowledge
 [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a regular
