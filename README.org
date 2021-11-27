@@ -915,39 +915,79 @@ i / t (nov-goto-toc)          - Go to the Table Of Contents index
 ~C(M)-k/j~ / ~[ [~ / ~] ]~ / ~g k/j~  - Go to the previous/next document
 g ? (nov-display-metadata)    - View the metadata of the EPUB document ...
 ** Info
-~1..9~ (Info-nth-menu-item) - Go to the node of the Nth menu item.           
-~C-k/j~ (Info-backward/forward-node) - Go backward/forward one node, considering all nodes ...
-~a~ (info-apropos) - Grovel indices of all known Info files on yo...
-~I~ (Info-virtual-index) - Show a node with all lines in the index cont...
-~i~ (Info-index) - Look up a string TOPIC in the index for this...
-~S~ (Info-search-case-sensitively) - Search for a regexp case-sensitively.          
-~s~ (Info-search) - Search for REGEXP, starting from point, and ...
-~u~ (Info-up) - Go to the superior node of this node.          
-~d~ (Info-directory) - Go to the Info directory node.                 
-~C-] / RET~ (Info-follow-nearest-node) - Follow a node reference near point.
-~C-o/t~ (Info-history-back) - Go back in the history to the last node visi...
-~TAB~ (Info-history-forward) - Go forward in the history of visited nodes.
-~<S-tab> / ~<tab>~ (Info-prev/next-reference) - Move cursor to the previous/next cross-reference ...
+#+begin_comment
+Info files are created from Texinfo source files. You can use the same source
+file to make a printed manual or produce other formats, such as HTML and
+DocBook.
 
-~SPC h i~ (info) - Enter Info, the documentation browser.         
-~SPC h S~ (info-lookup-symbol) - Display the definition of SYMBOL, as found i...
-~SPC h K~ (Info-goto-emacs-key-command-node) - Go to the node in the Emacs manual which des...
-~SPC h RET~ (info-emacs-manual) - Display the Emacs manual in Info mode.         
-~SPC h 4 i~ (info-other-window) - Like ‘info’ but show the Info buffer in anot...
+The ‘makeinfo’ command converts a Texinfo file into an Info file;
+‘texinfo-format-region’ and ‘texinfo-format-buffer’ are GNU Emacs functions that
+do the same.
+#+end_comment
 
-~M-h~ (Info-help) - Enter the Info tutorial.                       
+~SPC h i~ (info) - Enter Info, the documentation browser. Numeric prefix to this
+command switches / creates Info buffer with that number. (They r *independent*)
 
-_'g' prefix:_
-- ~g k/j~ (Info-prev/next) - Go to the "previous/next" node, staying on the sa...
-- ~g ?~ (Info-summary) - Display a brief summary of all Info commands.
-- ~g T~ (Info-toc) - Go to a node with table of contents of the c...
-- ~g t~ (Info-top-node) - Go to the Top node of this file.
-- ~g m~ (Info-menu) - Go to the node pointed to by the menu item n...
-- ~g G~ (Info-goto-node) - Go to Info node named NODENAME.  Give just N...
-- ~g 1..9~ (Info-nth-menu-item) - Go to the node of the Nth menu item.
+~M-h~ (Info-help) - Enter the Info tutorial.
+
+~g ?~ (Info-summary) - Display a brief summary of all Info commands.
+
+_Basics:_
+- ~g k/j~ or ~C-k/j~ (Info-prev/next) - Go to the "previous/next" node, but C-k/j
+  also counts nesting.
+- ~g [ / ]~ or ~TAB / S-TAB~ (Info-prev/next-reference) - Move cursor to the
+  previous/next cross-reference (link)
+- ~g m~ (Info-menu) - Go to the node pointed to by the menu item.
+- ~u~ (Info-up) - Go to the superior node of this node.
+- ~C-o/t~ (Info-history-back) - Go back in the history
+- ~TAB~ (Info-history-forward) - Go forward in the history (_doesn't work_)
+- ~i~ (*Info-index*) - You can get to the index from the main menu of the file with
+  the ‘m’ command and the name of the index node; then you can use the ‘m’
+  command again in the index node to go to the node that describes the topic you
+  want. ~i~ is just a short-cut, which does all of that for u. It searches the
+  index for a given topic (a string) and goes to the node which is listed in the
+  index for that topic. *Very powerful command, lets u get info on any
+  'mode'-related thing*.
+- ~I~ (Info-virtual-index) - behaves like ‘i’, but constructs a virtual info node
+  displaying the results of an index search, making it easier to select the one
+  you want.
 - ~g L~ (Info-history) - Go to a node with a menu of visited nodes.
-- ~g [ / ](TAB)~ (Info-prev/next-reference) - Move cursor to the previous/next
-  cross-reference ...
+- ~d~ (Info-directory) - Go to the Info directory node. Which is the first one you
+  saw when you entered Info, has a menu which leads (directly or indirectly,
+  through other menus)
+- ~g t~ (Info-top-node) - command moves to the ‘Top’ node of the *manual*.
+- ~g T~ (Info-toc) - Go to a node with table of contents of the c...
+
+_Advanced:_
+- ~a~ (info-apropos) - If you aren’t sure which manual documents the topic you are
+  looking for. It prompts for a string and then looks up that string in *all* the
+  indices of *all* the Info documents installed on your system.
+- ~g G~ (Info-goto-node) - If you know a node’s name, you can go there using this
+  command. ~gTop<RET>~ is same as ~g t~ (info-top-node).
+- ~g 1..9~ (Info-nth-menu-item) - Go to the node of the Nth menu item. They are
+  short for the ‘m’ command together with a name of a menu subtopic.
+- ~M-n~ (clone-buffer) - creates a new *independent* Info buffer. The new buffer
+  starts out as an exact copy of the old one, but you will be able to move
+  independently between nodes in the two buffers.
+- ~SPC h 4 i~ (info-other-window) - Like ‘info’ but show the Info buffer in
+  anoter window
+
+#+CAPTION: produce new Info buffers
+#+begin_comment
+In Emacs Info, you can also produce new Info buffers by giving a numeric prefix
+argument to the ‘m’ and ‘g’ commands. ‘C-u m’ and ‘C-u g’ go to a new node in
+exactly the same way that ‘m’ and ‘g’ do, but they do so in a new Info buffer
+which they select in another window.
+
+Or use a numeric prefix argument for the ‘C-h i’ command (‘info’) which switches
+to the Info buffer with that number. Thus, ‘C-u 2 C-h i’ switches to the buffer
+‘*info*<2>’, creating it if necessary.
+#+end_comment
+
+To look up Info-mode _variables_ go ~SPC h i~ -> ~g m~ -> Info -> ~g G Variables~
+
+- ~f~ :: following cross reference (part 1.7 of ~M-h~)
+- f? :: list all references in cur. node
 
 * unused kbds
 

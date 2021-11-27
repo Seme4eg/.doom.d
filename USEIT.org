@@ -101,3 +101,8 @@ gs.. , gc..
 - :o "S" #'evil-Surround-edit
 
 Learn [[file:~/.emacs.d/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
+
+~SPC h K~ (Info-goto-emacs-key-command-node) - Go to the node in the Emacs manual
+which detailed description
+
+To find out how to use with evil-everywhere:
