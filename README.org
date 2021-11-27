@@ -820,6 +820,15 @@ Evil already defines 'z=' to `ispell-word' = correct word at point
 - [[https://github.com/hlissner/doom-emacs/blob/develop/modules/term/vterm/README.org][vterm]] - new terminal
 - [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
 
+*** mu4e
+~spc o m~ - start mu4e email client
+
+couldn't make it work, here r some links:
+
+[[https://yamadharma.github.io/ru/post/2021/01/22/mail-synchronization-mbsync/#синхронизация][main source (rus)]], [[https://www.youtube.com/watch?v=yZRyEhi4y44][system crafters 1]], [[https://www.youtube.com/watch?v=olXpfaSnf0o][system crafters 2]], [[https://isync.sourceforge.io/mbsync.html][mbsync config
+documentation]], [[https://help.mail.ru/mail/mailer/popsmtp][mail ru official]]
+
+/Also don't worket about [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]] and org-msg (~s o~ that)/
 
 *** EWW
 _While in normal mode:_
