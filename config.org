@@ -76,7 +76,14 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 #+end_src
 * Startup and Global modes
 #+begin_src emacs-lisp
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+;; Set frame transparency
+(set-frame-parameter (selected-frame) 'alpha '(90 . 90)) ;; (active . inactive)
+;; set alpha on all *new* frames created by emacs
+(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+;; initial-frame-alist ?
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 ;; Prevents some cases of Emacs flickering
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
@@ -314,6 +321,127 @@ Forge:
 ;;       )
 #+end_src
 
+* EXWM
+#+begin_src emacs-lisp
+(after! exwm
+  (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/xelb/")
+  (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/exwm/")
+
+  (defun efs/run-in-background (command)
+    (let ((command-parts (split-string command "[ ]+")))
+      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command parts)))))
+
+  (defun efs/exwm-init-hook ()
+    (exwm-workspace-switch-create 1)
+    ;; Launch apps that will run in the background:
+    (efs/run-in-background "nm-applet")) ;; nm-applet is a network-manager system tray icons
+
+  ;; update buffer names of opened windows whenever 2 windows with same
+  ;; name appear (like Opera & Opera<1> - u gonna see that)
+  (defun efs/exwm-update-class ()
+    (exwm-workspace-rename-buffer exwm-class-name))
+
+  ;; When window "class" updates, use it to set the buffer name
+  (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+
+  ;; (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
+
+  ;; rebind caps lock to ctrl and caps to right control
+  (start-process-shell-command "xmodmap" nil "xmodmap ~/.doom.d/exwm/Xmodmap")
+
+  (setq exwm-workspace-number 3)
+
+  ;; These keys should always pass through to Emacs (in line-mode)
+  (setq exwm-input-prefix-keys
+        '(?\C-x
+          ?\C-u
+          ?\C-h
+          ?\M-x
+          ?\M-`
+          ?\M-&
+          ?\M-:
+          ?\C-\M-j ;; buffer list
+          ?\C-\ ;; ctrl + space
+          ))
+
+  ;; Ctrl+Q will enable the next key to be sent directly to the window
+  (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
+
+  ;; set up global key bindings. These always work, no matter the input state.
+  ;; keep in mind that changing this list after EXWM initializes has no effect.
+  (setq exwm-input-global-keys
+        `(
+          ;; reset to line-mode (C-c C-k switches to char-mode via
+          ;; exwm-input-release-keyboard
+          ([?\s-r] . exwm-reset)
+
+          ;; Move between windows
+          ([?\s-h]  . windmove-left)
+          ([?\s-l] . windmove-right)
+          ([?\s-k]    . windmove-up)
+          ([?\s-j]  . windmove-down)
+
+          ;; Launch applications via chell command
+          ([?\s-o] . (lambda (command)
+                       (interactive (list (read-shell-command "$ ")))
+                       (start-process-shell-command command nil command)))
+
+          ([?\s-w] . exwm-workspace-switch)
+
+          ,@(mapcar (lambda (i)
+                      `(,(kbd (format "s-%d" i)) .
+                        (lambda ()
+                          (interactive)
+                          (exwm-workspace-switch-create ,i))))
+                    (number-sequence 0 9))))
+
+  (defun efs/set-wallpaper ()
+    (interactive)
+    (start-process-shell-command
+     ;; for command below to work (it sets bg), u gonna need to install it first
+     ;; also u might need to change the path to the bg as well
+     "feh" nil "feh --bg-scale ~/Pictures/xXfymMYfBFM.jpg"))
+
+  ;; if u have any problems with EXWM resolution, make sure u call
+  ;; this func AFTER u do ANYTHING with resolution
+  (efs/set-wallpaper)
+
+  (require 'exwm-systemtray)
+  ;; (setq exwm-systemtray-height 32)
+  (exwm-systemtray-enable)
+
+  (exwm-enable)
+  )
+#+end_src
+
+** Desktop Entry
+#+begin_src shell :tangle ./exwm/EXWM.desktop :mkdirp yes
+[Desktop Entry]
+Name=EXWM
+Comment=Emacs Window Manager
+Exec=sh ~/.doom.d/exwm/init.sh
+Type=Application
+# X-LightDM-DesktopName=exwm
+# DesktopNames=exwm
+#+end_src
+** Launch script
+#+begin_src shell :tangle ./exwm/init.sh :shebang #!/bin/sh
+#!/usr/bin/env bash
+
+# run the screen compositor
+picom & # new name for 'compton'
+
+# -mm -- maximise emacs window on startup
+exec dbus-launch --exit-with-session emacs -mm --debug-init -l ~/.doom.d/config.el
+#+end_src
+** Ctrl to Caps
+#+begin_src sh :tangle ./exwm/Xmodmap
+clear lock
+clear control
+keycode 66 = Control_L
+add control = Control_L
+add Lock = Control_R
+#+end_src
 
 * Other setting
 #+begin_src emacs-lisp
