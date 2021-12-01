@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=EXWM
-Comment=Emacs Window Manager
+Name=exwm
 Exec=sh ~/.doom.d/exwm/init.sh
+TryExec=sh
 Type=Application
-# X-LightDM-DesktopName=exwm
-# DesktopNames=exwm
+X-LightDM-DesktopName=exwm
+DesktopNames=exwm

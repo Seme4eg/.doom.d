@@ -885,7 +885,7 @@ The ‘makeinfo’ command converts a Texinfo file into an Info file;
 do the same.
 #+end_comment
 
-~SPC h i~ (info) - Enter Info, the documentation browser. Numeric prefix to this
+~SPC h i~ (info) - Enter Info, the documentation browser. _Numeric prefix_ to this
 command switches / creates Info buffer with that number. (They r *independent*)
 
 ~M-h~ (Info-help) - Enter the Info tutorial.
