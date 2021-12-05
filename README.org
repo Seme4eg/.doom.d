@@ -760,6 +760,7 @@ Omni-completion :prefix "C-x":
 # embark - Emacs Mini-Buffer Actions Rooted in Keymaps (spc h i)
 - =C-;= or =<leader> a= - Open an ~embark-act~ menu to chose a useful action
 - =C-c C-;= - export the current candidate list to a buffer
+- C-c C-e - export to writable buffer (to replace multiple occurences)
 
 | Input        | Description                              |
 |--------------+------------------------------------------|

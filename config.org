@@ -85,7 +85,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Prevents some cases of Emacs flickering
-(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+;; (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
 (global-subword-mode)
 (global-display-fill-column-indicator-mode)
@@ -320,13 +320,13 @@ Forge:
 #+end_src
 
 * EXWM
-- [ ] move it to separate file, tangle it and include it if [[https://github.com/daviwil/dotfiles/blob/0e034ebb688633082a3b0c201b0bc834a9821091/Emacs.org#desktop-environment][condition]] true.
 - [ ] find out how to setup same [[https://github.com/daviwil/dotfiles/blob/bf4bac536598894679b4496e8c265953efc29a26/Desktop.org#system-settings][sys-settings]] file to store my background img in
-- [ ] check what =vimb= is & qutebroswer (both currently commented out)
+- [ ] check what qutebroswer is
+- [ ] solve problems with vertical syncing
 
 ** TODO Desktop Entry
 todo: the file linking to usr/share/xsessions file isn't working
-#+begin_src shell :tangle ./exwm/EXWM.desktop :mkdirp yes
+#+begin_src shell :tangle ./exwm/exwm.desktop :mkdirp yes
 [Desktop Entry]
 Name=exwm
 Exec=sh ~/.doom.d/exwm/init.sh
@@ -362,26 +362,35 @@ add control = Control_L
 add Lock = Control_R
 #+end_src
 ** desktop.el
-:PROPERTIES:
-:header-args: tangle: ~/.doom.d/exwm/desktop.el
-:END:
-
-*** Prerequisites
+Include =desktop.el= (enable exwm) if:
 #+begin_src emacs-lisp
+(setq dw/exwm-enabled (and (eq window-system 'x)
+                           (seq-contains command-line-args "--use-exwm")))
+
+(when dw/exwm-enabled
+  (load "~/.doom.d/exwm/desktop.el"))
+#+end_src
+*** Prerequisites
+#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
 ;; (require 'exwm)
 (require 'exwm-systemtray)
 ;; (setq exwm-systemtray-height 32)
 (exwm-systemtray-enable)
 ;; (require 'exwm-randr)
 ;; (exwm-randr-enable)
+
+;; using xim input
+(require 'exwm-xim)
+(exwm-xim-enable)
+(push ?\C-\\ exwm-input-prefix-keys)   ;; use Ctrl + \ to switch input method
 #+end_src
 *** TODO Window Management
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
 ;; Annoying focus issues
 (setq mouse-autoselect-window nil
         focus-follows-mouse t
         exwm-workspace-warp-cursor t
-        exwm-workspace-number 3)
+        exwm-workspace-number 5)
         ;exwm-workspace-display-echo-area-timeout 5
         ;exwm-workspace-minibuffer-position 'bottom)
 
@@ -393,44 +402,43 @@ add Lock = Control_R
 ;; (add-hook 'exwm-update-title-hook
 ;;           (lambda ()
 ;;             (pcase exwm-class-name
-;;               ("Vimb" (exwm-workspace-rename-buffer (format "vimb: %s" exwm-title)))
 ;;               ("qutebrowser" (exwm-workspace-rename-buffer (format "Qutebrowser: %s" exwm-title))))))
 
 (exwm-enable)
 #+end_src
 *** TODO Helper Functions
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
 (defun exwm/run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-;; (defun exwm/bind-function (key invocation &rest bindings)
-;;   "Bind KEYs to FUNCTIONs globally"
-;;   (while key
-;;     (exwm-input-set-key (kbd key)
-;;                         `(lambda ()
-;;                            (interactive)
-;;                            (funcall ',invocation)))
-;;     (setq key (pop bindings)
-;;           invocation (pop bindings))))
+(defun exwm/bind-function (key invocation &rest bindings)
+  "Bind KEYs to FUNCTIONs globally"
+  (while key
+    (exwm-input-set-key (kbd key)
+                        `(lambda ()
+                           (interactive)
+                           (funcall ',invocation)))
+    (setq key (pop bindings)
+          invocation (pop bindings))))
 
-;; (defun exwm/bind-command (key command &rest bindings)
-;;   "Bind KEYs to COMMANDs globally"
-;;   (while key
-;;     (exwm-input-set-key (kbd key)
-;;                         `(lambda ()
-;;                            (interactive)
-;;                            (exwm/run-in-background ,command)))
-;;     (setq key (pop bindings)
-;;           command (pop bindings))))
+(defun exwm/bind-command (key command &rest bindings)
+  "Bind KEYs to COMMANDs globally"
+  (while key
+    (exwm-input-set-key (kbd key)
+                        `(lambda ()
+                           (interactive)
+                           (exwm/run-in-background ,command)))
+    (setq key (pop bindings)
+          command (pop bindings))))
 #+end_src
 *** TODO Configuration
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
 (defun efs/exwm-init-hook ()
   (exwm-workspace-switch-create 1)
   ;; Launch apps that will run in the background:
   ;; (exwm/run-in-background "dunst")
-  (efs/run-in-background "nm-applet") ;; - network-manager system tray icons
+  (exwm/run-in-background "nm-applet") ;; - network-manager system tray icons
   ;; (exwm/run-in-background "syncthing-gtk --minimized")
   ;; (exwm/run-in-background "udiskie -t")
   ;; (exwm/run-in-background "redshift -l 47.675510:-122.203362 -t 6500:3500")
@@ -441,9 +449,7 @@ add Lock = Control_R
   ;;     ("Emacs" (call-interactively #'exwm-input-toggle-keyboard))
   ;;     ("Xephyr" (call-interactively #'exwm-input-toggle-keyboard))
   ;;     ("discord" (exwm-workspace-move-window 3))
-  ;;     ("Microsoft Teams - Preview" (exwm-workspace-move-window 3))
   ;;     ("Spotify" (exwm-workspace-move-window 4))
-  ;;     ("Vimb" (exwm-workspace-move-window 2))
   ;;     ("qutebrowser" (exwm-workspace-move-window 2))
   ;;     ("qjackctl" (exwm-floating-toggle-floating))
   ;;     ("mpv" (exwm-floating-toggle-floating)
@@ -456,7 +462,7 @@ add Lock = Control_R
 ;;               (evil-local-set-key 'motion (kbd "C-u") nil)))
 
 ;; Do some post-init setup
-(add-hook 'exwm-init-hook #'dw/exwm-init-hook)
+  (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
 
 ;; Manipulate windows as they're created
 ;; (add-hook 'exwm-manage-finish-hook
@@ -473,7 +479,7 @@ add Lock = Control_R
             (exwm-layout-hide-mode-line)))
 #+end_src
 *** TODO Desktop Configuration
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
 ;; rebind caps lock to ctrl and caps to right control
 (defun dw/run-xmodmap ()
   (interactive)
@@ -481,14 +487,14 @@ add Lock = Control_R
   ;; (start-process-shell-command "xmodmap" nil "xmodmap ~/.dotfiles/.config/i3/Xmodmap"))
   (start-process-shell-command "xmodmap" nil "xmodmap ~/.doom.d/exwm/Xmodmap"))
 
-;; (defun dw/update-wallpapers ()
-;;    ;; for command below to work install it first
-;;    ;; also u might need to change the path to the bg as well
-;;   (interactive)
-;;   (start-process-shell-command
-;;    "feh" nil
-;;    ;; "feh" nil "feh --bg-scale ~/Pictures/xXfymMYfBFM.jpg"))
-;;    (format "feh --bg-scale ~/Pictures/%s" (alist-get 'desktop/background dw/system-settings))))
+(defun dw/update-wallpapers ()
+   ;; for command below to work install it first
+   ;; also u might need to change the path to the bg as well
+  (interactive)
+  (start-process-shell-command
+   "feh" nil "feh --bg-scale ~/Pictures/xXfymMYfBFM.jpg"))
+   ;; "feh" nil
+   ;; (format "feh --bg-scale ~/Pictures/%s" (alist-get 'desktop/background dw/system-settings))))
 
 ;; (setq dw/panel-process nil)
 ;; (defun dw/kill-panel ()
@@ -521,16 +527,18 @@ add Lock = Control_R
   )
 
 ;; (when dw/exwm-enabled
-;;   ;; Configure the desktop for first load
-;;   (add-hook 'exwm-init-hook #'dw/on-exwm-init))
+  ;; Configure the desktop for first load
+  (add-hook 'exwm-init-hook #'dw/on-exwm-init)
+;; )
 #+end_src
 *** TODO Panel
 *** Kbds
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
 ;; These keys should always pass through to Emacs (in line-mode)
 (setq exwm-input-prefix-keys
       '(?\C-x
         ?\C-h
+        ?\SPC
         ;; ?\C-u
         ?\M-x
         ?\M-`
@@ -547,10 +555,6 @@ add Lock = Control_R
 ;; Ctrl+Q will enable the next key to be sent directly to the window
 (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
 
-;; (defun exwm/run-vimb ()
-;;   (exwm/run-in-background "vimb")
-;;   (exwm-workspace-switch-create 2))
-
 ;; (defun exwm/run-qute ()
 ;;   (exwm/run-in-background "qutebrowser")
 ;;   (exwm-workspace-switch-create 2))
@@ -559,19 +563,18 @@ add Lock = Control_R
 ;;  "s-o" 'exwm/run-qute
 ;;  "s-q" 'kill-buffer)
 
-;; (exwm/bind-command
-;;  "s-p" "playerctl play-pause"
-;;  "s-[" "playerctl previous"
-;;  "s-]" "playerctl next")
+(exwm/bind-command
+ "s-p" "playerctl play-pause"
+ "s-[" "playerctl previous"
+ "s-]" "playerctl next")
 
-;; TODO: what's that pkg?
-;; (setup (:pkg desktop-environment)
-;;     (desktop-environment-mode)
-;;     (:option desktop-environment-brightness-small-increment "2%+"
-;;              desktop-environment-brightness-small-decrement "2%-"
-;;              desktop-environment-brightness-normal-increment "5%+"
-;;              desktop-environment-brightness-normal-decrement "5%-"
-;;              desktop-environment-screenshot-command "flameshot gui"))
+(desktop-environment-mode)
+(setq desktop-environment-brightness-small-increment "2%+"
+      desktop-environment-brightness-small-decrement "2%-"
+      desktop-environment-brightness-normal-increment "5%+"
+      desktop-environment-brightness-normal-decrement "5%-"
+      ;; desktop-environment-screenshot-command "flameshot gui")
+      )
 
 ;; set up global key bindings. These always work, no matter the input state.
 ;; keep in mind that changing this list after EXWM initializes has no effect.
@@ -583,15 +586,10 @@ add Lock = Control_R
         ;; ([?\s-r] . exwm-reset)
 
         ;; Move between windows
-        ([?\s-h] . windmove-left)
-        ([?\s-l] . windmove-right)
-        ([?\s-k] . windmove-up)
-        ([?\s-j] . windmove-down)
-
-        ;; Launch applications via chell command
-        ([?\s-o] . (lambda (command)
-                     (interactive (list (read-shell-command "$ ")))
-                     (start-process-shell-command command nil command)))
+        ;; ([?\s-h] . windmove-left)
+        ;; ([?\s-l] . windmove-right)
+        ;; ([?\s-k] . windmove-up)
+        ;; ([?\s-j] . windmove-down)
 
         ([?\s-w] . exwm-workspace-switch)
 
@@ -599,6 +597,11 @@ add Lock = Control_R
         ([s-f2] . (lambda ()
                     (interactive)
                     (start-process "" nil "/usr/bin/slock")))
+
+        ;; Launch applications via chell command
+        ([?\s-o] . (lambda (command)
+                     (interactive (list (read-shell-command "$ ")))
+                     (start-process-shell-command command nil command)))
 
         ([?\s-i] . exwm-input-toggle-keyboard)
         ([?\s-e] . dired-jump)
@@ -613,7 +616,10 @@ add Lock = Control_R
                   (number-sequence 0 9))))
 
 (exwm-input-set-key (kbd "<s-return>") 'vterm)
-;; TODO: app-launcher? instead of 3 lines from above
+;; TODO: write my own .desktop files finder that will be compatible with
+;; vertico
+;; You might therefore be interested in this link:
+;; https://www.mattduck.com/emacs-fuzzy-launcher.html
 ;; (exwm-input-set-key (kbd "s-SPC") 'app-launcher-run-app)
 (exwm-input-set-key (kbd "s-f") 'exwm-layout-toggle-fullscreen)
 #+end_src
