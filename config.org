@@ -68,6 +68,10 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
       :desc "Git gutter popup hunk"
       "gv"
       'git-gutter:popup-hunk)
+(map! :leader
+      :desc "Ace window"
+      "ww"
+      'ace-window)
 ;; TODO: wrap a func below eith defadvice so it insets '~' before and after
 (map! :leader
       :desc "Edmacro insert key"
@@ -163,6 +167,10 @@ Forge:
 (add-hook 'org-mode-hook 'auto-fill-mode)
 ;; (add-hook! 'org-mode-hook (company-mode -1))
 (add-hook! 'org-capture-mode-hook (company-mode -1))
+
+(add-hook 'org-mode-hook
+          (lambda () (add-hook 'after-save-hook #'org-babel-tangle
+                          :append :local)))
 
 ;; didn't work out for me cuz https://orgmode.org/manual/Custom-time-format.html
 ;; (setq org-time-stamp-custom-formats '("<%a %d-%m-%Y>" . "<%a %d-%m-%Y %H:%M>"))
@@ -319,401 +327,27 @@ Forge:
 ;;       )
 #+end_src
 
-* EXWM
-:PROPERTIES:
-:header-args: :mkdirp yes
-:header-args:sh: :tangle-mode (identity #o555)
-:header-args:conf: :tangle-mode (identity #o555)
-:END:
-
-- [ ] find out how to setup same [[https://github.com/daviwil/dotfiles/blob/bf4bac536598894679b4496e8c265953efc29a26/Desktop.org#system-settings][sys-settings]] file to store my background img in
-- [ ] solve problems with vertical syncing
-- [ ] setup [[https://github.com/syncthing/syncthing][syncthing]] & =syncthing-gtk=
-- [ ] setup =dunst=
-- [ ] setup [[https://snapcraft.io/telega][telega]] (telegramm emacs client)
-- [ ] write a hook that will force 'line' mode when leaving any qutebrowser
-  buffer
-- [ ] check qutebrowser custom themes / content.user_stylesheets variable +
-  check custom fonts setup (they all r in =fonts.web.*= variables)
-
-** Prerequisites
-- =xmodmap= for rebinding caps to ctrl
-- =feh= for background
-- amixer, brightnesctl, scrot, slock, upower, TLP, playerctl - for
-  =desktop-environment= to work (prob not all pkgs will b needed, check [[file:README.org::*desktop-environment \[\[https://github.com/DamienCassou/desktop-environment\]\[#docs\]\]][here]])
-- [[http://jonls.dk/redshift/][redshift]] - nightlight
-
-** TODO Desktop Entry
-todo: the file linking to usr/share/xsessions file isn't working
-#+begin_src shell :tangle ./exwm/exwm.desktop
-[Desktop Entry]
-Name=exwm
-Exec=sh ~/.doom.d/exwm/init.sh
-TryExec=sh
-Type=Application
-X-LightDM-DesktopName=exwm
-DesktopNames=exwm
+* Other settings
+#+begin_src emacs-lisp
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
 #+end_src
-** Launch script
-#+begin_src shell :tangle ./exwm/init.sh :shebang #!/bin/sh
-. ~/.profile              # Source .profile for common environment vars
-xhost +SI:localuser:$USER # Disable access control for the current user
-xsettingsd &              # Run xsettingsd to progagate font and theme settings
-xset -b                   # Turn off the system bell
-xss-lock -- slock &       # Enable screen locking on suspend
-xset r rate 200 60 # Set keyboard repeat rate.
 
-# Make Java applications aware this is a non-reparenting window manager.
-export _JAVA_AWT_WM_NONREPARENTING=1
-
-# run the screen compositor
-picom & # new name for 'compton'
-
-# -mm -- maximise emacs window on startup
-exec dbus-launch --exit-with-session emacs -mm --debug-init --use-exwm
-#+end_src
-** Xmodmap setup (Ctrl to Caps)
-#+begin_src sh :tangle ./exwm/Xmodmap
-clear lock
-clear control
-keycode 66 = Control_L
-add control = Control_L
-add Lock = Control_R
-#+end_src
-** desktop.el
-Include =desktop.el= (enable exwm) if:
+Enable exwm if flag's given:
 #+begin_src emacs-lisp
 (setq dw/exwm-enabled (and (eq window-system 'x)
                            (seq-contains command-line-args "--use-exwm")))
 
 (when dw/exwm-enabled
-  (load "~/.doom.d/exwm/desktop.el"))
+  (load "~/exwm/exwm-config.el"))
 #+end_src
-*** Prerequisites
-#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
-;; (require 'exwm)
-(require 'exwm-systemtray)
-;; (setq exwm-systemtray-height 32)
-(exwm-systemtray-enable)
-;; For multimonitor setup:
-;; (require 'exwm-randr)
-;; (exwm-randr-enable)
 
-;; using xim input
-(require 'exwm-xim)
-(exwm-xim-enable)
-(push ?\C-\\ exwm-input-prefix-keys)   ;; use Ctrl + \ to switch input method
-#+end_src
-*** Window Management
-#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
-;; Annoying focus issues
-(setq mouse-autoselect-window nil
-      focus-follows-mouse t
-      exwm-workspace-warp-cursor t
-      exwm-workspace-number 5
-      ;exwm-workspace-minibuffer-position 'bottom
-      exwm-workspace-display-echo-area-timeout 5)
+A useful macro (sometimes) for timing the execution of things. From
+[[https://stackoverflow.com/questions/23622296/emacs-timing-execution-of-function-calls-in-emacs-lisp][StackOverflow]].
 
-;; update buffer names of opened windows whenever 2 windows with same
-;; name appear (like Opera & Opera<1> - u gonna see that)
-(add-hook 'exwm-update-class-hook
-          (lambda ()
-            (exwm-workspace-rename-buffer exwm-class-name)))
-
-;; TODO: cut title if it's too long
-(add-hook 'exwm-update-title-hook
-          (lambda ()
-            (pcase exwm-class-name
-              ("qutebrowser" (exwm-workspace-rename-buffer (format "Qutebrowser: %s" exwm-title))))))
-
-(exwm-enable)
-#+end_src
-*** Helper Functions
-#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
-(defun exwm/run-in-background (command)
-  (let ((command-parts (split-string command "[ ]+")))
-    (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
-
-(defun exwm/bind-function (key invocation &rest bindings)
-  "Bind KEYs to FUNCTIONs globally"
-  (while key
-    (exwm-input-set-key (kbd key)
-                        `(lambda ()
-                           (interactive)
-                           (funcall ',invocation)))
-    (setq key (pop bindings)
-          invocation (pop bindings))))
-
-(defun exwm/bind-command (key command &rest bindings)
-  "Bind KEYs to COMMANDs globally"
-  (while key
-    (exwm-input-set-key (kbd key)
-                        `(lambda ()
-                           (interactive)
-                           (exwm/run-in-background ,command)))
-    (setq key (pop bindings)
-          command (pop bindings))))
-#+end_src
-*** Configuration
-#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
-(defun efs/exwm-init-hook ()
-  ;; Launch Telega in workspace 0 if we've logged in before
-  ;; (exwm-workspace-switch-create 0)
-  ;; (when (file-exists-p "~/.telega/db.sqlite")
-  ;;   (telega nil))
-
-  (exwm-workspace-switch-create 1)
-  ;; (eshell) ;; Open eshell by default
-
-  ;; Launch apps that will run in the background:
-  ;; (exwm/run-in-background "dunst")
-  (exwm/run-in-background "nm-applet") ;; - network-manager system tray icons
-  ;; (exwm/run-in-background "syncthing-gtk --minimized")
-  (exwm/run-in-background "redshift -l 55.751244:37.618423 -t 6500:3500")
-  )
-
-(defun dw/setup-window-by-class ()
-  (interactive)
-  (pcase exwm-class-name
-    ("Emacs" (call-interactively #'exwm-input-toggle-keyboard))
-    ;; ??? ("Xephyr" (call-interactively #'exwm-input-toggle-keyboard))
-    ("discord" (exwm-workspace-move-window 3))
-    ("qutebrowser" (exwm-workspace-move-window 2))
-    ("mpv" (exwm-floating-toggle-floating)
-     (dw/exwm-floating-toggle-pinned))
-    ;; ??? ("gsi" (exwm-input-toggle-keyboard))
-    )
-  )
-
-;; Do some post-init setup
-(add-hook 'exwm-init-hook #'efs/exwm-init-hook)
-
-;; Manipulate windows as they're created
-(add-hook 'exwm-manage-finish-hook
-          (lambda ()
-            ;; Hide the modeline on all X windows
-            ;; (exwm-layout-hide-mode-line)))
-            ;; Send the window where it belongs
-            (dw/setup-window-by-class)))
-
-;; Hide the modeline on all floating windows
-(add-hook 'exwm-floating-setup-hook
-          (lambda ()
-            (exwm-layout-hide-mode-line)))
-#+end_src
-*** TODO Desktop Configuration
-#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
-(defun dw/run-xmodmap ()
-  (interactive)
-  (start-process-shell-command "xmodmap" nil "xmodmap ~/.doom.d/exwm/Xmodmap"))
-
-(defun dw/update-wallpapers ()
-  (interactive)
-  (start-process-shell-command
-   "feh" nil "feh --bg-scale ~/Pictures/xXfymMYfBFM.jpg"))
-
-;; (setq dw/panel-process nil)
-;; (defun dw/kill-panel ()
-;;   (interactive)
-;;   (when dw/panel-process
-;;     (ignore-errors
-;;       (kill-process dw/panel-process)))
-;;   (setq dw/panel-process nil))
-
-;; (defun dw/start-panel ()
-;;   (interactive)
-;;   (dw/kill-panel)
-;;   (setq dw/panel-process (start-process-shell-command "polybar" nil "polybar panel")))
-
-(defun dw/configure-desktop ()
-  (interactive)
-    (dw/run-xmodmap)
-    (run-at-time "2 sec" nil (lambda () (dw/update-wallpapers))))
-
-(defun dw/on-exwm-init ()
-  (dw/configure-desktop)
-  ;; (dw/start-panel)
-  )
-
-(add-hook 'exwm-init-hook #'dw/on-exwm-init)
-#+end_src
-*** TODO Panel
-*** Kbds
-#+begin_src emacs-lisp :tangle ~/.doom.d/exwm/desktop.el
-;; These keys should always pass through to Emacs (in line-mode)
-(setq exwm-input-prefix-keys
-      '(?\C-x
-        ?\C-h
-        ?\ ;; spc??
-        ?\M-x
-        ?\M-`
-        ?\M-&
-        ?\M-:
-        ?\C-\M-j ;; buffer list
-        ;; ?\C-\M-k  ;; Browser list
-        ;; ?\C-\M-n  ;; Next workspace
-        ;; ?\C-\M-'  ;; Popper toggle
-        ?\C-\ ;; ctrl + space
-        ;; ?\C-\;
-        ))
-
-;; Ctrl+Q will enable the next key to be sent directly to the window
-(define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
-
-;; (defun exwm/run-qute ()
-;;   (exwm/run-in-background "qutebrowser")
-;;   (exwm-workspace-switch-create 2))
-
-;; (exwm/bind-function
-;;  "s-o" 'exwm/run-qute
-;;  "s-q" 'kill-buffer)
-
-(exwm/bind-command
- "s-p" "playerctl play-pause"
- "s-[" "playerctl previous"
- "s-]" "playerctl next")
-
-(desktop-environment-mode)
-(setq desktop-environment-brightness-small-increment "2%+"
-      desktop-environment-brightness-small-decrement "2%-"
-      desktop-environment-brightness-normal-increment "5%+"
-      desktop-environment-brightness-normal-decrement "5%-"
-      desktop-environment-screenshot-command "flameshot gui"
-      )
-
-;; set up global key bindings. These always work, no matter the input state.
-;; keep in mind that changing this list after EXWM initializes has no effect.
-(setq exwm-input-global-keys
-      `(
-        ;; reset to line-mode (C-c C-k switches to char-mode via
-        ;; exwm-input-release-keyboard
-        ([?\s-\C-r] . exwm-reset)
-        ;; ([?\s-r] . exwm-reset)
-
-        ;; Move between windows
-        ;; ([?\s-h] . windmove-left)
-        ;; ([?\s-l] . windmove-right)
-        ;; ([?\s-k] . windmove-up)
-        ;; ([?\s-j] . windmove-down)
-
-        ([?\s-w] . exwm-workspace-switch)
-
-        ;; Bind "s-<f2>" to "slock", a simple X display locker.
-        ([s-f2] . (lambda ()
-                    (interactive)
-                    (start-process "" nil "/usr/bin/slock")))
-
-        ;; Launch applications via chell command
-        ([?\s-o] . (lambda (command)
-                     (interactive (list (read-shell-command "$ ")))
-                     (start-process-shell-command command nil command)))
-
-        ([?\s-i] . exwm-input-toggle-keyboard)
-        ([?\s-e] . dired-jump)
-        ([?\s-E] . (lambda () (interactive) (dired "~")))
-        ([?\s-Q] . (lambda () (interactive) (kill-buffer)))
-        ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-        ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%d" i)) .
-                      (lambda ()
-                        (interactive)
-                        (exwm-workspace-switch-create ,i))))
-                  (number-sequence 0 9))))
-
-(exwm-input-set-key (kbd "<s-return>") 'vterm)
-;; TODO: write my own .desktop files finder that will be compatible with
-;; vertico
-;; You might therefore be interested in this link:
-;; https://www.mattduck.com/emacs-fuzzy-launcher.html
-;; (exwm-input-set-key (kbd "s-SPC") 'app-launcher-run-app)
-(exwm-input-set-key (kbd "s-f") 'exwm-layout-toggle-fullscreen)
-#+end_src
-** Qutebrowser
-[[https://github.com/qutebrowser/qutebrowser][Qutebrowser]] is a great keyboard-centric browser which uses the Chromium
-rendering engine via QT 5's WebEngine component. I've configured it to act more
-like Vimb for window-per-tab behavior that integrates well into Emacs. One thing
-I like about this browser is that it does a much better job of remembering what
-windows you had open when it exits so that you can maintain your session more
-easily. I also like that when you reopen a tab/window, the history of that
-window is still present.
-
-#+begin_comment
-I assume not once you will b in need to edit ~hints.selectors~ variable (search
-for its documentation [[qute://help/settings.html][here]]), which contains list of all elements hints will
-appear on.
-#+end_comment
-
-#+begin_src python :tangle ~/.config/qutebrowser/config.py :noweb yes
-# Open every tab as a new window, Vimb style
-# c.tabs.tabs_are_windows = True
-c.tabs.show = "multiple"
-c.tabs.last_close = "close"
-
-c.auto_save.session = True
-c.scrolling.smooth = True
-c.session.lazy_restore = True
-c.content.autoplay = False
-c.content.pdfjs = True
-c.content.plugins = True # why is it false by default?
-c.completion.use_best_match = True
-c.hints.find_implementation = "javascript" # better but slower?
-
-# Scale pages and UI better for hidpi
-c.qt.highdpi = True
-c.fonts.hints = "10pt monospace"
-
-# Better default fonts
-c.fonts.web.family.standard = "Bitstream Vera Sans"
-c.fonts.web.family.serif = "Bitstream Vera Serif"
-c.fonts.web.family.sans_serif = "Bitstream Vera Sans"
-c.fonts.web.family.fixed = "Fira Mono"
-c.fonts.statusbar = "Cantarell"
-
-# Use dark mode where possible
-c.colors.webpage.preferred_color_scheme = "dark"
-c.colors.webpage.darkmode.enabled = True
-c.colors.webpage.darkmode.policy.images = "never"
-# c.colors.webpage.bg = "black"
-
-# Automatically turn on insert mode when a loaded page focuses a text field
-c.input.insert_mode.auto_load = True
-
-# Edit fields in Emacs with Ctrl+E
-c.editor.command = ["emacsclient", "+{line}:{column}", "{file}"]
-
-# Make Ctrl+g quit everything like in Emacs
-config.bind('<Ctrl-g>', 'leave-mode', mode='insert')
-config.bind('<Ctrl-g>', 'leave-mode', mode='command')
-config.bind('<Ctrl-g>', 'leave-mode', mode='prompt')
-config.bind('<Ctrl-g>', 'leave-mode', mode='hint')
-
-# config.bind('v', 'spawn ~/.dotfiles/bin/umpv {url}')
-# config.bind('V', 'hint links spawn ~/.dotfiles/bin/umpv {hint-url}')
-
-config.bind('sr', 'config-source')
-
-# Tweak some keybindings
-config.bind('<Ctrl-e>', 'scroll down')
-config.bind('<Ctrl-y>', 'scroll up')
-# config.unbind('d') # Don't close window on lower-case 'd'
-
-# promt mode
-config.bind('<Ctrl-p>',       'prompt-item-focus prev', mode='prompt')
-config.bind('<Ctrl-n>',       'prompt-item-focus next', mode='prompt')
-# config.bind('n',              'prompt-accept no',       mode='prompt')
-# config.bind('y',              'prompt-accept yes',      mode='prompt')
-
-# Vim-style movement keys in command mode
-config.bind('<Ctrl-j>', 'completion-item-focus --history next', mode='command')
-config.bind('<Ctrl-k>', 'completion-item-focus --history prev', mode='command')
-
-# More binding hints here: https://gitlab.com/Kaligule/qutebrowser-emacs-config/blob/master/config.py
-
-# Load the autoconfig file (quteconfig.py)
-config.load_autoconfig()
-
-#+end_src
-* Other setting
 #+begin_src emacs-lisp
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
+(defmacro zz/measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (float-time (time-since time))))
 #+end_src
