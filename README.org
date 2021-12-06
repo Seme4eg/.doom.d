@@ -855,6 +855,20 @@ _Workspaces:_
 
 *NOTE:* windows r attached to a single workspace
 
+*** Prerequisites
+**** desktop-environment [[https://github.com/DamienCassou/desktop-environment][#docs]]
+
+To use all commands =desktop-environment= provides without customizing the
+package, the following system packages must be available on your system:
+
+Volume:             [[https://www.alsa-project.org/wiki/Main_Page][amixer]]
+Brightness:         [[https://github.com/Hummer12007/brightnessctl][brightnessctl]]
+Screenshot:         [[https://tracker.debian.org/pkg/scrot][scrot]]
+Screenlock:         [[https://tools.suckless.org/slock/][slock]]
+Keyboard backlight: [[https://upower.freedesktop.org/][upower]]
+Wifi and bluetooth: [[https://linrunner.de/en/tlp/tlp.html][TLP]]
+Music:              [[https://github.com/altdesktop/playerctl][playerctl]]
+
 
 ** Utility
 - [[https://github.com/tecosaur/emacs-everywhere#usage][everywhere]] - Invoke Emacs everywhere
@@ -1039,7 +1053,6 @@ RET (nov-browse-url)          - Follow an external url with ‘browse-url’.
 i / t (nov-goto-toc)          - Go to the Table Of Contents index
 ~C(M)-k/j~ / ~[ [~ / ~] ]~ / ~g k/j~  - Go to the previous/next document
 g ? (nov-display-metadata)    - View the metadata of the EPUB document ...
-* Additional knowledge
 * unused kbds
 
 *Q*, C-; spc-ret spc-l spc-k spc-j spc-d
