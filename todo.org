@@ -1,3 +1,4 @@
+* TODO make vertico show folders first when searching
 * Inbox
 ** TODO how to copy with evil without whitespace?
 
