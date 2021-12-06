@@ -5,7 +5,7 @@
 
 =:help=
 
-[[https://unix.stackexchange.com/questions/139191/whats-the-difference-between-primary-selection-and-clipboard-buffer#139193][clipboard vs selection]]. Basically selection - reg ***, clipboard - reg *0*
+[[https://unix.stackexchange.com/questions/139191/whats-the-difference-between-primary-selection-and-clipboard-buffer#139193][clipboard vs selection]]. Basically selection - *reg ***, clipboard - *reg *0*
 
 - o/O :: new webpage (~O~ for new tab). If given string entry wasn't url QT will
   use searchengine.
@@ -26,7 +26,6 @@
 _Zoom:_ ~+/-/=~ - inc/dec/reset
 
 - cd :: download-clear
-- co :: tab-only
 - ZQ/Z :: quit(save)
 - Sh :: history
 
@@ -71,6 +70,17 @@ _Opening:_
 - C :: clone tab
 - D :: tab give -- move current tab to new _window
 - J/K :: tab-move +/- -- move current tab right/left
+** Tab-related commands (~tab-~)
+- J/K :: *next/prev* (accepts [count])
+- d / C-w :: *close*
+- gC :: *clone*
+- T :: *focus* - select tab given as argument/count
+- gt :: *select* tab by index/url/title best match
+- gD :: *give* cur. tab to a new or existing window if win_id given
+- gm :: *move* cur. tab according to the argument and [count]
+- M-m :: *mute/unmute* cur./[count]th tab
+- co :: *only* - close all tabs except for the cur. one
+- C-p :: *pin/unpin* cur./[count]th tab
 
 ** Keybindings that can be prefixed with ~w~ (window & devtools)
 - b :: open quickmark in new window
@@ -127,6 +137,40 @@ In _command_ mode:
 
 ** Free keys
 e, z, A C E I Q W X Y
+* Modes keybindings [[qute://help/settings.html#bindings.default][#docs]]
+** caret
+Working =vim= keys: 0/$, gg/G, v/V, w/b/e, h/j/k/l, o
+
+_Other keys:_
+- <Space> :: selection-toggle
+- <Ctrl-Space> :: selection-drop
+- H/J/K/L :: scroll left/down/up/right
+- y/Y/RET :: yank selection (~Y~ for -s[election])
+- [ / ] :: move-to-start-of-prev/next-block
+- { / } :: move-to-end-of-prev/next-block
+- c :: mode-enter normal
+
+** command
+- C-c:         completion-item-yank
+- C-S-c:       completion-item-yank --sel
+- C-d:         completion-item-del
+- C-n/p:       command-history-next/prev
+- C-return:    command-accept --rapid
+- C-S-tab:     completion-item-focus prev-category
+- C-tab:       completion-item-focus next-category
+- S-delete:    completion-item-del
+- S-TAB / TAB:       completion-item-focus prev / next
+
+- M-b/f:       rl-backward/forward-word
+- M-backspace: rl-backward-kill-word
+- C-a/e:       rl-beginning/end-of-line
+- C-b/f:       rl-backward/forward-char
+- M-d:         rl-kill-word
+- C-k:         rl-kill-line
+- C-u:         rl-unix-line-discard
+- C-w:         rl-unix-word-rubout
+- C-y:         rl-yank
+
 * Setup
 ** Why does it take longer to open a URL in qutebrowser than in chromium?
 
@@ -217,6 +261,19 @@ mode only has shift+escape bound. This is because shift+escape is unlikely to be
 a useful binding to be passed to a webpage. However, any other keys may be
 assigned to leaving passthrough mode instead of shift+escape should this be
 desired.
+* Commands [[qute://help/commands.html][#docs]]
+_Command arguments:_
+- ={url}= expands to the URL of the current page
+- ={url:pretty}= expands to the URL in decoded format
+- ={url:host}, {url:domain}, {url:auth}, {url:scheme}, {url:username},
+  {url:password}, {url:host}, {url:port}, {url:path} and {url:query}= expand to
+  the respective parts of the current URL
+- ={title}= expands to the current page’s title
+- ={clipboard}= expands to the clipboard contents
+- ={primary}= expands to the primary selection contents
+
+Those variables can be escaped by doubling the braces, e.g. {{url}}. It is
+possible to run or bind multiple commands by separating them with ;;.
 
 * Additional info
 How can I get No-Script-like behavior? To disable JavaScript by default:
