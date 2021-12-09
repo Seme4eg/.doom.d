@@ -10,6 +10,8 @@
 ;(package! some-package)
 
 (package! jest)
+;; (package! soundklaus
+;;   :recipe (:local-repo "lisp/soundklaus" :build (:not compile)))
 ;; setup of exwm and desktop environment in my .dotfiles repo
 ;; (package! exwm)
 ;; (package! desktop-environment)

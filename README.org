@@ -969,6 +969,46 @@ RET (nov-browse-url)          - Follow an external url with ‘browse-url’.
 i / t (nov-goto-toc)          - Go to the Table Of Contents index
 ~C(M)-k/j~ / ~[ [~ / ~] ]~ / ~g k/j~  - Go to the previous/next document
 g ? (nov-display-metadata)    - View the metadata of the EPUB document ...
+*** Emms [[https://www.gnu.org/software/emms/][#docs]] [[https://www.gnu.org/software/emms/manual/][#manual]]
+#+begin_quote
+Emms can run as a minimalist player and controlled with a handful of M-x Emacs
+commands, or a fully-fledged, interactive media browser. Emms can display album
+art, play streaming audio, tag music files, search for lyrics, provide MPD
+connectivity, control the volume, and more.
+#+end_quote
+
+** Basic Commands
+
+- emms-play-file file - If called with a prefix the file will be added like
+  'emms-add-file'.
+- emms-add-file file - If called with a prefix the file will be played like
+  'emms-play-file'.
+- emms-play/add-directory dir
+- emms-play/add-directory-tree dir - .. or the value of
+  EMMS-SOURCE-FILE-DEFAULT-DIRECTORY.
+- emms-play/add-url url - A source for an URL - for example, for streaming.
+- emms-play/add-playlist playlist - A source for the M3u or PLS playlist format
+  from the file PLAYLIST.
+- emms-play/add-find dir regexp - A source that will find files in DIR or
+  EMMS-SOURCE-FILE-DEFAULT-DIRECTORY which match REGEXP.
+
+_Playback commands:_
+- emms-start - Start playing the current playlist
+- emms-stop - Stop playing
+- emms-next - Start playing the next track in the playlist
+- emms-previous - Start playing previous track in the playlist
+- emms-shuffle - Shuffle the current playlist. This uses
+  EMMS-PLAYLIST-SHUFFLE-FUNCTION.
+- emms-sort - Sort the current playlist. This uses EMMS-PLAYLIST-SORT-FUNCTION.
+- emms-show &optional insertp - Describe the current Emms track in the
+  minibuffer. If INSERTP is non-nil, insert the description into the current
+  buffer instead. This function uses EMMS-SHOW-FORMAT to format the current
+  track.
+
+=emms-show-all= - pop up a window with the complete information about the track
+being played.
+
+
 * unused kbds
 
 *Q*, C-; spc-ret spc-l spc-k spc-j spc-d
