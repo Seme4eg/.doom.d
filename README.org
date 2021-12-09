@@ -32,7 +32,7 @@ font string. You generally only need these two:
 #+end_src
 
 * to do
-while vacation: [20%]
+while vacation: [18%]
 - [ ] [[https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript][dap-mode for node]] - figure out js *debugging*
 - [ ] ([[http://pragmaticemacs.com/mu4e-tutorials/][mu4e]] +gmail) ;; REVIEW (init.el); also ~spc s s mu4e~ this buffer to get
   more input data.
@@ -43,6 +43,7 @@ while vacation: [20%]
 - [ ] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to
   use it? (=+ranger= flag)
 - [ ] [[https://github.com/chenyanming/calibredb.el#table-of-contents][calibredb]] - learn how to use
+- [ ] learn elisp (SPC h 4 i -> gm -> elisp)
 
 -----
 
@@ -80,11 +81,9 @@ Custom evil keybinds:
 ** minibuffer
 Btw u can use ~C-j/k~ instead of ~C-n/p~ in minibuffer (~C-j/k~ #'next/previous-line)
 
-- ~C-S-j~ #'scroll-up-command
-- ~C-S-k~ #'scroll-down-command
+- ~C-S-j/k~ #'scroll-up/down-command
 - ~C-a~   #'move-beginning-of-line
-- ~C-b~   #'evil-backward-char
-- ~C-f~   #'evil-forward-char
+- ~C-b/f~   #'evil-backward/forward-char
 - ~C-r~   #'evil-paste-from-register
 - ~C-u~   #'evil-delete-back-to-indentation
 - ~C-v~   #'yank
@@ -105,7 +104,6 @@ Uncategorized:
 
 # C-u is used by evil
 - "Universal argument"    "u"    #'universal-argument
-- "window"                "w"    evil-window-map
 - "help"                  "h"    help-map
 
 workspaces:
@@ -617,8 +615,7 @@ h b b~ -> /evil-mc/... Or:
 
 _evil-nerd-commenter_ - comment any viable /text objects/ (below). ~gc {motion}~
 Inobvious keys after it:
-- l - line
-- c - line
+- l/c - line
 - r - region
 - . - ? -- evilnc-copy-and-comment-operator ?
 - \ - comment current line and enter insert mode on point
