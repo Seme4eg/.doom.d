@@ -33,7 +33,8 @@ font string. You generally only need these two:
 
 * to do
 while vacation: [18%]
-- [ ] [[https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript][dap-mode for node]] - figure out js *debugging*
+- [ ] [[https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript][dap-mode for node]] - figure out js *debugging* (check out /System Crafters/
+  channel)
 - [ ] ([[http://pragmaticemacs.com/mu4e-tutorials/][mu4e]] +gmail) ;; REVIEW (init.el); also ~spc s s mu4e~ this buffer to get
   more input data.
 - [ ] setup [[https://snapcraft.io/telega][telega]] (telegramm emacs client)
@@ -82,12 +83,13 @@ Custom evil keybinds:
 Btw u can use ~C-j/k~ instead of ~C-n/p~ in minibuffer (~C-j/k~ #'next/previous-line)
 
 - ~C-S-j/k~ #'scroll-up/down-command
-- ~C-a~   #'move-beginning-of-line
+- ~C-s~     # minibuffer history
+- ~C-a~     #'move-beginning-of-line
 - ~C-b/f~   #'evil-backward/forward-char
-- ~C-r~   #'evil-paste-from-register
-- ~C-u~   #'evil-delete-back-to-indentation
-- ~C-v~   #'yank
-- ~C-w~   #'doom/delete-backward-word
+- ~C-r~     #'evil-paste-from-register
+- ~C-u~     #'evil-delete-back-to-indentation
+- ~C-v~     #'yank
+- ~C-w~     #'doom/delete-backward-word
 - ~C-z~   (cmd! (ignore-errors (call-interactively #'undo))))
 
 ** <leader>
@@ -974,7 +976,7 @@ art, play streaming audio, tag music files, search for lyrics, provide MPD
 connectivity, control the volume, and more.
 #+end_quote
 
-** Basic Commands
+**** Basic Commands
 
 - emms-play-file file - If called with a prefix the file will be added like
   'emms-add-file'.
