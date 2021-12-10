@@ -669,6 +669,19 @@ instead of opening console in all browser tabs...
 - SPC c D (+lookup/references)            - Show a list of usages of IDENTIFIER (defaults to ...
 - SPC c d (+lookup/definition)            - Jump to the definition of IDENTIFIER (defaults to...
 - SPC h O (+lookup/online)                - Look up QUERY in the browser using PROVIDER.
+*** hide / fold (hideshow mode)
+This mode isn't enabled in all prog-modes.
+
+- <S-mouse-2> (hs-toggle-hiding) - Toggle hiding/showing of a block.
+
+~C-c @~ prefix:
+- C-e/c (hs-toggle-hiding) - Toggle hiding/showing of a block.
+- C-d/s (hs-hide-block) - Select a block and hide it.  With prefix arg...
+- C-t / C-M-h (hs-hide-all) - Hide all top level blocks, displaying only f...
+- C-a / C-M-s (hs-show-all) - Show everything then run ‘hs-show-hook’.  Se...
+- C-l/h (hs-hide-level) - Hide all blocks ARG levels below this block.
+
+There's also =hide-sublevels= command
 
 ** Navigation
 *** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]]
