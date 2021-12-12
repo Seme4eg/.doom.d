@@ -1091,13 +1091,16 @@ For the format, type orgtbl-to and press TAB to see the available
 options (e.g. orgtbl-to-csv will convert to csv in the output file)
 
 Use [[http://orgmode.org/worg/org-tutorials/org-spreadsheet-intro.html][formulae]] to do arithmetic on tables, and use them like a spreadsheet.
+** Narrowing
+~spc m s n~ (org-narrow-to-subtree) - narrow buffer to current subtree (~N~ to
+widen)
 
-** Babel
 *Org-narrow* prefix ~C-x n~ ↓
 b - org-narrow-to-block
 s - org-narrow-to-subtree
 e - org-narrow-to-element
 
+** Babel
 *Org-babel* prefix - ~C-c C-v~ ↓
 a - sha1-hash
 b - execute-buffer
