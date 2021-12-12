@@ -330,18 +330,20 @@ Forge:
 #+begin_src emacs-lisp
 (setq-default
  emms-source-file-default-directory "~/Music/"
+ ;; emms-player-mpd-music-directory "~/Music"
  emms-source-playlist-default-format 'm3u
  emms-playlist-mode-center-when-go t
  emms-show-format "NP: %s"
  emms-browser-default-browse-type 'info-album
+ ;; emms-player-mpd-server-port "6559"
  )
+
+;; (after! emms
+;;   (add-to-list 'emms-player-list 'emms-player-mpd)
+;;   )
 
 (map! :leader
       (:prefix-map ("l" . "Listen")
-
-       ;; (:prefix ("j" . "journal")
-       ;;  :desc "New journal entry" "j" #'org-journal-new-entry
-       ;;  :desc "Search journal entry" "s" #'org-journal-search)
 
        ;; Playback
        :desc "Browser" "l" #'emms-smart-browse
