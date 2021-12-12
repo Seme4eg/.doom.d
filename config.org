@@ -326,6 +326,51 @@ Forge:
 ;;        doom-dashboard-widget-loaded)
 ;;       )
 #+end_src
+* Emms
+#+begin_src emacs-lisp
+(setq-default
+ emms-source-file-default-directory "~/Music/"
+ emms-source-playlist-default-format 'm3u
+ emms-playlist-mode-center-when-go t
+ emms-show-format "NP: %s"
+ emms-browser-default-browse-type 'info-album
+ )
+
+(map! :leader
+      (:prefix-map ("l" . "Listen")
+
+       ;; (:prefix ("j" . "journal")
+       ;;  :desc "New journal entry" "j" #'org-journal-new-entry
+       ;;  :desc "Search journal entry" "s" #'org-journal-search)
+
+       ;; Playback
+       :desc "Browser" "l" #'emms-smart-browse
+       :desc "Play cur. playlist" "SPC" #'emms-start
+       :desc "Stop" "x" #'emms-pause
+       :desc "Stop" "X" #'emms-stop
+       :desc "Next" "n" #'emms-next
+       :desc "Previous" "p" #'emms-previous
+       :desc "Shuffle" "S" #'emms-shuffle
+       :desc "Loop track (toggle)" "L" #'emms-toggle-repeat-track
+       :desc "Bury emms buffers" "q" #'emms-browser-bury-buffer
+
+       :desc "Play all files matching regex" "f" #'emms-play-find
+
+       ;; Playlists
+       (:prefix ("P" . "Playlist")
+        :desc "Loop playlist (toggle)" "L" #'emms-toggle-repeat-playlist
+        :desc "Shuffle (toggle)" "S" #'emms-toggle-random-playlist
+        :desc "Edit playlist buffers" "l" #'emms-metaplaylist-mode-go
+        )
+       ;; Bookmarks
+       (:prefix ("B" . "Bookmarks")
+        :desc "Add new bookmark to cur. track" "a" #'emms-bookmarks-add
+        :desc "Sek to next bookmark in cur. track" "n" #'emms-bookmarks-next
+        :desc "Seek to prev. bookmark in cur. track" "p" #'emms-bookmarks-prev
+        :desc "Remove all bookmarks from cur. track" "c" #'emms-bookmarks-clear
+        )
+       ))
+#+end_src
 
 * Other settings
 #+begin_src emacs-lisp
