@@ -25,7 +25,7 @@ Global:
   ;; Some functionality uses this to identify you,
   ;; e.g. GPG configuration, email clients, file templates and snippets.
   user-full-name "sad"
-  user-mail-address "418@duck.com"
+  user-mail-address "d3v1ant@mail.ru"
 
   doom-theme 'doom-opera
   doom-font (font-spec :family "Source Code Pro" :size 16)
@@ -191,9 +191,17 @@ Forge:
         :clock-in t
         :clock-keep t
         :empty-lines 1)
-       ("b" "Buffer settings" plain
+       ("N" "Notes file settings prepend" plain
          (file +org-capture-project-notes-file)
-         "%[~/git/tea/templates/bufferSettings]"
+         "%[~/git/tea/templates/notesFileSettings]"
+         :prepend t
+         :immediate-finish t
+         :empty-lines-after 1)
+       ;; To insert template at point, in current file call 'spc-X' with
+       ;; 'spc u 0' prefix
+       ("I" "Info file settings prepend (call from a directory with info file!)" plain
+         (file "./info.org")
+         "%[~/git/tea/templates/infoFileSettings]"
          :prepend t
          :immediate-finish t
          :empty-lines-after 1)
@@ -326,21 +334,89 @@ Forge:
 ;;        doom-dashboard-widget-loaded)
 ;;       )
 #+end_src
+* Mu4e
+#+begin_src emacs-lisp
+(after! mu4e
+  ;; This is set to 't' to avoid mail syncing issues when using mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; Refresh mail using isync every 10 minutes
+  (setq mu4e-update-interval 300)
+  (setq mu4e-get-mail-command "mbsync -a")
+  ;; Configure the function to use for sending mail
+  (setq message-send-mail-function 'smtpmail-send-it)
+
+  (setq mu4e-contexts
+        (list
+         ;; Work account
+         (make-mu4e-context
+          :name "418"
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/mailru/d3v1ant/" (mu4e-message-field msg :maildir))))
+          :vars '((user-mail-address     . "d3v1ant@mail.ru")
+                  (user-full-name        . "A.L.")
+                  (smtpmail-smtp-server  . "smtp.mail.ru")
+                  (smtpmail-smtp-service . 465)
+                  (smtpmail-stream-type  . ssl)
+                  ;; text in the end of composed mail
+                  ;; (mu4e-compose-signature . "- sad\nnewline")
+                  (mu4e-drafts-folder    . "/mailru/d3v1ant/Drafts")
+                  (mu4e-sent-folder      . "/mailru/d3v1ant/Sent")
+                  (mu4e-refile-folder    . "/mailru/d3v1ant/Inbox")
+                  (mu4e-trash-folder     . "/mailru/d3v1ant/Trash")))
+         (make-mu4e-context
+          :name "sa6"
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
+          :vars '((user-mail-address     . "sa6.mart1an@gmail.com")
+                  (user-full-name        . "A.L.")
+                  (smtpmail-smtp-server  . "smtp.gmail.com")
+                  (smtpmail-smtp-service . 465)
+                  (smtpmail-stream-type  . ssl)
+                  (mu4e-drafts-folder    . "/gmail/Drafts")
+                  (mu4e-sent-folder      . "/gmail/Sent")
+                  (mu4e-refile-folder    . "/gmail/Archive")
+                  (mu4e-trash-folder     . "/gmail/Trash")))
+         ))
+
+  (setq mu4e-maildir-shortcuts
+        '((:maildir "/mailru/d3v1ant/Inbox"  :key ?i)
+          (:maildir "/mailru/d3v1ant/Sent"   :key ?s)
+          (:maildir "/mailru/d3v1ant/Trash"  :key ?t)
+          (:maildir "/mailru/d3v1ant/Drafts" :key ?d)
+          (:maildir "/mailru/d3v1ant/Spam"   :key ?a)))
+
+  ;; Run mu4e in the background to sync mail periodically
+  (mu4e t)
+
+  )
+#+end_src
 * Emms
 #+begin_src emacs-lisp
 (setq-default
  emms-source-file-default-directory "~/Music/"
- ;; emms-player-mpd-music-directory "~/Music"
- emms-source-playlist-default-format 'm3u
+ emms-player-mpd-music-directory "/home/sad/Music/"
+ ;; emms-source-playlist-default-format 'm3u
  emms-playlist-mode-center-when-go t
  emms-show-format "NP: %s"
  emms-browser-default-browse-type 'info-album
- ;; emms-player-mpd-server-port "6559"
+ emms-player-mpd-server-port "6559"
  )
 
-;; (after! emms
-;;   (add-to-list 'emms-player-list 'emms-player-mpd)
-;;   )
+(after! emms
+  (add-to-list 'emms-player-list 'emms-player-mpd)
+  (add-to-list 'emms-info-functions 'emms-info-mpd)
+  )
+
+;; Once you've done the above, run the 'M-x emms-cache-set-from-mpd-all'
+;; command to fill the Emms cache with the contents of your MusicPD
+;; database.  The music in your MusicPD database should then be accessible
+;; via the Emms browser.
+
 
 (map! :leader
       (:prefix-map ("l" . "Listen")

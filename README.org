@@ -694,7 +694,6 @@ avy for windows switching ~spc w C-w~ / ~C-w C-w~
 - ~M-{number}~   #'+workspace/switch-to-{number}
 
 *** dired [[file:~/.emacs.d/modules/emacs/dired/README.org::*Keybindings][#kbds]]
-
 [[https://www.youtube.com/watch?v=oZSmlAAbmYs&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=3][short vid]]
 
 Move with h, j, k, l, where h & l are 'up' & 'down' directory
@@ -895,12 +894,186 @@ To look up Info-mode _variables_ go ~SPC h i~ -> ~g m~ -> Info -> ~g G Variables
 *** mu4e
 ~spc o m~ - start mu4e email client
 
-couldn't make it work, here r some links:
+- [ ] (mu4e) What mu4e does not do -> smtpmail link -- learn how to send msgs
 
-[[https://yamadharma.github.io/ru/post/2021/01/22/mail-synchronization-mbsync/#синхронизация][main source (rus)]], [[https://www.youtube.com/watch?v=yZRyEhi4y44][system crafters 1]], [[https://www.youtube.com/watch?v=olXpfaSnf0o][system crafters 2]], [[https://isync.sourceforge.io/mbsync.html][mbsync config
-documentation]], [[https://help.mail.ru/mail/mailer/popsmtp][mail ru official]]
+_On main mu4e interface page:_
+- ; :: switch focus - change mail account
+- u :: update email (throws an error if in your emacs config u got
+  =user-mail-address= set to unknown to mu4e mail account)
 
-/Also don't worket about [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]] and org-msg (~s o~ that)/
+_Controlling the number of messages visible:_
+- =mu4e-headers-results-limit=: The number of messages to display in mail listings
+  (default 500)
+- =mu4e-headers-full-search=: If =t=, shows all messages, ignoring limit (toggle
+  with =M-x mu4e-headers-toggle-full-search=!)
+  
+Run =M-x mu4e-update-mail-and-index= to sync and index your e-mail at any time
+(in =header mode= kbd is ~C-c C-u~, in main menu - ~u~)
+
+**** Header mode keybindings
++ Movement
+  - ~j/k~   :: Moves to the next/previous header line
+  - ]]/[[ :: Moves to next/previous unread message
+  - ~J~     :: Jump to another mail directory
++ Toggles
+  - ~zt~ :: Toggles threaded message display
+  - ~zr~ :: Toggles related message display (toggle showing messages that r not from
+    current search query)
++ Marking
+  - ~d~ :: Marks message for deletion
+  - ~m~ :: Marks message for move to folder
+  - ~+~ :: Marks message for flagging
+  - ~-~ :: Marks message for unflagging
+  - ~%~ :: Marks based on a regex pattern
+  - ~u~ :: Removes mark for message
+  - ~U~ :: Unmarks all marks in the view
+  - ~x~ :: Executes all marks in the view
++ Searching
+  - ~s~  :: Search all e-mails
+  - ~S~  :: Edit current search (useful!)
+  - ~/~  :: Narrow down the current results
+  - ~b~  :: Select a bookmark to search with
+  - ~B~  :: Edit bookmark before search
+  - ~gr~ :: Rerun the current search
++ Composing
+  - ~C~, ~cc~ :: Compose a new e-mail
+  - ~R~, ~cr~ :: Compose a reply to selected email
+  - ~F~, ~cf~ :: Compose a forward for selected email
+  - ~E~, ~ce~ :: Edit selected draft message
+
+*Other Actions*
+- ~q~ :: Quit the headers view
+
+**** View mode keybindings
+
+Many of the same keybindings work! Marking keys work on the currently viewed
+message.
+
+- ~j/k~   :: next/previous line in message
+- ~C-j/k~ :: next/previous email in header list
+- ]]/[[ :: next/previous unread message
+
+**** Search queries [[https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html][#docs]]
+=mu4e-headers-search= command.
+
+- =something= - General text search for "something"
+- =from:stallman= - Emails from a particular sender
+- =date:today..now= - Date range
+- =flag:attach= - Emails with an attachment
+- ="maildir:/Inbox"= - Search in a specific mail directory
+
+You can also use logic statements like =and= , =not=: ="maildir:/Inbox" and from:eli
+and docs=, =org and :from {username}=
+
+~M-arrow-right/left~ - move forward/backward in search history
+
+_Bookmarking queries_ - =M-x mu4e-headers-search-bookmark=
+#+begin_src emacs-lisp
+(setq mu4e-bookmarks
+      '((:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key ?i)
+        (:name "Today's messages" :query "date:today..now" :key ?t)
+        (:name "The Boss" :query "from:stallman" :key ?s)
+        (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
+        (:name "Messages with images" :query "mime:image/*" :key ?p)))
+#+end_src
+
+You can create bookmarks to show merged views of folders across accounts:
+
+: (add-to-list 'mu4e-bookmarks '("m:/Fastmail/INBOX or m:/Gmail/Inbox" "All Inboxes" ?i))
+
+**** Syncing the n-th account [[https://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html][#docs]] [[https://www.djcbsoftware.nl/code/mu/mu4e/Contexts-example.html][#example]]
+- stop mu4e from syncing! Run =M-x mu4e-quit= to stop the background sync timer.
+- add the configuration for the new mail account to =.mbsyncrc=:
+- create a folder for new acc and sync it with ~mbsync -a~
+- reindex with =mu= to add the new address:
+
+#+begin_src sh
+mu init --maildir=~/Mail --my-address=mail@mail.com --my-address=another@mail.com
+#+end_src
+
+*NOTE:* It's possible you will see an error like this:
+
+: mu: mu_store_new_writable: xapian error 'Unable to get write lock on /home/daviwil/.mu/xapian: already locked' (11)
+
+Just kill the running =mu= process with ~pkill mu~ and run ~mu init~ again.
+
+You can change how the default context is picked by setting =mu4e-context-policy=
+to one of the following values:
+- =ask-if-none= - Ask the first time you enter the view (default)
+- =pick-first= - Pick the first context in the =mu4e-contexts= list
+- =always-ask= - Always ask when entering the main view
+
+**** Compose & send email
+***** Configuring SMTP
+
+SMTP is [[https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol][Simple Mail Transfer Protocol]], an old standard for connecting to a server to send email.
+
+Traditionally, SMTP servers run on port 25 without any kind of encryption.  These days, most will either use SSL or TLS, either of which may use different ports.
+
+- =smtpmail-smtp-server= - The host where we connect to send mail
+- =smtpmail-smtp-service= - The port number of the SMTP service (defaults to 25)
+- =smtpmail-stream-type= - Determines whether SSL or TLS should be used when connecting
+
+Add an entry to your =~/.authinfo.gpg= file for your SMTP server:
+
+: machine smtp.samplesmtpserver.com login your@mail.com password your_pass port 465
+
+***** Composing Email [[https://www.djcbsoftware.nl/code/mu/mu4e/Writing-messages.html][#docs]]
+=To= - Enter recipients separated by comma or semicolon. You can press ~TAB~ to
+complete recipient names!
+
+- ~C-c C-c~ - Send the message
+- ~C-c C-k~ - Discard the message
+- ~C-c C-d~ - Save the message in your Drafts folder
+
+_Ways to get to compose screen:_
+- =C= while in the mail list
+- =R= while selecting a mail in the mail list or while viewing an e-mail to compose a reply
+- =F= while selecting a mail in the mail list or while viewing an e-mail to compose a forwarded mail
+- =M-x mu4e-compose-new= or bind that command to a key!
+
+-----
+
+- ~C-c C-a~ :: add an attachment to e-mail (Drag and drop also works!)
+- ~C-c C-d~ :: save a message as a draft. To get back to editing this message
+  select the message in the headers list or open the email and press ~c e~.
+
+To _sign email_ =mml-secure-message-sign-pgpmime= (while composing a mail) to mark it to be
+signed once you send it.
+
+#+begin_src emacs-lisp
+;; Use a specific key for signing by referencing its thumbprint
+(setq mml-secure-openpgp-signers '("53C41E6E41AAFE55335ACA5E446A2ED4D940BF14"))
+#+end_src
+
+You can automatically sign every e-mail using the =message-send-hook=:
+
+: (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
+
+_Encrypt mails_ with =mml-secure-message-encrypt-pgpmine=. (Anyone with your public
+key will be able to decrypt the message.)
+
+***** Customizing the HTML export style
+#+begin_src emacs-lisp
+  (setq org-mime-export-options '(:section-numbers nil
+                                  :with-author nil
+                                  :with-toc nil))
+#+end_src
+
+=org-mime= starts with Org's configured export options for HTML.
+
+Customize the styling of individual HTML elements inside of the message using =org-mime-html-hook=.  Here's an example of making all code blocks have a dark background and light text:
+#+begin_src emacs-lisp
+  (add-hook 'org-mime-html-hook
+            (lambda ()
+              (org-mime-change-element-style
+              "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
+                            "#E6E1DC" "#232323"))))
+#+end_src
+**** Links that might help
+[[https://yamadharma.github.io/ru/post/2021/01/22/mail-synchronization-mbsync/#синхронизация][mbsync configs for different email clients]], [[https://www.youtube.com/watch?v=olXpfaSnf0o][system crafters 2]], [[https://help.mail.ru/mail/mailer/popsmtp][mail ru official]]
+
+/Also don't forget about [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]] and org-msg (~s o~ that)/
 
 *** EWW
 _While in normal mode:_
@@ -1023,6 +1196,7 @@ being played.
 ;; libre-fm
 (emms-librefm-scrobbler-enable)
 #+end_src
+
 ***** Sources
 _Functions:_
 - emms-play-find - Play all files in EMMS-SOURCE-FILE-DEFAULT-DIRECTORY that
@@ -1033,9 +1207,6 @@ _Functions:_
 - emms-locate regexp Search for REGEXP and display the results in a locate
   buffer
 
-***** playlists
-.. if u'll ever for some reason need this functionality from =emms= there is also
-/info/ section for it.
 **** The (Smart) Browser
 The Browser allows you to browse the metadata cache and add tracks to your
 playlist. It includes a powerful interactive mode.
@@ -1131,6 +1302,8 @@ arbitrary text into the playlist buffers together with the playlist tracks. Text
 which is not a track is ignored by the program and can therefore be used to
 include titles and annotations within the playlist.
 #+end_comment
+
+(lookup =info= as well)
 
 ***** Tag editor mode
 <backtab> / <tab> - emms-tag-editor-prev/next-field
