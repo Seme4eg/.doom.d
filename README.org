@@ -891,10 +891,10 @@ To look up Info-mode _variables_ go ~SPC h i~ -> ~g m~ -> Info -> ~g G Variables
 - ~f~ :: following cross reference (part 1.7 of ~M-h~)
 - f? :: list all references in cur. node
 
-*** mu4e
-~spc o m~ - start mu4e email client
-
-- [ ] (mu4e) What mu4e does not do -> smtpmail link -- learn how to send msgs
+*** mu4e (~spc o m~)
+:PROPERTIES:
+:sources:  [[https://yamadharma.github.io/ru/post/2021/01/22/mail-synchronization-mbsync/#синхронизация][mbsync configs for different email clients]], [[https://www.youtube.com/watch?v=olXpfaSnf0o][system crafters 2]], [[https://help.mail.ru/mail/mailer/popsmtp][mail ru official]]
+:END:
 
 _On main mu4e interface page:_
 - ; :: switch focus - change mail account
@@ -909,77 +909,6 @@ _Controlling the number of messages visible:_
   
 Run =M-x mu4e-update-mail-and-index= to sync and index your e-mail at any time
 (in =header mode= kbd is ~C-c C-u~, in main menu - ~u~)
-
-**** Header mode keybindings
-+ Movement
-  - ~j/k~   :: Moves to the next/previous header line
-  - ]]/[[ :: Moves to next/previous unread message
-  - ~J~     :: Jump to another mail directory
-+ Toggles
-  - ~zt~ :: Toggles threaded message display
-  - ~zr~ :: Toggles related message display (toggle showing messages that r not from
-    current search query)
-+ Marking
-  - ~d~ :: Marks message for deletion
-  - ~m~ :: Marks message for move to folder
-  - ~+~ :: Marks message for flagging
-  - ~-~ :: Marks message for unflagging
-  - ~%~ :: Marks based on a regex pattern
-  - ~u~ :: Removes mark for message
-  - ~U~ :: Unmarks all marks in the view
-  - ~x~ :: Executes all marks in the view
-+ Searching
-  - ~s~  :: Search all e-mails
-  - ~S~  :: Edit current search (useful!)
-  - ~/~  :: Narrow down the current results
-  - ~b~  :: Select a bookmark to search with
-  - ~B~  :: Edit bookmark before search
-  - ~gr~ :: Rerun the current search
-+ Composing
-  - ~C~, ~cc~ :: Compose a new e-mail
-  - ~R~, ~cr~ :: Compose a reply to selected email
-  - ~F~, ~cf~ :: Compose a forward for selected email
-  - ~E~, ~ce~ :: Edit selected draft message
-
-*Other Actions*
-- ~q~ :: Quit the headers view
-
-**** View mode keybindings
-
-Many of the same keybindings work! Marking keys work on the currently viewed
-message.
-
-- ~j/k~   :: next/previous line in message
-- ~C-j/k~ :: next/previous email in header list
-- ]]/[[ :: next/previous unread message
-
-**** Search queries [[https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html][#docs]]
-=mu4e-headers-search= command.
-
-- =something= - General text search for "something"
-- =from:stallman= - Emails from a particular sender
-- =date:today..now= - Date range
-- =flag:attach= - Emails with an attachment
-- ="maildir:/Inbox"= - Search in a specific mail directory
-
-You can also use logic statements like =and= , =not=: ="maildir:/Inbox" and from:eli
-and docs=, =org and :from {username}=
-
-~M-arrow-right/left~ - move forward/backward in search history
-
-_Bookmarking queries_ - =M-x mu4e-headers-search-bookmark=
-#+begin_src emacs-lisp
-(setq mu4e-bookmarks
-      '((:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key ?i)
-        (:name "Today's messages" :query "date:today..now" :key ?t)
-        (:name "The Boss" :query "from:stallman" :key ?s)
-        (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
-        (:name "Messages with images" :query "mime:image/*" :key ?p)))
-#+end_src
-
-You can create bookmarks to show merged views of folders across accounts:
-
-: (add-to-list 'mu4e-bookmarks '("m:/Fastmail/INBOX or m:/Gmail/Inbox" "All Inboxes" ?i))
 
 **** Syncing the n-th account [[https://www.djcbsoftware.nl/code/mu/mu4e/Contexts.html][#docs]] [[https://www.djcbsoftware.nl/code/mu/mu4e/Contexts-example.html][#example]]
 - stop mu4e from syncing! Run =M-x mu4e-quit= to stop the background sync timer.
@@ -1004,6 +933,9 @@ to one of the following values:
 - =always-ask= - Always ask when entering the main view
 
 **** Compose & send email
+[[https://www.youtube.com/watch?v=dSZu4jwvaSs][Here]] is also a video of how to create org-mail workflow, which for now i kinda
+don't need.
+
 ***** Configuring SMTP
 
 SMTP is [[https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol][Simple Mail Transfer Protocol]], an old standard for connecting to a server to send email.
@@ -1017,41 +949,6 @@ Traditionally, SMTP servers run on port 25 without any kind of encryption.  Thes
 Add an entry to your =~/.authinfo.gpg= file for your SMTP server:
 
 : machine smtp.samplesmtpserver.com login your@mail.com password your_pass port 465
-
-***** Composing Email [[https://www.djcbsoftware.nl/code/mu/mu4e/Writing-messages.html][#docs]]
-=To= - Enter recipients separated by comma or semicolon. You can press ~TAB~ to
-complete recipient names!
-
-- ~C-c C-c~ - Send the message
-- ~C-c C-k~ - Discard the message
-- ~C-c C-d~ - Save the message in your Drafts folder
-
-_Ways to get to compose screen:_
-- =C= while in the mail list
-- =R= while selecting a mail in the mail list or while viewing an e-mail to compose a reply
-- =F= while selecting a mail in the mail list or while viewing an e-mail to compose a forwarded mail
-- =M-x mu4e-compose-new= or bind that command to a key!
-
------
-
-- ~C-c C-a~ :: add an attachment to e-mail (Drag and drop also works!)
-- ~C-c C-d~ :: save a message as a draft. To get back to editing this message
-  select the message in the headers list or open the email and press ~c e~.
-
-To _sign email_ =mml-secure-message-sign-pgpmime= (while composing a mail) to mark it to be
-signed once you send it.
-
-#+begin_src emacs-lisp
-;; Use a specific key for signing by referencing its thumbprint
-(setq mml-secure-openpgp-signers '("53C41E6E41AAFE55335ACA5E446A2ED4D940BF14"))
-#+end_src
-
-You can automatically sign every e-mail using the =message-send-hook=:
-
-: (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
-
-_Encrypt mails_ with =mml-secure-message-encrypt-pgpmine=. (Anyone with your public
-key will be able to decrypt the message.)
 
 ***** Customizing the HTML export style
 #+begin_src emacs-lisp
@@ -1070,10 +967,321 @@ Customize the styling of individual HTML elements inside of the message using =o
               "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
                             "#E6E1DC" "#232323"))))
 #+end_src
-**** Links that might help
-[[https://yamadharma.github.io/ru/post/2021/01/22/mail-synchronization-mbsync/#синхронизация][mbsync configs for different email clients]], [[https://www.youtube.com/watch?v=olXpfaSnf0o][system crafters 2]], [[https://help.mail.ru/mail/mailer/popsmtp][mail ru official]]
 
-/Also don't forget about [[https://github.com/iqbalansari/mu4e-alert][mu4e-alert]] and org-msg (~s o~ that)/
+**** Info
+***** 2.8 Retrieval and indexing
+#+begin_src emacs-lisp
+(setq
+  mu4e-index-cleanup nil      ;; don't do a full cleanup check
+  mu4e-index-lazy-check t)    ;; don't consider up-to-date dirs
+#+end_src
+
+In many cases, the mentioned thoroughness might not be needed, and
+these settings give a very significant speed-up.  If it does not work
+for you (e.g., mu4e fails to find some new messages), simply leave at
+the default.
+
+Note that you can occasionally run a thorough indexing round using
+‘mu4e-update-index-nonlazy’.
+
+For further details, please refer to the mu-index manpage; in
+particular, see .noindex and .noupdate which can help reducing the
+indexing time.
+
+A hook ‘mu4e-update-pre-hook’ is available which is run right before
+starting the process.  That can be useful, for example, to influence,
+‘mu4e-get-mail-command’ based on the the current situation (location,
+time of day, ...).
+
+It is possible to get notifications when the indexing process does
+any updates — for example when receiving new mail.  See
+‘mu4e-index-updated-hook’ and some tips on its usage in the *note FAQ::.
+
+***** 2.10 Running mu4e (keybindings)
+For your orientation, the diagram below shows how the views relate to
+each other, and the default key-bindings to navigate between them.
+
+   #+begin_verse
+   [C]       +--------+   [RFCE]
+   --------> | editor | <--------
+  /          +--------+          \
+ /         [RFCE]^                \
+/                |                 \
++-------+ [sjbB]+---------+  [RET]  +---------+
+| main  | <---> | headers | <---->  | message |
++-------+  [q]  +---------+ [qbBjs] +---------+
+                   [sjbB]                ^
+[.] | [q]
+    V
+  +-----+
+  | raw |
+  +-----+
+   #+end_verse
+
+Default bindings:
+
+R: Reply      s: search            .: raw view (toggle)
+F: Forward    j: jump-to-maildir   q: quit
+C: Compose    b: bookmark-search
+E: Edit       B: edit bookmark-search
+
+***** 3.3 Bookmarks
+- b {shortcut} :: view the list of messages matching a certain bookmark
+- B :: edit the bookmarked query first before invoking it
+
+Next to each bookmark there is the number of (unread/all) messages that match.
+
+Add your own and/or replace the default ones:
+#+begin_src emacs-lisp
+(add-to-list 'mu4e-bookmarks
+             ;; add bookmark for recent messages on the Mu mailing list.
+             '( :name "Mu7Days"
+                :key  ?m
+                :query "list:mu-discuss.googlegroups.com AND date:7d..now"))
+#+end_src
+
+There are optional keys
+- :hide :: hide the bookmark from the main menu, but still have it available
+  (using ~b~))
+- :hide-unread :: avoid generating the unread-number; that can be useful if you
+  have bookmarks for slow queries. IT is implied when the query is not a string;
+  this for the common case where the query function involves some user input,
+  which would be disruptive in this case.
+
+***** TODO 3.4 Miscellaneous
+toggle [m]ail sending mode (direct) toggles between sending mail directly, and
+queuing it first (for example, when you are offline), and [f]lush queued mail
+flushes any queued mail. This item is visible only if you have actually set up
+mail-queuing.
+
+***** 4 The headers view
+
+• The letters in the ‘Flags’ field correspond to the following:
+  D=_draft_, F=_flagged_ (i.e., ‘starred’), N=_new_, P=_passed_
+  (i.e., forwarded), R=_replied_, S=_seen_, T=_trashed_,
+  a=_has-attachment_, x=_encrypted_, s=_signed_, u=_unread_.  The
+  tooltip for this field also contains this information.
+• Just before executing a search, a hook-function
+  ‘mu4e-headers-search-hook’ is invoked, which receives the search
+  expression as its parameter.
+
+• Also, there is a hook-function ‘mu4e-headers-found-hook’ available
+  which is invoked just after mu4e has completed showing the messages
+  in the headers-view.
+
+****** 4.2 Keybindings #actualize
+- Movement
+  - ~j/k~ / C-j/k  :: Moves to the next/previous header line
+  - ]]/[[ or gj/k :: Moves to next/previous unread message
+  - ~J~     :: Jump to another mail directory
+- Toggles
+  - ~z t~ :: Toggles threaded message display
+  - ~z r~ :: Toggles related message display (toggle showing messages that r not
+    from current search query)
+  - z d :: toggle skip duplicates
+  - Q :: toggle full-search
+- Marking
+  - ~m~ :: Marks message for move to folder
+  - ~+/-~ :: Marks message for flagging/unflagging
+  - ?/! :: mark message as unread / read
+  - ~%~ :: Marks based on a regex pattern
+  - = :: mark for removing trash flag ('untrash')
+  - ~d~ :: Marks message for deletion
+  - D :: mark for complete deletion
+  - r :: mark for refiling
+  - A :: Mark header at point with action.
+  - & (mu4e-headers-mark-custom) :: Mark messages based on a user-provided predi...
+  - * :: Mark header at point with something (decide later).
+  - u :: unmark message at point
+  - U :: unmark *all* messages
+  - ~x~ :: Executes all marks in the view
+- Searching
+  - ~s~  :: Search all e-mails
+  - ~S~  :: Edit current search (useful!)
+  - ~/~  :: Narrow down the current results
+  - ~b~  :: Select a bookmark to search with
+  - ~B~  :: Edit bookmark before search
+  - ~gr~ :: Rerun the current search
+- Composing
+  - ~C~, ~cc~ :: Compose a new e-mail
+  - ~R~, ~cr~ :: Compose a reply to selected email
+  - ~F~, ~cf~ :: Compose a forward for selected email
+  - ~E~, ~ce~ :: Edit selected draft message
+
+*Other Actions*
+- ~q~ :: Quit the headers view
+- o :: change sort order
+- l :: Refile a message and add a entry in =‘+org-capture-msg-to-agenda=
+- a :: execute some custom action on a header (capture message, show
+- g v :: (mu4e-select-other-view) When the headers view is selected, select
+  th...
+- g l :: Visit the mu4e debug log.
+- C-S-u / C-c C-u :: mu4e-update-mail-and-index
+
+- <M-down> (mu4e-headers-next) Move point to the next message header.
+- <M-up> (mu4e-headers-prev) Move point to the previous message header.
+- <M-right> (mu4e-headers-query-next) Execute the previous query from the query st...
+- <M-left> (mu4e-headers-query-prev) Execute the previous query from the query st...
+
+#+NAME: Present in documentation, but are not set up in cur. config
+#+begin_comment
+- T,t   mark whole thread, subthread
+- *     mark for 'something'
+- #     resolve deferred 'something' marks
+- C-+,C--      increase / decrease the number of headers shown
+#+end_comment
+
+****** 4.6 Actions
+‘mu4e-headers-action’ (<a>) lets you pick custom actions to perform on
+the message at point.  You can specify these actions using the variable
+‘mu4e-headers-actions’.  See *note Actions:: for the details.
+
+   mu4e defines some default actions.  One of those is for _capturing_ a
+message: <a c> ‘captures’ the current message.  Next, when you’re
+editing some message, you can include the previously captured message as
+an attachment, using ‘mu4e-compose-attach-captured-message’.  See
+‘mu4e-actions.el’ in the mu4e source distribution for more example
+actions.
+****** Other
+4.5 Custom headers
+***** 5 The message view
+• The variable ‘mu4e-view-fields’ determines the header fields to be
+  shown; see ‘mu4e-header-info’ for a list of built-in fields.  Apart
+  from the built-in fields, you can also create custom fields using
+  ‘mu4e-header-info-custom’; see *note MSGV Custom headers::.
+• For search-related operations, see *note Searching::.
+• You can scroll down the message using <SPC>; if you do this at the
+  end of a message,it automatically takes you to the next one.  If
+  you want to prevent this behavior, set ‘mu4e-view-scroll-to-next’
+  to ‘nil’.
+
+****** 5.2 Keybindings
+searching, marking, composition - all kbds same as in headers view.
+
+_Movement_:
+- ~j/k~   :: next/previous line in message
+- ~C-j/k~ :: next/previous email in header list
+- ]]/[[ :: next/previous unread message
+
+_Actions_ (C-u prefix does chosen action on multiple things):
+- g go to (visit) numbered URL (using `browse-url')
+- f fetch (download )the numbered URL.
+- k save the numbered URL in the kill-ring.
+- e extract (save) one or more attachments (asks for numbers)
+- a execute some custom action on the message
+- A execute some custom action on the message's MIME-parts
+
+***** 6 The editor view
+:PROPERTIES:
+:sources:  https://www.djcbsoftware.nl/code/mu/mu4e/Writing-messages.html
+:END:
+
+=To= - Enter recipients separated by comma or semicolon. You can press ~TAB~ to
+complete recipient names!
+
+Besides keybinding shortcuts to compose new message () u can bind =M-x
+mu4e-compose-new= to a key!
+
+mu4e’s editor view derives from Gnus’ message editor and shares most of
+its keybindings.  Here are some of the more useful ones (you can use the
+menu to find more):
+
+~C-c~ prefix:
+- C-c :: send message
+- C-d :: save to drafts and leave. To get back to editing this message
+  select the message in the headers list or open the email and press ~c e~.
+- C-k :: kill the message buffer (the message remains in the draft folder)
+- C-a :: attach a file (pro-tip: drag & drop works as well)
+- C-; :: switch the context
+
+~C-S-u~ - update mail & reindex
+
+There is also _6.4 Compose hooks_, _6.7 Message signatures_
+
+If you want to exclude your own e-mail address when “replying to all”, set
+‘mu4e-compose-dont-reply-to-self’ to ‘t’. In order for this to work properly you
+need to pass your address to ‘mu init --my-address=’ at database initialization
+time.
+
+****** 6.5 Signing and encrypting
+To _sign email_ =mml-secure-message-sign-pgpmime= (while composing a mail) to mark
+it to be signed once you send it.
+
+#+begin_src emacs-lisp
+;; Use a specific key for signing by referencing its thumbprint
+(setq mml-secure-openpgp-signers '("53C41E6E41AAFE55335ACA5E446A2ED4D940BF14"))
+#+end_src
+
+You can automatically sign every e-mail using the =message-send-hook=:
+
+: (add-hook 'message-send-hook 'mml-secure-message-sign-pgpmime)
+
+_Encrypt mails_ with =mml-secure-message-encrypt-pgpmine=. (Anyone with your public
+key will be able to decrypt the message.)
+
+Important note: the messages are encrypted when they are _sent_: this means that
+draft messages are _not_ encrypted. So if you are using e.g. offlineimap or mbsync
+to synchronize with some remote IMAP-service, make sure the drafts folder is _not_
+in the set of synchronized folders, for obvious reasons.
+***** 7 Searching
+:PROPERTIES:
+:sources:  https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html
+:END:
+
+=mu4e-headers-search= command.
+
+~M-left/right~ - move backward/forward in search history
+
+*Queries* -> ~1 spc h i~ -> ~g m mu4e~ -> ~i queries~ ... and next section is *Bookmarks*
+(7.2)
+
+You can create bookmarks to show merged views of folders across accounts:
+: (add-to-list 'mu4e-bookmarks '("m:/Fastmail/INBOX or m:/Gmail/Inbox" "All Inboxes" ?i))
+***** 8 Marking
+lots of stuff skipped there cuz no need rn.
+
+Some examples of mu4e’s built-in marking functions:
+- Mark the message at point for trashing: press <d>
+- Mark all messages in the buffer as unread: press ‘C-x h o’
+- Delete the messages in the current thread: press ‘T D’
+- Mark messages with a subject matching “hello” for flagging: press ‘% s hello
+  RET’.
+
+***** appendixes
+
+_General:_
+
+D.1.7 Can I start mu4e in the background?
+
+Yes — if you provide a prefix-argument (<C-u>), mu4e starts, but does
+not show the main-window.
+
+D.1.10 With a lot of Maildir folders, jumping to them can get slow. What can I do?
+
+Set ‘mu4e-cache-maildir-list’ to ‘t’ (make sure to read its docstring).
+
+_D.2 Retrieving mail:_
+
+D.2.3 How can I re-index my messages without getting new mail?
+
+Use ‘M-x mu4e-update-index’
+
+D.3.10 Some messages are almost unreadable in emacs — can I view them in an external web browser?
+
+Indeed, airlines often send messages that heavily depend on html and are
+hard to digest inside emacs.  Fortunately, there’s an _action_ (*note
+Message view actions::) defined for this.  Simply add to your
+configuration:
+     (add-to-list 'mu4e-view-actions
+       '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+   Now, when viewing such a difficult message, type ‘aV’, and the
+message opens inside a web browser.  You can influence the browser with
+‘browse-url-generic-program’; and see *note Privacy aspects::.
+
+D.4.17 Is it possible to compose messages in a separate frame?
+--------------------------------------------------------------
+
+Yes — set the variable ‘mu4e-compose-in-new-frame’ to ‘t’.
 
 *** EWW
 _While in normal mode:_

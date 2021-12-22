@@ -388,7 +388,14 @@ Forge:
           (:maildir "/mailru/d3v1ant/Sent"   :key ?s)
           (:maildir "/mailru/d3v1ant/Trash"  :key ?t)
           (:maildir "/mailru/d3v1ant/Drafts" :key ?d)
-          (:maildir "/mailru/d3v1ant/Spam"   :key ?a)))
+          (:maildir "/mailru/d3v1ant/Spam"   :key ?a)
+
+          (:maildir "/gmail/Inbox"  :key ?I)
+          (:maildir "/gmail/Sent"   :key ?S)
+          (:maildir "/gmail/Trash"  :key ?T)
+          (:maildir "/gmail/Drafts" :key ?D)
+          (:maildir "/gmail/Spam"   :key ?A)
+          ))
 
   ;; Run mu4e in the background to sync mail periodically
   (mu4e t)
