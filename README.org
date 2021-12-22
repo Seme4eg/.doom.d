@@ -1352,6 +1352,94 @@ w (eww-copy-page-url) - copy current page's url to kill ring
 DEL (scroll-down-command)
 <delete> (scroll-down-command)
 #+end_comment
+*** Telega
+_Message bindings (cursor on message):_
+SPC             scroll-up-command
+<normal-state> Z Q              evil-quit
+<normal-state> Z Z              quit-window
+
+_Global chat bindings:_
+TAB             telega-chatbuf-complete-or-next-link
+<backtab>        telega-chatbuf-prev-link
+<normal-state> ^                telega-chatbuf-beginning-of-thing
+
+**** kbds 2
+s (telega-msg-favorite-toggle) Toggle MSG being favorite in the chat.
+<backtab> (telega-button-backward) Move backward to N visible/active button.
+<tab> (telega-button-forward) Move forward to N visible/active button.
+a (telega-msg-mark-toggle) Toggle mark of the message MSG.
+D (telega-msg-delete-marked-or-at-point) Deletes some messages.
+0 (telega-msg--vvnote-stop) Stop playing media message.
+1..9 (telega-msg--vvnote-rewind-part) Rewind to the N’s 10 part of the message dur...
+x (telega-msg--vvnote-play-speed-toggle) Toggle playback speed for the media message.
+> / . (telega-msg--vvnote-rewind-10-forward) Rewind 10 seconds forward.
+< / , (telega-msg--vvnote-rewind-10-backward) Rewind 10 seconds backward.
+= (telega-msg-diff-edits) Display edits to MSG user did.
+U telega-chatbuf-unmark-all
+S (telega-msg-save) Save messages’s MSG media content to a file.
+R (telega-msg-forward-marked-or-at-point) Forward marked messages or message at point.
+P (telega-msg-pin-toggle) Toggle pin state of the message MSG.
+L (telega-msg-redisplay) Redisplay the message MSG.
+F (telega-msg-forward-marked-or-at-point-to-multiple-chats) Forward marked messages or message at point ...
+B (telega-msg-ban-sender) Ban forever MSG sender in the chat.
+t (telega-msg-open-thread) Open thread initiated by MSG.
+r (telega-msg-reply) Start replying to MSG.
+i (telega-msg-edit) Start editing the MSG.
+_ (telega-chatbuf-filter-cancel) Cancel any message filtering.
+C-l (telega-chatbuf-recenter-1) Recenter for chatbuf.
+
+Z R (telega-msg-resend)
+Z L (telega-msg-redisplay) Redisplay the message MSG.
+Z l (telega-msg-copy-link) Copy link to message to kill ring.
+Z y (telega-msg-copy-text) Copy a text of the message MSG.
+
+~Z~ _attach_ prefix:
+- v :: Attach clipboard image to the chatbuf as photo.
+- f :: Attach FILENAME as media, detecting media ty...
+- a :: Attach something to the chatbuf input.
+
+~g A~ or ~M-g~ _chatbuf_ prefix:
+- v :: Goto video chat associated with the chat.
+- * :: Goto next favorite message.
+- x :: Pop message from ‘telega-chatbuf--messages-p...
+- ^ / P :: Goto next pinned message for the chatbuffer.
+- u :: Goto next uneard message in chat.
+- @ / m :: Goto next unread mention in chat buffer.
+- r / > :: Jump to the last message in the chat history...
+- < :: Jump to the first message in the chat history.
+- d / ! :: Goto last message before DATE timestamp.
+
+~g a~ prefix:
+- w :: Open the URL.
+- u :: Switch to next unread message in next unread...
+- t :: Start telega.el Telegram client.
+- s :: Switch to "Saved Messages" chat buffer.
+- f :: Prepare FILE to be sent as document or photo...
+- i :: Switch to important CHAT if any.
+- e :: Interactively switch to BUFFER having ‘teleg...
+- c :: Start messaging with CHAT-OR-USER.
+
+Other?:
+- a :: Switch to the ACCOUNT-NAME.
+g ? (telega-describe-message) Show info about message at point. (??? - telega-describe-chatbuf)
+
+d s (telega-msg-ban-sender) Ban forever MSG sender in the chat.
+d d (telega-msg-delete-marked-or-at-point) Deletes some messages.
+z z (telega-chatbuf-recenter-1) Recenter for chatbuf.
+M-r (telega-chatbuf-input-search) Search for REGEX in chat input history.
+M-n/p (telega-chatbuf-edit-next/prev) Edit message sent next/prev to currently editing.
+C-M-a (telega-chatbuf-beginning-of-thing) Move backward to the beginning of the chat i...
+
+C-M-c (telega-chatbuf-cancel-aux) Cancel current aux prompt.
+ESC (EStelega-chatbuf-cancel-aux) Cancel current aux prompt.
+
+C-c C-r/s (telega-chatbuf-filter-search) Interactively search for messages in chatbuf.
+C-c C-c (telega-chatbuf-filter-cancel) Cancel any message filtering.
+C-c / (telega-chatbuf-filter) Enable chat message filtering MSG-FILTER.
+C-c C-v (telega-chatbuf-attach-clipboard) Attach clipboard image to the chatbuf as photo.
+C-c C-f (telega-chatbuf-attach-media) Attach FILENAME as media, detecting media ty...
+C-c C-a (telega-chatbuf-attach) Attach something to the chatbuf input.
+C-c ? (telega-describe-chat) Show info about chat at point.
 
 *** Nov [[https://depp.brause.cc/nov.el/][#docs]]
 
