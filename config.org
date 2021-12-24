@@ -402,6 +402,11 @@ Forge:
 
   )
 #+end_src
+* Telega
+#+begin_src emacs-lisp
+(map! :leader "o c" 'telega)
+(define-key global-map (kbd "C-c t") telega-prefix-map)
+#+end_src
 * Emms
 #+begin_src emacs-lisp
 (setq-default

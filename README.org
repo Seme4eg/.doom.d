@@ -968,8 +968,7 @@ Customize the styling of individual HTML elements inside of the message using =o
                             "#E6E1DC" "#232323"))))
 #+end_src
 
-**** Info
-***** 2.8 Retrieval and indexing
+**** 2.8 Retrieval and indexing
 #+begin_src emacs-lisp
 (setq
   mu4e-index-cleanup nil      ;; don't do a full cleanup check
@@ -997,7 +996,7 @@ It is possible to get notifications when the indexing process does
 any updates — for example when receiving new mail.  See
 ‘mu4e-index-updated-hook’ and some tips on its usage in the *note FAQ::.
 
-***** 2.10 Running mu4e (keybindings)
+**** 2.10 Running mu4e (keybindings)
 For your orientation, the diagram below shows how the views relate to
 each other, and the default key-bindings to navigate between them.
 
@@ -1025,7 +1024,7 @@ F: Forward    j: jump-to-maildir   q: quit
 C: Compose    b: bookmark-search
 E: Edit       B: edit bookmark-search
 
-***** 3.3 Bookmarks
+**** 3.3 Bookmarks
 - b {shortcut} :: view the list of messages matching a certain bookmark
 - B :: edit the bookmarked query first before invoking it
 
@@ -1048,13 +1047,13 @@ There are optional keys
   this for the common case where the query function involves some user input,
   which would be disruptive in this case.
 
-***** TODO 3.4 Miscellaneous
+**** TODO 3.4 Miscellaneous
 toggle [m]ail sending mode (direct) toggles between sending mail directly, and
 queuing it first (for example, when you are offline), and [f]lush queued mail
 flushes any queued mail. This item is visible only if you have actually set up
 mail-queuing.
 
-***** 4 The headers view
+**** 4 The headers view
 
 • The letters in the ‘Flags’ field correspond to the following:
   D=_draft_, F=_flagged_ (i.e., ‘starred’), N=_new_, P=_passed_
@@ -1069,7 +1068,7 @@ mail-queuing.
   which is invoked just after mu4e has completed showing the messages
   in the headers-view.
 
-****** 4.2 Keybindings #actualize
+***** 4.2 Keybindings
 - Movement
   - ~j/k~ / C-j/k  :: Moves to the next/previous header line
   - ]]/[[ or gj/k :: Moves to next/previous unread message
@@ -1131,7 +1130,7 @@ mail-queuing.
 - C-+,C--      increase / decrease the number of headers shown
 #+end_comment
 
-****** 4.6 Actions
+***** 4.6 Actions
 ‘mu4e-headers-action’ (<a>) lets you pick custom actions to perform on
 the message at point.  You can specify these actions using the variable
 ‘mu4e-headers-actions’.  See *note Actions:: for the details.
@@ -1142,9 +1141,9 @@ editing some message, you can include the previously captured message as
 an attachment, using ‘mu4e-compose-attach-captured-message’.  See
 ‘mu4e-actions.el’ in the mu4e source distribution for more example
 actions.
-****** Other
+***** Other
 4.5 Custom headers
-***** 5 The message view
+**** 5 The message view
 • The variable ‘mu4e-view-fields’ determines the header fields to be
   shown; see ‘mu4e-header-info’ for a list of built-in fields.  Apart
   from the built-in fields, you can also create custom fields using
@@ -1155,7 +1154,7 @@ actions.
   you want to prevent this behavior, set ‘mu4e-view-scroll-to-next’
   to ‘nil’.
 
-****** 5.2 Keybindings
+***** 5.2 Keybindings
 searching, marking, composition - all kbds same as in headers view.
 
 _Movement_:
@@ -1164,14 +1163,14 @@ _Movement_:
 - ]]/[[ :: next/previous unread message
 
 _Actions_ (C-u prefix does chosen action on multiple things):
-- g go to (visit) numbered URL (using `browse-url')
-- f fetch (download )the numbered URL.
-- k save the numbered URL in the kill-ring.
-- e extract (save) one or more attachments (asks for numbers)
-- a execute some custom action on the message
-- A execute some custom action on the message's MIME-parts
+- g :: go to (visit) numbered URL (using `browse-url')
+- f :: fetch (download) the numbered URL.
+- k :: save the numbered URL in the kill-ring.
+- e :: extract (save) one or more attachments (asks for numbers)
+- a :: execute some custom action on the message
+- A :: execute some custom action on the message's MIME-parts
 
-***** 6 The editor view
+**** 6 The editor view
 :PROPERTIES:
 :sources:  https://www.djcbsoftware.nl/code/mu/mu4e/Writing-messages.html
 :END:
@@ -1203,7 +1202,7 @@ If you want to exclude your own e-mail address when “replying to all”, set
 need to pass your address to ‘mu init --my-address=’ at database initialization
 time.
 
-****** 6.5 Signing and encrypting
+***** 6.5 Signing and encrypting
 To _sign email_ =mml-secure-message-sign-pgpmime= (while composing a mail) to mark
 it to be signed once you send it.
 
@@ -1223,7 +1222,7 @@ Important note: the messages are encrypted when they are _sent_: this means that
 draft messages are _not_ encrypted. So if you are using e.g. offlineimap or mbsync
 to synchronize with some remote IMAP-service, make sure the drafts folder is _not_
 in the set of synchronized folders, for obvious reasons.
-***** 7 Searching
+**** 7 Searching
 :PROPERTIES:
 :sources:  https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html
 :END:
@@ -1237,7 +1236,7 @@ in the set of synchronized folders, for obvious reasons.
 
 You can create bookmarks to show merged views of folders across accounts:
 : (add-to-list 'mu4e-bookmarks '("m:/Fastmail/INBOX or m:/Gmail/Inbox" "All Inboxes" ?i))
-***** 8 Marking
+**** 8 Marking
 lots of stuff skipped there cuz no need rn.
 
 Some examples of mu4e’s built-in marking functions:
@@ -1247,7 +1246,7 @@ Some examples of mu4e’s built-in marking functions:
 - Mark messages with a subject matching “hello” for flagging: press ‘% s hello
   RET’.
 
-***** appendixes
+**** appendixes
 
 _General:_
 
@@ -1352,7 +1351,7 @@ w (eww-copy-page-url) - copy current page's url to kill ring
 DEL (scroll-down-command)
 <delete> (scroll-down-command)
 #+end_comment
-*** Telega
+*** Telega [[https://zevlg.github.io/telega.el/][#docs]]
 _Message bindings (cursor on message):_
 SPC             scroll-up-command
 <normal-state> Z Q              evil-quit
@@ -1362,6 +1361,217 @@ _Global chat bindings:_
 TAB             telega-chatbuf-complete-or-next-link
 <backtab>        telega-chatbuf-prev-link
 <normal-state> ^                telega-chatbuf-beginning-of-thing
+
+_Other prob. important things from documentation:_
+- custom chat filter
+- chat sort criteria
+
+_Chat Filters_ (~\/~ prefix) are used to match chats, same as regexps are used to
+match strings. Chat Filters uses S-exp notation similar to rx package for
+regexps. Consider Chat Filters as extremely powerful "Folders" functionality in
+official client.
+
+_Sorting Chats_, ~\\~ prefix
+
+**** Rootbuf fast navigation
+- J u (telega-root-next-unread) Move point to the next chat with unread message.
+- J i (telega-root-next-important) Move point to the next chat with important
+  messages. Important message is a message matching "Important" custom chat
+  filter. If there is no "Important" custom chat filter, then (or mention (and
+  unread unmuted)) chat filter is used.
+- J @, J m (telega-root-next-mention) Move point to the next chat with mention.
+
+**** Rootbuf view switching
+~g~ prefix in rootbuf is used to switch root views:
+
+- s, V s (telega-view-search) View QUERY search results.
+- V n (telega-view-nearby) View contacts and chats nearby telega-my-location.
+- V v (telega-view-reset) Reset rootview to the default value.
+- V 0 (telega-view-compact) Compact view for the rootbuf.
+- V 1 (telega-view-one-line) View chat list as one line.
+- V 2 (telega-view-two-lines) View chat list as 2 lines.
+- V t (telega-view-topics) Group chats by telega-root-view-topics. (also view
+  /customizable options/ for 'topics')
+- V F (telega-view-files) View status of files known to telega. File can be in
+  one of the state kinds: "downloading", "uploading", "partially-downloaded",
+  "partially-uploaded", "downloaded". If C-u is specified, then query user about
+  file state kinds to show. By default all kinds are shown.
+
+If you use this view frequently, consider setting
+telega-chat-upload-attaches-ahead to nil, to avoid file duplications for
+"uploading" kind. See
+https://github.com/tdlib/td/issues/1348#issuecomment-752654650 for details
+
+Press d under downloaded filename to delete the file. Only files cached by TDLib in the telega-cache-dir can be deleted.
+
+- V T (telega-view-top) View top chats in all categories. (User Option: telega-root-view-top-categories) List of top categories with limits.
+
+- V S (telega-view-settings) View and edit your Telegram settings.
+- V c (telega-view-contacts) View contacts searched by QUERY. If QUERY is empty string, then show all contacts.
+- V C (telega-view-calls) View calls. If C-u is given, then view missed calls only.
+- V l (telega-view-last-messages) View last messages in the chats.
+- V f (telega-view-folders) View Telegram folders.
+- V d (telega-view-deleted-chats) View recently deleted chats.
+- V * (telega-view-favorite-messages) View favorite messages in all the chats.
+
+User Option: telega-root-default-view-function - Default view for the rootbuf. Default value: telega-view-default
+
+**** Chat folders, ~g O~ prefix
+Organise chats into Chat Folders. Each folder can have unlimited number of
+pinned chats.
+
+~g O~ prefix in rootbuf is used to operate on Chat Folders:
+- + :: (telega-folder-create) Create new Telegram folder with name FOLDER-NAME.
+  Use C-u to create folder with icon name.
+- - :: (telega-folder-delete) Delete Telegram folder with FOLDER-NAME. This
+  won't delete any chat, just a folder.
+- = :: (telega-folders-reorder) Reorder Telegram folders to be in
+  ORDERED-FOLDER-NAMES order.
+- R :: (telega-folder-rename) Assign new name and icon to the folder with
+  FOLDER-NAME. Use C-u to change folder's icon name as well.
+- a :: (telega-chat-add-to-folder) Add CHAT to the Telegram folder named
+  FOLDER-NAME. You can add chat to multiple folders.
+- d :: (telega-chat-remove-from-folder) Remove CHAT from the folder named
+  FOLDER-NAME.
+
+=telega-root-view-topics-folders= - Non-nil to add Chat Folders to the list of
+topics. Could be one of prepend, append or nil. (Default value: append)
+
+=telega-folder-icons-alist= - Alist of symbols to be used as folder icons instead
+of telega-symbol-folder. See list of all available icon names in
+telega-folder-icon-names.
+
+**** Chat buffer
+Press ~g ?~ (telega-describe-message) to get detailed description of the message
+at point.
+
+Important customizable options:
+=telega-chat-fill-column= - Column to fill chat messages to. (Default value: 70)
+
+~g A~ / ~M-g~ prefix in chatbuf is used to jump across various chat messages:
+- < (telega-chatbuf-history-beginning) Jump to the first message in the chat
+  history.
+- r, > (telega-chatbuf-read-all) Jump to the last message in the chat history
+  and mark all messages as read. If C-u is used, then reset active messages
+  filter.
+- @, m (telega-chatbuf-next-unread-mention) Goto next unread mention in chat
+  buffer.
+- u (telega-chatbuf-next-unread) Goto next uneard message in chat.
+  BUTTON-CALLBACK - callback to call with single argument - message button.
+- ^, P (telega-chatbuf-goto-pinned-message) Goto next pinned message for the
+  chatbuffer.
+- x (telega-chatbuf-goto-pop-message) Pop message from telega-chatbuf--messages-pop-ring and goto it.
+- * (telega-chatbuf-next-favorite) Goto next favorite message.
+- !, d (telega-chatbuf-goto-date) Goto last message before DATE timestamp.
+- v (telega-chatbuf-goto-video-chat) Goto video chat associated with the chat.
+
+You can apply _markup_ to the input when sending message. This is controlled by
+number of C-u pressed before RET and value of the:
+
+=telega-chat-input-markups= Markups to apply when sending input with RET. (Default
+value: (nil "markdown1" "markdown2"))
+
+Markdown markup syntax for "markdown1" and "markdown2" markups:
+
+: 1. *bold text*
+: 2. _italic text_
+: 2.1) __underline text__    (only for "markdown2")
+: 2.2) ~strike through text~ (only for "markdown2")
+: 3. `inlined code`
+: 4. ```<language-name-not-displayed>
+    : first line of multiline preformatted code
+    : second line
+    : last line```
+: 5. [link text](http://actual.url)
+: 6. [username](tg://user?id=<USER-ID>)"
+
+Also, you can intermix various markups, using C-c C-a markup RET command.
+
+telega-chat-markup-functions - List of markups to use on C-c C-a markup RET.
+
+telega-chat-ret-always-sends-message - Non-nil to make RET always send a
+message. Otherwise RET sends a message only if point is at the end of the
+chatbuf input or inserts newline otherwise. (Default value: t)
+
+***** Attaching media, ~C-c~ prefix
+- C-a (telega-chatbuf-attach) Attach something to the chatbuf input. C-u is
+  passed directly to the attachment function. See telega-chat-attach-commands
+  for available attachment types.
+- C-f (telega-chatbuf-attach-media) Attach FILENAME as media, detecting media
+  type by FILENAME extension. If C-u is given, then attach as file.
+- C-v (telega-chatbuf-attach-clipboard) Attach clipboard image to the chatbuf as
+  photo. If C-u is given, then attach clipboard as document.
+
+Attachment types to attach with C-c C-a (telega-chatbuf-attach) defined in telega-chat-attach-commands user option:
+
+- photo :: Attach FILENAME as photo to the chatbuf input.
+- self-destruct-photo :: Attach a file as self destructing photo. This attachment can be used only in private chats.
+- video :: Attach FILENAME as video to the chatbuf input.
+- self-destruct-video :: Attach a file as self destructing video. This attachment can be used only in private chats.
+- audio :: Attach FILENAME as audio to the chatbuf input.
+- voice-note :: Attach a voice note to the chatbuf input. If C-u is given, then attach existing file as voice-note. Otherwise record voice note inplace. telega-vvnote-voice-cmd is used to record voice notes.
+- file :: Attach FILENAME as document to the chatbuf input.
+- gif :: Attach GIF-FILE as animation to the chatbuf input.
+- location :: Attach location to the chatbuf input. If C-u is given, then attach live location.
+- poll :: Attach poll to the chatbuf input. Can be used only in group chats. QUESTION - Title of the poll. ANONYMOUS-P - Non-nil to create anonymous poll. ALLOW-MULTIPLE-ANSWERS-P - Non-nil to allow multiple answers. OPTIONS - List of strings representing poll options.
+- contact :: Attach CONTACT user to the chatbuf input.
+- screenshot :: Attach screenshot to the chatbuf input. If numeric prefix arg N is given, then take screenshot in N seconds. If C-u is given, then take screenshot of the screen area. Multiple C-u increases delay before taking screenshot of the area. Uses telega-screenshot-function to take a screenshot.
+- clipboard :: Attach clipboard image to the chatbuf as photo. If C-u is given, then attach clipboard as document.
+- markup :: Attach MARKUP-TEXT using MARKUP-NAME into chatbuf. Using this type of attachment it is possible to intermix multiple markups in the chatbuf input. Markups are defined in the telega-chat-markup-functions user option.
+- scheduled :: Mark content as scheduled. Send following message at TIMESTAMP. If C-u is given and chat is private and online status of the corresponding user is known, then send message when user gets online.
+- disable-notification :: Toggle disable-notification chat option for the subsequent chatbuf input. Use this attachment to disable/enable notification on the receiver side.
+- enable-notification :: Toggle disable-notification chat option for the subsequent chatbuf input. Use this attachment to disable/enable notification on the receiver side.
+- disable-webpage-preview :: Disable webpage preview for the following text message.
+- code :: Interactively attach a code of the LANGUAGE into chatbuf input. For non-interactive code attach, use telega-mnz--chatbuf-attach-internal.
+- Special :: attachment types are disable-webpage-preview, scheduled, disable-notification or enable-notification. They do not attach anything, but changes options on how to send the message. Use scheduled to schedule messages, disable-notification or enable-notification to trigger notification on receiver side and disable-webpage-preview to disable rich web page previews for URLs in the message text.
+
+***** Replying and editing messages
+To reply/edit the message, put point on the message you want to reply/edit and press r (telega-msg-reply) to reply or e (telega-msg-edit) to edit.
+
+Aux prompt will be show just above the chatbuf prompt, such as:
+
+[✕]| Reply: @demash> Trying to install telega  M-x packag…
+(T)>>>
+To cancel aux prompt press on the cross button, or use C-c C-k, C-M-c, M-ESC (telega-chatbuf-cancel-aux) binding. C-c C-k, C-M-c, M-ESC (telega-chatbuf-cancel-aux) accepts C-u prefix, if used then chatbuf's input is also canceled.
+
+To edit your previously sent message press M-p (telega-chatbuf-edit-prev).
+
+It is possible to edit message with markup text inside. Formatting for such messages is controlled by:
+
+User Option: telega-msg-edit-markup-spec
+
+Cons cell specifying how to format message text when editing. car is a function to convert message's text to markup string. cdr is a markup name from telega-chat-markup-functions to use as markup attachment. Use nil to edit message as is, without using "markup" attachment type.
+
+Default value: (telega--fmt-text-markdown2 . "markdown2")
+
+e (telega-msg-edit) accepts C-u prefix to edit message as-is without using markup attachment with markup name specified in this option.
+
+***** Forwarding messages
+To forward a message, put cursor under the message which you want to forward and press f (telega-msg-forward-marked-or-at-point) and then select a Chat to forward a message to. To forward multiple messages at once, mark messages with the m (telega-msg-mark-toggle) and then press f (telega-msg-forward-marked-or-at-point) on one of the messages.
+
+There are few options how you can affect the way a message is forwarded:
+
+C-u f to forward a message copy, it will look like you sent a message.
+C-u C-u f To forward a message copy deleting or replacing caption it has. Use this to forward media message with your own caption.
+
+***** Deleting messages
+To delete a message, put cursor under the message you want to delete and press DEL, k, d (telega-msg-delete-marked-or-at-point).
+
+As with forwarding messages, you can mark multiple messages to delete with m (telega-msg-mark-toggle).
+
+Also, you can ban/report message sender (and delete all messages from this sender in the chat) with B (telega-msg-ban-sender) when cursor is under the message.
+
+telega can keep deleted messages visible until chatbuf is killed. This is controlled using custom variable:
+
+User Option: telega-chat-show-deleted-messages-for
+
+Chat Filter for chats where to show deleted messages in chatbuf.
+
+Default value: nil
+
+For example, to show deleted messages in all chats except for "Saved Messages", use next:
+
+(setq telega-chat-show-deleted-messages-for '(not saved-messages))
 
 **** kbds 2
 s (telega-msg-favorite-toggle) Toggle MSG being favorite in the chat.
@@ -1440,6 +1650,17 @@ C-c C-v (telega-chatbuf-attach-clipboard) Attach clipboard image to the chatbuf 
 C-c C-f (telega-chatbuf-attach-media) Attach FILENAME as media, detecting media ty...
 C-c C-a (telega-chatbuf-attach) Attach something to the chatbuf input.
 C-c ? (telega-describe-chat) Show info about chat at point.
+**** Active Chat Filter
+Chat filter applied to the chat list in rootbuf.
+
+Only chats matching active chat filter are displayed in rootbuf. Active chat
+filter is displayed above the chat list in rootbuf, such as:
+
+: -/------------------------------(main)--------------------------------
+
+~(telega-filter-active)~ returns active chat filter.
+
+~telega-filter-default~ variable - Default chat filter to apply. (Default: ~main~)
 
 *** Nov [[https://depp.brause.cc/nov.el/][#docs]]
 
