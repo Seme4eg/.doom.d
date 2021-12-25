@@ -1352,16 +1352,6 @@ DEL (scroll-down-command)
 <delete> (scroll-down-command)
 #+end_comment
 *** Telega [[https://zevlg.github.io/telega.el/][#docs]]
-_Message bindings (cursor on message):_
-SPC             scroll-up-command
-<normal-state> Z Q              evil-quit
-<normal-state> Z Z              quit-window
-
-_Global chat bindings:_
-TAB             telega-chatbuf-complete-or-next-link
-<backtab>        telega-chatbuf-prev-link
-<normal-state> ^                telega-chatbuf-beginning-of-thing
-
 _Other prob. important things from documentation:_
 - custom chat filter
 - chat sort criteria
@@ -1449,21 +1439,21 @@ Important customizable options:
 =telega-chat-fill-column= - Column to fill chat messages to. (Default value: 70)
 
 ~g A~ / ~M-g~ prefix in chatbuf is used to jump across various chat messages:
-- < (telega-chatbuf-history-beginning) Jump to the first message in the chat
+- ~<~ (telega-chatbuf-history-beginning) Jump to the first message in the chat
   history.
-- r, > (telega-chatbuf-read-all) Jump to the last message in the chat history
+- ~r~, ~>~ (telega-chatbuf-read-all) Jump to the last message in the chat history
   and mark all messages as read. If C-u is used, then reset active messages
   filter.
-- @, m (telega-chatbuf-next-unread-mention) Goto next unread mention in chat
+- ~@~, ~m~ (telega-chatbuf-next-unread-mention) Goto next unread mention in chat
   buffer.
-- u (telega-chatbuf-next-unread) Goto next uneard message in chat.
+- ~u~ (telega-chatbuf-next-unread) Goto next uneard message in chat.
   BUTTON-CALLBACK - callback to call with single argument - message button.
-- ^, P (telega-chatbuf-goto-pinned-message) Goto next pinned message for the
+- ~^~, ~P~ (telega-chatbuf-goto-pinned-message) Goto next pinned message for the
   chatbuffer.
-- x (telega-chatbuf-goto-pop-message) Pop message from telega-chatbuf--messages-pop-ring and goto it.
-- * (telega-chatbuf-next-favorite) Goto next favorite message.
-- !, d (telega-chatbuf-goto-date) Goto last message before DATE timestamp.
-- v (telega-chatbuf-goto-video-chat) Goto video chat associated with the chat.
+- ~x~ (telega-chatbuf-goto-pop-message) Pop message from telega-chatbuf--messages-pop-ring and goto it.
+- ~*~ (telega-chatbuf-next-favorite) Goto next favorite message.
+- ~!~, ~d~ (telega-chatbuf-goto-date) Goto last message before DATE timestamp.
+- ~v~ (telega-chatbuf-goto-video-chat) Goto video chat associated with the chat.
 
 You can apply _markup_ to the input when sending message. This is controlled by
 number of C-u pressed before RET and value of the:
@@ -1526,130 +1516,211 @@ Attachment types to attach with C-c C-a (telega-chatbuf-attach) defined in teleg
 - Special :: attachment types are disable-webpage-preview, scheduled, disable-notification or enable-notification. They do not attach anything, but changes options on how to send the message. Use scheduled to schedule messages, disable-notification or enable-notification to trigger notification on receiver side and disable-webpage-preview to disable rich web page previews for URLs in the message text.
 
 ***** Replying and editing messages
-To reply/edit the message, put point on the message you want to reply/edit and press r (telega-msg-reply) to reply or e (telega-msg-edit) to edit.
-
-Aux prompt will be show just above the chatbuf prompt, such as:
-
-[✕]| Reply: @demash> Trying to install telega  M-x packag…
-(T)>>>
-To cancel aux prompt press on the cross button, or use C-c C-k, C-M-c, M-ESC (telega-chatbuf-cancel-aux) binding. C-c C-k, C-M-c, M-ESC (telega-chatbuf-cancel-aux) accepts C-u prefix, if used then chatbuf's input is also canceled.
-
-To edit your previously sent message press M-p (telega-chatbuf-edit-prev).
-
-It is possible to edit message with markup text inside. Formatting for such messages is controlled by:
-
-User Option: telega-msg-edit-markup-spec
-
-Cons cell specifying how to format message text when editing. car is a function to convert message's text to markup string. cdr is a markup name from telega-chat-markup-functions to use as markup attachment. Use nil to edit message as is, without using "markup" attachment type.
-
-Default value: (telega--fmt-text-markdown2 . "markdown2")
-
-e (telega-msg-edit) accepts C-u prefix to edit message as-is without using markup attachment with markup name specified in this option.
+- r (telega-msg-reply) to reply
+- i (telega-msg-edit) accepts C-u prefix to edit message as-is without using
+  markup attachment with markup name specified in this option.
+- C-c C-k, C-M-c, M-ESC (telega-chatbuf-cancel-aux) - cancel. With C-u prefix
+  chatbuf's input is also canceled.
+- M-n/p (telega-chatbuf-edit-next/prev) Edit message sent next/prev to currently
+  editing. It is possible to edit message with markup text inside -
+  =telega-msg-edit-markup-spec=
+- = (telega-msg-diff-edits) Display edits to MSG user did. (/works only in supergroups?/)
 
 ***** Forwarding messages
-To forward a message, put cursor under the message which you want to forward and press f (telega-msg-forward-marked-or-at-point) and then select a Chat to forward a message to. To forward multiple messages at once, mark messages with the m (telega-msg-mark-toggle) and then press f (telega-msg-forward-marked-or-at-point) on one of the messages.
+- R (telega-msg-forward-marked-or-at-point) Forward marked messages or message at point.
+- a (telega-msg-mark-toggle) - mark messages to forward multiple messages at
+  once. and then press f (telega-msg-forward-marked-or-at-point) on one of the
+  messages.
+- F (telega-msg-forward-marked-or-at-point-to-multiple-chats) Forward marked
+  messages or message at point ...
 
 There are few options how you can affect the way a message is forwarded:
-
-C-u f to forward a message copy, it will look like you sent a message.
-C-u C-u f To forward a message copy deleting or replacing caption it has. Use this to forward media message with your own caption.
+- C-u R to forward a message copy, it will look like you sent a message.
+- C-u C-u R To forward a message copy deleting or replacing caption it has. Use
+  this to forward media message with your own caption.
 
 ***** Deleting messages
-To delete a message, put cursor under the message you want to delete and press DEL, k, d (telega-msg-delete-marked-or-at-point).
+- d d, D (telega-msg-delete-marked-or-at-point) - delete a message. As with
+  forwarding messages, you can mark multiple messages with ~m~
+- ~B~ / ~d s~ (telega-msg-ban-sender) - _ban/report_ message sender (and delete all
+  messages from this sender in the chat) when cursor is under the message.
 
-As with forwarding messages, you can mark multiple messages to delete with m (telega-msg-mark-toggle).
+telega can keep deleted messages visible until chatbuf is killed.
+=telega-chat-show-deleted-messages-for= - Chat Filter for chats where to show
+deleted messages in chatbuf. (Default value: nil)
 
-Also, you can ban/report message sender (and delete all messages from this sender in the chat) with B (telega-msg-ban-sender) when cursor is under the message.
+For _example_, to show deleted messages in all chats except for "Saved Messages",
+use next: ~(setq telega-chat-show-deleted-messages-for '(not saved-messages))~
 
-telega can keep deleted messages visible until chatbuf is killed. This is controlled using custom variable:
+***** Scheduling messages and reminders
+C-c C-a scheduled RET, select date and time to schedule message at, type text of
+a message and send it as always.
 
-User Option: telega-chat-show-deleted-messages-for
+Message scheduled in "Saved Messages" chat is called _reminder_.
 
-Chat Filter for chats where to show deleted messages in chatbuf.
+Whenever a scheduled message or reminder is sent, you get a special notification
+marked with a 📅, so you don't get caught off-guard by messages you planned in
+the past.
 
-Default value: nil
+***** Navigating previous input
+You can navigate your previous chatbuf input using commands:
+- M-p (telega-chatbuf-edit-prev) Edit previously sent message. If C-u is given,
+  then just copy last sent message.
+- M-n (telega-chatbuf-edit-next) Edit message sent next to currently editing. If
+  WITHOUT-AUX is specified with C-u, then instead of editing, just pop
+  previously sent message as input.
+- M-r (telega-chatbuf-input-search) Search for REGEX in chat input history.
 
-For example, to show deleted messages in all chats except for "Saved Messages", use next:
+While _searching input_, you can use M-p (telega-chatbuf--input-search-input-prev)
+and M-n (telega-chatbuf--input-search-input-next) to cycle chatbuf input ring.
 
-(setq telega-chat-show-deleted-messages-for '(not saved-messages))
+***** Completing input in chatbuf
+Powerful company-mode could be used to complete input in the chatbuf.
 
-**** kbds 2
-s (telega-msg-favorite-toggle) Toggle MSG being favorite in the chat.
-<backtab> (telega-button-backward) Move backward to N visible/active button.
-<tab> (telega-button-forward) Move forward to N visible/active button.
-a (telega-msg-mark-toggle) Toggle mark of the message MSG.
-D (telega-msg-delete-marked-or-at-point) Deletes some messages.
-0 (telega-msg--vvnote-stop) Stop playing media message.
-1..9 (telega-msg--vvnote-rewind-part) Rewind to the N’s 10 part of the message dur...
-x (telega-msg--vvnote-play-speed-toggle) Toggle playback speed for the media message.
-> / . (telega-msg--vvnote-rewind-10-forward) Rewind 10 seconds forward.
-< / , (telega-msg--vvnote-rewind-10-backward) Rewind 10 seconds backward.
-= (telega-msg-diff-edits) Display edits to MSG user did.
-U telega-chatbuf-unmark-all
-S (telega-msg-save) Save messages’s MSG media content to a file.
-R (telega-msg-forward-marked-or-at-point) Forward marked messages or message at point.
-P (telega-msg-pin-toggle) Toggle pin state of the message MSG.
-L (telega-msg-redisplay) Redisplay the message MSG.
-F (telega-msg-forward-marked-or-at-point-to-multiple-chats) Forward marked messages or message at point ...
-B (telega-msg-ban-sender) Ban forever MSG sender in the chat.
-t (telega-msg-open-thread) Open thread initiated by MSG.
-r (telega-msg-reply) Start replying to MSG.
-i (telega-msg-edit) Start editing the MSG.
-_ (telega-chatbuf-filter-cancel) Cancel any message filtering.
-C-l (telega-chatbuf-recenter-1) Recenter for chatbuf.
+telega provides few company _backends_, such as:
 
-Z R (telega-msg-resend)
-Z L (telega-msg-redisplay) Redisplay the message MSG.
-Z l (telega-msg-copy-link) Copy link to message to kill ring.
-Z y (telega-msg-copy-text) Copy a text of the message MSG.
+telega-company-emoji - Complete emojis via :<emoji>: syntax. Completion is done
+using predefined set of emojis.
 
-~Z~ _attach_ prefix:
-- v :: Attach clipboard image to the chatbuf as photo.
-- f :: Attach FILENAME as media, detecting media ty...
-- a :: Attach something to the chatbuf input.
+Customizable Options:
+- telega-emoji-fuzzy-match
+- telega-company-telegram-emoji
+- telega-company-username
+- telega-company-botcmd
+- telega-company-hashtag
 
-~g A~ or ~M-g~ _chatbuf_ prefix:
-- v :: Goto video chat associated with the chat.
-- * :: Goto next favorite message.
-- x :: Pop message from ‘telega-chatbuf--messages-p...
-- ^ / P :: Goto next pinned message for the chatbuffer.
-- u :: Goto next uneard message in chat.
-- @ / m :: Goto next unread mention in chat buffer.
-- r / > :: Jump to the last message in the chat history...
-- < :: Jump to the first message in the chat history.
-- d / ! :: Goto last message before DATE timestamp.
+#+NAME: company-mode setup might look like:
+#+begin_src emacs-lisp
+(setq telega-emoji-company-backend 'telega-company-emoji)
 
-~g a~ prefix:
-- w :: Open the URL.
-- u :: Switch to next unread message in next unread...
-- t :: Start telega.el Telegram client.
-- s :: Switch to "Saved Messages" chat buffer.
-- f :: Prepare FILE to be sent as document or photo...
-- i :: Switch to important CHAT if any.
-- e :: Interactively switch to BUFFER having ‘teleg...
-- c :: Start messaging with CHAT-OR-USER.
+(defun my-telega-chat-mode ()
+  (set (make-local-variable 'company-backends)
+       (append (list telega-emoji-company-backend
+                   'telega-company-username
+                   'telega-company-hashtag)
+             (when (telega-chat-bot-p telega-chatbuf--chat)
+               '(telega-company-botcmd))))
+  (company-mode 1))
 
-Other?:
-- a :: Switch to the ACCOUNT-NAME.
-g ? (telega-describe-message) Show info about message at point. (??? - telega-describe-chatbuf)
+(add-hook 'telega-chat-mode-hook 'my-telega-chat-mode)
+#+end_src
 
-d s (telega-msg-ban-sender) Ban forever MSG sender in the chat.
-d d (telega-msg-delete-marked-or-at-point) Deletes some messages.
-z z (telega-chatbuf-recenter-1) Recenter for chatbuf.
-M-r (telega-chatbuf-input-search) Search for REGEX in chat input history.
-M-n/p (telega-chatbuf-edit-next/prev) Edit message sent next/prev to currently editing.
-C-M-a (telega-chatbuf-beginning-of-thing) Move backward to the beginning of the chat i...
+***** Sending messages via bots
+If chatbuf input starts with @<botname> <query> and mentioned bot support inline
+mode, then pressing TAB (telega-chatbuf-complete-or-next-link) will pop a
+special buffer with the inline results to the bot inline <query>, you can use
+these results to send a message via bot. Some useful bots with inline mode
+support are:
 
-C-M-c (telega-chatbuf-cancel-aux) Cancel current aux prompt.
-ESC (EStelega-chatbuf-cancel-aux) Cancel current aux prompt.
+- @gif To search and send animations
+- @pic, @bing To search and send pictures
+- @vid To search and send videos on YouTube
+- @foursquare - To find and send places around the world
+- etc
 
-C-c C-r/s (telega-chatbuf-filter-search) Interactively search for messages in chatbuf.
-C-c C-c (telega-chatbuf-filter-cancel) Cancel any message filtering.
-C-c / (telega-chatbuf-filter) Enable chat message filtering MSG-FILTER.
-C-c C-v (telega-chatbuf-attach-clipboard) Attach clipboard image to the chatbuf as photo.
-C-c C-f (telega-chatbuf-attach-media) Attach FILENAME as media, detecting media ty...
-C-c C-a (telega-chatbuf-attach) Attach something to the chatbuf input.
-C-c ? (telega-describe-chat) Show info about chat at point.
+To find out is some bot supports inline mode or not, enter @<botname><SPC> in
+chatbuf input and press TAB (telega-chatbuf-complete-or-next-link). If momentary
+help is displayed, then this bot supports inline mode.
+
+Customizable options for inline bots:
+- =telega-known-inline-bots= - List of known bots for everyday use. (Default
+  value: ("@gif" "@youtube" "@pic"))
+- =telega-inline-query-window-select= - Non-nil to select window with inline
+  query results. (Default value: t)
+
+***** Filtering chat messages a.k.a. Shared Media
+Message filtering means to show only some messages matching filter. Available
+message filters are: scheduled, search, by-sender, hashtag, photo, photo-video,
+url, doc, file, gif, audio, video, voice-note, video-note, voice-video-note,
+chat-photo, call, missed-call, mention, unread-mention, failed-to-send, pinned.
+
+Chatbuf uses next _bindings_ for message filtering:
+- C-c / (telega-chatbuf-filter) Enable chat message filtering MSG-FILTER.
+- _, C-c C-c (telega-chatbuf-filter-cancel) Cancel any message filtering. If point
+  is at some message, then keep point on this message after reseting.
+- C-c C-r/s (telega-chatbuf-filter-search) Interactively search for
+  messages in chatbuf. If C-u is given, then search for QUERY sent by some chat
+  member, member name is queried.
+
+***** Opening files using external programs
+Document messages in Telegram has attached file in the message. By default
+telega opens that files inside Emacs using find-file function. Sometimes that is
+not desirable behaviour and you might want to open some files in external
+application. You can use =org-open-file= function for this. Behaviour is
+controlled by:
+
+=telega-open-file-function= - Function to use to open files associated with
+messages. Called with single argument - filename to open. Could be used to open
+files in external programs. Set it to org-open-file to use Org mode to open
+files. (Default value: find-file)
+
+Setup to open some files in external applications might look like:
+#+begin_src emacs-lisp
+;; ("\\.pdf\\'" . default) is already member in `org-file-apps'
+;; Use "xdg-open" to open files by default
+(setcdr (assq t org-file-apps-gnu) 'browse-url-xdg-open)
+
+(setq telega-open-file-function 'org-open-file)
+#+end_src
+
+If you also want to open non-document messages as file using
+=telega-open-file-function= consider:
+
+=telega-open-message-as-file= - List of message types to open as file using
+telega-open-file-function. Supported message types are: photo, video, audio,
+video-note, voice-note, animation. Document messages are always opens as file.
+(Default value: nil)
+
+_Also, you can open urls using custom functions_:
+
+=telega-browse-url-alist= - Alist of custom url browse functions. Each element is
+in form: (PREDICATE-OR-REGEX . FUNCTION). (Default value: nil)
+
+For example, to play youtube videos using mpv player, add this to config:
+
+#+begin_src emacs-lisp
+(defun my-watch-in-mpv (url)
+  (async-shell-command (format "mpv -v %S" url)))
+
+(add-to-list 'telega-browse-url-alist
+           '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
+(add-to-list 'telega-browse-url-alist
+           '("https?://youtu.be/" . my-watch-in-mpv))
+#+end_src
+
+***** Client side messages ignoring
+In official telegram clients all messages in group chats are displayed even if
+message has been sent by blocked sender (user or chat). telega has client side
+message ignoring feature implemented. Ignoring messages can be done by adding
+function into telega-msg-ignore-predicates. This function must accept single
+argument - message, and return non-nil if messages should be ignored. For
+example, to ignore messages from particular user with id=12345 you could add
+next code:
+
+#+begin_src emacs-lisp
+(defun my-telega-ignore-12345-user (msg)
+  (let ((sender (telega-msg-sender msg)))
+    (and (telega-user-p sender)
+       (= (plist-get sender :id) 12345))))
+
+(add-hook 'telega-msg-ignore-predicates 'my-telega-ignore-12345-user)
+#+end_src
+
+Or to ignore messages from blocked senders (users or chats), just add:
+
+: (add-hook 'telega-msg-ignore-predicates 'telega-msg-from-blocked-sender-p)
+
+To view recently ignored messages use M-x telega-ignored-messages RET command.
+
+***** Favorite messages
+=telega-symbol-favorite= - Symbol to use for favorite messages, bookmarks.
+(Default value: "🔖")
+
+- s (telega-msg-favorite-toggle) - toggle message at point being favorite
+- ~g A *~ (telega-chatbuf-next-favorite) - Goto next favorite message.
+- v * (telega-view-favorite-messages) while in the root buffer - enable
+  "Favorite Messages" Root View, to view all favorite messages in all chats,
+
 **** Active Chat Filter
 Chat filter applied to the chat list in rootbuf.
 

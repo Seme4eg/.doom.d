@@ -406,6 +406,23 @@ Forge:
 #+begin_src emacs-lisp
 (map! :leader "o c" 'telega)
 (define-key global-map (kbd "C-c t") telega-prefix-map)
+
+;; https://zevlg.github.io/telega.el/#notifications-for-incoming-messages
+(add-hook 'telega-load-hook 'telega-notifications-mode)
+
+;; https://zevlg.github.io/telega.el/#telega-mode-line-mode
+(add-hook 'telega-load-hook 'telega-mode-line-mode)
+
+;; https://zevlg.github.io/telega.el/#telega-squash-message-mode
+(add-hook 'telega-load-hook 'global-telega-squash-message-mode)
+
+;; https://zevlg.github.io/telega.el/#telega-image-mode
+(add-hook 'telega-load-hook 'telega-image-mode) ;; n/p next prev img in chat
+
+;; https://zevlg.github.io/telega.el/#telega-url-shortenel--makes-urls-look-nicer
+(add-hook 'telega-load-hook 'global-telega-url-shorten-mode)
+
+(setq telega-url-shorten-use-images t)
 #+end_src
 * Emms
 #+begin_src emacs-lisp
