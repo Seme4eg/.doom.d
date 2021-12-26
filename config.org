@@ -423,6 +423,29 @@ Forge:
 (add-hook 'telega-load-hook 'global-telega-url-shorten-mode)
 
 (setq telega-url-shorten-use-images t)
+
+;; company-mode setup might look like:
+(setq telega-emoji-company-backend 'telega-company-emoji)
+
+(defun my-telega-chat-mode ()
+  (set (make-local-variable 'company-backends)
+       (append (list telega-emoji-company-backend
+                   'telega-company-username
+                   'telega-company-hashtag)
+             (when (telega-chat-bot-p telega-chatbuf--chat)
+               '(telega-company-botcmd))))
+  (company-mode 1))
+
+(add-hook 'telega-chat-mode-hook 'my-telega-chat-mode)
+
+;; play youtube videos using mpv player
+(defun my-watch-in-mpv (url)
+  (async-shell-command (format "mpv -v %S" url)))
+
+(add-to-list 'telega-browse-url-alist
+           '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
+(add-to-list 'telega-browse-url-alist
+           '("https?://youtu.be/" . my-watch-in-mpv))
 #+end_src
 * Emms
 #+begin_src emacs-lisp

@@ -1,0 +1,184 @@
+#+TITLE: Emms
+
+* Emms [[https://www.gnu.org/software/emms/][#docs]] [[https://www.gnu.org/software/emms/manual/][#manual]]
+Emms can:
+- display album art
+- play streaming audio (look it up in /info/)
+- tag music files
+- [ ] search for lyrics
+
+[[file:~/.emacs.d/modules/app/emms/README.org::*Troubleshooting][Troubleshooting]]
+
+** Basics
+*** Basic Commands
+- emms-play/add-url url - A source for an URL - for example, for streaming.
+- emms-play/add-playlist playlist - A source for the M3u or PLS playlist format
+  from the file PLAYLIST.
+
+_Playback commands:_
+- emms-start - Start playing the current playlist
+- emms-stop - Stop playing
+- emms-next - Start playing the next track in the playlist
+- emms-previous - Start playing previous track in the playlist
+- emms-shuffle - Shuffle the current playlist. This uses
+  EMMS-PLAYLIST-SHUFFLE-FUNCTION.
+- emms-sort - Sort the current playlist. This uses EMMS-PLAYLIST-SORT-FUNCTION.
+
+=emms-show-all= - pop up a window with the complete information about the track
+being played.
+
+*** User vars, hooks, track info and core playback f-s ..
+.. are in =spc h 4 i -> gm emms -> gm core file=
+*** config examples
+#+begin_src emacs-lisp
+;; filters
+(emms-browser-make-filter "all" #'ignore)
+(emms-browser-make-filter "recent"
+                          (lambda (track) (< 30
+                                        (time-to-number-of-days
+                                         (time-subtract (current-time)
+                                                        (emms-info-track-file-mtime track))))))
+(emms-browser-set-filter (assoc "all" emms-browser-filters))
+;; libre-fm
+(emms-librefm-scrobbler-enable)
+#+end_src
+
+*** Sources
+_Functions:_
+- emms-play-find - Play all files in EMMS-SOURCE-FILE-DEFAULT-DIRECTORY that
+  match a specific regular expression.
+- emms-source-file-directory-tree &optional dir Return a list of all files under
+  DIR which match REGEX.
+- emms-source-dired Play all marked files of a dired buffer
+- emms-locate regexp Search for REGEXP and display the results in a locate
+  buffer
+
+** The (Smart) Browser
+The Browser allows you to browse the metadata cache and add tracks to your
+playlist. It includes a powerful interactive mode.
+
+_Starting f-s:_
+- emms-smart-browse - Display browser and playlist. Toggle between selecting
+  browser, playlist or hiding both. Tries to behave sanely if the user has
+  manually changed the window configuration.
+- emms-browse-by-... Display the browser and order the tracks by:
+  - artist
+  - album
+  - genre
+  - year
+
+=RET= - In *browser* adds artist's songs to playlist, in *playlist* starts playlist.
+
+_Tree view & navigation:_
+- _Browse by_ (=emms-browse-by-...=):
+  - g p - performer.
+  - g c - composer.
+  - g y - year.
+  - g b - genre.
+  - g a - artist.
+  - g A - album.
+- <tab> / <backtab> - emms-browser-toggle-subitems-recursively
+- ~g k/j~ or ~C-k/j~ or ~]]/[[~ - emms-browser-prev/next-non-track
+- ~^~ - Move up one level if possible.
+
+_Playback:_
+- <C-return> - Add all tracks at point, and *play*
+- r - Jump to a random track.
+- X - Stop any current EMMS playback.
+- x - Pause the current player.
+- </> - Seek ten seconds backward/forward
+
+_Volume:_
+- - (emms-volume-lower) - Lower the speaker volume.
+- =/+ (emms-volume-raise) - Raise the speaker volume.
+
+_Expand/collapse:_
+- ~z~ prefix:
+  - z c/m (emms-browser-collapse-all) - Collapse everything
+  - z r (emms-browser-expand-all) - Expand everything.
+  - z o (emms-browser-expand-one-level) - Expand the current line by one sublevel.
+- ~g~ prefix:
+  - g 0/1 (emms-browser-expand/collapse-all) - Expand/collapse everything.
+  - g 2/3/4 (emms-browser-expand-to-level-2/3/4) - Expand all top level items
+    one level.
+
+~s~ - _search_ prefix (=emms-browser-search-by-...=):
+- s - by names
+- t - by title
+- A - by album
+- p - by performer
+- c - by composer
+- a - by artist
+
+... and ~/~ (emms-isearch-buffer) - Isearch through the buffer.
+
+_Other:
+- d (emms-browser-view-in-dired) - View the current directory in dired.
+- D (emms-browser-delete-files) - Remove all tracks at point or in region
+- g P w (emms-browser-lookup-performer-on-wikipedia)
+- g C w (emms-browser-lookup-composer-on-wikipedia)
+
+*** Playlist buffer
++ =SPC m= prefix
+  - =l= Toggles whether or not the player repeats the playlist.
+  - =m= Mixes the playlist.
+  - =i= Insert specific song
+  - =s= Save the current playlist to a file
+  - =p= Insert playlist save into current playlist
+  - =t= Toggles repeating of current track
++ *Vim bindings:* p, P, o, O, u, gg, G
++ ~C~ - emms-browser-clear-playlist
++ ~a~ - Add files in the playlist at point to the current playlist buffer. If we
+  are in the current playlist, make a new playlist buffer and set it as current.
++ u / C-/ (emms-playlist-mode-undo) - Wrapper around ‘undo’.
++ [ [ / ] ] / M-p/n  - previous / next playlist
++ M-y (emms-playlist-mode-yank-pop) - Cycle through the kill-ring.
++ ~R~ - emms-tag-editor-rename
++ ~.~ Move point to the currently selected track.
++ ~z~ prefix:
+  - e - *emms-tag-editor-edit*
+  - p - emms-playlist-set-playlist-buffer
+  - s - emms-show
++ in =info= emms - look up _sorting playlists_ in case u need it
+
+#+begin_comment
+We can use the regular GNU/Emacs killing and yanking commands to move and copy
+tracks in between playlist buffers.  We can use the same commands to insert
+arbitrary text into the playlist buffers together with the playlist tracks. Text
+which is not a track is ignored by the program and can therefore be used to
+include titles and annotations within the playlist.
+#+end_comment
+
+(lookup =info= as well)
+
+*** Tag editor mode
+<backtab> / <tab> - emms-tag-editor-prev/next-field
+
+- C-c/x C-s #'submit
+- C-c C-c   #'submit-and-exit
+- C-c C-a   #'replace-in-tag
+- C-c C-n/p #'next/prev-track
+- C-c C-r   #'set-all
+- C-c C-t   #'transpose-tag
+** Managing Playlists
+Start the playlist manager with 'M-x =emms-metaplaylist-mode-go='. The playlist
+manager will list the playlists and mark the current one. The following commands
+are available:
+- RET     #'goto-current
+- .       #'center-current
+- C       #'new-buffer
+- D       #'kill-buffer
+- <space> #'set-active
+- q       #'kill-*this*-buffer
+
+** Bookmarking (useful for podcasts and lectures)
+Bookmark is just a timestamp, with your mark on it.
+
+#+begin_src emacs-lisp
+(:prefix ("B" . "Bookmarks")
+ :desc "Add new bookmark to cur. track" "a" #'emms-bookmarks-add
+ :desc "Sek to next bookmark in cur. track" "n" #'emms-bookmarks-next
+ :desc "Seek to prev. bookmark in cur. track" "p" #'emms-bookmarks-prev
+ :desc "Remove all bookmarks from cur. track" "c" #'emms-bookmarks-clear
+ )
+#+end_src
