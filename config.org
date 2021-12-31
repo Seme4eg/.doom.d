@@ -209,8 +209,9 @@ Forge:
          :prepend t
          :immediate-finish t
          :empty-lines-after 1)
-       ("pt" "Project-local todo" checkitem
-         (file+headline +org-capture-project-todo-file "List of todos") "")
+       ("p" "Project-local todo" checkitem
+         (file+headline +org-capture-project-todo-file "List of todos")
+         "" :prepend t)
        )
     )
   (set-face-attribute 'org-link nil
