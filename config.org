@@ -37,6 +37,8 @@ Global:
   ;; FIXME still doesn't switch
   input-method-history (list "russian-computer")
   projectile-project-search-path '("~/git/")
+  ;; make emacs always use its own browser for opening URL links
+  browse-url-browser-function 'eww-browse-url
   )
 #+end_src
 

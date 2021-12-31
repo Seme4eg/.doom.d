@@ -577,7 +577,6 @@ github/gitlab/bitbucket/stash/git.savannah.gnu.org/sourcehut from Emacs:
 you will be presented with the gitflow popup menu
 
 ** evil [[file:~/.emacs.d/modules/editor/evil/README.org::*Features][#features]]
-
 [[https://github.com/emacs-evil/evil-collection][evil-collection]] - plugin used as a foundation for flag =+everywhere=, which
 enables evilified keybinds everywhere possible.
 
@@ -710,7 +709,6 @@ Move with h, j, k, l, where h & l are 'up' & 'down' directory
 - ~C~ - copy to another window
 - ~R~ - move to another window
 - ~i~ - edit file/dir name
-
 ** Completion
 
 ~M-/~ - #'dabbrev-expand - Expand previous word "dynamically".
@@ -899,50 +897,41 @@ To look up Info-mode _variables_ go ~SPC h i~ -> ~g m~ -> Info -> ~g G Variables
 
 *** EWW
 _While in normal mode:_
-- & (eww-browse-with-external-browser) - in case of trouble viewing a website
-  with EWW
-- H/L (eww-back/forward-url)
-- R (eww-readable) - attampt to determine which part of the doc contains the
+- & / go / <S-return> :: =eww-browse-with-external-browser=. In case of trouble
+  viewing a website with EWW
+- H/L :: *back / forward* url
+- r/R (eww-readable) :: attampt to determine which part of the doc contains the
   'readable' text, and will only display this part. This usually gets rid of
   menus and the like.
-- U (eww-top-url)
-- ^ (eww-up-url)
-- d (eww-download) - download URL (link at cursor otherwise current page).
-  Directory for downloading lies within =eww-download-directory=
-- g (Prefix Command)
-- m (eww-add-bookmark)
-- o (eww)
-- q (quit-window)
-- r (eww-readable)
-- u (eww-up-url)
-- Z Q(Z) (quit-window)
-- [ [ / ] ] (eww-previous/next-url)
-- *z* d (eww-toggle-paragraph-direction)
-- z e (eww-set-character-encoding)
-- z f (eww-toggle-fonts)
-- *g* b (eww-list-bookmarks)
-- g c (url-cookie-list)
-- g h (eww-list-histories) - list browsing history. The history is lost when EWW
-  is quit. If you want to remember websites - use bookmarks. History limit is
-  stored in =eww-history-limit= var.
-- g j/k (eww-next/previous-url)
-- g o (eww-browse-with-external-browser)
-- g t (eww-list-buffers) - get summary of currently opened EWW buffers
+- U :: eww-top-url
+- u / ^ :: eww-up-url
+- d :: *download* URL (link at cursor otherwise current page). Directory for
+  downloading lies within =eww-download-directory=
+- m :: *bookmark*
+- o (eww) - ??
+- Z Q/Z :: quit window
+- ]]/[[ / g j/k :: previous / next url (like "next" on page literally)
+- *z* d :: eww-toggle-paragraph-direction
+- z e :: eww-set-character-encoding
+- z f :: eww-toggle-fonts
+- *g* b :: eww-list-bookmarks
+- g c :: url-cookie-list
+- g h :: list browsing *history*. The history is lost when EWW is quit. If you
+  want to remember websites - use bookmarks. History limit is stored in
+  =eww-history-limit= var.
+- g t (eww-list-buffers) :: get summary of currently opened EWW buffers
 
 -----
 
 - S-SPC        scroll-down-command
-- <S-return>   eww-browse-with-external-browser
 - <backspace>  eww-back-url
-- <backtab>    shr-previous-link
-- <tab>        shr-next-link
+- <tab> / <backtab> :: shr *next / previous link*
+- M-RET :: eww-open-in-new-buffer - open URL at point in new buffer
+- M-n/p :: *next / previous* bookmark
 
-- C-M-i  shr-previous-link
-- M-RET  eww-open-in-new-buffer - open URL at point in new buffer
-- M-C eww-toggle-colors - toggle whether to use HTML-specified colors or not.
+- C-M-i :: shr-previous-link
+- M-C eww-toggle-colors :: toggle whether to use HTML-specified colors or not.
   (=shr-use-colors= variable)
-- M-n eww-next-bookmark
-- M-p eww-previous-bookmark
 
 Hotkeys below are the default hotkeys, but they r shadowed by evil everywhere.
 But they r relevant if u enter 'insert mode' in eww buffer:
@@ -966,6 +955,10 @@ w (eww-copy-page-url) - copy current page's url to kill ring
 DEL (scroll-down-command)
 <delete> (scroll-down-command)
 #+end_comment
+
+_Commands_:
+- eww-open-file :: open a local HTML file
+
 * unused kbds
 S-q
 
