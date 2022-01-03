@@ -76,6 +76,9 @@ in the telega-cache-dir can be deleted.
 User Option: telega-root-default-view-function - Default view for the rootbuf. Default value: telega-view-default
 
 ** Chat buffer
+_Keybindings from prefix work here with ~g a~ prefix!_ (like ~g a a~ to get back to
+root view)
+
 - C-c ? (telega-describe-chat) Show info about chat at point.
 - ~g ?~ / ~h~ (telega-describe-message) get detailed description of the message
   at point.
