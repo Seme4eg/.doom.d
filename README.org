@@ -688,6 +688,100 @@ Move with h, j, k, l, where h & l are 'up' & 'down' directory
 - ~C~ - copy to another window
 - ~R~ - move to another window
 - ~i~ - edit file/dir name
+*** ranger [[https://github.com/ralesi/ranger.el#ranger-key-bindings][#kbds]]
++ *Basic Commands*
+  - ? :: show basic commands in the minibuffer
+  - du :: show selected files, file size
+  - q / ZZ :: close tab or disable (quit) ranger
+  - Q / ZQ :: disable (quit) ranger
+  - C-r :: refresh ranger buffer
++ *Navigation*. hjkl, gg, G, C-b/f - same.
+  - </> :: to previous/next directory
+  - gh :: to home directory
+  - K/C-u / J/C-d :: scroll ranger window half page up/down
+  - C-k/j :: scroll preview window up/down
+  - ]/[ :: next/previous parent directory
+  - ;M-{ / ;M-} :: previous/next marked file / directory
++ *Search* for a File / Directory
+  - f :: search for file / directory
++ *Copy, Rename/Move or Delete*. When the copy command is called by pressing ;C,
+  and only a single file or directory is selected. Then a you'll be asked to
+  enter a new name. However when it's called with multiple marked files /
+  directories, then a you'll be asked for the path to the target directory.
+  - ;C :: copy the current/marked file(s) / dir(s)
+  - R :: rename/move the current/marked file(s) / dir(s)
+  - D :: delete the current/marked file(s) / dir(s)
+  - ;d :: flag current file/dir for deletion, and select next
+  - ;x :: delete flagged file(s) / dir(s)
++ *Subdirectories*
+  - I :: insert subdirectory from selected folder
+  - gk/j :: move to prev/next subdirectory
++ *Marking*
+  - t :: toggle mark on current file / directory
+  - ;m/C-SPC/TAB :: mark current file / dir, and select next
+  - ;u :: unmark current file / dir, and select next
+  - ;U :: unmark all files
+  - v :: invert all marks
+  - " :: mark files (regexp)
++ *Sorting*. Capital 2nd letter for reverse sorting
+  - on :: name
+  - oe :: extension
+  - os :: size
+  - ot :: modified date/time
+  - oc :: created date/time
+  - zd :: sort directories first or last
++ *Toggles / Settings*
+  - i :: toggle the preview window
+  - zh :: toggle hidden files (e.g. dotfiles)
+  - zi :: toggle literal / full-text previews
+  - zf :: toggle image full-size / fit to window
+  - zP :: toggle between full ranger / deer-mode
+  - zp :: toggle file details in deer-mode
+  - z-/+ :: reduce/increase number of parent windows
++ *Shell*
+  - ! :: run shell command on file
+  - ;& :: run async shell command on file
+  - S :: eshell popup window
++ *Writable Dired Mode*. WDired mode changes the file listings buffer to editable
+  text. This makes it easier to rename multiple files. Depending on the width of
+  the Emacs frame. It might be useful to toggle off the preview window, by
+  pressing: i. Before starting WDired mode. This leaves more room for editing
+  the file names.
+  - C-c C-e :: start WDired mode
+  - C-c C-c/C-x C-s :: finish, rename changed file names, exit WDired mode
+  - C-c C-k/C-c ESC :: abort, reverting any changes
+  - C-x C-q :: exit, ask to save/revert modified file names
++ *Other*. (create dir, diff, revert, hide)
+  - ;+/+ :: create directory
+  - ;=/= :: diff: current file and asks for 2nd file
+  - ;g :: revert current buffer, with file on disk
+  - ;k :: kill (hide) marked lines, C-r to unhide
+
+-----
+
++ *Bookmark Navigation*. By creating bookmarks with the name ranger-?, where ? can
+  be any single key.
+  - `/' :: go to bookmark
+  - m :: set bookmark
+  - um :: delete bookmark
+  - B :: show the bookmarks prompt
++ *Tab and History Usage*.
+  - gn :: create a new tab
+  - gt/T :: go to next/previous tab
+  - gc :: close current tab
+  - uq :: restore the last closed tab
+  - zz :: search through history
+  - H/L :: history back/next
++ *Copy and Paste Functionality*.
+  - yy :: mark files to copy
+  - dd :: mark files to move
+  - pp :: paste files in copy ring
+  - po :: paste files in copy ring and overwrite existing
+  - p? :: show the copy contents
++ *Selected File Actions*
+  - ws/v :: exit ranger and open selected file in horizontal/vertical split
+  - wf :: exit ranger and open selected file in new frame
+  - we :: open the selected file in external app
 ** Completion
 
 ~M-/~ - #'dabbrev-expand - Expand previous word "dynamically".

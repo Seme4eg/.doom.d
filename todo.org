@@ -1,8 +1,8 @@
 * List of todos
-_Summary_: [4/16] [25%]
+_Summary_: [6/15] [40%]
 - [ ] set and test out [[https://github.com/emacs-eaf/emacs-application-framework][EAF]]
 - [ ] learn elisp (SPC h 4 i -> gm -> elisp)
-- [ ] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to use it? (=+ranger= flag)
+- [X] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to use it? (=+ranger= flag) - learn it - it is quicker than treemacs in terms of file-operations and searching
 - [ ] [[https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript][dap-mode for node]] - figure out js *debugging* (check out /System Crafters/ channel)
 - [ ] irc / erc / Rcirc - all irc clients
 # - [ ] [[https://github.com/chenyanming/calibredb.el#table-of-contents][calibredb]] - learn how to use - decided that i don't need that for now
@@ -10,7 +10,7 @@ _Summary_: [4/16] [25%]
   - [ ] [[https://www.masteringemacs.org/article/fun-games-in-emacs][link 1]]
   - [ ] [[https://www.emacswiki.org/emacs/CategoryGames][link 2]]
 - [ ] make vertico show folders first when searching
-- [ ] how to copy with evil without whitespace?
+- [X] how to copy with evil without whitespace? - g{motion}y
 - [ ] reason-mode [[https://github.com/reasonml-editor/reason-mode][#docs]] - [[https://reasonml.github.io][Reason]] lets you write simple, fast and quality type safe code while leveraging both the JavaScript & OCaml ecosystems.
 - [ ] setup Indium maybe [[https://github.com/NicolasPetton/Indium][#docs]] A JavaScript development environment for Emacs. Indium connects to a browser tab or nodejs process and provides many features for JavaScript development.
 - [ ] auto ru ispell in ru buffers - make ispell automatically (somehow, prob hook?) set ru dictionary for ru buffers
@@ -18,4 +18,3 @@ _Summary_: [4/16] [25%]
 - [X] setup [[https://snapcraft.io/telega][telega]] (telegramm emacs client)
 - [X] what is 'timer', 'char timer'? ~spc s s timer~..
 - [X] [[https://orgmode.org/manual/Attachments.html][org-attachments]] - ~spc m a~ prefix, sir.. everything else in =org-readme=
-* List
