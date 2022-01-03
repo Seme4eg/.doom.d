@@ -187,7 +187,7 @@ Forge:
   ;; FIXME: instead of redefining whole 'org-capture-templates' var, append my
   ;; custom values to it (cuz for now i am lozing all those predefined options)
   (setq org-capture-templates
-    '(("a" "Tea entry" entry
+    '(("t" "Tea entry" entry
         (file +org-capture-project-notes-file)
         "%[~/git/tea/templates/newEntry]"
         :jump-to-captured t
@@ -195,7 +195,7 @@ Forge:
         :clock-in t
         :clock-keep t
         :empty-lines 1)
-       ("N" "Notes file settings prepend" plain
+       ("n" "Notes file settings prepend" plain
          (file +org-capture-project-notes-file)
          "%[~/git/tea/templates/notesFileSettings]"
          :prepend t
@@ -203,7 +203,7 @@ Forge:
          :empty-lines-after 1)
        ;; To insert template at point, in current file call 'spc-X' with
        ;; 'spc u 0' prefix
-       ("I" "Info file settings prepend (call from a directory with info file!)" plain
+       ("i" "Info file settings prepend (call from a directory with info file!)" plain
          (file "./info.org")
          "%[~/git/tea/templates/infoFileSettings]"
          :prepend t
