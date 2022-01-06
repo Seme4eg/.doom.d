@@ -181,6 +181,11 @@ Forge:
 (after! org
   (setq
    org-src-window-setup 'current-window
+   ;; Sort the footnote definitions by reference sequence.
+   org-footnote-auto-adjust 'sort
+   ;; show files like TOC on startup
+   org-startup-folded 'content
+   org-hide-block-startup t
    ;; org-ellipsis " ▾ "
    org-hide-emphasis-markers t)
   ;; org capture templates redefining
