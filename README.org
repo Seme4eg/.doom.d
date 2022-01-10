@@ -658,6 +658,27 @@ This mode isn't enabled in all prog-modes.
 - C-l/h (hs-hide-level) - Hide all blocks ARG levels below this block.
 
 There's also =hide-sublevels= command
+*** Sh-script mode
+- C-c C-\ :: backslash region
+- C-c \ :: set shell type
+- C-c C-x :: execute script
+- C-M-x :: execute region
+- C-c C-c :: case statement
+- C-c C-f :: for loop
+- C-c TAB :: if statement
+- C-c C-s :: select statement
+- C-c C-i :: indexed loop
+- C-c C-o :: options loop
+- C-c C-w :: while loop
+- C-c C-r :: repeat loop
+- C-c C-u :: until loop
+- C-c + :: addition
+- C-c { :: function
+- C-c ' :: insert braces and quotes in pairs
+- C-c = :: set indentation
+- C-c ? :: show indentation
+- C-c < :: learn line indentation
+- C-c > :: learn buffer indentation
 
 ** Navigation
 *** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]]
