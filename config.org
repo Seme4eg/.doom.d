@@ -181,7 +181,9 @@ Forge:
 (after! org
   (map! :leader
         :desc "Shrink" "mbS" 'org-table-shrink
-        :desc "Expand" "mbE" 'org-table-expand  )
+        :desc "Expand" "mbE" 'org-table-expand
+        :desc "Toggle width" "mbts" 'org-table-toggle-column-width
+        )
   (setq
    org-src-window-setup 'current-window
    ;; Sort the footnote definitions by reference sequence.
