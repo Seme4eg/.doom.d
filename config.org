@@ -397,44 +397,51 @@ Forge:
 (map! :leader "o c" 'telega)
 (define-key global-map (kbd "C-c t") telega-prefix-map)
 
-;; https://zevlg.github.io/telega.el/#notifications-for-incoming-messages
-(add-hook 'telega-load-hook 'telega-notifications-mode)
-
-;; https://zevlg.github.io/telega.el/#telega-mode-line-mode
-(add-hook 'telega-load-hook 'telega-mode-line-mode)
-
-;; https://zevlg.github.io/telega.el/#telega-squash-message-mode
-(add-hook 'telega-load-hook 'global-telega-squash-message-mode)
-
-;; https://zevlg.github.io/telega.el/#telega-image-mode
-(add-hook 'telega-load-hook 'telega-image-mode) ;; n/p next prev img in chat
-
-;; company-mode setup might look like:
-(setq telega-emoji-company-backend 'telega-company-emoji)
-
-(defun my-telega-chat-mode ()
-  (set (make-local-variable 'company-backends)
-       (append (list telega-emoji-company-backend
-                     'telega-company-username
-                     'telega-company-hashtag)
-               (when (telega-chat-bot-p telega-chatbuf--chat)
-                 '(telega-company-botcmd))))
-  (company-mode 1))
-
-(add-hook 'telega-chat-mode-hook 'my-telega-chat-mode)
-
-;; play youtube videos using mpv player
-(defun my-watch-in-mpv (url)
-  (async-shell-command (format "mpv -v %S" url)))
-
 (after! telega
-  ;; https://zevlg.github.io/telega.el/#telega-url-shortenel--makes-urls-look-nicer
-  (add-hook 'telega-load-hook 'global-telega-url-shorten-mode)
-  (setq telega-url-shorten-use-images t)
+  (telega-notifications-mode)
+  (telega-mode-line-mode)
+  (global-telega-squash-message-mode)
+  ;; FIXME: kbds shadowed by evil
+  (telega-image-mode) ;; n/p next prev img in chat
+  (auto-fill-mode)
+
+  (require 'telega-dired-dwim)
+
+  ;; eval-buffer: Cannot open load file: No such file or directory, dashboard
+  ;; (require 'telega-dashboard)
+  ;; (add-to-list 'dashboard-items '(telega-chats . 5))
+
+  (require 'telega-url-shorten)
+  (global-telega-url-shorten-mode)
+
+  ;; company-mode setup might look like:
+  (setq
+   telega-completing-read-function #'completing-read
+   telega-emoji-company-backend 'telega-company-emoji
+   )
+
+  ;; (setq telega-url-shorten-use-images t)
   (add-to-list 'telega-browse-url-alist
                '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
   (add-to-list 'telega-browse-url-alist
                '("https?://youtu.be/" . my-watch-in-mpv))
+
+  (add-hook 'telega-chat-mode-hook 'my-telega-chat-mode)
+
+  ;; play youtube videos using mpv player
+  (defun my-watch-in-mpv (url)
+    (async-shell-command (format "mpv -v %S" url)))
+
+  (defun my-telega-chat-mode ()
+    (define-key telega-msg-button-map (kbd "SPC") nil)
+    (setq truncate-lines nil)
+    (set (make-local-variable 'company-backends)
+         (append (list telega-emoji-company-backend
+                       'telega-company-username
+                       'telega-company-hashtag)
+                 (when (telega-chat-bot-p telega-chatbuf--chat)
+                   '(telega-company-botcmd))))
+    (company-mode 1))
   )
 #+end_src
 * Emms
