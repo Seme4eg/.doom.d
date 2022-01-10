@@ -221,6 +221,12 @@ Forge:
        ("p" "Project-local todo" checkitem
          (file+headline +org-capture-project-todo-file "List of todos")
          "" :prepend t)
+       ("T" "Personal todo" entry
+        (file+headline +org-capture-todo-file "Todo")
+        "* [ ] %?\n%i" :prepend t)
+       ("j" "Journal" entry
+        (file+olp+datetree +org-capture-journal-file)
+        "* %U %?\n%i\n%a" :prepend t)
        )
     )
   (set-face-attribute 'org-link nil
