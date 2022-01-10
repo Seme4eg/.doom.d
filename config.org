@@ -179,6 +179,9 @@ Forge:
 ;; (setq org-display-custom-times t)
 
 (after! org
+  (map! :leader
+        :desc "Shrink" "mbS" 'org-table-shrink
+        :desc "Expand" "mbE" 'org-table-expand  )
   (setq
    org-src-window-setup 'current-window
    ;; Sort the footnote definitions by reference sequence.
@@ -186,6 +189,7 @@ Forge:
    ;; show files like TOC on startup
    org-startup-folded 'content
    org-hide-block-startup t
+   org-startup-shrink-all-tables t
    ;; org-ellipsis " ▾ "
    org-hide-emphasis-markers t)
   ;; org capture templates redefining

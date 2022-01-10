@@ -1030,9 +1030,189 @@ value and their optional value, if applicable.
 syntax at point. For example, using it on a headline displays “Document
 Structure” section.
 
+* Tables [[https://orgmode.org/manual/Tables.html#Tables][#docs]]
+C-c C-c / RET / TAB - re-align table automatically
+
+     | Name  | Phone | Age |
+     |-------+-------+-----|
+     | Peter |  1234 |  17 |
+
+To create the above table, you would only type ‘|Name|Phone|Age’ followed by
+‘C-c <RET>’.
+
+~SPC m b~ prefix ↓
+- h :: field-*info*
+- ~c~ :: *create*-or-convert-from-region. Create an empty table / convert selected
+  text to a table
+- a :: *align*
+
+- - / i h(H) :: insert-*hline* (~H~ for =hline-and-move=)
+- i/d c/r :: *insert / delete* column / row
+- b :: *blank*-field
+
+- s :: *sort*-lines
+- e :: *edit*-field
+- t o :: toggle-coordinate-overlays
+
+- f :: edit-formulas
+- t f :: toggle-formula-debugger
+- R :: recalculate-buffer-tables
+- r :: recalculate
+
+*** Creation and conversion
+‘C-c |’ (‘org-table-create-or-convert-from-region’) - Convert the active region
+to table. If every line contains at least one ‘<TAB>’ character, the function
+assumes that the material is tab separated. If every line contains a comma,
+comma-separated values (CSV) are assumed. If not, lines are split at whitespace
+into fields. You can use a prefix argument to force a specific separator: ‘C-u’
+forces CSV, ‘C-u C-u’ forces ‘<TAB>’, ‘C-u C-u C-u’ prompts for a regular
+expression to match the separator, and a numeric argument N indicates that at
+least N consecutive spaces, or alternatively a ‘<TAB>’ will be the separator.
+
+If there is no active region, this command creates an empty Org table. But it is
+easier just to start typing, like ‘| Name | Phone | Age <RET> |- <TAB>’.
+
+*** Re-aligning and field motion
+- ‘C-c C-c’ (align) :: Re-align the table without moving point.
+- <TAB> / S-<TAB> :: next-field / previous-field
+- ‘C-c <SPC>’ (blank-field) :: Blank the field at point.
+- ‘<RET>’ (next-row) :: Creates a new row if necessary. At the *beginning* or end
+  of a line, ‘<RET>’ still inserts a *new line*, so it can be used to split a
+  table.
+- M-a/e (beginning/end-of-field) :: Move to beginning/end of the current table field, or
+  on to the previous/next field.
+
+*** Column and row editing
+- M-h/j/k/l :: *move* row / column
+# - ~C-S-h/j/k/l~ - *move* rows and columns around ??
+- M-S-h/j/k/l :: *kill* cur. row (~k~) / *insert* row above cur. row (~j~) / *kill* cur.
+  col (~h~) / *insert* new col at point (~l~)
+- S-h/j/k/l :: *move cells* around
+- C-c - (insert-hline) :: *Insert* a horizontal line below current row. With a
+  prefix argument, the line is created above the current line.
+- C-c <RET> (hline-and-move) :: *Insert* a horizontal line below current row, and
+  move point into the row below that line.
+- C-c ^ (sort-lines) :: *Sort* the table *lines* in the *[region]*. The position of
+  point indicates the column to be used for sorting, and the range of lines is
+  the range between the nearest horizontal separator lines, or the entire table.
+  When called with a prefix argument, alphabetic sorting is case-sensitive.
+
+If *SORTING-TYPE* is specified when this function is called from a Lisp
+program, no prompting will take place.  SORTING-TYPE must be a character,
+any of (~?a ?A ?n ?N ?t ?T ?f ?F~) where the capital letters indicate that
+sorting should be done in reverse order.
+
+If the SORTING-TYPE is ?f or ?F, then GETKEY-FUNC specifies
+a function to be called to extract the key.  It must return a value
+that is compatible with COMPARE-FUNC, the function used to compare
+entries.
+
+A non-nil value for INTERACTIVE? is used to signal that this
+function is being called interactively.
+
+
+*** Regions (copy / cut / paste / split)
+- C-c C-x M-w (copy-region) :: *Copy* a rectangular region from a table to a
+  special clipboard. If there is no active region, copy just the current field.
+  The process ignores horizontal separator lines.
+- C-c C-x C-w (cut-region) :: *Cut* a rectangular region from a table to a
+  special clipboard, and blank all fields in the rectangle.
+- C-c C-x C-y (paste-rectangle) :: *Paste* a rectangular region into a table. The
+  upper left corner ends up in the current field. All involved fields are
+  overwritten. The process ignores horizontal separator lines.
+- M-<RET> (wrap-region) :: *Split* the current field at point position and move
+  the rest to the line below. If there is an active region, and both point and
+  mark are in the same column, the text in the column is wrapped to minimum
+  width for the given number of lines. A numeric prefix argument may be used to
+  change the number of desired lines. If there is no region, but you specify a
+  prefix argument, the current field is made blank, and the content is appended
+  to the field above.
+
+*** Calculations (sum / copy down)
+- C-c + (sum) :: *Sum* the numbers in the current column, or in the rectangle
+  defined by the active region. The result is shown in the echo area and can be
+  inserted with ‘C-y’.
+- S-<RET> (copy-down) :: When current field is empty, copy from first non-empty
+  field above. When not empty, copy current field down to next row and move
+  point along with it. Depending on the variable ‘org-table-copy-increment’,
+  integer and time stamp field values, and fields prefixed or suffixed with a
+  whole number, can be *incremented* during copy. Also, a ‘0’ prefix argument
+  temporarily disables the increment.
+
+*** Miscellaneous (edit / import / export / transpose / hline-mode)
+- C-c ` (edit-field) :: *Edit* the current field in a separate window.
+  This is useful for fields that are not fully visible (see *note Column Width
+  and Alignment::). When called with a ‘C-u’ prefix, just make the full field
+  visible, so that it can be edited in place. When called with two ‘C-u’
+  prefixes, make the editor window follow point through the table and always
+  show the current field. The follow mode exits automatically when point leaves
+  the table, or when you repeat this command with ‘C-u C-u C-c `’.
+- C-c ? (field-info) :: Show info about the current field, and highlight any
+  reference at point.
+- ‘M-x org-table-import’ :: *Import* a file as a table. The table should be TAB or
+  whitespace separated. This command works by inserting the file into the buffer
+  and then converting the region to a table. Any prefix argument is passed on to
+  the converter, which uses it to determine the separator.
+- ‘M-x org-table-export’ :: *Export* the table, by default as a TAB-separated
+  file. (~spc h f~ this func for further info)
+- ‘M-x org-table-header-line-mode’ :: Turn on the display of the first data row
+  of the table at point in the window header line when this first row is not
+  visible anymore in the buffer. You can activate this minor mode by default by
+  setting the option ‘org-table-header-line-p’ to ‘t’.
+- ‘M-x org-table-transpose-table-at-point’ :: *Transpose* the table at point and
+  eliminate hlines.
+
+*** Column Width and Alignment
+
+Setting the option ‘org-startup-align-all-tables’ re-aligns all tables in a file
+upon visiting it. You can also set this option on a per-file basis with:
+
+#+STARTUP: align / noalign
+
+Maybe you want to hide away several columns or display them with a fixed width.
+
+To *set the width of a column*, one field anywhere in the column may
+contain just the string ~‘<N>’~ where N specifies the width as a number of
+characters. You control displayed width of columns with the following
+tools:
+
+- C-c <TAB> (toggle-column-width) :: *Shrink* or expand *current* column.\\
+  If a width cookie specifies a width W for the column, shrinking it displays
+  the first W visible characters only. Otherwise, the column is shrunk to a
+  single character.
+- C-u C-c <TAB> (shrink) :: *Shrink all* columns with a column width. Expand the
+  others.
+- C-u C-u C-c <TAB> (expand) :: *Expand all* columns. Alternatively, ‘C-h .’
+  (‘display-local-help’) reveals them, too.
+
+Setting the option ‘org-startup-shrink-all-tables’ shrinks all
+columns containing a width cookie in a file the moment it is visited.
+You can also set this option on a per-file basis with:
+
+#+STARTUP: shrink
+
+To get more on alignment of number-rich columns go to 'Info' section called
+after cur. org header.
+
+*** Column Groups | Orgtbl Minor Mode
+--> Info ^^
+
+For the format, type orgtbl-to and press TAB to see the available
+options (e.g. orgtbl-to-csv will convert to csv in the output file)
+
+Use [[http://orgmode.org/worg/org-tutorials/org-spreadsheet-intro.html][formulae]] to do arithmetic on tables, and use them like a spreadsheet.
+
+* Narrowing ~C-x n ..~
+~spc m s n~ (org-narrow-to-subtree) - narrow buffer to current subtree (~N~ to
+widen)
+
+*Org-narrow* prefix ~C-x n~ ↓
+b - org-narrow-to-block
+s - org-narrow-to-subtree
+e - org-narrow-to-element
+
 
 * Journal
-
 ~SPC n j~ prefix ↓
 - j - new journal entry
 - J - new scheduled entry
@@ -1044,62 +1224,6 @@ Additional: [[https://github.com/bastibe/org-journal#basic-usage][usage with cal
 
 
 * Other rarely used stuff
-** Tables [[https://orgmode.org/manual/Tables.html#Tables][#docs]]
-
-~SPC m b~ prefix ↓
-- - - insert-hline
-- i h - insert-hline
-- f - edit-formulas
-- R - recalculate-buffer-tables
-- h - field-info
-- a - align
-- b - blank-field
-- r - recalculate
-- ~c~ / ~C-c |~ - create-or-convert-from-region. Create an empty table / convert
-  selected text to a table
-- s - sort-lines
-- e - edit-field
-- t f - toggle-formula-debugger
-- t o - toggle-coordinate-overlays
-- i H - hline-and-move
-- i c - insert-column
-- i r - insert-row
-- d c - delete-column
-- d r - kill-row
-
-Other kbds:
-- when you get to the "s" of comments, press TAB to go to the next line
-- go up to the previous line and use C-c - to add the row of dashes
-- next enter a few lines of data, using TAB to go through the cells
-- ~C-S-h/j/k/l~ - *move* rows and columns around
-- ~M-S-h/l~ - *insert* or *delete* rows and columns
-
-| ID | x | y | comments     |
-|----+---+---+--------------|
-| a  | 1 | 2 | some         |
-| b  | 3 | 4 | some comment |
-
-Try to =convert from region= on text below:
-
-ID  x   y
-A   2   4
-B   3   9
-
-`M-x org-table-export` -- save tables to their own files (while cursor in the table)
-
-For the format, type orgtbl-to and press TAB to see the available
-options (e.g. orgtbl-to-csv will convert to csv in the output file)
-
-Use [[http://orgmode.org/worg/org-tutorials/org-spreadsheet-intro.html][formulae]] to do arithmetic on tables, and use them like a spreadsheet.
-** Narrowing
-~spc m s n~ (org-narrow-to-subtree) - narrow buffer to current subtree (~N~ to
-widen)
-
-*Org-narrow* prefix ~C-x n~ ↓
-b - org-narrow-to-block
-s - org-narrow-to-subtree
-e - org-narrow-to-element
-
 ** Babel
 *Org-babel* prefix - ~C-c C-v~ ↓
 a - sha1-hash
