@@ -690,9 +690,9 @@ There's also =hide-sublevels= command
 - C-c > :: learn buffer indentation
 
 ** Navigation
-*** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]]
-
-avy for windows switching ~spc w C-w~ / ~C-w C-w~
+*** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]] ~spc w w~
+I'm using ace-window. Kill windows, move them around, split them and more by
+using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
 
 *** [[file:~/.emacs.d/modules/ui/workspaces/README.org::*Commands & Keybindings][workspaces]] - besides =spc tab..= :
 - ~C-t~   #'+workspace/new
