@@ -970,6 +970,130 @@ To look up Info-mode _variables_ go ~SPC h i~ -> ~g m~ -> Info -> ~g G Variables
 
 - ~f~ :: following cross reference (part 1.7 of ~M-h~)
 - f? :: list all references in cur. node
+** Embark [[https://github.com/oantolin/embark/wiki/Default-Actions][#default-actions]]
+*Emacs Mini-Buffer Actions Rooted in Keymaps*
+
+Thing that allows u to:
+- Insert a minibuffer candidate into the buffer (~i~)
+- Visit a package’s URL from the minibuffer (~C-h p {package}~ -> ~spc ; u~)
+- Add a keybinding for a command name from anywhere it appears: ~spc a~ on
+  =dired-jump= -> l (set local kbd (globally is also there))
+- Export buffer candidates to ibuffer (~spc ,~ -> ~spc ; E~), same with files &
+  variables.
+- Export grep or line candidates to a grep buffer: ~{any seach cmd}~ ->
+  =embark-export= (~E~) -> ~C-c C-f~ to turn on 'follow on point'
+
+*** Acting on targets
+This package provides a sort of right-click contextual menu for Emacs, accessed
+through the ‘embark-act’ command (which you should bind to a convenient key),
+offering you relevant _actions_ to use on a _target_ determined by the context:
+
+- In the *minibuffer*, the target is the current top completion candidate.
+- In the *Completions* buffer the target is the completion at point.
+- In a *regular buffer*, the target is the region if active, or else the file,
+  symbol, URL, s-expression or defun at point.
+
+Multiple *targets* can be present at the same location and you can *cycle* between
+them by repeating the ‘embark-act’ key binding.
+
+Embark behaviors are configurable via the variable =embark-indicators=. Instead
+of selecting an action via its key binding, you can select it by name with
+completion by typing ‘C-h’ after ‘embark-act’.
+
+*Configuring* which actions are offered for a *type*: =embark-keymap-alist=
+associates target types with variables containing keymaps, and those keymaps
+containing bindings for the actions.
+
+#+NAME: For example
+#+begin_comment
+In the default configuration the type ‘file’ is associated with the symbol
+‘embark-file-map’. That symbol names a keymap with single-letter key bindings
+for common Emacs file commands, for instance ‘c’ is bound to ‘copy-file’. This
+means that if you are in the minibuffer after running a command that prompts for
+a file, such as ‘find-file’ or ‘rename-file’, you can copy a file by running
+‘embark-act’ and then pressing ‘c’.
+#+end_comment
+
+These action keymaps are very convenient but not strictly necessary when using
+‘embark-act’: you can use any command that reads from the minibuffer as an
+action and the target of the action will be inserted at the first minibuffer
+prompt. After running ‘embark-act’ all of your key bindings and even
+=‘execute-extended-command’= can be used to run a command. _For example_, if you
+want to replace all occurrences of the symbol at point, just use ‘M-%’ as the
+action, there is no need to bind ‘query-replace’ in one of Embark’s keymaps.
+
+The *actions* in =embark-general-map= are available always. By *default* this includes
+*bindings* to save the current candidate in the kill ring and to insert the
+current candidate in the target buffer.
+
+Emacs commands often do not set useful category metadata so the Marginalia
+(https://github.com/minad/marginalia) package, which supplies this missing
+metadata, is highly recommended for use with Embark.
+
+~embark-act RET~ usually runs the *default* action on target (in minibuffer - first
+candidate, in buffer - default action bound to 'RET' keymap (like /browse-url/ on
+links))
+
+~embark-dwim~ runs *default* action for 1st target found (handy in non-minibuffers).
+Default behaviour is:
+- Open the file at point.
+- Open the URL at point in a web browser (using the ‘browse-url’ command).
+- Compose a new email to the email address at point.
+- In an Emacs Lisp buffer, if point is on an opening parenthesis or right after
+  a closing one, it will evaluate the corresponding expression.
+- Go to the definition of an Emacs Lisp function, variable or macro at point.
+- Find the file corresponding to an Emacs Lisp library at point.
+
+In *Embark Actions* buffer (embark's /Which-key/) you can scroll that buffer with
+_usual_ ~C-M-(S-)v~ - =scroll-other-window(-down)=
+
+By default Doom uses =embark-which-key-indicator=, but embark comes with its own
+indicators, which u can look up in embark's /Info -> 3.1 Showing ../
+
+~C-h~ =embark-help-key= (after =embark-act=) - will prompt you for the name of an
+action with completion (but feel free to enter a command that is not among the
+offered candidates!). You can press ‘embark-keymap-prompter-key’, which is ‘@’
+by default, at the prompt and then one of the key bindings to enter the name of
+the corresponding action.
+
+TODO:
+   • If you have Consult installed and call ‘embark-collect-snapshot’
+     from ‘consult-line’, ‘consult-mark’ or ‘consult-outline’, you will
+     notice the Embark Collect buffer starts in list view by default.
+     Similarly, you’ll notice that the ‘consult-yank’ family of commands
+     start out in list view with zebra stripes, so you can easily tell
+     where multi-line kill-ring entries start and end.
+
+*** Working with sets of possible targets (~collect~ / ~export~)
+- ~S~ =embark-collect-snapshot= - produces a buffer listing all the current
+  candidates.
+- ~E~ =embark-eSwitchingxport= - command tries to open a buffer in an appropriate major mode
+  for the set of candidates. If the candidates are files export produces a Dired
+  buffer; if they are buffers, you get an Ibuffer buffer; and if they are
+  packages you get a buffer in package menu mode.
+
+#+NAME: embark-consult (for wgrep mostly)
+#+begin_comment
+If you use the grepping commands from the [[https://github.com/minad/consult/][Consult]] package, ‘consult-grep’,
+‘consult-git-grep’ or ‘consult-ripgrep’, then you’ll probably want to install
+and load the ‘embark-consult’ package, which adds support for exporting a list
+of grep results to an honest grep-mode buffer, on which you can even use wgrep
+if you wish.
+#+end_comment
+
+#+NAME: collect vs export (prefer 'export' over 'collect')
+#+begin_comment
+Prefer ‘embark-export’ since when an exporter to a special major mode is
+available for a given type of target, it will be more featureful than an Embark
+collect buffer, and if no such exporter is configured the ‘embark-export’
+command falls back to the generic ‘embark-collect-snapshot’.
+#+end_comment
+
+=embark-collect-live= useless with /vertico/.
+
+*** Switching command without losing input | ~embark-become~
+~B~ =embark-become= - change current command keeping your input (like
+/switch-to-buffer/ -> /find-file/)
 
 ** Utility
 - [[https://github.com/tecosaur/emacs-everywhere#usage][everywhere]] - Invoke Emacs everywhere
