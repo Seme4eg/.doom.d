@@ -1056,14 +1056,6 @@ offered candidates!). You can press ‘embark-keymap-prompter-key’, which is �
 by default, at the prompt and then one of the key bindings to enter the name of
 the corresponding action.
 
-TODO:
-   • If you have Consult installed and call ‘embark-collect-snapshot’
-     from ‘consult-line’, ‘consult-mark’ or ‘consult-outline’, you will
-     notice the Embark Collect buffer starts in list view by default.
-     Similarly, you’ll notice that the ‘consult-yank’ family of commands
-     start out in list view with zebra stripes, so you can easily tell
-     where multi-line kill-ring entries start and end.
-
 *** Working with sets of possible targets (~collect~ / ~export~)
 - ~S~ =embark-collect-snapshot= - produces a buffer listing all the current
   candidates.
