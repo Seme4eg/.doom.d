@@ -75,7 +75,9 @@
   ;;ein               ; tame Jupyter notebooks with emacs
   (eval +overlay)     ; run code, run (also, repls)
   ;;gist              ; interacting with github gists
-  (lookup +docsets)              ; navigate your code and its documentation
+  (lookup
+    +dictionary
+    +docsets)              ; navigate your code and its documentation
   lsp
   ;; NOTE: don't forget.. there is FORGE, but at that time u couldn't use it
   (magit +forge)             ; a git porcelain for Emacs
