@@ -559,15 +559,6 @@ you will be presented with the gitflow popup menu
 [[https://github.com/emacs-evil/evil-collection][evil-collection]] - plugin used as a foundation for flag =+everywhere=, which
 enables evilified keybinds everywhere possible.
 
-[[https://github.com/PythonNut/evil-easymotion][evil-easymotion]] - ~gs ..~ and watch what hints give u (ther's lots there, ie ~gs
-spc~); also - [[https://www.youtube.com/watch?v=zar4GsOBU0g&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][quick vid]] tutorial. When given a selection type ~?~ to see possible
-command modifier /(kill-move, kill-stay, teleport, mark, yank ...)/. Look for
-commands by starting with =evilem=. (~SPC m b b evilem~). Also:
-- "a" (evilem-create #'evil-forward-arg)
-- "A" (evilem-create #'evil-backward-arg)
-- "s" #'evil-avy-goto-char-2
-- "SPC" / "/" - #'evil-avy-goto-char-timer))
-
 [[https://github.com/emacs-evil/evil-surround#usage][evil-surround]] - ~ys~, ~cs~, ~ds~ .. Also:
 - :v "S" #'evil-surround-region
 - :o "s" #'evil-surround-edit
@@ -605,6 +596,24 @@ evil-numbers - works like C-a/C-x in vim, but here it is ~g-/g=~
 evil-exchange - ~gx {motion}~ - exchange two regions with evil motion
 
 [[file:~/.emacs.d/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
+
+*** [[https://github.com/PythonNut/evil-easymotion][evil-easymotion]] ~gs..~ [[https://www.youtube.com/watch?v=zar4GsOBU0g&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][#vid]]
+Just ~gs spc / /~
+
+When given a selection type ~?~ to see possible command modifier /(kill-move,
+kill-stay, teleport, mark, yank ...)/.
+
+=evilem-motion..= - *#nftbew,  kj gj gk
+- -/+   :: previous/next-*line*-first-*non-blank*
+- )/(   :: forward/backward-*sentence*-begin
+- ][    :: forward-*section*-end
+- ]]    :: forward-*section*-begin
+- []    :: backward-*section*-end
+- [[    :: backward-*section*-begin
+- s     :: goto-*char-2*
+- g k/j :: previous/next-*visual-line*
+- g e/E :: backward-*word/WORD-end*
+- a/A   :: forward/backward-*arg*
 
 ** Development
 
