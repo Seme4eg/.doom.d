@@ -539,7 +539,7 @@ Other stuff:
 - (:after compile :n "gr" #'recompile)
 - (:after dired :n "gr" #'revert-buffer)
 
-* packages
+* Packages
 ** git [[file:~/.emacs.d/modules/tools/magit/README.org::*Plugins][#plugins]]
 - [[https://magit.vc/manual/forge/][forge]] - [[https://www.youtube.com/watch?v=fFuf3hExF5w&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=20][quick vid tut]]
 - [[https://github.com/emacsmirror/git-timemachine][git-timemachine]] - view file =x= time ago; ~SPC h b b timemachine~ for kbds. ~SPC g
@@ -1179,7 +1179,62 @@ DEL (scroll-down-command)
 
 _Commands_:
 - eww-open-file :: open a local HTML file
+*** Pdf-tools
+??? Virtual - Use a collection of documents as if it were one, big single PDF.
 
+/Image-mode/ keymap might also be somehow useful in pdf-mode?
+
+Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
+
++ Navigation
+  - C-x ], ] ], g j, C-j :: *next* page
+  - C-x [, [ [, g k, C-k :: *previous* page
+  - C-f, C-d :: Scroll *page up* ARG lines if possible, else go to the next page.
+  - C-b, C-u, <delete> :: Scroll *page down* ARG lines if possible, else go
+    to the previous page.
+  - \ </> :: (call from =emacs-state= (~\~) cuz there is no evil kbds) *top / bottom*
+    of cur. page
+  - M-s o :: *Occur* (list all lines containing a phrase) (/doesn't work/)
+  - F :: pick a *link* and *jump*
+  - f :: incremental *search in links*
+  - o :: Display *outline* and *jump* to section
+  - M-g l, g l :: *Go to* the page corresponding to *LABEL*.
+  - \ B / N :: (.. from =emacs-state=) *History* back / forward
+  - M-g M-g, M-g g :: *Go to PAGE*
++ Display
+  - =, z i, +, = :: *Enlarge* PDF by FACTOR.
+  - z o, - :: *Shrink* PDF by FACTOR.
+  - z 0, 0 :: *Reset* zoom
+  - H / W / P :: *Fit* Height / Width / Page
+  - s b :: Trim *margins* (set slice to bounding box)
+  - s r :: Reset margins
++ Look
+  - C-c C-d, z d :: *dark* background
+  - C-c C-r m, z m :: Apply a *color-filter* appropriate for past *midnight* reading.
+  - C-c C-r t :: *Synchronize* color filter with the present Emacs *theme*.
+  - C-c C-r p, z p :: Display the PDF as it would be printed.
++ Annotations (if any of kbds below *don't* work - use ~\~)
+  - C-c C-a l :: *List* annotations
+  - C-c C-a D :: *Delete* annotation A.
+  - C-c C-a h/m/s/o/t/u :: Add a new highlight / markup / squiggly / strike-out
+    / text / underline annotation in the selected window.
+  - SPACE :: Jump to Annotations from List
+  - d :: Mark Annotation for Deletion
+  - x :: Delete Marked Annotations
+  - u :: Unmark Annotations
+  - q :: Close Annotation List
++ Quitting
+  - Q / Z Q :: kill-this-buffer
+  - Z Z / q :: quit-window
+  - q       :: kill-current-buffer
++ Other
+  - $ :: image-eol
+  - C-c C-p :: pdf-misc-print-document
+  - C-c <tab>, C-c TAB :: *Create* a PNG *image* of REGIONS.
+  - M-w, S-<delete>, <visual-state> y :: *Copy region* to the ‘kill-ring’.
+  - C-x h :: *Mark* the whole *page*.
+  - C-c C-a a :: List all attachments in a dired buffer.
+  - C-c C-g :: jump to PDF location from source (/doesn't work/)
 * unused kbds
 S-q
 
