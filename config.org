@@ -514,6 +514,8 @@ Forge:
 * Other settings
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
+
+(setq eww-auto-rename-buffer 'title) ;; title / url / custom func
 #+end_src
 
 Enable exwm if flag's given:

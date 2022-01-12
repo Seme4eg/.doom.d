@@ -2,6 +2,8 @@
 
 * Doom [[file:~/.emacs.d/docs/index.org][#docs-index]] [[file:~/.emacs.d/docs/getting_started.org][#getting-started]] [[file:~/.emacs.d/docs/modules.org][#modules]]
 
+[[https://www.emacswiki.org/emacs/GccEmacs][Installation]]
+
 *IMPORTANT* - [[file:~/.emacs.d/docs/getting_started.org::*Looking up documentation and state from within Emacs][Looking up documentation and HELP]] in *ANY* possible way e.g. /vars,
 funcs, faces, *bindings*, keys, chars, libs/
 
