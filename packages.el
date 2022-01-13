@@ -11,6 +11,9 @@
 
 (package! jest)
 (package! telega)
+(package! 0x0
+  :recipe (:host gitlab :repo "willvaughn/emacs-0x0"))
+
 ;; (package! soundklaus
 ;;   :recipe (:local-repo "lisp/soundklaus" :build (:not compile)))
 ;; setup of exwm and desktop environment in my .dotfiles repo

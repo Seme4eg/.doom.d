@@ -510,6 +510,51 @@ Forge:
         )
        ))
 #+end_src
+* IRC
+#+BEGIN_SRC emacs-lisp
+;; if you omit =:host=, ~SERVER~ will be used instead.
+(after! circe
+  (map! :leader :desc "IRC" "oi" '=irc)
+  (setq
+   circe-default-part-message "o/"
+   circe-default-quit-message "o/")
+  (set-irc-server! "irc.libera.chat"
+    `(:tls t
+      :port 6697
+      :nick "_sad"
+      ;; :full-name "_sad"
+      ;; :sasl-username "sad"
+      ;; :sasl-password "mypassword"
+      :sasl-username ,(+pass-get-user "irc/libera.chat")
+      :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))
+      :channels ("#systemcrafters" "#libera-cloak" "#emacs")))
+  (set-irc-server! "irc.undernet.org"
+    `(;; :tls t
+      :port 6667
+      :nick "_sad"
+      ;; :full-name "_sad"
+      ;; :sasl-username "sad"
+      ;; :sasl-password "mypassword"
+      ;; :sasl-username ,(+pass-get-user "irc/libera.chat")
+      ;; :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))
+      ;; :channels ("#ebooks" "#Bookz")
+      ))
+  (set-irc-server! "irc.irchighway.net"
+    `(:tls t
+      :port 6697
+      :nick "_sad"
+      ;; :full-name "_sad"
+      ;; :sasl-username "sad"
+      ;; :sasl-password "mypassword"
+      ;; :sasl-username ,(+pass-get-user "irc/libera.chat")
+      ;; :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))
+      ;; :channels ("#ebooks" "#Bookz")
+      ))
+  )
+
+;; TODO: write a function to upload image to 0x0 from a clipboard
+(use-package! 0x0)
+#+END_SRC
 
 * Other settings
 #+begin_src emacs-lisp
