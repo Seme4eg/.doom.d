@@ -1061,7 +1061,7 @@ the corresponding action.
 *** Working with sets of possible targets (~collect~ / ~export~)
 - ~S~ =embark-collect-snapshot= - produces a buffer listing all the current
   candidates.
-- ~E~ =embark-eSwitchingxport= - command tries to open a buffer in an appropriate major mode
+- ~E~ =embark-export= - command tries to open a buffer in an appropriate major mode
   for the set of candidates. If the candidates are files export produces a Dired
   buffer; if they are buffers, you get an Ibuffer buffer; and if they are
   packages you get a buffer in package menu mode.
@@ -1117,45 +1117,45 @@ command falls back to the generic ‘embark-collect-snapshot’.
   - g ? (nov-display-metadata)    - View the metadata of the EPUB document ...
 
 *** EWW
-_While in normal mode:_
-- & / go / <S-return> :: =eww-browse-with-external-browser=. In case of trouble
-  viewing a website with EWW
-- H/L :: *back / forward* url
-- r/R (eww-readable) :: attampt to determine which part of the doc contains the
-  'readable' text, and will only display this part. This usually gets rid of
-  menus and the like.
-- U :: eww-top-url
-- u / ^ :: eww-up-url
-- d :: *download* URL (link at cursor otherwise current page). Directory for
-  downloading lies within =eww-download-directory=
-- m :: *bookmark*
-- o (eww) - ??
-- Z Q/Z :: quit window
-- ]]/[[ / g j/k :: previous / next url (like "next" on page literally)
-- *z* d :: eww-toggle-paragraph-direction
-- z e :: eww-set-character-encoding
-- z f :: eww-toggle-fonts
-- *g* b :: eww-list-bookmarks
-- g c :: url-cookie-list
-- g h :: list browsing *history*. The history is lost when EWW is quit. If you
-  want to remember websites - use bookmarks. History limit is stored in
-  =eww-history-limit= var.
-- g t (eww-list-buffers) :: get summary of currently opened EWW buffers
++ Opening:
+  - o :: *new query*
+  - g t (eww-list-buffers) :: *list* opened EWW *buffers*
+  - & / go / <S-return> :: open in *external* browser
+  - M-RET :: *open* URL (or same page if not on URL) at point in *new buffer*
++ Navigating:
+  - H/L :: *back / forward* url (/backspace/ also works)
+  - U :: eww-*top*-url
+  - u / ^ :: eww-*up*-url
+  - ]]/[[ / g j/k :: previous / next url (like "next" on page literally)
+  - g h :: list browsing *history*. The history is lost when EWW is quit. If you
+    want to remember websites - use bookmarks. History limit is stored in
+    =eww-history-limit= var.
+  - <tab> / <backtab> :: shr *next / previous link*
++ Bookmarks:
+  - m :: *bookmark*
+  - g b :: eww-list-bookmarks
+  - M-n/p :: *next / previous* bookmark
+  - When in bookmarks buffer:
+    - RET :: Browse the bookmark under point in eww.
+    - C-k, D :: Kill the current bookmark.
+    - P :: Yank a previously killed bookmark to the current line.
++ Viewing:
+  - r/R (eww-readable) :: attampt to determine which part of the doc contains the
+    'readable' text, and will only display this part. This usually gets rid of
+    menus and the like.
+  - *z* d :: eww-toggle-paragraph-direction
+  - z e :: eww-set-character-encoding
+  - z f :: eww-toggle-fonts
+  - M-C :: toggle whether to use HTML-specified colors or not. (=shr-use-colors=
+    variable)
++ Other:
+  - d :: *download* URL (link at cursor otherwise current page). Directory for
+    downloading lies within =eww-download-directory=
+  - g c :: url-cookie-list
+  - Z Q/Z :: *quit* window
 
------
-
-- S-SPC        scroll-down-command
-- <backspace>  eww-back-url
-- <tab> / <backtab> :: shr *next / previous link*
-- M-RET :: eww-open-in-new-buffer - open URL at point in new buffer
-- M-n/p :: *next / previous* bookmark
-
-- C-M-i :: shr-previous-link
-- M-C eww-toggle-colors :: toggle whether to use HTML-specified colors or not.
-  (=shr-use-colors= variable)
-
-Hotkeys below are the default hotkeys, but they r shadowed by evil everywhere.
-But they r relevant if u enter 'insert mode' in eww buffer:
+Hotkeys below are the default hotkeys. They r shadowed by evil everywhere.
+But they r relevant if u enter 'insert mode' in eww buffer (or if called from =emacs-state=):
 #+begin_comment
 TAB (shr-next-link)
 C (url-cookie-list)
