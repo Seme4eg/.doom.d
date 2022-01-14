@@ -7,8 +7,8 @@ _Summary_: [9/15] [60%]
 - [X] irc / erc / Rcirc - all irc clients; find some IRC to ask question: "How to perform line search on all file candidates in minibuffer (with embark?)"
 - [ ] rss? setup yt rss client maybe? then find some more rss stuff to fill there?
 # - [ ] [[https://github.com/chenyanming/calibredb.el#table-of-contents][calibredb]] - learn how to use - decided that i don't need that for now
-- [ ] Games in emacs:
-  - [ ] [[https://www.masteringemacs.org/article/fun-games-in-emacs][link 1]]
+- [-] Games in emacs:
+  - [X] [[https://www.masteringemacs.org/article/fun-games-in-emacs][link 1]]
   - [ ] [[https://www.emacswiki.org/emacs/CategoryGames][link 2]]
 - [X] how to copy with evil without whitespace? - g{motion}y
 - [ ] reason-mode [[https://github.com/reasonml-editor/reason-mode][#docs]] - [[https://reasonml.github.io][Reason]] lets you write simple, fast and quality type safe code while leveraging both the JavaScript & OCaml ecosystems.

@@ -498,9 +498,10 @@ Forge:
 #+end_src
 * IRC
 #+BEGIN_SRC emacs-lisp
+(map! :leader :desc "IRC" "oi" '=irc)
+
 ;; if you omit =:host=, ~SERVER~ will be used instead.
 (after! circe
-  (map! :leader :desc "IRC" "oi" '=irc)
   (setq
    circe-default-part-message "(⌣_⌣”)"
    circe-default-quit-message "( ͡ಠ ʖ̯ ͡ಠ)")

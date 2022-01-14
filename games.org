@@ -1,0 +1,177 @@
+#+TITLE: Games in Emacs
+#+TAGS: poor(p) fair(f) neutral(n) good(g) excellent(e)
+#+Sources: https://www.masteringemacs.org/article/fun-games-in-emacs
+
+* Games in Emacs
+~?~ (sometimes ~h~) - get help for current game-mode (bindings & rules)
+
+** Zero-player games / not actually 'games'
+=animate-birthday-present name=, =butterfly=
+
+*** Tower of Nahoi [[https://www.masteringemacs.org/static/uploads/hanoi.png][#pic]]
+#+begin_quote What it is?
+The [[https://en.wikipedia.org/wiki/Tower_of_Hanoi][Tower of Hanoi]] is an ancient mathematical puzzle game and one that is
+probably familiar to some of us as it is often used in Computer Science as a
+teaching aid because of its recursive and iterative solutions.
+#+end_quote
+
+The Tower of Hanoi implementation in Emacs dates from the mid 1980s — an awful
+long time ago indeed.
+
+Didn't get the drill. How to /play/ it?
+
+Three commands to trigger the Tower of Hanoi:
+- M-x hanoi :: a default of 3 discs;
+- M-x hanoi-unix :: ..
+- M-x hanoi-unix-64 :: uses the unix timestamp, making a move each second in
+  line with the clock, and with the latter pretending it uses a 64-bit clock.
+
+=M-x customize-group RET hanoi RET= (or ~spc h v hanoi~) - few Customize options
+such as enabling colorized discs.
+*** Fortune & Cookie
+I like the fortune command. Snarky, unhelpful and often sarcastic “advice” mixed
+in with literature and riddles brightens up my day whenever I launch a new
+shell.
+
+Rather confusingly there are two packages in Emacs that does more-or-less the
+same thing: fortune and cookie1. The former is geared towards putting fortune
+cookie messages in email signatures and the latter is just a simple reader for
+the fortune format.
+
+To use Emacs’s cookie1 package you must first tell it where to find the file by
+customizing the variable cookie-file with customize-option RET cookie RET.
+
+U might first need to install the fortune package first. The
+files are found in the /usr/share/games/fortunes/ directory.
+
+You can then call M-x cookie or, should you want to do this, find all matching
+cookies with M-x cookie-apropos.
+*** Doctor [[https://www.masteringemacs.org/static/uploads/doctor.png][#pic]] :excellent:
+#+begin_quote
+Ah, the Emacs doctor. Based on the original [[https://en.wikipedia.org/wiki/ELIZA][ELIZA]] the “Doctor” tries to
+psychoanalyze what you say and attempts to repeat the question back to you.
+Rather fun, for a few minutes, and one of the more famous Emacs oddities. You
+can run it with M-x doctor.
+#+end_quote
+*** Game of Life ~M-x life~ :excellent:
+[[https://en.wikipedia.org/wiki/Conway's_Game_of_Life][Conway’s Game of Life]] is a famous example of cellular automata. The Emacs
+version comes with a handful of starting patterns that you can (programmatically
+with elisp) alter by adjusting the life-patterns variable.
+
+#+begin_quote
+The fact that the whole thing, display code, comments and all, come in at less
+than 300 characters is also rather impressive.
+#+end_quote
+*** Zone, emacs's 'screensaver'
+Just run it and watch..
+
+=zone-when-idle= - configure a screensaver idle time.
+=zone-leave-me-alone= - turn it off with
+
+This one’s guaranteed to make your coworkers freak out if it kicks off while they are looking.
+
+*** Miscallaneous
+- =(un)morse-region= - (un)translate a region into morse code
+- =dissociated-press= - applies something like a random walk markov-chain
+  generator to a body of text in a buffer and generates nonsensical text from
+  the source body.
+- =spook= - inserts random words (usually into emails) designed to
+  confuse/overload the “NSA trunk trawler” – and keep in mind this module dates
+  from the 1980s and 1990s – with various words the spooks are supposedly
+  listening for. Of course, even ten years ago that would’ve seemed awfully
+  paranoid and quaint but not so much any more…
+
+** 5x5 [[https://www.masteringemacs.org/static/uploads/5x5.png][#pic]] :excellent:
+Your goal is to fill all the cells by toggling them on and off in the right
+order to win. It’s not as easy as it sounds!
+
+- ~5x5~ - start with default 5 grid size.
+- ~SPC u {number} SPC x 5x5~ - start a game with =number= as grid size.
+
+#+begin_quote source-code
+So what I like about this game is that it comes with a very complex solver –
+really, you should read the source code with M-x find-library RET 5x5 – and a
+“cracker” that attempts to brute force solutions to the game.
+#+end_quote
+
+Crack commands below. The crackers will attempt to iterate their way to the best
+solution. This runs in real time and is fun to watch:
+- M-x 5x5-crack-mutating-best :: Attempt to crack 5x5 by mutating the best solution.
+- M-x 5x5-crack-mutating-current :: Attempt to crack 5x5 by mutating the current
+  solution.
+- M-x 5x5-crack-randomly :: Attempt to crack 5x5 using random solutions.
+- M-x 5x5-crack-xor-mutate :: Attempt to crack 5x5 by xoring the current and
+  best solution.
+** Blackbox [[help:blackbox][#rules]] :excellent:
+It’s a bit like the Battleship most of us played as kids but… for people with
+advanced degrees in physics?
+
+** Bubbles [[https://www.masteringemacs.org/static/uploads/bubbles.png][#pic]] :neutral:
+- =M-x bubbles-set-game-<difficulty>= - one of: easy, medium, difficult, hard, or
+  userdefined.
+- =M-x customize-group bubbles= - alter the graphics, grid size and colors using
+
+** Decipher :neutral:
+Helps you break simple substitution ciphers (like cryptogram puzzles) using a
+helpful user interface.
+
+Create a new buffer test-cipher and type in your cipher text (i.e. /Uryyb, Jbeyq/)
+
+Place the point on any of the characters in the ciphertext on the purple line
+and guess what the character might be by pressing {char} from =emacs-mode=
+
+You can then start winnowing down the options using various helper commands to
+help infer which cipher characters might correspond to which plaintext
+character:
+- D :: Shows a list of digrams (two-character combinations from the cipher) and
+  their frequency
+- F :: Shows the frequency of each ciphertext letter
+- N :: Shows adjacency of characters. I am not entirely sure how this works.
+- M / R :: Save / restore a checkpoint, allowing you to branch your work and
+  explore different ways of cracking the cipher.
+** Dunnet :excellent:
+Emacs’s very own Zork-like *text adventure* game.
+
+Type =help= in the quest chat to get started.
+
+#+begin_quote
+If you find yourself with time to kill between your TPS reports then it’s a
+great game with a built-in “boss screen” as it’s text-only.
+
+Oh, and, don’t try to eat the CPU card :)
+#+end_quote
+** Gomoku [[https://www.masteringemacs.org/static/uploads/gomoku.png][#pic]] :excellent:
+Another game written in the 1980s. You have to connect 5 squares, tic-tac-toe
+style. You can play against Emacs with M-x gomoku. The game also supports the
+mouse, which is rather handy. You can customize the group gomoku to adjust the
+size of the grid.
+** Pong, Snake and Tetris [[https://www.masteringemacs.org/static/uploads/tetris.png][#pic]] :neutral:
+These classic games are all implemented using the Emacs package gamegrid, a
+generic framework for building grid-based games like Tetris and Snake.
+
+~spc h b f {game}-mode-map~...
+
+#+begin_quote
+The Tetris game in particular is rather faithfully implemented, having both
+gradual speed increase and the ability to slide blocks into place. And given you
+have the code to it, you can finally remove that annoying Z-shaped piece no one
+likes!
+#+end_quote
+** Solitaire [[https://www.masteringemacs.org/static/uploads/solitaire.png][#pic]] :good:
+Peg-based game where you have to end up with just one stone on the board, by
+taking a stone (the o) and “jumping” over an adjacent stone into the hole (the .
+), removing the stone you jumped over in the process. Rinse and repeat until the
+board is empty.
+
+=solitaire-solve= if you get stuck.
+** Mpuz [[https://www.masteringemacs.org/static/uploads/mpuz.png][#pic]]
+Multiplication puzzle where you have to replace the letters with numbers and
+ensure the first 2 rows of numbers multiply and 3rd and 4th add up.
+
+=mpuz-show-solution= to solve the puzzle if you get stuck.
+** Missing
+- [[https://github.com/sthilaid/igo.el][igo]] - Play Go / Weichi / Baduk or read a game in SGF.
+- landmark - neural net robot that learns landmarks; in Emacs 24 it is invoked
+  with landmark; in previous version it is invoked with lm.
+  http://www.gnu.org/software/emacs/news/NEWS.24.2
+- yow - random Zippy quote
