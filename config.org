@@ -288,20 +288,6 @@ Forge:
   org-journal-file-format "%Y-%m-%d.org")
 
 #+end_src
-* Treemacs
-#+begin_src emacs-lisp
-;; colors for treemacs icons
-(after! treemacs
-  (treemacs-follow-mode)
-  (setq doom-themes-treemacs-theme "doom-colors"
-        treemacs-space-between-root-nodes      nil ;; t
-        treemacs-width                         32  ;; 35
-        ))
-;; If you still want the default icons, this works for me
-;; (after! (doom-themes treemacs)
-;;   (setq doom-themes-treemacs-theme "Default"))
-#+end_src
-
 * Emacs everywhere
 #+begin_src emacs-lisp
 ;; :app everywhere FIXME: throws error when first loading
