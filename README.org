@@ -1561,4 +1561,4 @@ Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
 * unused kbds
 S-q
 
-~SPC~ .. k, j, d
+~SPC~ .. d, e, j, k, r, v, y, z
