@@ -178,43 +178,43 @@ which is invoked just after mu4e has completed showing the messages
 in the headers-view.
 
 *** 4.2 Keybindings
-- Movement
-- ~j/k~ / C-j/k  :: Moves to the next/previous header line
-- ]]/[[ or gj/k :: Moves to next/previous unread message
-- ~J~     :: Jump to another mail directory
-- Toggles
-- ~z t~ :: Toggles threaded message display
-- ~z r~ :: Toggles related message display (toggle showing messages that r not
-  from current search query)
-- z d :: toggle skip duplicates
-- Q :: toggle full-search
-- Marking
-- ~m~ :: Marks message for move to folder
-- ~+/-~ :: Marks message for flagging/unflagging
-- ?/! :: mark message as unread / read
-- ~%~ :: Marks based on a regex pattern
-- = :: mark for removing trash flag ('untrash')
-- ~d~ :: Marks message for deletion
-- D :: mark for complete deletion
-- r :: mark for refiling
-- A :: Mark header at point with action.
-- & (mu4e-headers-mark-custom) :: Mark messages based on a user-provided predi...
-- * :: Mark header at point with something (decide later).
-- u :: unmark message at point
-- U :: unmark *all* messages
-- ~x~ :: Executes all marks in the view
-- Searching
-- ~s~  :: Search all e-mails
-- ~S~  :: Edit current search (useful!)
-- ~/~  :: Narrow down the current results
-- ~b~  :: Select a bookmark to search with
-- ~B~  :: Edit bookmark before search
-- ~gr~ :: Rerun the current search
-- Composing
-- ~C~, ~cc~ :: Compose a new e-mail
-- ~R~, ~cr~ :: Compose a reply to selected email
-- ~F~, ~cf~ :: Compose a forward for selected email
-- ~E~, ~ce~ :: Edit selected draft message
++ Movement
+  - ~j/k~ / C-j/k  :: Moves to the next/previous header line
+  - ]]/[[ or gj/k :: Moves to next/previous unread message
+  - ~J~     :: Jump to another mail directory
++ Toggles
+  - ~z t~ :: Toggles threaded message display
+  - ~z r~ :: Toggles related message display (toggle showing messages that r not
+    from current search query)
+  - z d :: toggle skip duplicates
+  - Q :: toggle full-search
++ Marking
+  - ~m~ :: Marks message for move to folder
+  - ~+/-~ :: Marks message for flagging/unflagging
+  - ?/! :: mark message as unread / read
+  - ~%~ :: Marks based on a regex pattern
+  - = :: mark for removing trash flag ('untrash')
+  - ~d~ :: Marks message for deletion
+  - D :: mark for complete deletion
+  - r :: mark for refiling
+  - A :: Mark header at point with action.
+  - & (mu4e-headers-mark-custom) :: Mark messages based on a user-provided predi...
+  - * :: Mark header at point with something (decide later).
+  - u :: unmark message at point
+  - U :: unmark *all* messages
+  - ~x~ :: Executes all marks in the view
++ Searching
+  - ~s~  :: Search all e-mails
+  - ~S~  :: Edit current search (useful!)
+  - ~/~  :: Narrow down the current results
+  - ~b~  :: Select a bookmark to search with
+  - ~B~  :: Edit bookmark before search
+  - ~gr~ :: Rerun the current search
++ Composing
+  - ~C~, ~cc~ :: Compose a new e-mail
+  - ~R~, ~cr~ :: Compose a reply to selected email
+  - ~F~, ~cf~ :: Compose a forward for selected email
+  - ~E~, ~ce~ :: Edit selected draft message
 
 *Other Actions*
 - ~q~ :: Quit the headers view
