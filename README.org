@@ -889,29 +889,27 @@ Move with h, j, k, l, where h & l are 'up' & 'down' directory
   - ‘/ <’ - Add a filter by buffer size.
   - ‘/ *’ - Add a filter by special buffers.
   - ‘/ v’ - Add a filter by buffers visiting files.
-  - ‘/ s’ - Save the current filters with a name.
-  - ‘/ r’ - Switch to previously saved filters.
-  - ‘/ a’ - Add saved filters to current filters.
-  - ‘/ &’ - Replace the top two filters with their logical AND.
-  - ‘/ |’ - Replace the top two filters with their logical OR.
-  - ‘/ p’ - Remove the top filter.
+  - ‘/ s’ - *Save* the current *filters* with a name.
+  - ‘/ r’ - *Switch* to previously *saved* filters.
+  - ‘/ a’ - *Add saved* filters to current filters.
+  - ‘/ &’ - Replace the top two filters with their logical *AND*.
+  - ‘/ |’ - Replace the top two filters with their logical *OR*.
+  - ‘/ p’ - *Remove* the top filter. (like /pop/)
   - ‘/ !’ - Invert the logical sense of the top filter.
   - ‘/ d’ - Break down the topmost filter.
-  - ‘/ /’ - Remove all filtering currently in effect.
+  - ‘/ /’ - *Remove all* filtering currently in effect.
 + *Filter group*:
-  - ‘/ g’ - Create filter group from filters.
-  - ‘/ P’ - Remove top filter group.
-  - ‘TAB’ - Move to the next filter group.
-  - ‘M-p’ - Move to the previous filter group.
-  - ‘/ \’ - Remove all active filter groups.
-  - ‘/ S’ - Save the current groups with a name.
-  - ‘/ R’ - Restore previously saved groups.
-  - ‘/ X’ - Delete previously saved groups.
-  - g x :: Kill the filter group at point.
-  - C-j / M-n / ]] / TAB         forward-filter-group
-  - C-k / M-p / [[        backward-filter-group
+  - ‘/ g’ - *Create* filter group from filters.
+  - ‘/ P’ - *Remove* top filter group.
+  - ‘TAB / C-j / M-n / ]]’ - Move to the *next* filter group.
+  - ‘M-p / C-k / [[’ - Move to the *previous* filter group.
+  - ‘/ \’ - *Remove all* active filter groups.
+  - ‘/ S’ - *Save* the current groups with a name.
+  - ‘/ R’ - *Restore* previously *saved* groups.
+  - ‘/ X’ - *Delete* previously *saved* groups.
+  - g x :: *Kill* the filter group *at point*.
   - M-j :: Move point to the filter group whose name is NAME.
-  - s D         decompose-filter-group
+  - s D :: decompose-filter-group
 + *Sorting*:
   - ‘,’ - Rotate between the various sorting modes.
   - ‘o i’ - Reverse the current sorting order.
@@ -942,79 +940,31 @@ Move with h, j, k, l, where h & l are 'up' & 'down' directory
   - g v :: do-view
   - C-x v, g V :: As ‘ibuffer-do-view’, but split windows horizontally.
 
-\** Information on Filtering:
+**** Filtering
+Each Ibuffer buffer has its *own stack* of active filters. For example, you can
+create an Ibuffer buffer displaying only ‘emacs-lisp-mode’ buffers via ‘/ RET
+emacs-lisp-mode RET’.
 
-You can filter your Ibuffer view via different criteria.  Each Ibuffer
-buffer has its own stack of active filters.  For example, suppose you
-are working on an Emacs Lisp project.  You can create an Ibuffer
-buffer displaying only ‘emacs-lisp-mode’ buffers via
-‘/ RET emacs-lisp-mode RET’.  In this case, there
-is just one entry on the filtering stack.
+You can also *combine* filters. For example, suppose you only want to see buffers
+in ‘emacs-lisp-mode’, whose names begin with "gnus":
 
-You can also combine filters.  The various filtering commands push a
-new filter onto the stack, and the filters combine to show just
-buffers which satisfy ALL criteria on the stack.  For example, suppose
-you only want to see buffers in ‘emacs-lisp-mode’, whose names begin
-with "gnus".  You can accomplish this via:
+: / RET emacs-lisp-mode RET
+: / n ^gnus RET
 
-  / RET emacs-lisp-mode RET
-  / n ^gnus RET
-
-Additionally, you can OR the top two filters together with
-‘M-x ibuffer-or-filters’.  To see all buffers in either
-‘emacs-lisp-mode’ or ‘lisp-interaction-mode’, type:
-
-  / RET emacs-lisp-mode RET
-  / RET lisp-interaction-mode RET
-  M-x ibuffer-or-filters
+Additionally, you can *OR* the top two filters together with ~/ |~ (*AND* with ~/ &~)
 
 Filters can also be saved and restored using mnemonic names: see the
 functions ‘ibuffer-save-filters’ and ‘ibuffer-switch-to-saved-filters’.
 
-To remove the top filter on the stack, use ‘/ p’, and
-to disable all filtering currently in effect, use
-‘/ /’.
+**** Filter Groups
+A filter group is basically a named group of buffers which
+match a filter, which are displayed together in an Ibuffer buffer.
 
+Just like filters themselves, filter *groups act as a stack*. The first filter
+group is used. The filter groups are displayed in this order of *precedence*.
 
-\** Filter Groups:
-
-Once one has mastered filters, the next logical step up is "filter
-groups".  A filter group is basically a named group of buffers which
-match a filter, which are displayed together in an Ibuffer buffer.  To
-create a filter group, simply use the regular functions to create a
-filter, and then type ‘/ g’.
-
-A quick example will make things clearer.  Suppose that one wants to
-group all of one’s Emacs Lisp buffers together.  To do this, type:
-
-  / RET emacs-lisp-mode RET
-  / g emacs lisp buffers RET
-
-You may, of course, name the group whatever you want; it doesn’t have
-to be "emacs lisp buffers".  Filter groups may be composed of any
-arbitrary combination of filters.
-
-Just like filters themselves, filter groups act as a stack.  Buffers
-will not be displayed multiple times if they would be included in
-multiple filter groups; instead, the first filter group is used.  The
-filter groups are displayed in this order of precedence.
-
-You may rearrange filter groups by using the usual pair
-‘C-k’ and ‘C-y’.  Yanked groups
-will be inserted before the group at point.
-
-In addition to any hooks its parent mode ‘special-mode’ might have
-run, this mode runs the hook ‘ibuffer-mode-hook’, as the final or
-penultimate step during initialization.
-
-Other commands for this mode, not bound to any keys:
-
-`help-customize'
-`help-goto-info'
-`help-goto-next-page'
-`help-goto-previous-page'
-`help-view-source'
-
+You may *rearrange* filter groups by using the usual pair ‘C-k’ and ‘C-y’. Yanked
+groups will be inserted before the group at point.
 
 ** Completion
 
