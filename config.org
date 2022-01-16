@@ -62,18 +62,13 @@ Hlissner:
 Learn how to properly define your custom keybindings you can in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=28][this vid]]
 
 #+begin_src emacs-lisp
-(map! :leader
-      :desc "M-x"
-      "x"
-      'execute-extended-command)
+(map! :leader :desc "M-x" "x" 'execute-extended-command)
 (map! :leader
       :desc "Git gutter popup hunk"
       "gv"
       'git-gutter:popup-hunk)
-(map! :leader
-      :desc "Ace window"
-      "ww"
-      'ace-window)
+(map! :leader :desc "Ace window" "ww" 'ace-window)
+(map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
 ;; TODO: wrap a func below eith defadvice so it insets '~' before and after
 (map! :leader
       :desc "Edmacro insert key"

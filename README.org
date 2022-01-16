@@ -1381,20 +1381,14 @@ DEL (scroll-down-command)
 
 _Commands_:
 - eww-open-file :: open a local HTML file
-*** Xwidget
-- [ ] variables
-- [ ] setups? funcs? anything?
-**** Value
-H                   xwidget-webkit-browse-history
-RET                 xwidget-webkit-insert-string
-a                   xwidget-webkit-adjust-size-dispatch
-e                   xwidget-webkit-edit-mode
-g                   revert-buffer
-h                   describe-mode
-q                   quit-window
-w                   xwidget-webkit-current-url
+*** Xwidget ~spc o x~
+Inside the web browser, you can type ‘e’ to enter “edit mode”, where self
+inserting characters are passed to the WebKit widget, or ‘C-s’ to perform
+incremental search on the contents of the WebKit widget.
 
-**** spc h b b
+In [[https://github.com/jave/xwidget-emacs#webkit-hints][hints section]] author sais that he uses =ffap= to go to links, but for me it
+only renders link on cur. page.
+
 *VIM*: ~gg, G, [num]hjkl, +=-, C-d/f, C-u/b~
 
 - g u :: Ask xwidget-webkit to browse URL.
@@ -1404,28 +1398,14 @@ w                   xwidget-webkit-current-url
   Variable: Non-nil if Xwidget-Webkit-Isearch mode is enabled.
 - R :: Reload current URL.
 
-**** spc h m
-RET				xwidget-webkit-insert-string
-  (this binding is currently shadowed)
-a				xwidget-webkit-adjust-size-dispatch
-  (this binding is currently shadowed)
-e				xwidget-webkit-edit-mode
-  (this binding is currently shadowed)
-w				xwidget-webkit-current-url
-  (this binding is currently shadowed)
-
-<normal-state> g g		xwidget-webkit-scroll-top
-<normal-state> g u		xwidget-webkit-browse-url
-
-Other commands for this mode, not bound to any keys:
-
-`help-customize'
-`help-goto-info'
-`help-goto-next-page'
-`help-goto-previous-page'
-`help-view-source'
-
-
+"shadowed" ones:
+- RET :: xwidget-webkit-insert-string
+- a   :: xwidget-webkit-adjust-size-dispatch
+- e   :: xwidget-webkit-edit-mode
+- w   :: xwidget-webkit-current-url
+- H   :: xwidget-webkit-browse-history
+- g   :: revert-buffer
+- w   :: xwidget-webkit-current-url
 *** IRC [[file:~/.emacs.d/modules/app/irc/README.org::*An IRC Client in Emacs][#kbds]] ~SPC m~
 #+NAME: what is IRC
 #+begin_comment
