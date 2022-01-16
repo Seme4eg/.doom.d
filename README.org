@@ -1318,7 +1318,7 @@ command falls back to the generic ‘embark-collect-snapshot’.
   - ~C(M)-k/j~ / ~[ [~ / ~] ]~ / ~g k/j~  - Go to the previous/next document
   - g ? (nov-display-metadata)    - View the metadata of the EPUB document ...
 
-*** EWW
+*** EWW - Emacs Web Wowser
 + Opening:
   - o :: *new query*
   - g t (eww-list-buffers) :: *list* opened EWW *buffers*
@@ -1381,6 +1381,50 @@ DEL (scroll-down-command)
 
 _Commands_:
 - eww-open-file :: open a local HTML file
+*** Xwidget
+- [ ] variables
+- [ ] setups? funcs? anything?
+**** Value
+H                   xwidget-webkit-browse-history
+RET                 xwidget-webkit-insert-string
+a                   xwidget-webkit-adjust-size-dispatch
+e                   xwidget-webkit-edit-mode
+g                   revert-buffer
+h                   describe-mode
+q                   quit-window
+w                   xwidget-webkit-current-url
+
+**** spc h b b
+*VIM*: ~gg, G, [num]hjkl, +=-, C-d/f, C-u/b~
+
+- g u :: Ask xwidget-webkit to browse URL.
+- y :: Get the webkit selection and put it on the ‘kill-ring’.
+- H/L :: Go back to previous/next URL in xwidget webkit buffer.
+- C-s :: Minor mode for performing incremental search inside WebKit buffers.
+  Variable: Non-nil if Xwidget-Webkit-Isearch mode is enabled.
+- R :: Reload current URL.
+
+**** spc h m
+RET				xwidget-webkit-insert-string
+  (this binding is currently shadowed)
+a				xwidget-webkit-adjust-size-dispatch
+  (this binding is currently shadowed)
+e				xwidget-webkit-edit-mode
+  (this binding is currently shadowed)
+w				xwidget-webkit-current-url
+  (this binding is currently shadowed)
+
+<normal-state> g g		xwidget-webkit-scroll-top
+<normal-state> g u		xwidget-webkit-browse-url
+
+Other commands for this mode, not bound to any keys:
+
+`help-customize'
+`help-goto-info'
+`help-goto-next-page'
+`help-goto-previous-page'
+`help-view-source'
+
 
 *** IRC [[file:~/.emacs.d/modules/app/irc/README.org::*An IRC Client in Emacs][#kbds]] ~SPC m~
 #+NAME: what is IRC
@@ -1498,8 +1542,8 @@ Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
   - f :: incremental *search in links*
   - o :: Display *outline* and *jump* to section
   - M-g l, g l :: *Go to* the page corresponding to *LABEL*.
-  - \ B / N :: (.. from =emacs-state=) *History* back / forward
   - M-g M-g, M-g g :: *Go to PAGE*
+  - \ B / N :: (.. from =emacs-state=) *History* back / forward
 + Display
   - =, z i, +, = :: *Enlarge* PDF by FACTOR.
   - z o, - :: *Shrink* PDF by FACTOR.

@@ -324,6 +324,7 @@ Forge:
 #+end_src
 * Mu4e
 #+begin_src emacs-lisp
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (after! mu4e
   ;; This is set to 't' to avoid mail syncing issues when using mbsync
   (setq mu4e-change-filenames-when-moving t)
@@ -537,6 +538,10 @@ Forge:
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 
 (setq eww-auto-rename-buffer 'title) ;; title / url / custom func
+
+(setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn)
+(after! dash-docs
+  (setq dash-docs-browser-func #'+lookup-xwidget-webkit-open-url-fn))
 #+end_src
 
 Enable exwm if flag's given:
