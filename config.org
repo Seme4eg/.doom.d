@@ -1,4 +1,4 @@
-#+STARTUP: hideblocks overview
+#+STARTUP: nohideblocks
 
 * Readme
 Place your private configuration here! Remember, you do not need to run 'doom
@@ -69,6 +69,8 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
       'git-gutter:popup-hunk)
 (map! :leader :desc "Ace window" "ww" 'ace-window)
 (map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
+;; TODO: rewrite this func to open eww other window
+(map! :leader :desc "Web Wowser" "oe" 'eww)
 ;; TODO: wrap a func below eith defadvice so it insets '~' before and after
 (map! :leader
       :desc "Edmacro insert key"
@@ -77,7 +79,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 
 ;; Digraph
 (map! :leader
-      (:prefix-map ("d" . "Digraph")
+      (:prefix-map ("d" . "digraph")
        :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
        :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
        :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char
@@ -470,7 +472,7 @@ Forge:
 
 
 (map! :leader
-      (:prefix-map ("l" . "Listen")
+      (:prefix-map ("l" . "listen")
 
        ;; Playback
        :desc "Browser" "l" #'emms-smart-browse

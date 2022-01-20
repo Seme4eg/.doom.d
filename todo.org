@@ -1,7 +1,8 @@
 * List of todos
 _Summary_: [9/16] [56%]
 - [X] set and test out [[https://github.com/emacs-eaf/emacs-application-framework][EAF]] - after i check it out i don't c much use to me
-- [ ] learn elisp (SPC h 4 i -> gm -> elisp); book - introduction to programming in emacs lisp (pdf)
+- [ ] learn elisp (SPC h 4 i -> gm -> elisp); book - introduction to programming
+  in emacs lisp (pdf), also [[http://xahlee.info/emacs/emacs/emacs_eww_web_browser.html][this]] source might somehow help
   - [ ] write func to open eww not in minibuffer on ~spc o b~ but on other window
   - [ ] change kbd for telega from default to ~spc z~
 - [ ] ~spc h b f macro~ - solve my macro problems

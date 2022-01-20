@@ -1,11 +1,10 @@
 #+STARTUP: overview hideblocks
 
 * Doom [[file:~/.emacs.d/docs/index.org][#docs-index]] [[file:~/.emacs.d/docs/getting_started.org][#getting-started]] [[file:~/.emacs.d/docs/modules.org][#modules]]
-
 [[https://www.emacswiki.org/emacs/GccEmacs][Installation]]
 
 *IMPORTANT* - [[file:~/.emacs.d/docs/getting_started.org::*Looking up documentation and state from within Emacs][Looking up documentation and HELP]] in *ANY* possible way e.g. /vars,
-funcs, faces, *bindings*, keys, chars, libs/
+funcs, faces, *bindings*, keys, keymaps, chars, libs/
 
 config reload - ~spc h r r~
 
@@ -34,493 +33,62 @@ font string. You generally only need these two:
 #+end_src
 
 * Shortcuts
+:PROPERTIES:
+:Sources: [[file:~/.emacs.d/modules/config/default/+evil-bindings.el][+evil-bindings.el]], [[https://github.com/hlissner/doom-emacs/blob/96bea9e9ad4f3e3412472fa0f26a19d19be66a1a/modules/config/default/%2Bbindings.el][bindings.el]], [[file:~/.emacs.d/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
+:END:
 
-Sources: [[file:~/.emacs.d/modules/config/default/+evil-bindings.el][+evil-bindings.el]], [[https://github.com/hlissner/doom-emacs/blob/96bea9e9ad4f3e3412472fa0f26a19d19be66a1a/modules/config/default/%2Bbindings.el][bindings.el]], [[file:~/.emacs.d/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
+- ~SPC u~ replaces ~C-u~ as the *universal* argument.
+- ~SPC h~ - *help* map
+- ~C-S-f~ / ~spc t F~ - *toggle* frame *fullscreen*
 
-_Misc:_
+Anywhere in =help= / =apropos= buffers:
+- ~o~ - *open link* at point
+- ~TAB / backtab~ - forward / backward link
 
-~C-S-f~ / ~spc t F~ - #'toggle-frame-fullscreen
-
-- Buffer-local font resizing: ~C-= / C--~ #'text-scale-increase/decrease
-- Frame-local font resizing: ~M-C-=/-~  #'doom/increase/decrease-font-size
-- ~C-+~   #'doom/reset-font-size
-
-_Anywhere in help-related / apropos-related buffers:_
-- ~o~ - #'link-hint-open-link
-
-Also in =apropos= - ~TAB / backtab~ - forward / backward
-
-Custom evil keybinds:
-- :nv "zn"    #'+evil:narrow-buffer
-- :n  "zN"    #'doom/widen-indirectly-narrowed-buffer
-- :n  "zx"    #'kill-current-buffer
-- :n  "ZX"    #'doom/save-and-kill-buffer
-
-;; don't leave visual mode after shifting:
-- :v  "<"     #'+evil/shift-left  ; vnoremap < <gv
-- :v  ">"     #'+evil/shift-right  ; vnoremap > >gv
-
-** minibuffer
-Btw u can use ~C-j/k~ instead of ~C-n/p~ in minibuffer (~C-j/k~ #'next/previous-line)
-
-- ~C-S-j/k~ #'scroll-up/down-command
-- ~C-s~     # minibuffer history
-- ~C-a~     #'move-beginning-of-line
-- ~C-b/f~   #'evil-backward/forward-char
-- ~C-r~     #'evil-paste-from-register
-- ~C-u~     #'evil-delete-back-to-indentation
-- ~C-v~     #'yank
-- ~C-w~     #'doom/delete-backward-word
-- ~C-z~   (cmd! (ignore-errors (call-interactively #'undo))))
+[[elisp:(helpful-variable 'minibuffer-mode-map)][minibuffer]] map
 
 ** <leader>
+- RET :: Jump to *bookmark*
+- SPC :: Find *file* in project
+- ' :: Resume last *search*
+- * :: *Search* for *symbol* in project
+- , :: Switch *workspace* buffer
+- . :: Find *file*
+- / :: search *project*
+- ; :: *Eval* expression
+- < :: Switch *buffer*
+- ` :: Switch to *last buffer*
+- a :: *embark* actions
+- u :: *universal* argument
+- X :: Org Capture
+- ~ :: Toggle last *popup*
 
-Uncategorized:
-- "Eval expression"       ";"    #'pp-eval-expression
-- "Pop up scratch buffer" "x"    #'doom/open-scratch-buffer
-- "Org Capture"           "X"    #'org-capture
-- "Search for symbol in project" "*" #'+default/search-project-for-symbol-at-point
-- "Search project"               "/" #'+default/search-project
-- "Find file in project"  "SPC"  #'projectile-find-file
-- "Jump to bookmark"      "RET"  #'bookmark-jump
-- "Find file"             "."    #'find-file
+_Leader mode map links_: *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]], *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]], *f* [[elisp:(helpful-variable 'doom-leader-file-map)][file]], *g* [[elisp:(helpful-variable 'doom-leader-git-map)][git]], *i* [[elisp:(helpful-variable 'doom-leader-insert-map)][insert]], *n* [[elisp:(helpful-variable
+ 'doom-leader-notes-map)][notes]], *o* [[elisp:(helpful-variable 'doom-leader-open-map)][open]], *p* [[elisp:(helpful-variable 'doom-leader-project-map)][project]], *q* [[elisp:(helpful-variable 'doom-leader-quit/session-map)][quit/session]], *s* [[elisp:(helpful-variable 'doom-leader-search-map)][search]], *t* [[elisp:(helpful-variable 'doom-leader-toggle-map)][toggle]] (+ *s*[pell]
+checker), *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *j*[ump] to symbol in any workspace), *w* [[elisp:(helpful-variable 'evil-window-map)][window]]
 
-# C-u is used by evil
-- "Universal argument"    "u"    #'universal-argument
-- "help"                  "h"    help-map
-
-workspaces:
-- "Switch workspace buffer" "," #'persp-switch-to-buffer
-- "Switch buffer"           "<" #'switch-to-buffer)
-- "Switch to last buffer" "`"    #'evil-switch-to-windows-last-buffer
-- "Resume last search"    "'"
-
-*** <leader> TAB - workspace
-
-- "Display tab bar"           "TAB" #'+workspace/display
-- "Switch workspace"          "."   #'+workspace/switch-to
-- "Switch to last workspace"  "`"   #'+workspace/other
-- "New workspace"             "n"   #'+workspace/new
-- "New named workspace"       "N"   #'+workspace/new-named
-- "Load workspace from file"  "l"   #'+workspace/load
-- "Save workspace to file"    "s"   #'+workspace/save
-- "Delete session"            "x"   #'+workspace/kill-session
-- "Delete this workspace"     "d"   #'+workspace/delete
-- "Rename workspace"          "r"   #'+workspace/rename
-- "Restore last session"      "R"   #'+workspace/restore-last-session
-- "Next workspace"            "]"   #'+workspace/switch-right
-- "Previous workspace"        "["   #'+workspace/switch-left
-- "Switch to {number} workspace"   "{number}"   #'+workspace/switch-to-{number}
-- "Switch to final workspace" "0"   #'+workspace/switch-to-final))
-
-*** <leader> b - buffers
-
-- "Toggle narrowing"            "-"   #'doom/toggle-narrow-buffer
-- "Previous buffer"             "["   #'previous-buffer
-- "Next buffer"                 "]"   #'next-buffer
-- "Switch workspace buffer" "b" #'persp-switch-to-buffer
-- "Switch buffer"           "B" #'switch-to-buffer)
-- "Clone buffer"                "c"   #'clone-indirect-buffer
-- "Clone buffer other window"   "C"   #'clone-indirect-buffer-other-window
-- "Kill buffer"                 "d"   #'kill-current-buffer
-- "ibuffer"                     "i"   #'ibuffer
-- "Kill buffer"                 "k"   #'kill-current-buffer
-- "Kill all buffers"            "K"   #'doom/kill-all-buffers
-- "Switch to last buffer"       "l"   #'evil-switch-to-windows-last-buffer
-- "Set bookmark"                "m"   #'bookmark-set
-- "Delete bookmark"             "M"   #'bookmark-delete
-- "Next buffer"                 "n"   #'next-buffer
-- "New empty buffer"            "N"   #'evil-buffer-new
-- "Kill other buffers"          "O"   #'doom/kill-other-buffers
-- "Previous buffer"             "p"   #'previous-buffer
-- "Revert buffer"               "r"   #'revert-buffer
-- "Save buffer"                 "s"   #'basic-save-buffer
-- "Save all buffers"            "S"   #'evil-write-all
-- "Save buffer as root"         "u"   #'doom/sudo-save-buffer
-- "Pop up scratch buffer"       "x"   #'doom/open-scratch-buffer
-- "Switch to scratch buffer"    "X"   #'doom/switch-to-scratch-buffer
-- "Bury buffer"                 "z"   #'bury-buffer
-- "Kill buried buffers"         "Z"   #'doom/kill-buried-buffers)
-
-*** <leader> c - code (lsp / lookup)
-
-- "LSP Execute code action" "a" #'lsp-execute-code-action
-- "LSP Organize imports" "o"    #'lsp-organize-imports
-- "Jump to symbol in current workspace" "j"   #'consult-lsp-symbols
-- "Jump to symbol in any workspace"     "J"   (cmd!! #'consult-lsp-symbols 'all-workspaces))
-
-when :ui treemacs +lsp:
-- "Errors list"                         "X"   #'lsp-treemacs-errors-list
-- "Incoming call hierarchy"             "y"   #'lsp-treemacs-call-hierarchy
-- "Outgoing call hierarchy"             "Y"   (cmd!! #'lsp-treemacs-call-hierarchy t)
-- "References tree"                     "R"   (cmd!! #'lsp-treemacs-references t)
-- "Symbols"                             "S"   #'lsp-treemacs-symbols
-- "LSP"                                 "l"   #'+default/lsp-command-map
-- "LSP Rename"                          "r"   #'lsp-rename
-
------
-
-- "Compile"                               "c"   #'compile
-- "Recompile"                             "C"   #'recompile
-- "Jump to definition"                    "d"   #'+lookup/definition
-- "Jump to references"                    "D"   #'+lookup/references
-- "Evaluate buffer/region"                "e"   #'+eval/buffer-or-region
-- "Evaluate & replace region"             "E"   #'+eval:replace-region
-- "Format buffer/region"                  "f"   #'+format/region-or-buffer
-- "Find implementations"                  "i"   #'+lookup/implementations
-- "Jump to documentation"                 "k"   #'+lookup/documentation
-- "Send to repl"                          "s"   #'+eval/send-region-to-repl
-- "Find type definition"                  "t"   #'+lookup/type-definition
-- "Delete trailing whitespace"            "w"   #'delete-trailing-whitespace
-- "Delete trailing newlines"              "W"   #'doom/delete-trailing-newlines
-- "List errors"                           "x"   #'+default/diagnostics)
-
-*** <leader> f - file
-
-- "Open project editorconfig"   "c"   #'editorconfig-find-current-editorconfig
-- "Copy this file"              "C"   #'doom/copy-this-file
-- "Find directory"              "d"   #'+default/dired
-- "Delete this file"            "D"   #'doom/delete-this-file
-- "Find file in emacs.d"        "e"   #'doom/find-file-in-emacsd
-- "Browse emacs.d"              "E"   #'doom/browse-in-emacsd
-- "Find file"                   "f"   #'find-file
-- "Find file from here"         "F"   #'+default/find-file-under-here
-- "Locate file"                 "l"   #'locate
-- "Find file in private config" "p"   #'doom/find-file-in-private-config
-- "Browse private config"       "P"   #'doom/open-private-config
-- "Recent files"                "r"   #'recentf-open-files
-- "Rename/move file"            "R"   #'doom/move-this-file
-- "Save file"                   "s"   #'save-buffer
-- "Save file as..."             "S"   #'write-file
-- "Sudo find file"              "u"   #'doom/sudo-find-file
-- "Sudo this file"              "U"   #'doom/sudo-this-file
-- "Yank file path"              "y"   #'+default/yank-buffer-path
-- "Yank file path from project" "Y"   #'+default/yank-buffer-path-relative-to-project)
-
-*** <leader> g - git/version control
-
-- "Revert file"                 "R"   #'vc-revert
-- "Copy link to remote"         "y"   #'+vc/browse-at-remote-kill
-- "Copy link to homepage"       "Y"   #'+vc/browse-at-remote-kill-homepage
-
-:when :ui vc-gutter
-- "Revert hunk"               "r"   #'git-gutter:revert-hunk
-- "Git stage hunk"            "s"   #'git-gutter:stage-hunk
-- "Git time machine"          "t"   #'git-timemachine-toggle
-- "Jump to next hunk"         "]"   #'git-gutter:next-hunk
-- "Jump to previous hunk"     "["   #'git-gutter:previous-hunk
-
-_Magit:_
-- "Magit dispatch"            "/"   #'magit-dispatch
-- "Magit file dispatch"       "."   #'magit-file-dispatch
-- "Forge dispatch"            "'"   #'forge-dispatch
-- "Magit switch branch"       "b"   #'magit-branch-checkout
-- "Magit status"              "g"   #'magit-status
-- "Magit status here"         "G"   #'magit-status-here
-- "Magit file delete"         "D"   #'magit-file-delete
-- "Magit blame"               "B"   #'magit-blame-addition
-- "Magit clone"               "C"   #'magit-clone
-- "Magit fetch"               "F"   #'magit-fetch
-- "Magit buffer log"          "L"   #'magit-log-buffer-file
-- "Git stage file"            "S"   #'magit-stage-file
-- "Git unstage file"          "U"   #'magit-unstage-file
-
-**** :prefix ("f" . "find")
-- "Find file"                 "f"   #'magit-find-file
-- "Find gitconfig file"       "g"   #'magit-find-git-config-file
-- "Find commit"               "c"   #'magit-show-commit
-
-# "Find issue"                "i"   #'forge-visit-issue
-# "Find pull request"         "p"   #'forge-visit-pullreq
-
-**** :prefix ("o" . "open in browser")
-- "Browse file or region"     "o"   #'+vc/browse-at-remote
-- "Browse homepage"           "h"   #'+vc/browse-at-remote-homepage
-- "Browse remote"             "r"   #'forge-browse-remote
-- "Browse commit"             "c"   #'forge-browse-commit
-- "Browse an issue"           "i"   #'forge-browse-issue
-- "Browse a pull request"     "p"   #'forge-browse-pullreq
-- "Browse issues"             "I"   #'forge-browse-issues
-- "Browse pull requests"      "P"   #'forge-browse-pullreqs
-
-**** :prefix ("l" . "list")
-- "List repositories"         "r"   #'magit-list-repositories
-- "List submodules"           "s"   #'magit-list-submodules
-- "List issues"               "i"   #'forge-list-issues
-- "List pull requests"        "p"   #'forge-list-pullreqs
-- "List notifications"        "n"   #'forge-list-notifications
-
-**** :prefix ("c" . "create")
-"Initialize repo"           "r"   #'magit-init
-"Clone repo"                "R"   #'magit-clone
-"Commit"                    "c"   #'magit-commit-create
-"Fixup"                     "f"   #'magit-commit-fixup
-"Branch"                    "b"   #'magit-branch-and-checkout
-# "Issue"                     "i"   #'forge-create-issue
-# "Pull request"              "p"   #'forge-create-pullreq)
-
-*** <leader> i - insert
-
-- "Current file name"             "f"   #'+default/insert-file-path
-- "Current file path"             "F"   (cmd!! #'+default/insert-file-path t)
-- "Evil ex path"                  "p"   (cmd! (evil-ex "R!echo "))
-- "From evil register"            "r"   #'evil-ex-registers
-- "Snippet"                       "s"   #'yas-insert-snippet
-- "Unicode"                       "u"   #'insert-char
-- "From clipboard"                "y"   #'+default/yank-pop
-
-*** <leader> n - notes
-
-- "Search notes for symbol"      "*" #'+default/search-notes-for-symbol-at-point
-- "Org agenda"                   "a" #'org-agenda
-- "Toggle last org-clock"        "c" #'+org/toggle-last-clock
-- "Cancel current org-clock"     "C" #'org-clock-cancel
-
-# (:when (featurep! :lang org +noter)
-# :desc "Org noter"                  "e" #'org-noter)
-
-- "Find file in notes"           "f" #'+default/find-in-notes
-- "Browse notes"                 "F" #'+default/browse-notes
-- "Org store link"               "l" #'org-store-link
-- "Tags search"                  "m" #'org-tags-view
-- "Org capture"                  "n" #'org-capture
-- "Goto capture"                 "N" #'org-capture-goto-target
-- "Active org-clock"             "o" #'org-clock-goto
-- "Todo list"                    "t" #'org-todo-list
-- "Search notes"                 "s" #'+default/org-notes-search
-- "Search org agenda headlines"  "S" #'+default/org-notes-headlines
-
-# TODO: what is this command below actually doing?:
-- "View search"                  "v" #'org-search-view
-- "Org export to clipboard"        "y" #'+org/export-to-clipboard
-- "Org export to clipboard as RTF" "Y" #'+org/export-to-clipboard-as-rich-text
-
-org +journal (prefix 'j'):
-- "New Entry"           "j" #'org-journal-new-entry
-- "New Scheduled Entry" "J" #'org-journal-new-scheduled-entry
-- "Search Forever"      "s" #'org-journal-search-forever))
-
-# org +roam2:
-# (:prefix ("r" . "roam"):
-# "Open random node"           "a" #'org-roam-node-random
-# "Find node"                  "f" #'org-roam-node-find
-# "Find ref"                   "F" #'org-roam-ref-find
-# "Show graph"                 "g" #'org-roam-graph
-# "Insert node"                "i" #'org-roam-node-insert
-# "Capture to node"            "n" #'org-roam-capture
-# "Toggle roam buffer"         "r" #'org-roam-buffer-toggle
-# "Launch roam buffer"         "R" #'org-roam-buffer-display-dedicated
-# "Sync database"              "s" #'org-roam-db-sync
-
-# (:prefix ("d" . "by date")
-# "Goto previous note"        "b" #'org-roam-dailies-goto-previous-note
-# "Goto date"                 "d" #'org-roam-dailies-goto-date
-# "Capture date"              "D" #'org-roam-dailies-capture-date
-# "Goto next note"            "f" #'org-roam-dailies-goto-next-note
-# "Goto tomorrow"             "m" #'org-roam-dailies-goto-tomorrow
-# "Capture tomorrow"          "M" #'org-roam-dailies-capture-tomorrow
-# "Capture today"             "n" #'org-roam-dailies-capture-today
-# "Goto today"                "t" #'org-roam-dailies-goto-today
-# "Capture today"             "T" #'org-roam-dailies-capture-today
-# "Goto yesterday"            "y" #'org-roam-dailies-goto-yesterday
-# "Capture yesterday"         "Y" #'org-roam-dailies-capture-yesterday
-# "Find directory"            "-" #'org-roam-dailies-find-directory)))
-
-*** <leader> o - open
-
-- "Org agenda"       "A"  #'org-agenda
-- "Default browser"    "b"  #'browse-url-of-file
-- "Start debugger"     "d"  #'+debugger/start
-- "New frame"          "f"  #'make-frame
-- "Select frame"       "F"  #'select-frame-by-name
-- "REPL"               "r"  #'+eval/open-repl-other-window
-- "REPL (same window)" "R"  #'+eval/open-repl-same-window
-- "Dired"              "-"  #'dired-jump
-
-prefix ("a" . "org agenda"):
-- "Agenda"         "a"  #'org-agenda
-- "Todo list"      "t"  #'org-todo-list
-- "Tags search"    "m"  #'org-tags-view
-- "View search"    "v"  #'org-search-view
-
-treemacs:
-- "Project sidebar" "p" #'+treemacs/toggle
-- "Find file in project sidebar" "P" #'treemacs-find-file)
-
-vterm:
-- "Toggle vterm popup"    "t" #'+vterm/toggle
-- "Open vterm here"       "T" #'+vterm/here)
-
-# (:when (featurep! :email mu4e)
-# "mu4e" "m" #'=mu4e)
-
-*** <leader> p - project
-
-- "Browse project"               "." #'+default/browse-project
-- "Browse other project"         ">" #'doom/browse-in-other-project
-- "Run cmd in project root"      "!" #'projectile-run-shell-command-in-root
-- "Async cmd in project root"    "&" #'projectile-run-async-shell-command-in-root
-- "Add new project"              "a" #'projectile-add-known-project
-- "Switch to project buffer"     "b" #'projectile-switch-to-buffer
-- "Compile in project"           "c" #'projectile-compile-project
-- "Repeat last command"          "C" #'projectile-repeat-last-command
-- "Remove known project"         "d" #'projectile-remove-known-project
-- "Discover projects in folder"  "D" #'+default/discover-projects
-- "Edit project .dir-locals"     "e" #'projectile-edit-dir-locals
-- "Find file in project"         "f" #'projectile-find-file
-- "Find file in other project"   "F" #'doom/find-file-in-other-project
-- "Configure project"            "g" #'projectile-configure-project
-- "Invalidate project cache"     "i" #'projectile-invalidate-cache
-- "Kill project buffers"         "k" #'projectile-kill-buffers
-- "Find other file"              "o" #'projectile-find-other-file
-- "Switch project"               "p" #'projectile-switch-project
-- "Find recent project files"    "r" #'projectile-recentf
-- "Run project"                  "R" #'projectile-run-project
-- "Save project files"           "s" #'projectile-save-project-buffers
-- "List project todos"           "t" #'magit-todos-list
-- "Test project"                 "T" #'projectile-test-project
-- "Pop up scratch buffer"        "x" #'doom/open-project-scratch-buffer
-- "Switch to scratch buffer"     "X" #'doom/switch-to-project-scratch-buffer
-
-*** <leader> q - quit/session
-
-- "Restart emacs server"         "d" #'+default/restart-server
-- "Delete frame"                 "f" #'delete-frame
-- "Clear current frame"          "F" #'doom/kill-all-buffers
-- "Kill Emacs (and daemon)"      "K" #'save-buffers-kill-emacs
-- "Quit Emacs"                   "q" #'save-buffers-kill-terminal
-- "Quit Emacs without saving"    "Q" #'evil-quit-all-with-error-code
-- "Quick save current session"   "s" #'doom/quicksave-session
-- "Restore last session"         "l" #'doom/quickload-session
-- "Save session to file"         "S" #'doom/save-session
-- "Restore session from file"    "L" #'doom/load-session
-- "Restart & restore Emacs"      "r" #'doom/restart-and-restore
-- "Restart Emacs"                "R" #'doom/restart
-
-*** <leader> s - search
-
-- "Search buffer"                "b"
-- "Search all open buffers"      "B"
-- "Search current directory"     "d" #'+default/search-cwd
-- "Search other directory"       "D" #'+default/search-other-cwd
-- "Search .emacs.d"              "e" #'+default/search-emacsd
-- "Locate file"                  "f" #'locate
-- "Jump to symbol"               "i" #'imenu
-- "Jump to visible link"         "l" #'link-hint-open-link
-- "Jump to link"                 "L" #'ffap-menu
-- "Jump list"                    "j" #'evil-show-jumps
-- "Jump to bookmark"             "m" #'bookmark-jump
-- "Look up online"               "o" #'+lookup/online
-- "Look up online (w/ prompt)"   "O" #'+lookup/online-select
-- "Look up in local docsets"     "k" #'+lookup/in-docsets
-- "Look up in all docsets"       "K" #'+lookup/in-all-docsets
-- "Search project"               "p" #'+default/search-project
-- "Search other project"         "P" #'+default/search-other-project
-- "Jump to mark"                 "r" #'evil-show-marks
-- "Search buffer"                "s" #'+default/search-buffer
-- "Search buffer for thing at point" "S"
-- "Dictionary"                   "t" #'+lookup/dictionary-definition
-- "Thesaurus"                    "T" #'+lookup/synonyms)
-
-*** <leader> w - window
-
-"C-u/r"     #'winner-undo/redo
-
-;; Navigation
-- "h/j/k/l"     #'evil-window-left/down...
-- "w"     #'other-window
-
-;; Extra split commands
-- "S"       #'+evil/window-split-and-follow
-- "V"       #'+evil/window-vsplit-and-follow
-
-;; Swapping windows
-- "H/J/K/L"       #'+evil/window-move-left/down...
-- "C-S-w"   #'ace-swap-window
-
-prefix "m"
-- "m"       #'doom/window-maximize-buffer
-- "v"       #'doom/window-maximize-vertically
-- "s"       #'doom/window-maximize-horizontally
-
-;; Delete window
-- "d"       #'evil-window-delete
-- "C-C"     #'ace-delete-window
-- "T"       #'tear-off-window
-
-*** <leader> t - toggle
-
-- "Big mode"                     "b" #'doom-big-font-mode
-- "Fill Column Indicator"        "c" #'global-display-fill-column-indicator-mode
-- "Flymake"                      "f" #'flycheck-mode
-- "Frame fullscreen"             "F" #'toggle-frame-fullscreen
-- "Evil goggles"                 "g" #'evil-goggles-mode
-- "Indent style"                 "I" #'doom/toggle-indent-style
-- "Line numbers"                 "l" #'doom/toggle-line-numbers
-- "Read-only mode"               "r" #'read-only-mode
-- "Spell checker"              "s" #'spell-fu-mode)
-- "Soft line wrapping"           "w" #'visual-line-mode
-
-indent-guides:
-- "Indent guides"              "i" #'highlight-indent-guides-mode
-
-# :when (featurep! :editor word-wrap)
-#  "Soft line wrapping"         "w" #'+word-wrap-mode
-
-zen:
-- "Zen mode"                   "z" #'+zen/toggle
-- "Zen mode (fullscreen)"      "Z" #'+zen/toggle-fullscreen
-
-*** APPs
-**** <leader> M - mu4e
-- "Open email app" "M" #'=mu4e
-- "Compose email"  "c" #'+mu4e/compose)
-
-**** <leader> I - IRC
-
-- "Open irc app"       "I" #'=irc
-- "Next unread buffer" "a" #'tracking-next-buffer
-- "Quit irc"           "q" #'+irc/quit
-- "Reconnect all"      "r" #'circe-reconnect-all
-- "Send message"       "s" #'+irc/send-message
-- "Jump to channel"  "j" #'+irc/vertico-jump-to-channel
-
-*** Other for now not used stuff presented in that source file
-
-~C-f~ for /remote/ in source file - ssh utility
+_Mine_: [[elisp:(helpful-variable 'doom-leader-digraph-map)][digraph]], [[elisp:(helpful-variable 'doom-leader-listen-map)][listen]]
 
 ** ported from [[https://github.com/tpope/vim-unimpaired][vim-unimpaired]]
+?? - where is the keymap for this?
+
+Objects:
+- *b*[uffer], *f*[ile], *w*[orkspace], *a*[rg], *c*[omment], *e*[rror], *F*[rame], *h*[eading],
+  *m*[ethod] start, *M*[ethod] end
+- *d* git gutter hunk / diff
+- hl *t*[odo]
+
+- :n ~gt~ / ~gT~  #'+workspace:switch-next / '+workspace:switch-previous
 
 Complementary pairs of mappings:
 - :n  ~] SPC~ / ~[ SPC~  #'+evil/insert-newline-below/above
-- :n  ~]b~ / ~[b~   #'next-buffer / 'previous-buffer
-- :n  ~]f~ / ~[f~   #'+evil/next-file / '+evil/previous-file
+- :n  ~[o~ / ~]o~   #'+evil/insert-newline-above / '+evil/insert-newline-below
 - :m  ~]u~ / ~[u~   #'+evil:url-encode / '+evil:url-decode
 - :m  ~]y~ / ~[y~   #'+evil:c-string-encode / '+evil:c-string-decode
-
-(:when (featurep! :lang web)
 - :m ~]x~ / ~[x~  #'+web:encode-html-entities / '+web:decode-html-entities)
-
-(:when (featurep! :ui vc-gutter)
-- :m ~]d~ / ~[d~  #'git-gutter:next-hunk / 'git-gutter:previous-hunk)
-
-(:when (featurep! :ui hl-todo)
-- :m ~]t~ / ~[t~  #'hl-todo-next / 'hl-todo-previous)
-
-(:when (featurep! :ui workspaces)
-- :n ~gt~ / ~gT~  #'+workspace:switch-next / '+workspace:switch-previous
-- :n ~]w~ / ~[w~  #'+workspace/switch-right / '+workspace/switch-left)
 
 Custom vim-unmpaired-esque keys:
 - :m  ~]#~ / ~[#~   #'+evil/next/prev-preproc-directive
-- :m  ~]a~ / ~[a~   #'evil-forward-arg / 'evil-backward-arg
-- :m  ~]c~ / ~[c~   #'+evil/next-comment / '+evil/previous-comment
-- :m  ~]e~ / ~[e~   #'next-error / 'previous-error
-- :n  ~]F~ / ~[F~   #'+evil/next-frame / '+evil/previous-frame
-- :m  ~]h~ / ~[h~   #'outline-next/prev-visible-heading
-- :m  ~]m~ / ~[m~   #'+evil/next/prev-beginning-of-method
-- :m  ~]M~ / ~[M~   #'+evil/next-end-of-method / '+evil/previous-end-of-method
-- :n  ~[o~ / ~]o~   #'+evil/insert-newline-above / '+evil/insert-newline-below
 - :n  ~gp~   #'+evil/reselect-paste / '+evil/alt-paste
 - :v  "gp" #'+evil/paste-preserve-register
 - :n  "gQ" #'+format:region
@@ -538,6 +106,22 @@ Other stuff:
 - (:after helpful :n "gr" #'helpful-update)
 - (:after compile :n "gr" #'recompile)
 - (:after dired :n "gr" #'revert-buffer)
+
+** other - text scale, narrowing
+
+- Buffer-local font resizing: ~C-= / C--~ #'text-scale-increase/decrease
+- Frame-local font resizing: ~M-C-=/-~  #'doom/increase/decrease-font-size
+- ~C-+~   #'doom/reset-font-size
+
+Custom evil keybinds:
+- :nv "zn"    #'+evil:narrow-buffer
+- :n  "zN"    #'doom/widen-indirectly-narrowed-buffer
+- :n  "zx"    #'kill-current-buffer
+- :n  "ZX"    #'doom/save-and-kill-buffer
+
+;; don't leave visual mode after shifting:
+- :v  "<"     #'+evil/shift-left  ; vnoremap < <gv
+- :v  ">"     #'+evil/shift-right  ; vnoremap > >gv
 
 * Packages
 ** git [[file:~/.emacs.d/modules/tools/magit/README.org::*Plugins][#plugins]]
@@ -607,7 +191,7 @@ kill-stay, teleport, mark, yank ...)/.
 
 =evilem-motion..= - *#nftbew,  kj gj gk
 - -/+   :: previous/next-*line*-first-*non-blank*
-- )/(   :: forward/backward-*sentence*-begin
+-/(   :: forward/backward-*sentence*-begin
 - ][    :: forward-*section*-end
 - ]]    :: forward-*section*-begin
 - []    :: backward-*section*-end
@@ -704,13 +288,9 @@ using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
 *** dired [[file:~/.emacs.d/modules/emacs/dired/README.org::*Keybindings][#kbds]]
 [[https://www.youtube.com/watch?v=oZSmlAAbmYs&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=3][short vid]]
 
-Move with h, j, k, l, where h & l are 'up' & 'down' directory
-
 - SPC f d - Find directory with dired
 - C-c C-r - Run dired-rsync
 - C-c C-e - Rename entries with wdired
-
------
 
 - ~M~ - change permissions
 - ~o~ - sort by modes.
@@ -811,10 +391,10 @@ Move with h, j, k, l, where h & l are 'up' & 'down' directory
   - po :: paste files in copy ring and overwrite existing
   - p? :: show the copy contents
 + *Selected File Actions*
-  - ws/v :: exit ranger and open selected file in horizontal/vertical split
-  - wf :: exit ranger and open selected file in new frame
-  - we :: open the selected file in external app
-
+  - w v/s :: Open current file as a split with previously opened window
+  - w f :: Open current file in a new frame.
+  - w j :: Open current file in ‘other-window’.
+  - w e :: Open the current file or dired marked files in external - modifier-cache
 *** ibuffer
 *Important*: if any kbds doesn't work - call it from =emacs-state=!
 
@@ -1456,6 +1036,9 @@ nick of that individual. - What is the difference from DCC?
 ??? Virtual - Use a collection of documents as if it were one, big single PDF.
 
 /Image-mode/ keymap might also be somehow useful in pdf-mode?
+
+=pdf-virtual-edit-mode= - for editing pdfs, but something might b wront with
+encoding.
 
 Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
 
