@@ -826,7 +826,9 @@ horizontal line:
 -----
 
 ** Footnotes [[https://orgmode.org/manual/Creating-Footnotes.html][#docs]]
-SPC m f (org-footnote-new) - insert a footnote in current document
+SPC m f (org-footnote-new) - insert a footnote in current document (call with
+universal to get 'action' propmt)
+
 C-c C-x f (org-footnote-action)
 
 ** [[https://orgmode.org/manual/Embedded-LaTeX.html][Embedded LaTeX]]
