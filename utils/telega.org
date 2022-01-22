@@ -1,6 +1,6 @@
 #+TITLE: Telega
 
-* Telega [[https://zevlg.github.io/telega.el/][#docs]]
+* Telega [[https://zevlg.github.io/telega.el/][#docs]] [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/telega/evil-collection-telega.el][evil-collection-telega.el]]
 _Chat Filters_ (~\/~ prefix) are used to match chats, same as regexps are used to
 match strings. Chat Filters uses S-exp notation similar to rx package for
 regexps. Consider Chat Filters as extremely powerful "Folders" functionality in
@@ -8,17 +8,7 @@ official client.
 
 _Sorting Chats_, ~\\~ prefix
 
-=telega-prefix-map= (~C-c t~ in my case) & ~g a~ prefix:
-- a :: Switch to the ACCOUNT-NAME.
-- b :: Interactively switch to chat BUFFER.
-- w :: Open the URL.
-- u :: Switch to next unread message in next unread CHAT
-- t :: Start telega.el Telegram client.
-- s :: Switch to "Saved Messages" chat buffer.
-- f :: Prepare FILE to be sent as document or photo to CHAT
-- i :: Switch to important CHAT if any.
-- e :: Interactively switch to BUFFER having ‘telega-edit-file-mode’
-- c :: Start messaging with CHAT-OR-USER.
+[[elisp:(helpful-variable 'telega-prefix-map)][telega-prefix-map]] (~C-c t~ in my case) & ~g a~ prefix:
 
 S (telega-msg-save) Save messages’s MSG media content to a file.
 

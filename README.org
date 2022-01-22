@@ -146,19 +146,8 @@ github/gitlab/bitbucket/stash/git.savannah.gnu.org/sourcehut from Emacs:
 - *[[https://github.com/hlissner/evil-multiedit#usage][evil-multiedit]]* - ~M-d / D~ , ~RET~ to exclude, ~C-M-D~ to restore last group. Ex
   command that allows to invoke evil-multiedit with a regular expression -
   =ie[dit]=. There is also a [[https://www.youtube.com/watch?v=zXdT5jY_ui0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][quick vid tut]]. Also ~R~ - #'evil-multiedit-match-all.
-- *evil-mc* - ~gz~ prefix. Which-key available, so u can c which kbds r there. Or
-  ~SPC h b b~ -> /evil-mc/... Or:
-  - ~d/D~ - make and goto next/prev match
-  - ~j/k~ - make cursor move next/prev line
-  - ~m~   - *make* all cursors
-  - ~n/N~ - make and goto next/last cursor
-  - ~p/P~ - make and goto prev/first cursor
-  - ~q~   - *undo all* cursors
-  - ~t~   - *toggle* cursors
-  - ~u~   - *undo* cursor
-  - ~z~   - *toggle* cursor *here*
-  - ~I~   - make cursor in visual selection beg
-  - ~A~   - make cursor in visual selection end
+- *evil-mc* - ~gz ..~. Which-key available. For some reason kbds in
+  [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/evil-mc/evil-collection-evil-mc.el][evil-collection-evil-mc.el]] ain't there.
 - *evil-nerd-commenter* - comment any viable /text objects/ (below). ~gc {motion}~
   Inobvious motions: c / *l*[line], *r*[egion], *\* - comment current line and enter
   insert mode on point
@@ -240,10 +229,13 @@ This mode isn't enabled in all prog-modes.
 
 There's also =hide-sublevels= command
 
-*** Language maps
+*** Languages
 - JS [[file:~/.emacs.d/modules/lang/javascript/README.org::*Commands][#commands]] (js2-mode / tide / js2-refactor / skewer-mode / npm-mode), and
-  ~spc h v js map~
+  ~spc h v js map~, also there is [[https://github.com/NicolasPetton/Indium][Indium]] (js development environment), [[https://www.purescript.org/][purescript]],
+  [[https://github.com/reasonml-editor/reason-mode][reason-mode]] ([[https://reasonml.github.io][Reason github]] - JavaScript & OCaml ecosystems)
 - [[elisp:(helpful-variable 'sh-mode-map)][sh-mode-map]]
+*** (e)lisp future
+[[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/edebug/evil-collection-edebug.el][evil-collection-edebug.el]],  [[elisp:(helpful-variable 'emacs-lisp-mode-map)][#elisp-mode-map]],  [[elisp:(helpful-variable 'elisp-refs-mode-map)][#elisp-refs-mode-map]]
 
 ** Navigation
 *** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]] ~spc w w~
@@ -355,7 +347,7 @@ using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
   - w f :: Open current file in a new frame.
   - w j :: Open current file in ‘other-window’.
   - w e :: Open the current file or dired marked files in external - modifier-cache
-*** ibuffer
+*** ibuffer [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/ibuffer/evil-collection-ibuffer.el][evil-collection-ibuffer.el]]
 *Important*: if any kbds doesn't work - call it from =emacs-state=!
 
 + *Marking*. ~m u U d~ - as expected, others:
@@ -510,7 +502,7 @@ groups will be inserted before the group at point.
 ~M-/~ - #'dabbrev-expand - Expand previous word "dynamically".
 
 - vertico [[file:~/.emacs.d/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.emacs.d/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] , ~C-SPC~ embark-preview
-- syntax [[file:~/.emacs.d/modules/checkers/syntax/README.org::*Features][#features]] [[elisp:(helpful-variable 'flycheck-mode-map)][#modemap]]
+- syntax (flycheck) [[file:~/.emacs.d/modules/checkers/syntax/README.org::*Features][#features]] [[elisp:(helpful-variable 'flycheck-mode-map)][#modemap]] [[elisp:(helpful-variable 'flycheck-error-list-mode-map)][#list modemap]]
 
 *** company [[file:~/.emacs.d/modules/completion/company/README.org::*Code completion][#Code completion]] ~C-SPC~ to trigger completion.
 ~C-SPC/@~ - (cmds! (not (minibufferp)) #'company-complete-common)
@@ -625,7 +617,7 @@ To look up Info-mode _variables_ go ~SPC h i~ -> ~g m~ -> Info -> ~g G Variables
 
 - ~f~ :: following cross reference (part 1.7 of ~M-h~)
 - f? :: list all references in cur. node
-** Embark [[https://github.com/oantolin/embark/wiki/Default-Actions][#default-actions]]
+** Embark [[https://github.com/oantolin/embark/wiki/Default-Actions][#default-actions]] [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/embark/evil-collection-embark.el][evil-collection-embark.el]]
 *Emacs Mini-Buffer Actions Rooted in Keymaps*
 
 Thing that allows u to:
@@ -762,6 +754,8 @@ command falls back to the generic ‘embark-collect-snapshot’.
   regular expression (regexp) or keywords that you type.
 - Nov [[https://depp.brause.cc/nov.el/][#docs]] [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/nov/evil-collection-nov.el][evil-collectoin-nov.el]]
 
+Some other modes: [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/xref/evil-collection-xref.el][evil-collection-xref.el]],
+
 *** EWW - Emacs Web Wowser
 [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]] - bookmarks, buffers list, open, external ...
 
@@ -806,7 +800,7 @@ DEL (scroll-down-command)
 _Commands_:
 - eww-open-file :: open a local HTML file
 
-*** Xwidget ~spc o x~
+*** Xwidget [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/xwidget/evil-collection-xwidget.el][evil-collection-xwidget.el]]
 Inside the web browser, you can type ‘e’ to enter “edit mode”, where self
 inserting characters are passed to the WebKit widget, or ‘C-s’ to perform
 incremental search on the contents of the WebKit widget.
@@ -814,14 +808,7 @@ incremental search on the contents of the WebKit widget.
 In [[https://github.com/jave/xwidget-emacs#webkit-hints][hints section]] author sais that he uses =ffap= to go to links, but for me it
 only renders link on cur. page.
 
-*VIM*: ~gg, G, [num]hjkl, +=-, C-d/f, C-u/b~
-
-- g u :: Ask xwidget-webkit to browse URL.
-- y :: Get the webkit selection and put it on the ‘kill-ring’.
-- H/L :: Go back to previous/next URL in xwidget webkit buffer.
-- C-s :: Minor mode for performing incremental search inside WebKit buffers.
-  Variable: Non-nil if Xwidget-Webkit-Isearch mode is enabled.
-- R :: Reload current URL.
+~C-s~ - incremental search inside WebKit buffers.
 
 "shadowed" ones:
 - RET :: xwidget-webkit-insert-string
@@ -831,6 +818,7 @@ only renders link on cur. page.
 - H   :: xwidget-webkit-browse-history
 - g   :: revert-buffer
 - w   :: xwidget-webkit-current-url
+
 *** IRC [[file:~/.emacs.d/modules/app/irc/README.org::*An IRC Client in Emacs][#kbds]] ~SPC m~
 #+NAME: what is IRC
 #+begin_comment

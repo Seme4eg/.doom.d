@@ -1,6 +1,6 @@
 #+TITLE: Mu4e
 
-* mu4e (~spc o m~)
+* mu4e (~spc o m~) [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/mu4e/evil-collection-mu4e.el][evil-collection-mu4e.el]]
 :PROPERTIES:
 :sources:  [[https://yamadharma.github.io/ru/post/2021/01/22/mail-synchronization-mbsync/#синхронизация][mbsync configs for different email clients]], [[https://www.youtube.com/watch?v=olXpfaSnf0o][system crafters 2]], [[https://help.mail.ru/mail/mailer/popsmtp][mail ru official]]
 :END:

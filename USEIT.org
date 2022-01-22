@@ -1,7 +1,12 @@
+~C-~~ - Raise the current popup window into a regular window
+
 In minibuffer:
-- ~C-a~   #'move-beginning-of-line
-- ~C-w~   #'doom/delete-backward-word
-- ~C-u~   #'evil-delete-back-to-indentation
+- ~C-a~   move-*beginning*-of-line
+- ~C-w~   delete-*backward-word*
+- ~C-u~   delete-back-to-indentation
+- C-s   consult-*history*
+- M-<   minibuffer-*beginning*-of-buffer
+- M-p/n previous/next-history-element
 
 spc tab - *workspace*:
 - "Switch workspace"          "."   #'+workspace/switch-to
@@ -28,7 +33,6 @@ spc p - *project*:
 "Find recent project files"    "r" #'projectile-recentf
 
 spc s - *search*:
-- "Search all open buffers"      "B"
 - "Search other directory"       "D" #'+default/search-other-cwd
 - "Jump list"                    "j" #'evil-show-jumps
 - "Jump to bookmark"             "m" #'bookmark-jump

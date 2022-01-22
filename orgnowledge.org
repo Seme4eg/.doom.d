@@ -1,10 +1,9 @@
 #+STARTUP: overview
 
-* README
+* README  [[elisp:(helpful-variable 'org-mode-map)][#modemap]]
 Majority of this info can be found also in ~spc h i~ -> Org Mode
 
 ** General doom kbds
-
 _Sources:_ [[http://pragmaticemacs.com/org-mode-tutorials/][pragmaticemacs]]
 
 - M-H/L - promote / demote subtree
