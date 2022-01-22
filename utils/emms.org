@@ -1,6 +1,6 @@
 #+TITLE: Emms
 
-* Emms [[https://www.gnu.org/software/emms/][#docs]] [[https://www.gnu.org/software/emms/manual/][#manual]]
+* Emms [[https://www.gnu.org/software/emms/][#docs]] [[https://www.gnu.org/software/emms/manual/][#manual]] [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/emms/evil-collection-emms.el][evil-collection-emms.el]]
 Emms can:
 - display album art
 - play streaming audio (look it up in /info/)

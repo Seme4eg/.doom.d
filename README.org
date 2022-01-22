@@ -47,7 +47,7 @@ Anywhere in =help= / =apropos= buffers:
 
 [[elisp:(helpful-variable 'minibuffer-mode-map)][minibuffer]] map
 
-** <leader>
+** <leader> [[elisp:(helpful-variable 'doom-leader-map)][#keymap]]
 - RET :: Jump to *bookmark*
 - SPC :: Find *file* in project
 - ' :: Resume last *search*
@@ -65,7 +65,7 @@ Anywhere in =help= / =apropos= buffers:
 
 _Leader mode map links_: *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]] ([[file:~/.emacs.d/modules/ui/workspaces/README.org::*Commands & Keybindings][doom]] & C-t - new), *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]], *f* [[elisp:(helpful-variable 'doom-leader-file-map)][file]], *g* [[elisp:(helpful-variable
  'doom-leader-git-map)][git]], *i* [[elisp:(helpful-variable 'doom-leader-insert-map)][insert]], *n* [[elisp:(helpful-variable 'doom-leader-notes-map)][notes]], *o* [[elisp:(helpful-variable 'doom-leader-open-map)][open]], *p* [[elisp:(helpful-variable 'doom-leader-project-map)][project]], *q* [[elisp:(helpful-variable 'doom-leader-quit/session-map)][quit/session]], *s* [[elisp:(helpful-variable 'doom-leader-search-map)][search]], *t* [[elisp:(helpful-variable 'doom-leader-toggle-map)][toggle]] (+
-*s*[pell] checker), *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *j*[ump] to symbol in any workspace), *w* [[elisp:(helpful-variable 'evil-window-map)][window]]
+*s*[pell] checker), *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *J*[ump] to symbol in any workspace), *w* [[elisp:(helpful-variable 'evil-window-map)][window]]
 
 _Mine_: [[elisp:(helpful-variable 'doom-leader-digraph-map)][digraph]], [[elisp:(helpful-variable 'doom-leader-listen-map)][listen]]
 
@@ -551,7 +551,7 @@ Evil already defines 'z=' to `ispell-word' = correct word at point
 - :m  "[s"   #'+spell/previous-error
 - :m  "]s"   #'+spell/next-error)
 
-** Info
+** Info [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/info/evil-collection-info.el][evil-collection-info.el]]
 #+begin_comment
 Info files are created from Texinfo source files. You can use the same source
 file to make a printed manual or produce other formats, such as HTML and
@@ -760,55 +760,28 @@ command falls back to the generic ‘embark-collect-snapshot’.
 - [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
 - [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
   regular expression (regexp) or keywords that you type.
-- Nov [[https://depp.brause.cc/nov.el/][#docs]]
-  - SPC - scroll
-  - n / p - switch chapters
-  - DEL / S-SPC (nov-scroll-down) - Scroll with ‘scroll-down’ or visit prev...
-  - RET (nov-browse-url)          - Follow an external url with ‘browse-url’.
-  - i / t (nov-goto-toc)          - Go to the Table Of Contents index
-  - ~C(M)-k/j~ / ~[ [~ / ~] ]~ / ~g k/j~  - Go to the previous/next document
-  - g ? (nov-display-metadata)    - View the metadata of the EPUB document ...
+- Nov [[https://depp.brause.cc/nov.el/][#docs]] [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/nov/evil-collection-nov.el][evil-collectoin-nov.el]]
 
 *** EWW - Emacs Web Wowser
-+ Opening:
-  - o :: *new query*
-  - g t (eww-list-buffers) :: *list* opened EWW *buffers*
-  - & / go / <S-return> :: open in *external* browser
-  - M-RET :: *open* URL (or same page if not on URL) at point in *new buffer*
-+ Navigating:
-  - H/L :: *back / forward* url (/backspace/ also works)
-  - U :: eww-*top*-url
-  - u / ^ :: eww-*up*-url
-  - ]]/[[ / g j/k :: previous / next url (like "next" on page literally)
-  - g h :: list browsing *history*. The history is lost when EWW is quit. If you
-    want to remember websites - use bookmarks. History limit is stored in
-    =eww-history-limit= var.
-  - <tab> / <backtab> :: shr *next / previous link*
-+ Bookmarks:
-  - m :: *bookmark*
-  - g b :: eww-list-bookmarks
-  - M-n/p :: *next / previous* bookmark
-  - When in bookmarks buffer:
-    - RET :: Browse the bookmark under point in eww.
-    - C-k, D :: Kill the current bookmark.
-    - P :: Yank a previously killed bookmark to the current line.
-+ Viewing:
-  - r/R (eww-readable) :: attampt to determine which part of the doc contains the
-    'readable' text, and will only display this part. This usually gets rid of
-    menus and the like.
-  - *z* d :: eww-toggle-paragraph-direction
-  - z e :: eww-set-character-encoding
-  - z f :: eww-toggle-fonts
-  - M-C :: toggle whether to use HTML-specified colors or not. (=shr-use-colors=
-    variable)
-+ Other:
-  - d :: *download* URL (link at cursor otherwise current page). Directory for
-    downloading lies within =eww-download-directory=
-  - g c :: url-cookie-list
-  - Z Q/Z :: *quit* window
+[[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]] - bookmarks, buffers list, open, external ...
 
-Hotkeys below are the default hotkeys. They r shadowed by evil everywhere.
-But they r relevant if u enter 'insert mode' in eww buffer (or if called from =emacs-state=):
+- M-RET :: *open* URL (or same page if not on URL) at point in *new buffer*
+- g h :: list browsing *history*. The history is lost when EWW is quit. If you
+  want to remember websites - use bookmarks. History limit is stored in
+  =eww-history-limit= var.
+- <tab> / <backtab> :: shr *next / previous link*
+- g h :: list browsing *history*. The history is lost when EWW is quit. If you
+  want to remember websites - use bookmarks. History limit is stored in
+  =eww-history-limit= var.
+- r/R (eww-readable) :: attampt to determine which part of the doc contains the
+  'readable' text, and will only display this part. This usually gets rid of
+  menus and the like.
+
+M-C - toggle whether to use HTML-specified colors or not. (=shr-use-colors=
+variable)
+
+Hotkeys below are the default hotkeys. They r shadowed, but relevant if u enter
+'insert mode' in eww buffer (or if called from =emacs-state=):
 #+begin_comment
 TAB (shr-next-link)
 C (url-cookie-list)
@@ -832,6 +805,7 @@ DEL (scroll-down-command)
 
 _Commands_:
 - eww-open-file :: open a local HTML file
+
 *** Xwidget ~spc o x~
 Inside the web browser, you can type ‘e’ to enter “edit mode”, where self
 inserting characters are passed to the WebKit widget, or ‘C-s’ to perform
