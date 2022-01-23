@@ -2,84 +2,7 @@
 #+TAGS: poor(p) fair(f) neutral(n) good(g) excellent(e)
 #+Sources: https://www.masteringemacs.org/article/fun-games-in-emacs
 
-* Games in Emacs
 ~?~ (sometimes ~h~) - get help for current game-mode (bindings & rules)
-
-** Zero-player games / not actually 'games'
-=animate-birthday-present name=, =butterfly=
-
-*** Tower of Nahoi [[https://www.masteringemacs.org/static/uploads/hanoi.png][#pic]]
-#+begin_quote What it is?
-The [[https://en.wikipedia.org/wiki/Tower_of_Hanoi][Tower of Hanoi]] is an ancient mathematical puzzle game and one that is
-probably familiar to some of us as it is often used in Computer Science as a
-teaching aid because of its recursive and iterative solutions.
-#+end_quote
-
-The Tower of Hanoi implementation in Emacs dates from the mid 1980s — an awful
-long time ago indeed.
-
-Didn't get the drill. How to /play/ it?
-
-Three commands to trigger the Tower of Hanoi:
-- M-x hanoi :: a default of 3 discs;
-- M-x hanoi-unix :: ..
-- M-x hanoi-unix-64 :: uses the unix timestamp, making a move each second in
-  line with the clock, and with the latter pretending it uses a 64-bit clock.
-
-=M-x customize-group RET hanoi RET= (or ~spc h v hanoi~) - few Customize options
-such as enabling colorized discs.
-*** Fortune & Cookie
-I like the fortune command. Snarky, unhelpful and often sarcastic “advice” mixed
-in with literature and riddles brightens up my day whenever I launch a new
-shell.
-
-Rather confusingly there are two packages in Emacs that does more-or-less the
-same thing: fortune and cookie1. The former is geared towards putting fortune
-cookie messages in email signatures and the latter is just a simple reader for
-the fortune format.
-
-To use Emacs’s cookie1 package you must first tell it where to find the file by
-customizing the variable cookie-file with customize-option RET cookie RET.
-
-U might first need to install the fortune package first. The
-files are found in the /usr/share/games/fortunes/ directory.
-
-You can then call M-x cookie or, should you want to do this, find all matching
-cookies with M-x cookie-apropos.
-*** Doctor [[https://www.masteringemacs.org/static/uploads/doctor.png][#pic]] :excellent:
-#+begin_quote
-Ah, the Emacs doctor. Based on the original [[https://en.wikipedia.org/wiki/ELIZA][ELIZA]] the “Doctor” tries to
-psychoanalyze what you say and attempts to repeat the question back to you.
-Rather fun, for a few minutes, and one of the more famous Emacs oddities. You
-can run it with M-x doctor.
-#+end_quote
-*** Game of Life ~M-x life~ :excellent:
-[[https://en.wikipedia.org/wiki/Conway's_Game_of_Life][Conway’s Game of Life]] is a famous example of cellular automata. The Emacs
-version comes with a handful of starting patterns that you can (programmatically
-with elisp) alter by adjusting the life-patterns variable.
-
-#+begin_quote
-The fact that the whole thing, display code, comments and all, come in at less
-than 300 characters is also rather impressive.
-#+end_quote
-*** Zone, emacs's 'screensaver'
-Just run it and watch..
-
-=zone-when-idle= - configure a screensaver idle time.
-=zone-leave-me-alone= - turn it off with
-
-This one’s guaranteed to make your coworkers freak out if it kicks off while they are looking.
-
-*** Miscallaneous
-- =(un)morse-region= - (un)translate a region into morse code
-- =dissociated-press= - applies something like a random walk markov-chain
-  generator to a body of text in a buffer and generates nonsensical text from
-  the source body.
-- =spook= - inserts random words (usually into emails) designed to
-  confuse/overload the “NSA trunk trawler” – and keep in mind this module dates
-  from the 1980s and 1990s – with various words the spooks are supposedly
-  listening for. Of course, even ten years ago that would’ve seemed awfully
-  paranoid and quaint but not so much any more…
 
 ** 5x5 [[https://www.masteringemacs.org/static/uploads/5x5.png][#pic]] :excellent:
 Your goal is to fill all the cells by toggling them on and off in the right
@@ -169,6 +92,82 @@ Multiplication puzzle where you have to replace the letters with numbers and
 ensure the first 2 rows of numbers multiply and 3rd and 4th add up.
 
 =mpuz-show-solution= to solve the puzzle if you get stuck.
+** Zero-player games / not actually 'games'
+=animate-birthday-present name=, =butterfly=
+
+*** Tower of Nahoi [[https://www.masteringemacs.org/static/uploads/hanoi.png][#pic]]
+#+begin_quote What it is?
+The [[https://en.wikipedia.org/wiki/Tower_of_Hanoi][Tower of Hanoi]] is an ancient mathematical puzzle game and one that is
+probably familiar to some of us as it is often used in Computer Science as a
+teaching aid because of its recursive and iterative solutions.
+#+end_quote
+
+The Tower of Hanoi implementation in Emacs dates from the mid 1980s — an awful
+long time ago indeed.
+
+Didn't get the drill. How to /play/ it?
+
+Three commands to trigger the Tower of Hanoi:
+- M-x hanoi :: a default of 3 discs;
+- M-x hanoi-unix :: ..
+- M-x hanoi-unix-64 :: uses the unix timestamp, making a move each second in
+  line with the clock, and with the latter pretending it uses a 64-bit clock.
+
+=M-x customize-group RET hanoi RET= (or ~spc h v hanoi~) - few Customize options
+such as enabling colorized discs.
+*** Fortune & Cookie
+I like the fortune command. Snarky, unhelpful and often sarcastic “advice” mixed
+in with literature and riddles brightens up my day whenever I launch a new
+shell.
+
+Rather confusingly there are two packages in Emacs that does more-or-less the
+same thing: fortune and cookie1. The former is geared towards putting fortune
+cookie messages in email signatures and the latter is just a simple reader for
+the fortune format.
+
+To use Emacs’s cookie1 package you must first tell it where to find the file by
+customizing the variable cookie-file with customize-option RET cookie RET.
+
+U might first need to install the fortune package first. The
+files are found in the /usr/share/games/fortunes/ directory.
+
+You can then call M-x cookie or, should you want to do this, find all matching
+cookies with M-x cookie-apropos.
+*** Doctor [[https://www.masteringemacs.org/static/uploads/doctor.png][#pic]] :excellent:
+#+begin_quote
+Ah, the Emacs doctor. Based on the original [[https://en.wikipedia.org/wiki/ELIZA][ELIZA]] the “Doctor” tries to
+psychoanalyze what you say and attempts to repeat the question back to you.
+Rather fun, for a few minutes, and one of the more famous Emacs oddities. You
+can run it with M-x doctor.
+#+end_quote
+*** Game of Life ~M-x life~ :excellent:
+[[https://en.wikipedia.org/wiki/Conway's_Game_of_Life][Conway’s Game of Life]] is a famous example of cellular automata. The Emacs
+version comes with a handful of starting patterns that you can (programmatically
+with elisp) alter by adjusting the life-patterns variable.
+
+#+begin_quote
+The fact that the whole thing, display code, comments and all, come in at less
+than 300 characters is also rather impressive.
+#+end_quote
+*** Zone, emacs's 'screensaver'
+Just run it and watch..
+
+=zone-when-idle= - configure a screensaver idle time.
+=zone-leave-me-alone= - turn it off with
+
+This one’s guaranteed to make your coworkers freak out if it kicks off while they are looking.
+
+*** Miscallaneous
+- =(un)morse-region= - (un)translate a region into morse code
+- =dissociated-press= - applies something like a random walk markov-chain
+  generator to a body of text in a buffer and generates nonsensical text from
+  the source body.
+- =spook= - inserts random words (usually into emails) designed to
+  confuse/overload the “NSA trunk trawler” – and keep in mind this module dates
+  from the 1980s and 1990s – with various words the spooks are supposedly
+  listening for. Of course, even ten years ago that would’ve seemed awfully
+  paranoid and quaint but not so much any more…
+
 ** Missing
 - [[https://github.com/sthilaid/igo.el][igo]] - Play Go / Weichi / Baduk or read a game in SGF.
 - landmark - neural net robot that learns landmarks; in Emacs 24 it is invoked
