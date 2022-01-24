@@ -8,6 +8,12 @@ In minibuffer:
 - M-<   minibuffer-*beginning*-of-buffer
 - M-p/n previous/next-history-element
 
+~g~ key:
+- g u/U :: Convert text to lower/upper case.
+- g i :: Switch to Insert state at previous insertion point.
+- g O, SPC s i :: Jump to a place in the buffer chosen using a buffer menu or
+  mouse menu. (=imenu=)
+
 spc tab - *workspace*:
 - "Switch workspace"          "."   #'+workspace/switch-to
 

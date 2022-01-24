@@ -63,22 +63,58 @@ Anywhere in =help= / =apropos= buffers:
 - X :: Org Capture
 - ~ :: Toggle last *popup*
 
-_Leader mode map links_: *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]] ([[file:~/.emacs.d/modules/ui/workspaces/README.org::*Commands & Keybindings][doom]] & C-t - new), *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]], *f* [[elisp:(helpful-variable 'doom-leader-file-map)][file]], *g* [[elisp:(helpful-variable
- 'doom-leader-git-map)][git]], *i* [[elisp:(helpful-variable 'doom-leader-insert-map)][insert]], *n* [[elisp:(helpful-variable 'doom-leader-notes-map)][notes]], *o* [[elisp:(helpful-variable 'doom-leader-open-map)][open]], *p* [[elisp:(helpful-variable 'doom-leader-project-map)][project]], *q* [[elisp:(helpful-variable 'doom-leader-quit/session-map)][quit/session]], *s* [[elisp:(helpful-variable 'doom-leader-search-map)][search]], *t* [[elisp:(helpful-variable 'doom-leader-toggle-map)][toggle]] (+
-*s*[pell] checker), *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *J*[ump] to symbol in any workspace), *w* [[elisp:(helpful-variable 'evil-window-map)][window]]
+_Leader mode map links_: *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]] ([[file:~/.emacs.d/modules/ui/workspaces/README.org::*Commands & Keybindings][doom]] & C-t - new, gt/T), *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]], *f* [[elisp:(helpful-variable
+ 'doom-leader-file-map)][file]], *g* [[elisp:(helpful-variable 'doom-leader-git-map)][git]], *i* [[elisp:(helpful-variable 'doom-leader-insert-map)][insert]], *n* [[elisp:(helpful-variable 'doom-leader-notes-map)][notes]], *o* [[elisp:(helpful-variable 'doom-leader-open-map)][open]], *p* [[elisp:(helpful-variable 'doom-leader-project-map)][project]], *q* [[elisp:(helpful-variable 'doom-leader-quit/session-map)][quit/session]], *s* [[elisp:(helpful-variable 'doom-leader-search-map)][search]], *t* [[elisp:(helpful-variable
+ 'doom-leader-toggle-map)][toggle]] (+ *s*[pell] checker), *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *J*[ump] to symbol in any workspace), *w* [[elisp:(helpful-variable
+ 'evil-window-map)][window]]
 
 _Mine_: [[elisp:(helpful-variable 'doom-leader-digraph-map)][digraph]], [[elisp:(helpful-variable 'doom-leader-listen-map)][listen]]
+** ~g~ prefix
+_Move the cursor_ ... :
+- g e/E :: to the end of the COUNT-th previous word/WORD.
+- g 0 :: to the first character of the current *screen* line.
+- g ^/$ :: to the first/last character of the current *screen* line.
+- g _ :: to the last non-blank character of the current line.
+- g m :: to the middle of the current *visual* line.
+- g <down>/<up> :: COUNT screen lines down/up
+
+_Yank, paste, (re)selection_:
+- gy :: yank unindented
+- gv :: Restore previous selection.
+- gp :: reselect paste / alt paste
+- :v gp :: paste preserve register
+- g n/N :: Select next/previous match.
+
++Feeling+ _Filling text_:
+- g w :: Fill text.
+- g q :: Fill text and move point to the end of the filled region.
+- g Q :: Fill element at point, when applicable.
+
+Other stuff:
+- g u/U :: Convert text to lower/upper case.
+- g & :: Repeat last substitute command on the whole buffer.
+- g i :: Switch to Insert state at previous insertion point.
+- g J :: Join the selected lines without changing whitespace.
+- g , :: Go back to more recent changes after g ; have been used.
+- g O, SPC s i :: Jump to a place in the buffer chosen using a buffer menu or
+  mouse menu. (=imenu=)
+- :nv g@ :: Apply *macro* to each line. (:v  "@"  #'+evil:apply-macro)
+- g C-g :: Count words between START and END.
+- g s / :: ??? Evil motion for ‘avy-goto-char-timer’.
+- g f/F :: Opens the file at point (and goes to line-number).
+- g C-], C-] :: Jump to tag under point.
+- (:after helpful :n "gr" #'helpful-update)
+- (:after compile :n "gr" #'recompile)
+- (:after dired :n "gr" #'revert-buffer)
 
 ** ported from [[https://github.com/tpope/vim-unimpaired][vim-unimpaired]]
 ?? - where is the keymap for this?
 
-Objects:
+_Objects_:
 - *b*[uffer], *f*[ile], *w*[orkspace], *a*[rg], *c*[omment], *e*[rror], *F*[rame], *h*[eading],
   *m*[ethod] start, *M*[ethod] end
 - *d* git gutter hunk / diff
 - hl *t*[odo]
-
-- :n ~gt~ / ~gT~  #'+workspace:switch-next / '+workspace:switch-previous
 
 Complementary pairs of mappings:
 - :n  ~] SPC~ / ~[ SPC~  #'+evil/insert-newline-below/above
@@ -86,26 +122,7 @@ Complementary pairs of mappings:
 - :m  ~]u~ / ~[u~   #'+evil:url-encode / '+evil:url-decode
 - :m  ~]y~ / ~[y~   #'+evil:c-string-encode / '+evil:c-string-decode
 - :m ~]x~ / ~[x~  #'+web:encode-html-entities / '+web:decode-html-entities)
-
-Custom vim-unmpaired-esque keys:
 - :m  ~]#~ / ~[#~   #'+evil/next/prev-preproc-directive
-- :n  ~gp~   #'+evil/reselect-paste / '+evil/alt-paste
-- :v  "gp" #'+evil/paste-preserve-register
-- :n  "gQ" #'+format:region
-- :v  "@"  #'+evil:apply-macro
-- :nv "g@"    #'+evil:apply-macro
-- :nv "gc"    #'evilnc-comment-operator
-- :nv "gO"    #'imenu
-- :nv "gx"    #'evil-exchange
-- :nv "gy"    #'+evil:yank-unindented
-- :n  ~g=~ / ~g-~   #'evil-numbers/inc/dec-at-pt
-- :v  ~g=~ / ~g-~   #'evil-numbers/inc/dec-at-pt-incremental
-- :v  "g+"    #'evil-numbers/inc-at-pt
-
-Other stuff:
-- (:after helpful :n "gr" #'helpful-update)
-- (:after compile :n "gr" #'recompile)
-- (:after dired :n "gr" #'revert-buffer)
 
 ** other - text scale, narrowing
 
@@ -152,7 +169,7 @@ github/gitlab/bitbucket/stash/git.savannah.gnu.org/sourcehut from Emacs:
   Inobvious motions: c / *l*[line], *r*[egion], *\* - comment current line and enter
   insert mode on point
 - *[[https://github.com/edkolev/evil-lion#usage][evil-lion]]* - allows to align text by some CHAR; ~gl/L {motion} {char}~
-- *evil-numbers* - works like C-a/C-x in vim, but here it is ~g-/g=~
+- *evil-numbers* - works like C-a/C-x in vim, but here it is ~g-/g=~.
 - *evil-exchange* - ~gx {motion}~ - exchange two regions with evil motion
 
 *** [[https://github.com/PythonNut/evil-easymotion][evil-easymotion]] ~gs..~ [[https://www.youtube.com/watch?v=zar4GsOBU0g&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][#vid]]
@@ -202,7 +219,7 @@ instead of opening console in all browser tabs...
 
 *** lookup [[file:~/.emacs.d/modules/tools/lookup/README.org::*Features][#features]]
 *K* documentation, g *d*[efinition], g *D* - references, g *f*[ile], g
-*I*[mplementations], g *A* assignments
+*I*[mplementations], g *A*[ssignments]
 
 - SPC s T (+lookup/synonyms)              - Look up and insert a synonym for the word at poin...
 - SPC s t (+lookup/dictionary-definition) - Look up the definition of the word at point (or s...
