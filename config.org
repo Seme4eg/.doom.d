@@ -183,6 +183,7 @@ Forge:
 ;; (setq org-time-stamp-custom-formats '("<%a %d-%m-%Y>" . "<%a %d-%m-%Y %H:%M>"))
 ;; (setq org-display-custom-times t)
 
+;; TODO: make those active only in org-mode
 (after! org
   (map! :leader
         :desc "Shrink" "mbS" 'org-table-shrink
@@ -517,7 +518,7 @@ Forge:
       :nick "_sad"
       :sasl-username ,(+pass-get-user "irc/libera.chat")
       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))
-      :channels ("#systemcrafters") ;; "#emacs"
+      :channels ("#emacs" "#systemcrafters")
       ))
 
   ;; in case circe will start supporting DCC
