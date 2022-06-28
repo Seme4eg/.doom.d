@@ -1,5 +1,3 @@
-#+STARTUP: overview hideblocks
-
 * Doom [[file:~/.emacs.d/docs/index.org][#docs-index]] [[file:~/.emacs.d/docs/getting_started.org][#getting-started]] [[file:~/.emacs.d/docs/modules.org][#modules]]
 [[https://www.emacswiki.org/emacs/GccEmacs][Installation]]
 
@@ -45,7 +43,17 @@ Anywhere in =help= / =apropos= buffers:
 - ~o~ - *open link* at point
 - ~TAB / backtab~ - forward / backward link
 
-[[elisp:(helpful-variable 'minibuffer-mode-map)][minibuffer]] map
+[[elisp:(helpful-variable 'minibuffer-local-map)][minibuffer]] map + :
+- { 'ctrl+b',      function() prev_char() end             },
+- { 'ctrl+f',      function() next_char() end             },
+- { 'alt+b',       prev_word                              },
+- { 'alt+f',       next_word                              },
+- { 'ctrl+a',      go_home                                },
+- { 'ctrl+e',      go_end                                 },
+- { 'ctrl+d',      del_char_right                         },
+- { 'ctrl+u',      del_to_start                           },
+- { 'ctrl+del',    del_next_word                          },
+- { 'alt+d',       del_next_word                          },
 
 ** <leader> [[elisp:(helpful-variable 'doom-leader-map)][#keymap]]
 - RET :: Jump to *bookmark*
