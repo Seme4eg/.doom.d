@@ -102,7 +102,7 @@
   ;;csharp            ; unity, .NET, and mono shenanigans
   ;;data              ; config/data formats
   ;;(dart +flutter)   ; paint ui and not much else
-  ;;elixir            ; erlang done right
+  ;;elixir            ; erlang done right TODO REVIEW
   elm                 ; care for a cup of TEA?
   emacs-lisp          ; drown in parentheses
   ;;erlang            ; an elegant language for a more civilized age
@@ -125,7 +125,7 @@
   ;;latex             ; writing papers in Emacs has never been so fun
   ;;lean              ; for folks with too much to prove
   ;;ledger            ; be audit you can be
-  ;;lua               ; one-based indices? one-based indices
+  (lua +lsp)               ; one-based indices? one-based indices
   markdown            ; writing docs for people to ignore
   ;;nim               ; python + lisp at the speed of c
   ;;nix               ; I hereby declare "nix geht mehr!"
