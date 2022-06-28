@@ -164,6 +164,9 @@ Open links just with ~RET~
 property, store a link to this custom ID) to be able to choose it later from the
 ~spc m l l~ popup menu
 
+=org-link-file-path-type= - relativeness of a link (useful sometimes as a
+file-only var)
+
 ** Internal Links
 
 A link that does not look like a URL—i.e., does not start with a known scheme or
