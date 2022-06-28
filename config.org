@@ -34,8 +34,7 @@ Global:
   fill-column 80 ;; 70, must be a default value to work
   display-fill-column-indicator-column 80
   better-jumper-context 'buffer
-  ;; FIXME still doesn't switch
-  input-method-history (list "russian-computer")
+  default-input-method "russian-computer"
   projectile-project-search-path '("~/git/")
   ;; make emacs always use its own browser for opening URL links
   browse-url-browser-function 'eww-browse-url
@@ -200,52 +199,50 @@ Forge:
    org-startup-shrink-all-tables t
    ;; org-ellipsis " ▾ "
    org-hide-emphasis-markers t)
+
   ;; org capture templates redefining
-  ;; FIXME: instead of redefining whole 'org-capture-templates' var, append my
-  ;; custom values to it (cuz for now i am lozing all those predefined options)
   (setq org-capture-templates
-    '(("t" "Tea entry" entry
-        (file +org-capture-project-notes-file)
-        "%[~/git/tea/templates/newEntry]"
-        :jump-to-captured t
-        :immediate-finish t
-        :clock-in t
-        :clock-keep t
-        :empty-lines 1)
-       ("n" "Notes file settings prepend" plain
-         (file +org-capture-project-notes-file)
-         "%[~/git/tea/templates/notesFileSettings]"
-         :prepend t
-         :immediate-finish t
-         :empty-lines-after 1)
-       ;; To insert template at point, in current file call 'spc-X' with
-       ;; 'spc u 0' prefix
-       ("i" "Info file settings prepend (call from a directory with info file!)" plain
-         (file "./info.org")
-         "%[~/git/tea/templates/infoFileSettings]"
-         :prepend t
-         :immediate-finish t
-         :empty-lines-after 1)
-       ("p" "Project-local todo" checkitem
-         (file+headline +org-capture-project-todo-file "List of todos")
-         "" :prepend t)
-       ("T" "Personal todo" entry
-        (file+headline +org-capture-todo-file "Todo")
-        "* [ ] %?\n%i" :prepend t)
-       ("j" "Journal" entry
-        (file+olp+datetree +org-capture-journal-file)
-        "* %U %?\n%i\n%a" :prepend t)
-       )
+        (append
+         '(
+           ("t" "Tea entry" entry
+            (file +org-capture-project-notes-file)
+            "%[~/git/tea/templates/newEntry]"
+            :jump-to-captured t
+            :immediate-finish t
+            :clock-in t
+            :clock-keep t
+            :empty-lines 1)
+           ("n" "Notes file settings prepend" plain
+            (file +org-capture-project-notes-file)
+            "%[~/git/tea/templates/notesFileSettings]"
+            :prepend t
+            :immediate-finish t
+            :empty-lines-after 1)
+           ;; To insert template at point, in current file call 'spc-X' with
+           ;; 'spc u 0' prefix
+           ("i" "Info file settings prepend (call from a directory with info file!)" plain
+            (file "./info.org")
+            "%[~/git/tea/templates/infoFileSettings]"
+            :prepend t
+            :immediate-finish t
+            :empty-lines-after 1)
+           ("p" "Project-local todo" checkitem
+            (file+headline +org-capture-project-todo-file "List of todos")
+            "" :prepend t)
+           ("T" "Personal todo" entry
+            (file+headline +org-capture-todo-file "Todo")
+            "* [ ] %?\n%i" :prepend t)
+           ("j" "Journal" entry
+            (file+olp+datetree +org-capture-journal-file)
+            "* %U %?\n%i\n%a" :prepend t)
+           )
+         org-capture-templates
+         )
     )
-  (set-face-attribute 'org-link nil
-                      :weight 'normal
-                      :background nil)
-  (set-face-attribute 'org-code nil
-                      :foreground "#a9a1e1"
-                      :background nil)
-  (set-face-attribute 'org-date nil
-                      :foreground "#5B6268"
-                      :background nil)
+
+  (set-face-attribute 'org-link nil :weight 'normal :background nil)
+  (set-face-attribute 'org-code nil :foreground "#a9a1e1" :background nil)
+  (set-face-attribute 'org-date nil :foreground "#5B6268" :background nil)
   (set-face-attribute 'org-level-1 nil
                       :foreground "#dbf6ff"
                       :background nil
@@ -266,10 +263,8 @@ Forge:
                       :background nil
                       :height 1.0
                       :weight 'normal)
-  (set-face-attribute 'org-level-5 nil
-                      :weight 'normal)
-  (set-face-attribute 'org-level-6 nil
-                      :weight 'normal)
+  (set-face-attribute 'org-level-5 nil :weight 'normal)
+  (set-face-attribute 'org-level-6 nil :weight 'normal)
   (set-face-attribute 'org-document-title nil
                       :foreground "SlateGray1"
                       :background nil
@@ -292,8 +287,8 @@ Forge:
   org-journal-time-prefix "* "
   org-journal-date-format "%a, %d-%m-%Y"
   org-journal-file-format "%Y-%m-%d.org")
-
 #+end_src
+
 * Emacs everywhere
 #+begin_src emacs-lisp
 ;; :app everywhere FIXME: throws error when first loading
@@ -322,24 +317,22 @@ Forge:
 ;; Hide the menu for as minimalistic a startup screen as possible.
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
-;; TODO: how to redefine it without last function? so i don't see link for github
-;; (setq +doom-dashboard-functions
-;;       (doom-dashboard-widget-banner
-;;        doom-dashboard-widget-loaded)
-;;       )
+(setq +doom-dashboard-functions
+      '(doom-dashboard-widget-banner doom-dashboard-widget-loaded))
 #+end_src
 * Mu4e
 #+begin_src emacs-lisp
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (after! mu4e
-  ;; This is set to 't' to avoid mail syncing issues when using mbsync
-  (setq mu4e-change-filenames-when-moving t)
-
-  ;; Refresh mail using isync every 10 minutes
-  (setq mu4e-update-interval 300)
-  (setq mu4e-get-mail-command "mbsync -a")
-  ;; Configure the function to use for sending mail
-  (setq message-send-mail-function 'smtpmail-send-it)
+  (setq
+   ;; This is set to 't' to avoid mail syncing issues when using mbsync
+   mu4e-change-filenames-when-moving t
+   ;; Refresh mail using isync every 10 minutes
+   mu4e-update-interval 300
+   mu4e-get-mail-command "mbsync -a"
+   ;; Configure the function to use for sending mail
+   message-send-mail-function 'smtpmail-send-it
+   )
 
   (setq mu4e-contexts
         (list
@@ -468,9 +461,8 @@ Forge:
 
 ;; Once you've done the above, run the 'M-x emms-cache-set-from-mpd-all'
 ;; command to fill the Emms cache with the contents of your MusicPD
-;; database.  The music in your MusicPD database should then be accessible
+;; database. The music in your MusicPD database should then be accessible
 ;; via the Emms browser.
-
 
 (map! :leader
       (:prefix-map ("l" . "listen")
@@ -509,9 +501,8 @@ Forge:
 
 ;; if you omit =:host=, ~SERVER~ will be used instead.
 (after! circe
-  (setq
-   circe-default-part-message "(⌣_⌣”)"
-   circe-default-quit-message "( ͡ಠ ʖ̯ ͡ಠ)")
+  (setq circe-default-part-message "(⌣_⌣”)"
+        circe-default-quit-message "( ͡ಠ ʖ̯ ͡ಠ)")
   (set-irc-server! "irc.libera.chat"
     `(:tls t
       :port 6697
@@ -543,11 +534,12 @@ Forge:
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 
-(setq eww-auto-rename-buffer 'title) ;; title / url / custom func
+(setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
+      ;; title / url / custom func
+      eww-auto-rename-buffer 'title)
 
-(setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn)
 (after! dash-docs
-  (setq dash-docs-browser-func #'+lookup-xwidget-webkit-open-url-fn))
+(setq dash-docs-browser-func #'+lookup-xwidget-webkit-open-url-fn))
 #+end_src
 
 Enable exwm if flag's given:
