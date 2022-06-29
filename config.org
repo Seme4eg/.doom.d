@@ -68,21 +68,20 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
       'git-gutter:popup-hunk)
 (map! :leader :desc "Ace window" "ww" 'ace-window)
 (map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
-;; TODO: rewrite this func to open eww other window
-(map! :leader :desc "Web Wowser" "oe" 'eww)
-;; TODO: wrap a func below eith defadvice so it insets '~' before and after
+(map! :leader :desc "Web Wowser" "oe" 'sad-eww-other-window)
+
 (map! :leader
       :desc "Edmacro insert key"
       "i k"
-      'edmacro-insert-key)
+      'sad-wrapped-eik)
 
 ;; Digraph
 (map! :leader
       (:prefix-map ("d" . "digraph")
        :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
        :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
-       :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char
-       ))
+       :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
+
 #+end_src
 * Startup and Global modes
 #+begin_src emacs-lisp
@@ -560,4 +559,33 @@ A useful macro (sometimes) for timing the execution of things. From
   `(let ((time (current-time)))
      ,@body
      (float-time (time-since time))))
+#+end_src
+* Custom f-s
+#+begin_src emacs-lisp
+(defun sad-eww-other-window (url)
+  "Open eww web wowser in other window passing URL to origial 'eww' command'"
+  (interactive "sEnter URL or keywords: ")
+  (other-window 1)
+  (eww url)
+  (+popup/raise (selected-window)))
+
+(defun sad-wrapped-eik ()
+  "Call 'edmacro-insert-key' and wrap it's output in ~~ so those kbds look
+better in org mode. Does nothing if was called on the beginning of a line"
+  (interactive)
+  (let ((opoint (point)))
+    (unless (bolp)
+      (insert "~")
+      (call-interactively 'edmacro-insert-key)
+      (backward-char)
+      (insert "~"))))
+
+(defun theme-randomise ()
+  "Loads random theme from the list of available custom themes.
+Made this function only cuz im too often too lazy to make a choice."
+  (interactive
+    (load-theme
+     (nth (random (length (custom-available-themes))) (custom-available-themes)) t)))
+
+
 #+end_src

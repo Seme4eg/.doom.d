@@ -1,14 +1,15 @@
 * List of todos
-_Summary_: [9/18] [50%]
+_Summary_: [10/20] [50%]
 - [X] set and test out [[https://github.com/emacs-eaf/emacs-application-framework][EAF]] - after i check it out i don't c much use to me
-- [ ] learn elisp (SPC h 4 i -> gm -> elisp); book - introduction to programming
-  in emacs lisp (pdf), also [[http://xahlee.info/emacs/emacs/emacs_eww_web_browser.html][this]] source might somehow help
-  - [ ] write func to open eww not in minibuffer on ~spc o b~ but on other window
-  - [ ] change kbd for telega from default to ~spc z~
+- [X] learn elisp
+  - [X] write func to open eww not in minibuffer on ~spc o b~ but on other window
+  - [X] write 'theme-randomize' function for emacs)
+- [ ] Install [[https://github.com/EmmyLua/EmmyLua-LanguageServer][emmy lua language server]]
 - [ ] ~spc h b f macro~ - solve my macro problems
 - [ ] god mode?
 - [ ] gnus? [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/gnus/evil-collection-gnus.el][evil-collection-gnus.el]]
 - [ ] telega evil collection check -> less in telega.org
+- [ ] change kbd for telega from default to ~spc z~
 - [ ] any way to make some 'prev/next in history' funcs in [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/helpful/evil-collection-helpful.el][helpful]]
 - [ ] *allow doom to HELP u* ffs -> ~spc h~
 - [X] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to use it? (=+ranger= flag) - learn it - it is quicker than treemacs in terms of file-operations and searching
