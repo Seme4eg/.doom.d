@@ -70,6 +70,8 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
 (map! :leader :desc "Web Wowser" "oe" 'sad-eww-other-window)
 (map! :leader :desc "Edmacro insert key" "i k" 'sad-wrapped-eik)
+(map! :leader :desc "Find file other window" "f o" 'find-file-other-window)
+(map! :leader :desc "Theme other" "t o" 'sad-theme-randomize)
 
 (define-key global-map (kbd "C-,") 'embark-act)
 
@@ -578,12 +580,13 @@ better in org mode. Does nothing if was called on the beginning of a line"
       (backward-char)
       (insert "~"))))
 
-(defun theme-randomise ()
+(defun sad-theme-randomize ()
   "Loads random theme from the list of available custom themes.
 Made this function only cuz im too often too lazy to make a choice."
-  (interactive
-    (load-theme
-     (nth (random (length (custom-available-themes))) (custom-available-themes)) t)))
+  (interactive)
+  (load-theme
+   (nth (random (length (custom-available-themes))) (custom-available-themes)) t))
+
 
 
 #+end_src
