@@ -68,7 +68,8 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
       'git-gutter:popup-hunk)
 (map! :leader :desc "Ace window" "ww" 'ace-window)
 (map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
-(map! :leader :desc "Web Wowser" "oe" 'sad-eww-other-window)
+(map! :leader :desc "Web Wowser" "oe" 'eww)
+
 (map! :leader :desc "Edmacro insert key" "i k" 'sad-wrapped-eik)
 (map! :leader :desc "Find file other window" "f o" 'find-file-other-window)
 (map! :leader :desc "Theme other" "t o" 'sad-theme-randomize)
@@ -560,14 +561,15 @@ A useful macro (sometimes) for timing the execution of things. From
      ,@body
      (float-time (time-since time))))
 #+end_src
-* Custom f-s
+* Custom f-s & advices
 #+begin_src emacs-lisp
-(defun sad-eww-other-window (url)
+(defun sad-eww-other-window (orig-func &rest args)
   "Open eww web wowser in other window passing URL to origial 'eww' command'"
-  (interactive "sEnter URL or keywords: ")
   (other-window 1)
-  (eww url)
+  (apply orig-func args)
   (+popup/raise (selected-window)))
+
+(advice-add 'eww :around #'sad-eww-other-window)
 
 (defun sad-wrapped-eik ()
   "Call 'edmacro-insert-key' and wrap it's output in ~~ so those kbds look
@@ -587,6 +589,11 @@ Made this function only cuz im too often too lazy to make a choice."
   (load-theme
    (nth (random (length (custom-available-themes))) (custom-available-themes)) t))
 
+(defun evil-ex-search--center-buffer (orig-fun &rest args)
+  "Center butter."
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
+(advice-add 'evil-ex-search :after #'evil-ex-search--center-buffer)
 
 
 #+end_src
