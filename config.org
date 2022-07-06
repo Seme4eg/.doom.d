@@ -69,11 +69,8 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (map! :leader :desc "Ace window" "ww" 'ace-window)
 (map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
 (map! :leader :desc "Web Wowser" "oe" 'sad-eww-other-window)
+(map! :leader :desc "Edmacro insert key" "i k" 'sad-wrapped-eik)
 
-(map! :leader
-      :desc "Edmacro insert key"
-      "i k"
-      'sad-wrapped-eik)
 (define-key global-map (kbd "C-,") 'embark-act)
 
 ;; Digraph
