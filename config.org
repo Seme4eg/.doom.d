@@ -74,6 +74,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
       :desc "Edmacro insert key"
       "i k"
       'sad-wrapped-eik)
+(define-key global-map (kbd "C-,") 'embark-act)
 
 ;; Digraph
 (map! :leader
