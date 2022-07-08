@@ -73,6 +73,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (map! :leader :desc "Edmacro insert key" "i k" 'sad-wrapped-eik)
 (map! :leader :desc "Find file other window" "f o" 'find-file-other-window)
 (map! :leader :desc "Theme other" "t o" 'sad-theme-randomize)
+(map! :leader :desc "Switch to true last buffer" "b o" 'sad-true-switch-last-buffer)
 
 (define-key global-map (kbd "C-,") 'embark-act)
 
@@ -596,4 +597,11 @@ Made this function only cuz im too often too lazy to make a choice."
 (advice-add 'evil-ex-search :after #'evil-ex-search--center-buffer)
 
 
+(defun sad-true-switch-last-buffer ()
+  "Switch to REAL last open buffer (including buffers starting with *)."
+  (interactive)
+  (let ((previous-place (car (window-prev-buffers))))
+    (when previous-place
+      (switch-to-buffer (car previous-place))
+      (goto-char (car (last previous-place))))))
 #+end_src
