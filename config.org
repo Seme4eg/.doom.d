@@ -590,12 +590,13 @@ Made this function only cuz im too often too lazy to make a choice."
   (load-theme
    (nth (random (length (custom-available-themes))) (custom-available-themes)) t))
 
-(defun evil-ex-search--center-buffer (orig-fun &rest args)
+(defun advice--center-buffer (orig-fun &rest args)
   "Center butter."
   (evil-scroll-line-to-center (line-number-at-pos)))
 
-(advice-add 'evil-ex-search :after #'evil-ex-search--center-buffer)
-
+(advice-add 'evil-ex-search :after #'advice--center-buffer)
+(advice-add 'Info-next-reference :after #'advice--center-buffer)
+(advice-add 'Info-prev-reference :after #'advice--center-buffer)
 
 (defun sad-true-switch-last-buffer ()
   "Switch to REAL last open buffer (including buffers starting with *)."
