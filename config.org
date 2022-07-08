@@ -535,12 +535,14 @@ Forge:
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 
-(setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
+;; (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
+(setq +lookup-open-url-fn #'eww
       ;; title / url / custom func
       eww-auto-rename-buffer 'title)
 
 (after! dash-docs
-(setq dash-docs-browser-func #'+lookup-xwidget-webkit-open-url-fn))
+  ;; +lookup-xwidget-webkit-open-url-fn
+  (setq dash-docs-browser-func #'eww))
 #+end_src
 
 Enable exwm if flag's given:
