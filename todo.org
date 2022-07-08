@@ -1,5 +1,5 @@
 * List of todos
-_Summary_: [10/20] [50%]
+_Summary_: [10/21] [47%]
 - [X] set and test out [[https://github.com/emacs-eaf/emacs-application-framework][EAF]] - after i check it out i don't c much use to me
 - [X] learn elisp
   - [X] write func to open eww not in minibuffer on ~spc o b~ but on other window
@@ -7,6 +7,7 @@ _Summary_: [10/20] [50%]
 - [ ] Install [[https://github.com/EmmyLua/EmmyLua-LanguageServer][emmy lua language server]]
 - [ ] ~spc h b f macro~ - solve my macro problems
 - [ ] god mode?
+- [ ] check out another emacs info [[https://scripter.co/search/?q=emacs][source]]
 - [ ] gnus? [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/gnus/evil-collection-gnus.el][evil-collection-gnus.el]]
 - [ ] telega evil collection check -> less in telega.org
 - [ ] change kbd for telega from default to ~spc z~
