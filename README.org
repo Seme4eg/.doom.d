@@ -261,6 +261,11 @@ There's also =hide-sublevels= command
 - [[elisp:(helpful-variable 'sh-mode-map)][sh-mode-map]]
 *** (e)lisp future
 [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/edebug/evil-collection-edebug.el][evil-collection-edebug.el]],  [[elisp:(helpful-variable 'emacs-lisp-mode-map)][#elisp-mode-map]],  [[elisp:(helpful-variable 'elisp-refs-mode-map)][#elisp-refs-mode-map]]
+**** debug
+[[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/debug/evil-collection-debug.el][evil-collction-debug]] + :
+- ‘#’ Toggle ‘print-circle’ for the frame at point.
+- ‘:’ Toggle ‘print-gensym’ for the frame at point.
+- ‘.’ Expand all the forms abbreviated with “...” in the frame at point.
 
 ** Navigation
 *** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]] ~spc w w~
