@@ -28,7 +28,7 @@ Global:
   user-mail-address "d3v1ant@mail.ru"
 
   doom-theme 'doom-opera
-  doom-font (font-spec :family "Source Code Pro" :size 16)
+  doom-font (font-spec :family "Source Code Pro" :size 26)
 
   org-directory "~/org/"
   fill-column 80 ;; 70, must be a default value to work

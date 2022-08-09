@@ -20,7 +20,7 @@ _Chat folders, ~g O~ prefix_:
   instead of telega-symbol-folder. See list of all available icon names in
   =telega-folder-icon-names=.
 
-** Rootbuf fast navigation
+** Rootbuf fast navigation (~J~)
 - J u (telega-root-next-unread) Move point to the next chat with unread message.
 - J i (telega-root-next-important) Move point to the next chat with important
   messages. Important message is a message matching "Important" custom chat
@@ -28,7 +28,7 @@ _Chat folders, ~g O~ prefix_:
   unread unmuted)) chat filter is used.
 - J @, J m (telega-root-next-mention) Move point to the next chat with mention.
 
-** Rootbuf view switching
+** Rootbuf view switching (~g V~)
 ~g~ prefix in rootbuf is used to switch root views:
 
 - s, V s (telega-view-search) View QUERY search results.
@@ -66,42 +66,42 @@ in the telega-cache-dir can be deleted.
 User Option: telega-root-default-view-function - Default view for the rootbuf. Default value: telega-view-default
 
 ** Chat buffer
-_Keybindings from prefix work here with ~g a~ prefix!_ (like ~g a a~ to get back to
+_Keybindings from prefix work here with ~g a~ prefix!_ (like ~g a t~ to get back to
 root view)
 
-- C-c ? (telega-describe-chat) Show info about chat at point.
+- C-c ? (telega-*describe-chat*) Show info about chat at point.
 - ~g ?~ / ~h~ (telega-describe-message) get detailed description of the message
   at point.
-- Z R (telega-msg-resend)
-- Z L (telega-msg-redisplay) Redisplay the message MSG.
-- Z l (telega-msg-copy-link) Copy link to message to kill ring.
-- Z y (telega-msg-copy-text) Copy a text of the message MSG.
+- Z R (telega-msg-*resend*)
+- Z L (telega-msg-*redisplay*) Redisplay the message MSG.
+- Z l (telega-msg-*copy-link*) Copy link to message to kill ring.
+- Z y (telega-msg-*copy-text*) Copy a text of the message MSG.
 
 Important customizable options:
 =telega-chat-fill-column= - Column to fill chat messages to. (Default value: 70)
 
 ~g A~ / ~M-g~ prefix in chatbuf is used to jump across various chat messages:
 - ~<~ - history beginning
-- ~r~, ~>~ (telega-chatbuf-read-all) Jump to the last message in the chat history
+- ~r~, ~>~ (telega-chatbuf-*read-all*) Jump to the last message in the chat history
   and mark all messages as read. If C-u is used, then reset active messages
   filter.
-- ~@~, ~m~ (telega-chatbuf-next-unread-mention) Goto next unread mention in chat
+- ~@~, ~m~ (telega-chatbuf-*next-unread-mention*) Goto next unread mention in chat
   buffer.
-- ~u~ (telega-chatbuf-next-unread) Goto next uneard message in chat.
+- ~u~ (telega-chatbuf-*next-unread*) Goto next uneard message in chat.
   BUTTON-CALLBACK - callback to call with single argument - message button.
-- ~^~, ~P~ (telega-chatbuf-goto-pinned-message) Goto next pinned message for the
+- ~^~, ~P~ (telega-chatbuf-*goto-pinned-message*) Goto next pinned message for the
   chatbuffer.
-- ~x~ (telega-chatbuf-goto-pop-message) Pop message from
+- ~x~ (telega-chatbuf-*goto-pop-message*) Pop message from
   =telega-chatbuf--messages-pop-ring= and goto it.
-- ~*~ (telega-chatbuf-next-favorite) Goto next favorite message.
-- ~!~, ~d~ (telega-chatbuf-goto-date) Goto last message before DATE timestamp.
-- ~v~ (telega-chatbuf-goto-video-chat) Goto video chat associated with the chat.
+- ~*~ (telega-chatbuf-*next-favorite*) Goto next favorite message.
+- ~!~, ~d~ (telega-chatbuf-*goto-date*) Goto last message before DATE timestamp.
+- ~v~ (telega-chatbuf-*goto-video-chat*) Goto video chat associated with the chat.
 
-~C-M-a~ (telega-chatbuf-beginning-of-thing) Move backward to the beginning of the
+~C-M-a~ (telega-chatbuf-*beginning-of-thing*) Move backward to the beginning of the
 chat
 
 _Apply markup_ to the input when sending message. This is controlled by
-number of C-u pressed before RET and value of the:
+number of =C-u= pressed before RET and value of the:
 
 =telega-chat-input-markups= Markups to apply when sending input with RET. (Default
 value: (nil "markdown1" "markdown2"))
