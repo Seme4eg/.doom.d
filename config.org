@@ -394,7 +394,7 @@ Forge:
 * Telega
 #+begin_src emacs-lisp
 (map! :leader "o c" 'telega)
-(define-key global-map (kbd "C-c t") telega-prefix-map)
+(define-key global-map (kbd "Q") telega-prefix-map)
 
 (after! telega
   (telega-notifications-mode)
@@ -565,6 +565,7 @@ A useful macro (sometimes) for timing the execution of things. From
      ,@body
      (float-time (time-since time))))
 #+end_src
+
 * Custom f-s & advices
 #+begin_src emacs-lisp
 (defun sad-eww-other-window (orig-func &rest args)
