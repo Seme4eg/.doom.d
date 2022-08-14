@@ -28,7 +28,7 @@ Global:
   user-mail-address "d3v1ant@mail.ru"
 
   doom-theme 'doom-opera
-  doom-font (font-spec :family "Source Code Pro" :size 26)
+  doom-font (font-spec :family "Source Code Pro" :size 16)
 
   org-directory "~/org/"
   fill-column 80 ;; 70, must be a default value to work
@@ -88,9 +88,9 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 * Startup and Global modes
 #+begin_src emacs-lisp
 ;; Set frame transparency
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90)) ;; (active . inactive)
+;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90)) ;; (active . inactive)
 ;; set alpha on all *new* frames created by emacs
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 ;; (set-frame-parameter (selected-frame) 'fullscreen 'fullscreen)
 ;; initial-frame-alist ?
 ;; (add-to-list 'default-frame-alist '(fullscreen . t))
