@@ -507,6 +507,18 @@ Forge:
 (use-package! 0x0)
 #+END_SRC
 
+* Ewal
+#+begin_src emacs-lisp
+(use-package! ewal
+  :init (setq ewal-use-built-in-always-p nil
+              ewal-use-built-in-on-failure-p t
+              ewal-built-in-palette "sexy-material")
+  :config (progn
+            (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
+            (enable-theme 'ewal-doom-one)
+            (ewal-evil-cursors-get-colors :apply t)))
+#+end_src
+
 * Other settings
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
