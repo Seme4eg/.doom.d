@@ -534,15 +534,6 @@ Forge:
   (setq dash-docs-browser-func #'eww))
 #+end_src
 
-Enable exwm if flag's given:
-#+begin_src emacs-lisp
-(setq dw/exwm-enabled (and (eq window-system 'x)
-                           (seq-contains command-line-args "--use-exwm")))
-
-(when dw/exwm-enabled
-  (load "~/exwm/exwm-config.el"))
-#+end_src
-
 A useful macro (sometimes) for timing the execution of things. From
 [[https://stackoverflow.com/questions/23622296/emacs-timing-execution-of-function-calls-in-emacs-lisp][StackOverflow]].
 
