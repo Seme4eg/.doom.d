@@ -188,8 +188,8 @@ Forge:
   (map! :leader
         :desc "Shrink" "mbS" 'org-table-shrink
         :desc "Expand" "mbE" 'org-table-expand
-        :desc "Toggle width" "mbts" 'org-table-toggle-column-width
-        )
+        :desc "Toggle width" "mbts" 'org-table-toggle-column-width)
+
   (setq
    org-src-window-setup 'current-window
    ;; Sort the footnote definitions by reference sequence.
@@ -235,42 +235,9 @@ Forge:
             "* [ ] %?\n%i" :prepend t)
            ("j" "Journal" entry
             (file+olp+datetree +org-capture-journal-file)
-            "* %U %?\n%i\n%a" :prepend t)
-           )
-         org-capture-templates
-         )
-    )
+            "* %U %?\n%i\n%a" :prepend t))
 
-  (set-face-attribute 'org-link nil :weight 'normal :background nil)
-  (set-face-attribute 'org-code nil :foreground "#a9a1e1" :background nil)
-  (set-face-attribute 'org-date nil :foreground "#5B6268" :background nil)
-  (set-face-attribute 'org-level-1 nil
-                      :foreground "#dbf6ff"
-                      :background nil
-                      :height 1.2
-                      :weight 'normal)
-  (set-face-attribute 'org-level-2 nil
-                      :foreground "#fbeffc"
-                      :background nil
-                      :height 1.0
-                      :weight 'normal)
-  (set-face-attribute 'org-level-3 nil
-                      :foreground "#b5ddfc"
-                      :background nil
-                      :height 1.0
-                      :weight 'normal)
-  (set-face-attribute 'org-level-4 nil
-                      :foreground "#faccfc"
-                      :background nil
-                      :height 1.0
-                      :weight 'normal)
-  (set-face-attribute 'org-level-5 nil :weight 'normal)
-  (set-face-attribute 'org-level-6 nil :weight 'normal)
-  (set-face-attribute 'org-document-title nil
-                      :foreground "SlateGray1"
-                      :background nil
-                      :height 1.75
-                      :weight 'bold))
+         org-capture-templates)))
 
 ;; org-mode agenda options
 ;; TODO: how to do it with evil embrace?
