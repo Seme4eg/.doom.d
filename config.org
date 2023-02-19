@@ -29,11 +29,12 @@ Global:
 
   ;; doom-theme 'doom-opera
 
+  ;; 'pmsl nerd' - get all installed nerd fonts
   ;; doom-font (font-spec :family "saucecodepro nerd font" :size 17)
-  ;; extension of Fira Mono font, enlarged operators
-  doom-font (font-spec :family "firacode nerd font" :size 16)
   ;; copy of source code pro but with better composite glyphs
   ;; doom-font (font-spec :family "hasklug nerd font" :size 17)
+  ;; if u'll gonna get tired of this font try firacode nerd font (not installed)
+  doom-font (font-spec :family "jetbrainsmono nerd font" :size 17)
 
   org-directory "~/org/"
   fill-column 80 ;; 70, must be a default value to work
