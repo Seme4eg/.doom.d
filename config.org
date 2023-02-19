@@ -27,8 +27,13 @@ Global:
   user-full-name "sad"
   user-mail-address "d3v1ant@mail.ru"
 
-  doom-theme 'doom-opera
-  doom-font (font-spec :family "Source Code Pro" :size 16)
+  ;; doom-theme 'doom-opera
+
+  ;; doom-font (font-spec :family "saucecodepro nerd font" :size 17)
+  ;; extension of Fira Mono font, enlarged operators
+  doom-font (font-spec :family "firacode nerd font" :size 16)
+  ;; copy of source code pro but with better composite glyphs
+  ;; doom-font (font-spec :family "hasklug nerd font" :size 17)
 
   org-directory "~/org/"
   fill-column 80 ;; 70, must be a default value to work
@@ -37,8 +42,8 @@ Global:
   default-input-method "russian-computer"
   projectile-project-search-path '("~/git/")
   ;; make emacs always use its own browser for opening URL links
-  browse-url-browser-function 'eww-browse-url
-  )
+  browse-url-browser-function 'eww-browse-url)
+
 #+end_src
 
 Hlissner:
