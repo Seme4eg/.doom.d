@@ -33,8 +33,8 @@ Global:
   ;; doom-font (font-spec :family "saucecodepro nerd font" :size 17)
   ;; copy of source code pro but with better composite glyphs
   ;; doom-font (font-spec :family "hasklug nerd font" :size 17)
-  ;; if u'll gonna get tired of this font try firacode nerd font (not installed)
-  doom-font (font-spec :family "jetbrainsmono nerd font" :size 17)
+  ;; doom-font (font-spec :family "hack nerd font" :size 17)
+  doom-font (font-spec :family "firacode nerd font" :size 17)
 
   org-directory "~/org/"
   fill-column 80 ;; 70, must be a default value to work
@@ -52,14 +52,12 @@ Hlissner:
 (setq
   ;; Line numbers are pretty slow all around. The performance boost of
   ;; disabling them outweighs the utility of always keeping them on.
-  ;;    (c) hlissner
   display-line-numbers-type nil
 
   ;; IMO, modern editors have trained a bad habit into us all: a burning need for
   ;; completion all the time -- as we type, as we breathe, as we pray to the
   ;; ancient ones -- but how often do you *really* need that information? I say
   ;; rarely. So opt for manual completion
-  ;;    (c) hlissner
   company-idle-delay nil
   )
 #+end_src
