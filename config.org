@@ -342,6 +342,7 @@ Forge:
 #+begin_src emacs-lisp
 (map! :leader "o c" 'telega)
 (define-key global-map (kbd "Q") telega-prefix-map)
+(setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
 
 (after! telega
   (telega-notifications-mode)
@@ -363,8 +364,8 @@ Forge:
   ;; company-mode setup might look like:
   (setq
    telega-completing-read-function #'completing-read
-   telega-emoji-company-backend 'telega-company-emoji
-   )
+   telega-emoji-company-backend 'telega-company-emoji)
+
 
   ;; (setq telega-url-shorten-use-images t)
   (add-to-list 'telega-browse-url-alist
@@ -387,8 +388,8 @@ Forge:
                        'telega-company-hashtag)
                  (when (telega-chat-bot-p telega-chatbuf--chat)
                    '(telega-company-botcmd))))
-    (company-mode 1))
-  )
+    (company-mode 1)))
+
 #+end_src
 * Emms
 #+begin_src emacs-lisp
