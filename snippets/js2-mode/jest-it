@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: jest it
-# key: it
-# --
-it('${1:testcase}', $2() => {
-  ${0:// test..}
-})
