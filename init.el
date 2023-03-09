@@ -11,11 +11,11 @@
   (vertico +icons)
 
   :ui
-  tree-sitter
   ;;deft              ; notational velocity for Emacs
   doom                ; what makes DOOM look the way it does
   doom-dashboard      ; a nifty splash screen for Emacs
   doom-quit           ; DOOM quit-message prompts when you quit Emacs
+  (emoji +ascii +github +unicode)    ; 🙂
   hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
   ;;hydra
   indent-guides       ; highlighted indent columns
@@ -23,12 +23,14 @@
   ;;minimap           ; show a map of the code on the side
   modeline            ; snazzy, Atom-inspired modeline, plus API
   ;;nav-flash         ; blink cursor line after big motions
-  ophints
+  ;;neotree           ; a project drawer, like NERDTree for vim
+  ophints             ; hightlight the region an operation acts on
   (popup +defaults)   ; tame sudden yet inevitable temporary windows
   ;;tabs              ; a tab bar for Emacs
   ;;(treemacs +lsp)   ; a project drawer, like neotree but cooler
-  unicode             ; extended unicode support for various languages
-  vc-gutter           ; vcs diff in the fringe REVIEW source (~K~)
+  ;; It not only overrides [[var:doom-unicode-font]], but should only be used as a last resort.
+  ;;unicode             ; extended unicode support for various languages
+  (vc-gutter +diff-hl +pretty)           ; vcs diff in the fringe REVIEW source (~K~)
   ;; vi-tilde-fringe  ; fringe tildes to mark beyond EOB
   window-select       ; visually switch windows
   workspaces          ; tab emulation, persistence & separate workspaces
@@ -41,7 +43,7 @@
   (format +onsave)   ; automated prettiness
   ;;god              ; run Emacs commands without modifier keys
   ;;lispy            ; vim for lisp, for people who don't like vim
-  multiple-cursors   ; editing in many places at once
+  ;; multiple-cursors   ; editing in many places at once
   ;;objed            ; text object editing for the innocent
   parinfer         ; turn lisp into python, sort of
   ;;rotate-text      ; cycle region at point between text candidates
@@ -86,6 +88,7 @@
   ;;taskrunner     ; taskrunner for all your projects
   ;;terraform      ; infrastructure as code
   ;;tmux           ; an API for interacting with tmux
+  tree-sitter
   ;;upload         ; map local to remote projects via ssh/ftp
 
   :os
@@ -112,7 +115,7 @@
   ;;fsharp            ; ML stands for Microsoft's Language
   ;;fstar             ; (dependent) types and (monadic) effects and Z3
   ;;gdscript          ; the language you waited for
-  ;;(go +lsp)         ; the hipster dialect
+  (go +lsp +tree-sitter)         ; the hipster dialect
   ;;(haskell +dante)  ; a language that's lazier than I am
   ;;hy                ; readability of scheme w/ speed of python
   ;;idris             ; a language you can depend on
@@ -121,7 +124,6 @@
   (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
   ;;julia             ; a better, faster MATLAB
   ;;kotlin            ; a better, slicker Java(Script)
-  ;; TODO: at least try it out?
   ;;latex             ; writing papers in Emacs has never been so fun
   ;;lean              ; for folks with too much to prove
   ;;ledger            ; be audit you can be
@@ -151,12 +153,12 @@
   ;;rust             ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
   ;;scala            ; java, but good
   ;;(scheme +guile)  ; a fully conniving family of lisps
-  sh                 ; she sells {ba,z,fi}sh shells on the C xor
+  (sh +lsp +tree-sitter) ; she sells {ba,z,fi}sh shells on the C xor
   ;;sml
   ;;solidity         ; do you need a blockchain? No.
   ;;swift            ; who asked for emoji variables?
   ;;terra            ; Earth and Moon in alignment for performance.
-  (web +lsp)         ; the tubes
+  (web +lsp +tree-sitter)         ; the tubes
   ;;yaml             ; JSON, but readable
   ;;zig              ; C, but simpler
 
