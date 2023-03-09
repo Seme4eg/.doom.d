@@ -349,8 +349,19 @@ Forge:
 * Telega
 #+begin_src emacs-lisp
 (map! :leader "o c" 'telega)
-(define-key global-map (kbd "Q") telega-prefix-map)
 (setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
+(map! :after telega :leader
+      :prefix ("z" . "telegram")
+      "a" #'telega-account-switch
+      "b" #'telega-switch-buffer
+      "c" #'telega-chat-with
+      "e" #'telega-edit-file-switch-buffer
+      "i" #'telega-switch-important-chat
+      "f" #'telega-buffer-file-send
+      "s" #'telega-saved-messages
+      "t" #'telega
+      "u" #'telega-switch-unread-chat
+      "w" #'telega-browse-url)
 
 (after! telega
   (telega-notifications-mode)
