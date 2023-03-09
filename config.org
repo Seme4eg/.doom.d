@@ -433,7 +433,7 @@ Forge:
 ;; via the Emms browser.
 
 (map! :leader
-      (:prefix-map ("l" . "listen")
+      (:prefix ("l" . "listen")
 
        ;; Playback
        :desc "Browser" "l" #'emms-smart-browse
