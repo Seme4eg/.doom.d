@@ -28,14 +28,6 @@ Global:
   user-mail-address "d3v1ant@mail.ru"
 
   ;; doom-theme 'doom-opera
-
-  ;; 'pmsl nerd' - get all installed nerd fonts
-  ;; doom-font (font-spec :family "saucecodepro nerd font" :size 17)
-  ;; copy of source code pro but with better composite glyphs
-  ;; doom-font (font-spec :family "hasklug nerd font" :size 17)
-  ;; doom-font (font-spec :family "hack nerd font" :size 17)
-  doom-font (font-spec :family "firacode nerd font" :size 17)
-
   org-directory "~/org/"
   fill-column 80 ;; 70, must be a default value to work
   display-fill-column-indicator-column 80
@@ -45,6 +37,23 @@ Global:
   ;; make emacs always use its own browser for opening URL links
   browse-url-browser-function 'eww-browse-url)
 
+#+end_src
+
+[[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]]:
+#+begin_src emacs-lisp
+(setq
+ ;; firacode nerd font
+ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 17) ;; :weight 'light
+ ;; for text modes, like Org or Markdown.
+ doom-variable-pitch-font (font-spec :family "daddytimemono nerd font" :size 17)
+ doom-unicode-font (font-spec :family "Symbola")
+ doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 24))
+
+  ;; 'pmsl nerd' - get all installed nerd fonts
+  ;; doom-font (font-spec :family "saucecodepro nerd font" :size 17)
+  ;; copy of source code pro but with better composite glyphs
+  ;; doom-font (font-spec :family "hasklug nerd font" :size 17)
+  ;; doom-font (font-spec :family "hack nerd font" :size 17)
 #+end_src
 
 Hlissner:
@@ -106,7 +115,6 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (global-display-fill-column-indicator-mode)
 (global-auto-revert-mode)
 #+end_src
-
 
 * Development
 ** LSP
