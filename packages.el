@@ -9,7 +9,7 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 
-(package! jest)
+;; (package! jest)
 (package! telega)
 (package! 0x0 :recipe (:host gitlab :repo "willvaughn/emacs-0x0"))
 (package! ewal
