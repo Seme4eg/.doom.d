@@ -120,15 +120,27 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 ** LSP
 #+begin_src emacs-lisp
 ;; Disable invasive lsp-mode features
+;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
 (setq
   lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
   lsp-ui-doc-enable nil        ; slow and redundant with K
-  lsp-enable-symbol-highlighting nil
-  )
+  lsp-enable-symbol-highlighting t) ; why not
 
 (setq lsp-vetur-format-default-formatter-html '"prettier")
 #+end_src
-
+** Golang
+#+begin_src emacs-lisp
+;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+(after! go-mode
+  (setq gofmt-args '("-s"))
+  (lsp-register-custom-settings
+   '(("gopls.completeUnimported" t t)
+     ;; ("gopls.vulncheck" "imports")
+     ;; https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
+     ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md#inlayhint
+     ;; ("gopls.hints" ...)
+     ("gopls.staticcheck" t t))))
+#+end_src
 ** JS
 #+begin_src emacs-lisp
 ;; does this even work? and is it even needed?

@@ -259,6 +259,102 @@ There's also =hide-sublevels= command
   ~spc h v js map~, also there is [[https://github.com/NicolasPetton/Indium][Indium]] (js development environment), [[https://www.purescript.org/][purescript]],
   [[https://github.com/reasonml-editor/reason-mode][reason-mode]] ([[https://reasonml.github.io][Reason github]] - JavaScript & OCaml ecosystems)
 - [[elisp:(helpful-variable 'sh-mode-map)][sh-mode-map]]
+
+**** Golang
+todos [0/2]:
+- [ ] use goimports or the organize-imports feature of gopls to manage
+  adding/removing/organizing imports automatically. -- set it up
+- [ ] https://github.com/x-motemen/gore
+
+_Installation_: set and add GOPATH to your path, then run ~doom env~ _outside_ emacs
+to regenerate env vars, install [[https://github.com/golang/tools/blob/master/gopls/doc/emacs.md][gopls]], start emacs. For [[file:~/dotfiles/.config/emacs/modules/lang/go/README.org::*Dependencies][golangci-lint]] (see doom
+go documentation) i have aur package installed
+
+[[file:~/dotfiles/.config/emacs/modules/lang/go/README.org::*Keybinds][Keybinds]] (SPC m ..)
+
+Other info:
+- go-_import_-add (SPC m r i a) - Add a new IMPORT to the list of imports.
+- go-goto-_imports_ (SPC m i) - Move point to the block of imports.
+- go-remove-unused-_imports_ (SPC m r i r) - Remove all unused imports.
+- _godef_-jump (C-c C-j) - Jump to the definition of the expression at POINT.
+- _godef_-describe (C-c C-d) - Describe the expression at POINT.
+- _godef_-jump-other-window  (C-x 4 C-c C-j)
+- basic support for _imenu_ (functions and vars) : (SPC s i)
+- ~go-coverage~ display _code coverage_ as calculated by go test
+- [[https://github.com/x-motemen/gore][gore]]pl
+- godoc-at-point (SPC m h .) - Show Go documentation for the identifier at
+  POINT.
+- +go/play-buffer-or-region (SPC m e) - Evaluate active selection or buffer in
+  the Go playground.
+  ~go-gen-test-default-functions~.
+- f-s for jumping to and manipulating the individual parts of function
+  signatures. These functions support anonymous functions, but are smart enough
+  to skip them when required (e.g. when jumping to a method receiver or
+  docstring.) All of these functions accept a prefix argument (C-u), causing
+  them to skip anonymous functions.
+  - go-goto-imports (SPC m i) - Move point to the block of imports.
+  - go-goto-function (C-c C-f f) - Go to the function definition (named or
+    anonymous) surrounding point.
+  - go-goto-arguments (C-c C-f a) - Go to the arguments of the current function.
+  - go-goto-docstring (C-c C-f d) - Go to the top of the docstring of the current
+    function.
+  - go-goto-function-name (C-c C-f n) - Go to the name of the current function.
+  - go-goto-return-values (C-c C-f r) - Go to the return value declaration of the
+    current function.
+  - go-goto-method-receiver (C-c C-f m) Go to the receiver of the current method.
+- [[https://github.com/hlissner/doom-snippets/tree/master/go-mode][Snippets]] (or just [[elisp:(yas/describe-tables)][yas/describe-tables]])
+
+***** Goto bindings
+- ] g l - +goto-loop.outer
+- ] g v - +goto-conditional.outer
+- ] g c - +goto-comment.outer
+- ] g C - +goto-class.outer
+- ] g F - +goto-call.outer
+- ] g f - +goto-function.outer
+- ] g a - +goto-parameter.outer
+
+with '[' all same but 'previous':
+- [ g l - +goto-previous-loop.outer
+- ...
+
+***** [[file:~/.emacs.d/.local/straight/repos/go-mode.el/go-guru.el][Go-guru]]* (code navigation)
+- go-guru-peers (SPC m h p) - Enumerate the set of possible corresponding
+  sends/receives for
+- go-guru-callees (SPC m h C) - Show possible callees of the function call at
+  the current point.
+- go-guru-callers (SPC m h c) - Show the set of callers of the function
+  containing the current point.
+- go-guru-describe (SPC m h d) - Describe the selected syntax, its kind, type
+  and methods.
+- go-guru-freevars (SPC m h v) - Enumerate the free variables of the current
+  selection.
+- go-guru-pointsto (SPC m h P) - Show what the selected expression points to.
+- go-guru-callstack - Show an arbitrary path from a root of the call graph to
+  the
+- go-guru-referrers (SPC m h r) - Enumerate all references to the object denoted
+  by the selected
+- go-guru-set-scope - Set the scope for the Go guru, prompting the user to edit
+  the previous scope.
+- go-guru-whicherrs (SPC m h e) - Show globals, constants and types to which the
+  selected
+- go-guru-definition - Jump to the definition of the selected identifier.
+- go-guru-implements (SPC m h i) - Describe the ’implements’ relation for types
+  in the package
+- go-guru-hl-identifier - Highlight all instances of the identifier under point.
+  Removes
+- go-guru-hl-identifier-mode - Highlight instances of the identifier at point
+  after a short
+- go-guru-definition-other-window - Jump to the defintion of the selected
+  identifier in another window
+
+***** Go tag [[https://github.com/brantou/emacs-go-tag/tree/33f2059551d5298ca228d90f525b99d1a8d70364#commands][#commands docs]]
+Edit field tags for golang struct fields.
+
+- go-tag-add (SPC m a) - Add field TAGS for struct fields.
+- go-tag-remove (SPC m d) - Remove field TAGS for struct fields.
+- go-tag-refresh - Refresh field TAGS for struct fields.
+- go-tag-open-github - go-tag open Github page.
+
 *** (e)lisp future
 [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/edebug/evil-collection-edebug.el][evil-collection-edebug.el]],  [[elisp:(helpful-variable 'emacs-lisp-mode-map)][#elisp-mode-map]],  [[elisp:(helpful-variable 'elisp-refs-mode-map)][#elisp-refs-mode-map]]
 **** debug
