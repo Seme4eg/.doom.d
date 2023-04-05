@@ -524,6 +524,21 @@ Forge:
             (enable-theme 'ewal-doom-one)
             (ewal-evil-cursors-get-colors :apply t)))
 #+end_src
+* GPTel [[https://github.com/karthink/gptel][#gh]]
+#+begin_src elisp
+(defun e/read-openai-key ()
+  (with-temp-buffer
+    (insert-file-contents "~/key.txt")
+    (string-trim (buffer-string))))
+
+(use-package! gptel
+  :config
+  (map! :leader "e" 'gptel)
+  (setq! gptel-model "gpt-3.5-turbo"
+         gptel-playback t
+         gptel-default-mode 'org-mode
+         gptel-api-key #'e/read-openai-key))
+#+end_src
 
 * Other settings
 #+begin_src emacs-lisp
