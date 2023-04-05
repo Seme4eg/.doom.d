@@ -282,6 +282,11 @@ Other info:
 - basic support for _imenu_ (functions and vars) : (SPC s i)
 - ~go-coverage~ display _code coverage_ as calculated by go test
 - [[https://github.com/x-motemen/gore][gore]]pl
+  - ~C-c C-r~ (gorepl-eval-line) - Evaluate current line.
+  - ~C-c C-e~ (gorepl-eval-region) - Evaluate region selected.
+  - ~C-c C-l~ (gorepl-run-load-current-file) - Run a GoREPL with a context file in
+    it
+  - ~C-c C-g~ (gorepl-run) - Start or switch to the GoREPL buffer
 - godoc-at-point (SPC m h .) - Show Go documentation for the identifier at
   POINT.
 - +go/play-buffer-or-region (SPC m e) - Evaluate active selection or buffer in
