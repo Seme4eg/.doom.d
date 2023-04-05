@@ -11,7 +11,7 @@
 
 ;; (package! jest)
 (package! telega)
-(package! 0x0 :recipe (:host gitlab :repo "willvaughn/emacs-0x0"))
+;; (package! 0x0 :recipe (:host gitlab :repo "willvaughn/emacs-0x0"))
 (package! ewal
   :recipe (:host github :repo "cyruseuros/ewal"
             :files ("ewal.el" "*/*.el")))

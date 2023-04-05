@@ -486,12 +486,12 @@ Forge:
   ;; view 'circe-network-defaults' var to view predefined networks
   (setq circe-network-options
     `(("Libera Chat"
-       :nick "_sad"
+       :nick "earthian"
        :sasl-username ,(+pass-get-user "irc/libera.chat")
        :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat")))
        ;; :channels ("#emacs" "#systemcrafters"))
       ("OFTC"
-       :nick "_sad"
+       :nick "earthian"
        :sasl-username ,(+pass-get-user "irc/libera.chat")
        :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))))
        ;; :channels ("#emacs" "#systemcrafters")))))
@@ -510,7 +510,7 @@ Forge:
   ;;     ))
 
 ;; TODO: write a function to upload image to 0x0 from a clipboard
-(use-package! 0x0)
+;; (use-package! 0x0)
 #+END_SRC
 
 * Ewal
