@@ -147,7 +147,6 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (set-docsets! 'js2-mode "JavaScript")
 
 (after! js2-mode
-  (add-hook 'js2-mode-hook #'jest-minor-mode)
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
 #+end_src
 ** Elm
