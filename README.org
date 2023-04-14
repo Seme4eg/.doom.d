@@ -360,13 +360,42 @@ Edit field tags for golang struct fields.
 - go-tag-refresh - Refresh field TAGS for struct fields.
 - go-tag-open-github - go-tag open Github page.
 
-*** (e)lisp future
+**** (e)lisp future
 [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/edebug/evil-collection-edebug.el][evil-collection-edebug.el]],  [[elisp:(helpful-variable 'emacs-lisp-mode-map)][#elisp-mode-map]],  [[elisp:(helpful-variable 'elisp-refs-mode-map)][#elisp-refs-mode-map]]
-**** debug
+***** debug
 [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/debug/evil-collection-debug.el][evil-collction-debug]] + :
 - ‘#’ Toggle ‘print-circle’ for the frame at point.
 - ‘:’ Toggle ‘print-gensym’ for the frame at point.
 - ‘.’ Expand all the forms abbreviated with “...” in the frame at point.
+*** Restclient ([[https://github.com/pashky/restclient.el][restclient-mode]]) [[https://codelearn.me/2017/10/22/restclient.html][#examples]] [[https://www.youtube.com/watch?v=fTvQTMOGJaw][#vid-demo]]
+- [[elisp:(helpful-variable 'restclient-mode-map)][> restclient-mode-map]]
+- [[elisp:(helpful-variable 'restclient-outline-mode-map)][> restclient-outline-mode-map]]
+- [[elisp:(helpful-variable 'restclient-response-mode-map)][> restclient-response-mode-map]]
+
+- ~company-restclient~ (C-<leader>) - ‘company-mode’ completion back-end for
+  ‘restclient-mode’.
+- ~restclient-jump-next/prev~ (] ] / [ [) - Jump to next/prev request in buffer.
+- ~restclient-show-info~ (C-c TAB)
+- ~restclient-mark-current~ (C-c C-.) - Mark current request.
+- ~restclient-outline-mode~ - Minor mode to allow show/hide of request bodies by
+  TAB.
+- ~restclient-response-mode~ - Minor mode to allow additional keybindings in
+  restclient response buffer.
+- ~restclient-copy-curl-command~ (SPC m c) - Formats the request as a curl
+  command and copies the command to the clipboard.
+- ~restclient-http-send-current~ (SPC m e) - Sends current request.
+- ~restclient-narrow-to-current~ (C-c n n) - Narrow to region of current request
+- ~restclient-http-send-current-raw~ (SPC m E) - Sends current request and get
+  raw result (no reformatting or syntax highlight o…
+- ~restclient-jq-interactive-result~ - Run jq interactively on a restclient JSON
+  response buffer.
+- ~restclient-toggle-body-visibility~ (z a)
+- ~evil-collection-restclient-result-mode~ - A minor mode to attach to
+  ‘restclient’ results
+- ~restclient-http-send-current-stay-in-window~ (C-c C-v) - Send current request
+  and keep focus in request window.
+- ~restclient-toggle-body-visibility-or-indent~  (TAB)
+- ~C-c C-i~: show information on resclient variables at point
 
 ** Navigation
 *** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]] ~spc w w~
