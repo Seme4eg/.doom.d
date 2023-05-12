@@ -372,6 +372,8 @@ Edit field tags for golang struct fields.
 - [[elisp:(helpful-variable 'restclient-outline-mode-map)][> restclient-outline-mode-map]]
 - [[elisp:(helpful-variable 'restclient-response-mode-map)][> restclient-response-mode-map]]
 
+Files ending with ~.http~ will have restclient-mode enabled by default.
+
 - ~company-restclient~ (C-<leader>) - ‘company-mode’ completion back-end for
   ‘restclient-mode’.
 - ~restclient-jump-next/prev~ (] ] / [ [) - Jump to next/prev request in buffer.
