@@ -426,20 +426,27 @@ Forge:
 #+end_src
 * Emms
 #+begin_src emacs-lisp
-(setq-default
- emms-source-file-default-directory "~/Music/"
- emms-player-mpd-music-directory "/home/sad/Music/"
- ;; emms-source-playlist-default-format 'm3u
- emms-playlist-mode-center-when-go t
- emms-show-format "NP: %s"
- emms-browser-default-browse-type 'info-album
- emms-player-mpd-server-port "6559"
- )
-
 (after! emms
   (add-to-list 'emms-player-list 'emms-player-mpd)
   (add-to-list 'emms-info-functions 'emms-info-mpd)
-  )
+  (setq!
+   emms-source-file-default-directory "~/Wu Na/"
+   emms-player-mpd-music-directory "~/Wu Na/"
+   emms-source-playlist-default-format 'm3u
+   emms-playlist-mode-center-when-go t
+   emms-show-format "♪ %s"
+   ;; emms-player-mpd-server-port "6600"
+   emms-browser-default-browse-type 'info-album
+   ;; new settings
+   ;; covers
+   emms-browser-covers #'emms-browser-cache-thumbnail-async
+   emms-browser-thumbnail-small-size 32
+   emms-browser-thumbnail-medium-size 64))
+
+;; notifications
+;; (require 'emms-dbus)
+;; (emms-dbus-enable)
+
 
 ;; Once you've done the above, run the 'M-x emms-cache-set-from-mpd-all'
 ;; command to fill the Emms cache with the contents of your MusicPD
@@ -450,7 +457,8 @@ Forge:
       (:prefix ("l" . "listen")
 
        ;; Playback
-       :desc "Browser" "l" #'emms-smart-browse
+       :desc "Current playlist buffer" "c" #'emms
+       :desc "Browser / open close" "l" #'emms-smart-browse
        :desc "Play cur. playlist" "SPC" #'emms-start
        :desc "Stop" "x" #'emms-pause
        :desc "Stop" "X" #'emms-stop
@@ -460,23 +468,29 @@ Forge:
        :desc "Loop track (toggle)" "L" #'emms-toggle-repeat-track
        :desc "Bury emms buffers" "q" #'emms-browser-bury-buffer
 
+       ;; maybe another binding for emms-player-mpd-update-directory
+       :desc "Update all + cache" "R" #'emms-player-mpd-update-all-reset-cache
+       :desc "Restart mpd music daemon" "r" #'+emms/mpd-restart-music-daemon
+       :desc "Restart mpd music daemon" "u" #'+emms/mpc-update-database
+
        :desc "Play all files matching regex" "f" #'emms-play-find
 
        ;; Playlists
        (:prefix ("P" . "Playlist")
         :desc "Loop playlist (toggle)" "L" #'emms-toggle-repeat-playlist
         :desc "Shuffle (toggle)" "S" #'emms-toggle-random-playlist
-        :desc "Edit playlist buffers" "l" #'emms-metaplaylist-mode-go
-        )
+        :desc "Edit playlist buffers" "l" #'emms-metaplaylist-mode-go)
+
        ;; Bookmarks
        (:prefix ("B" . "Bookmarks")
         :desc "Add new bookmark to cur. track" "a" #'emms-bookmarks-add
         :desc "Sek to next bookmark in cur. track" "n" #'emms-bookmarks-next
         :desc "Seek to prev. bookmark in cur. track" "p" #'emms-bookmarks-prev
-        :desc "Remove all bookmarks from cur. track" "c" #'emms-bookmarks-clear
-        )
-       ))
+        :desc "Remove all bookmarks from cur. track" "c" #'emms-bookmarks-clear)))
+
+
 #+end_src
+
 * IRC [[https://github.com/emacs-circe/circe/wiki/Configuration][#configuration docs]]
 #+BEGIN_SRC emacs-lisp
 (map! :leader :desc "IRC" "oi" '=irc)
