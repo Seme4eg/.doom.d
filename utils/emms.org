@@ -160,6 +160,7 @@ include titles and annotations within the playlist.
 - C-c C-n/p #'next/prev-track
 - C-c C-r   #'set-all
 - C-c C-t   #'transpose-tag
+
 ** Managing Playlists
 Start the playlist manager with 'M-x =emms-metaplaylist-mode-go='. The playlist
 manager will list the playlists and mark the current one. The following commands

@@ -97,7 +97,7 @@
   :lang
   ;;agda              ; types of types of types of types...
   ;;beancount         ; mind the GAAP
-  ;;(cc +lps)         ; C > C++ == 1
+  ;;(cc +lsp)         ; C > C++ == 1
   ;;clojure           ; java with a lisp
   ;;common-lisp       ; if you've seen one lisp, you've seen them all
   ;;coq               ; proofs-as-programs
@@ -159,7 +159,7 @@
   ;;swift                  ; who asked for emoji variables?
   ;;terra                  ; Earth and Moon in alignment for performance.
   (web +lsp +tree-sitter)  ; the tubes
-  ;;yaml                   ; JSON, but readable
+  (yaml +lsp +tree-sitter) ; JSON, but readable
   ;;zig                    ; C, but simpler
 
   :email
