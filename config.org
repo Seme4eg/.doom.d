@@ -396,7 +396,8 @@ Forge:
   ;; company-mode setup might look like:
   (setq
    telega-completing-read-function #'completing-read
-   telega-emoji-company-backend 'telega-company-emoji)
+   telega-emoji-company-backend 'telega-company-emoji
+   telega-notifications-timeout 3600) ;; crutch basically
 
 
   ;; (setq telega-url-shorten-use-images t)
