@@ -401,10 +401,10 @@ Forge:
 
 
   ;; (setq telega-url-shorten-use-images t)
-  (add-to-list 'telega-browse-url-alist
-               '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
-  (add-to-list 'telega-browse-url-alist
-               '("https?://youtu.be/" . my-watch-in-mpv))
+  ;; (add-to-list 'telega-browse-url-alist
+  ;;              '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
+  ;; (add-to-list 'telega-browse-url-alist
+  ;;              '("https?://youtu.be/" . my-watch-in-mpv))
 
   (add-hook 'telega-chat-mode-hook 'my-telega-chat-mode)
 
