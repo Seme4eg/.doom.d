@@ -98,6 +98,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
        :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
        :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
 
+(setq! evil-want-C-u-delete nil)
 #+end_src
 * Startup and Global modes
 #+begin_src emacs-lisp
