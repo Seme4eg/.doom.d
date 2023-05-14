@@ -471,9 +471,12 @@ Forge:
        :desc "Bury emms buffers" "q" #'emms-browser-bury-buffer
 
        ;; maybe another binding for emms-player-mpd-update-directory
+       :desc "Start daemon" "s" #'+emms/mpd-start-music-daemon
+       :desc "Restart daemon" "r" #'+emms/mpd-restart-music-daemon
+       :desc "Kill daemon" "k" #'+emms/mpd-kill-music-daemon
+       ;; call this manually for the newly added tracks to show up in emms
+       :desc "Update db" "u" #'+emms/mpc-update-database ;; gets called on 'start'
        :desc "Update all + cache" "R" #'emms-player-mpd-update-all-reset-cache
-       :desc "Restart mpd music daemon" "r" #'+emms/mpd-restart-music-daemon
-       :desc "Restart mpd music daemon" "u" #'+emms/mpc-update-database
 
        :desc "Play all files matching regex" "f" #'emms-play-find
 
