@@ -432,8 +432,8 @@ Forge:
   (add-to-list 'emms-player-list 'emms-player-mpd)
   (add-to-list 'emms-info-functions 'emms-info-mpd)
   (setq!
-   emms-source-file-default-directory "~/Wu Na/"
-   emms-player-mpd-music-directory "~/Wu Na/"
+   emms-source-file-default-directory "~/Music"
+   emms-player-mpd-music-directory "~/Music"
    emms-source-playlist-default-format 'm3u
    emms-playlist-mode-center-when-go t
    emms-show-format "♪ %s"
@@ -459,18 +459,18 @@ Forge:
       (:prefix ("l" . "listen")
 
        ;; Playback
-       :desc "Current playlist buffer" "c" #'emms
-       :desc "Browser / open close" "l" #'emms-smart-browse
-       :desc "Play cur. playlist" "SPC" #'emms-start
-       :desc "Stop" "x" #'emms-pause
+       :desc "Current playlist buffer" "c" #'emms ;; NOTE: this thing!
+       :desc "Browser / open close" "b" #'emms-smart-browse
+       :desc "Play cur. playlist" "SPC" #'emms-start ;; TODO: needed?
+       :desc "Pause" "x" #'emms-pause
        :desc "Stop" "X" #'emms-stop
        :desc "Next" "n" #'emms-next
        :desc "Previous" "p" #'emms-previous
        :desc "Shuffle" "S" #'emms-shuffle
-       :desc "Loop track (toggle)" "L" #'emms-toggle-repeat-track
+       ;; :desc "Loop track (toggle)" "L" #'emms-toggle-repeat-track
        :desc "Bury emms buffers" "q" #'emms-browser-bury-buffer
 
-       ;; maybe another binding for emms-player-mpd-update-directory
+       ;; Daemon / db bindings
        :desc "Start daemon" "s" #'+emms/mpd-start-music-daemon
        :desc "Restart daemon" "r" #'+emms/mpd-restart-music-daemon
        :desc "Kill daemon" "k" #'+emms/mpd-kill-music-daemon
@@ -478,22 +478,27 @@ Forge:
        :desc "Update db" "u" #'+emms/mpc-update-database ;; gets called on 'start'
        :desc "Update all + cache" "R" #'emms-player-mpd-update-all-reset-cache
 
-       :desc "Play all files matching regex" "f" #'emms-play-find
-
        ;; Playlists
        (:prefix ("P" . "Playlist")
         :desc "Loop playlist (toggle)" "L" #'emms-toggle-repeat-playlist
         :desc "Shuffle (toggle)" "S" #'emms-toggle-random-playlist
         :desc "Edit playlist buffers" "l" #'emms-metaplaylist-mode-go)
 
-       ;; Bookmarks
-       (:prefix ("B" . "Bookmarks")
-        :desc "Add new bookmark to cur. track" "a" #'emms-bookmarks-add
-        :desc "Sek to next bookmark in cur. track" "n" #'emms-bookmarks-next
-        :desc "Seek to prev. bookmark in cur. track" "p" #'emms-bookmarks-prev
-        :desc "Remove all bookmarks from cur. track" "c" #'emms-bookmarks-clear)))
-
-
+       ;; Play ...
+       (:prefix ("l" . "Play")
+        :desc "dired" "d" #'emms-play-dired
+        ;; NOTE: mainly using this since it just adds tracks from dir
+        ;; (not recursively) to the playlist
+        :desc "directory" "D" #'emms-play-directory
+        ;; emms-play-directory-tree ;; source for multiple directory trees
+        :desc "files matching regex" "f" #'emms-play-find
+        :desc "file" "F" #'emms-play-file
+        :desc "url (ie for streaming)" "u" #'emms-play-url
+        ;; Playlists
+        :desc "playlist" "p" #'emms-play-playlist
+        :desc "playlist file" "P" #'emms-play-playlist-file
+        :desc "playlist dir" "z" #'emms-play-playlist-directory
+        :desc "playlist dir tree" "x" #'emms-play-playlist-directory-tree)))
 #+end_src
 
 * IRC [[https://github.com/emacs-circe/circe/wiki/Configuration][#configuration docs]]
