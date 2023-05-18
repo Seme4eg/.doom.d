@@ -102,14 +102,6 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 #+end_src
 * Startup and Global modes
 #+begin_src emacs-lisp
-;; Set frame transparency
-;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90)) ;; (active . inactive)
-;; set alpha on all *new* frames created by emacs
-;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
-;; (set-frame-parameter (selected-frame) 'fullscreen 'fullscreen)
-;; initial-frame-alist ?
-;; (add-to-list 'default-frame-alist '(fullscreen . t))
-
 ;; Prevents some cases of Emacs flickering
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
@@ -274,38 +266,6 @@ Forge:
 
 #+end_src
 
-** Org journal
-#+begin_src emacs-lisp
-;; journal setup
-(setq
-  org-journal-date-prefix "#+TITLE: "
-  org-journal-time-prefix "* "
-  org-journal-date-format "%a, %d-%m-%Y"
-  org-journal-file-format "%Y-%m-%d.org")
-#+end_src
-
-* Emacs everywhere
-#+begin_src emacs-lisp
-;; :app everywhere FIXME: throws error when first loading
-(after! emacs-everywhere
-  ;; Easier to match with a bspwm rule:
-  ;;   bspc rule -a 'Emacs:emacs-everywhere' state=floating sticky=on
-  (setq emacs-everywhere-frame-name-format "emacs-anywhere")
-
-  ;; The modeline is not useful to me in the popup window. It looks much nicer
-  ;; to hide it.
-  (remove-hook 'emacs-everywhere-init-hooks #'hide-mode-line-mode)
-
-  ;; Semi-center it over the target window, rather than at the cursor position
-  ;; (which could be anywhere).
-  (defadvice! center-emacs-everywhere-in-origin-window (frame window-info)
-    :override #'emacs-everywhere-set-frame-position
-    (cl-destructuring-bind (x y width height)
-        (emacs-everywhere-window-geometry window-info)
-      (set-frame-position frame
-                          (+ x (/ width 2) (- (/ width 2)))
-                          (+ y (/ height 2))))))
-#+end_src
 * Doom dashboard
 #+begin_src emacs-lisp
 ;; (setq fancy-splash-image (concat doom-private-dir "splash.png"))
