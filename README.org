@@ -1141,4 +1141,5 @@ S-q
 
 ~SPC~ .. e, j, k, r, v, y
 * Todos
-- fix evil-collection not working properly in 'diff-hl' popup buffers
+- fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
+- fix mu4e not using evil-collectioon and not prompting for gpg pass
