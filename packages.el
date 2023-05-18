@@ -16,6 +16,7 @@
   :recipe (:host github :repo "cyruseuros/ewal"
             :files ("ewal.el" "*/*.el")))
 (package! gptel)
+;; (package! elcord)
 
 ;; (package! soundklaus
 ;;   :recipe (:local-repo "lisp/soundklaus" :build (:not compile)))
