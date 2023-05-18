@@ -76,10 +76,10 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 
 #+begin_src emacs-lisp
 (map! :leader :desc "M-x" "x" 'execute-extended-command)
-(map! :leader
-      :desc "Git gutter popup hunk"
-      "gv"
-      'git-gutter:popup-hunk)
+;; diff-hl bindings
+(map! :leader :desc "Git show hunk" "gv" 'diff-hl-show-hunk)
+(map! :leader :desc "Git show hunk" "g{" 'diff-hl-show-hunk-previous)
+(map! :leader :desc "Git show hunk" "g}" 'diff-hl-show-hunk-next)
 (map! :leader :desc "Ace window" "ww" 'ace-window)
 (map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
 (map! :leader :desc "Web Wowser" "oe" 'eww)

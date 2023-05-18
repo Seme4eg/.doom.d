@@ -1141,4 +1141,4 @@ S-q
 
 ~SPC~ .. e, j, k, r, v, y
 * Todos
-- fix [[var:doom-unicode-font]] being nil (must b set to symbola by default)
+- fix evil-collection not working properly in 'diff-hl' popup buffers
