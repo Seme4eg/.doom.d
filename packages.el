@@ -18,6 +18,12 @@
 (package! gptel)
 ;; (package! elcord)
 
+;; evil-collection for mu4e fix
+;; https://github.com/doomemacs/doomemacs/issues/7196
+(unpin! evil-collection)
+;; (package! evil-collection
+;;   :recipe (:repo "meliache/evil-collection" :branch "mu4e-development"))
+
 ;; (package! soundklaus
 ;;   :recipe (:local-repo "lisp/soundklaus" :build (:not compile)))
 ;; setup of exwm and desktop environment in my .dotfiles repo

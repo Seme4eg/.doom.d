@@ -277,48 +277,45 @@ Forge:
 #+end_src
 * Mu4e
 #+begin_src emacs-lisp
-(setq
- ;; This is set to 't' to avoid mail syncing issues when using mbsync
- mu4e-change-filenames-when-moving t
- ;; Refresh mail using isync every 10 minutes
- mu4e-update-interval 300)
- ;; Configure the function to use for sending mail
+(after! mu4e
+  (setq
+   ;; avoid mail syncing issues when using mbsync
+   mu4e-change-filenames-when-moving t
+   mu4e-update-interval (* 10 60)
+   mu4e-attachment-dir "~/Downloads"
+   ;; target just one account for updating
+   ;; mu4e-get-mail-command "mbsync <account>"
 
-(setq smtpmail-smtp-server  "smtp.mail.ru"
-      smtpmail-smtp-service 465
-      smtpmail-stream-type  'ssl
-      smtpmail-debug-info t ;; enables debug buffer 'trace of SMTP ...'
-      message-send-mail-function 'smtpmail-send-it)
+   ;; smtpmail-smtp-server  "smtp.mail.ru"
+   ;; smtpmail-smtp-service 465
+   ;; smtpmail-stream-type  'ssl
+   ;; smtpmail-debug-info t ;; enables debug buffer 'trace of SMTP ...'
+   ;; message-send-mail-function 'smtpmail-send-it
 
-;; (setq sendmail-program (executable-find "msmtp")
-;;       send-mail-function #'smtpmail-send-it
-;;       message-sendmail-f-is-evil t
-;;       message-sendmail-extra-arguments '("--read-envelope-from")
-;;       message-send-mail-function #'message-send-mail-with-sendmail)
+   mu4e-compose-dont-reply-to-self t
+   sendmail-program (executable-find "msmtp")
+   send-mail-function #'smtpmail-send-it
+   ;; always pick current context for sending
+   message-sendmail-f-is-evil t
+   message-sendmail-extra-arguments '("--read-envelope-from")
+   message-send-mail-function #'message-send-mail-with-sendmail)
 
-(set-email-account! "d3v1ant@mail.ru"
-                   '((user-mail-address     . "d3v1ant@mail.ru")
-                     (user-full-name        . "A.L.")
-                      ;; text in the end of composed mail
-                      ;; (mu4e-compose-signature . "- sad\nnewline")
-                     (mu4e-drafts-folder    . "/mailru/d3v1ant/Drafts")
-                     (smtpmail-smtp-user    . "d3v1ant@mail.ru")
-                     (mu4e-sent-folder      . "/mailru/d3v1ant/Sent")
-                     (mu4e-refile-folder    . "/mailru/d3v1ant/Inbox")
-                     (mu4e-trash-folder     . "/mailru/d3v1ant/Trash")))
+  (set-email-account! "d3v1ant@mail.ru"
+                     '((user-full-name        . "A.L.")
+                       (smtpmail-smtp-user    . "d3v1ant@mail.ru")
+                       ;; text in the end of composed mail
+                       ;; (mu4e-compose-signature . "- sad\nnewline")
+                       (mu4e-drafts-folder    . "/mailru/drafts")
+                       (mu4e-sent-folder      . "/mailru/sent")
+                       (mu4e-refile-folder    . "/mailru/inbox")
+                       (mu4e-trash-folder     . "/mailru/trash")))
 
-(setq mu4e-maildir-shortcuts
-      '((:maildir "/mailru/d3v1ant/Inbox"  :key ?i)
-        (:maildir "/mailru/d3v1ant/Sent"   :key ?s)
-        (:maildir "/mailru/d3v1ant/Trash"  :key ?t)
-        (:maildir "/mailru/d3v1ant/Drafts" :key ?d)
-        (:maildir "/mailru/d3v1ant/Spam"   :key ?a)
-
-        (:maildir "/gmail/Inbox"  :key ?I)
-        (:maildir "/gmail/Sent"   :key ?S)
-        (:maildir "/gmail/Trash"  :key ?T)
-        (:maildir "/gmail/Drafts" :key ?D)
-        (:maildir "/gmail/Spam"   :key ?A)))
+  (setq mu4e-maildir-shortcuts
+           '((:maildir "/mailru/inbox"  :key ?i)
+             (:maildir "/mailru/sent"   :key ?s)
+             (:maildir "/mailru/trash"  :key ?t)
+             (:maildir "/mailru/drafts" :key ?d)
+             (:maildir "/mailru/spam"   :key ?a))))
 #+end_src
 
 * Telega
