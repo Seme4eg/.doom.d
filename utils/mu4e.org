@@ -5,6 +5,10 @@
 :sources:  [[https://yamadharma.github.io/ru/post/2021/01/22/mail-synchronization-mbsync/#синхронизация][mbsync configs for different email clients]], [[https://www.youtube.com/watch?v=olXpfaSnf0o][system crafters 2]], [[https://help.mail.ru/mail/mailer/popsmtp][mail ru official]]
 :END:
 
+*Mu init*:
+
+~mu init --maildir ~/.mail --my-address one@mail.com --my-address two@mail.com~
+
 _On main mu4e interface page:_
 - ; :: switch focus - change mail account
 - u :: update email (throws an error if in your emacs config u got

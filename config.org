@@ -283,8 +283,6 @@ Forge:
    mu4e-change-filenames-when-moving t
    mu4e-update-interval (* 10 60)
    mu4e-attachment-dir "~/Downloads"
-   ;; target just one account for updating
-   ;; mu4e-get-mail-command "mbsync <account>"
 
    mu4e-compose-dont-reply-to-self t
    sendmail-program (executable-find "msmtp")
@@ -294,22 +292,32 @@ Forge:
    message-sendmail-extra-arguments '("--read-envelope-from")
    message-send-mail-function #'message-send-mail-with-sendmail)
 
-  (set-email-account! "d3v1ant@mail.ru"
-                     '((user-full-name        . "A.L.")
-                       (smtpmail-smtp-user    . "d3v1ant@mail.ru")
-                       ;; text in the end of composed mail
-                       ;; (mu4e-compose-signature . "- sad\nnewline")
-                       (mu4e-drafts-folder    . "/mailru/drafts")
-                       (mu4e-sent-folder      . "/mailru/sent")
-                       (mu4e-refile-folder    . "/mailru/inbox")
-                       (mu4e-trash-folder     . "/mailru/trash")))
+  (setq mu4e-contexts
+        (list
+         (make-mu4e-context
+          :name "418"
+          ;; match f-n is important for composition, moving files, etc.
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/mailru" (mu4e-message-field msg :maildir))))
+          ;; :leave-func
+          ;; (lambda () (mu4e-clear-caches))
+          :vars '((user-mail-address     . "d3v1ant@mail.ru")
+                  (user-full-name        . "A.L.")
+                  ;; (mu4e-compose-signature . "- earthian\nnewline")
+                  (mu4e-refile-folder    . "/mailru/inbox")
+                  (mu4e-sent-folder      . "/mailru/sent")
+                  (mu4e-drafts-folder    . "/mailru/drafts")
+                  (mu4e-trash-folder     . "/mailru/trash")))))
 
   (setq mu4e-maildir-shortcuts
-           '((:maildir "/mailru/inbox"  :key ?i)
-             (:maildir "/mailru/sent"   :key ?s)
-             (:maildir "/mailru/trash"  :key ?t)
-             (:maildir "/mailru/drafts" :key ?d)
-             (:maildir "/mailru/spam"   :key ?a))))
+        '((:maildir "/mailru/inbox"  :key ?i)
+          (:maildir "/mailru/sent"   :key ?s)
+          (:maildir "/mailru/trash"  :key ?t)
+          (:maildir "/mailru/drafts" :key ?d)
+          (:maildir "/mailru/spam"   :key ?a))))
+
 #+end_src
 
 * Telega
