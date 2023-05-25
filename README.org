@@ -1142,4 +1142,7 @@ S-q
 ~SPC~ .. e, j, k, r, v, y
 * Todos
 - fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
-- fix mu4e not using evil-collectioon and not prompting for gpg pass
+- when running emacs as client can't set DISPLAY var to ':0', it always is
+  'wayland-1', which i suppose is a reason why mu4e fails on pinentry step. For
+  now switched back to non-client emacs and disabled systemd daemon untill i
+  will find solution.

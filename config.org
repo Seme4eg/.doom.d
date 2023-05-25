@@ -286,12 +286,6 @@ Forge:
    ;; target just one account for updating
    ;; mu4e-get-mail-command "mbsync <account>"
 
-   ;; smtpmail-smtp-server  "smtp.mail.ru"
-   ;; smtpmail-smtp-service 465
-   ;; smtpmail-stream-type  'ssl
-   ;; smtpmail-debug-info t ;; enables debug buffer 'trace of SMTP ...'
-   ;; message-send-mail-function 'smtpmail-send-it
-
    mu4e-compose-dont-reply-to-self t
    sendmail-program (executable-find "msmtp")
    send-mail-function #'smtpmail-send-it
