@@ -1,28 +1,16 @@
-* List of todos
-_Summary_: [10/21] [47%]
-- [X] set and test out [[https://github.com/emacs-eaf/emacs-application-framework][EAF]] - after i check it out i don't c much use to me
-- [X] learn elisp
-  - [X] write func to open eww not in minibuffer on ~spc o b~ but on other window
-  - [X] write 'theme-randomize' function for emacs)
-- [ ] Install [[https://github.com/EmmyLua/EmmyLua-LanguageServer][emmy lua language server]]
-- [ ] ~spc h b f macro~ - solve my macro problems
-- [ ] god mode?
-- [ ] check out another emacs info [[https://scripter.co/search/?q=emacs][source]]
-- [ ] gnus? [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/gnus/evil-collection-gnus.el][evil-collection-gnus.el]]
-- [ ] telega evil collection check -> less in telega.org
-- [ ] change kbd for telega from default to ~spc z~
-- [ ] any way to make some 'prev/next in history' funcs in [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/helpful/evil-collection-helpful.el][helpful]]
-- [ ] *allow doom to HELP u* ffs -> ~spc h~
-- [X] dired [[https://github.com/ralesi/ranger.el][ranger]] - might it be faster than treemacs? and how often im goin to use it? (=+ranger= flag) - learn it - it is quicker than treemacs in terms of file-operations and searching
-- [X] [[https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript][dap-mode for node]] - figure out js *debugging* - doesn't work with vue.
-- [X] irc / erc / Rcirc - all irc clients; find some IRC to ask question: "How to perform line search on all file candidates in minibuffer (with embark?)"
-- [ ] rss? setup yt rss client maybe? then find some more rss stuff to fill there?
-# - [ ] [[https://github.com/chenyanming/calibredb.el#table-of-contents][calibredb]] - learn how to use - decided that i don't need that for now
-- [-] Games in emacs:
-  - [X] [[https://www.masteringemacs.org/article/fun-games-in-emacs][link 1]]
-  - [ ] [[https://www.emacswiki.org/emacs/CategoryGames][link 2]]
-- [X] how to copy with evil without whitespace? - g{motion}y
-- [X] ([[http://pragmaticemacs.com/mu4e-tutorials/][mu4e]] +gmail) ;; REVIEW (init.el); also ~spc s s mu4e~ this buffer to get more input data.
-- [X] setup [[https://snapcraft.io/telega][telega]] (telegramm emacs client)
-- [X] what is 'timer', 'char timer'? ~spc s s timer~..
-- [X] [[https://orgmode.org/manual/Attachments.html][org-attachments]] - ~spc m a~ prefix, sir.. everything else in =org-readme=
+* Todos [4/13] [30%]
+** DONE set and test out [[https://github.com/emacs-eaf/emacs-application-framework][EAF]] - after i check it out i don't c much use to me
+** TODO ~spc h b f macro~ - solve my macro problems
+** TODO god mode?
+** TODO check out another emacs info [[https://scripter.co/search/?q=emacs][source]]
+** TODO gnus? [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/gnus/evil-collection-gnus.el][evil-collection-gnus.el]]
+** TODO telega evil collection check -> less in telega.org
+** TODO any way to make some 'prev/next in history' funcs in [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/helpful/evil-collection-helpful.el][helpful]]
+** TODO *allow doom to HELP u* ffs -> ~spc h~
+** TODO rss? setup yt rss client maybe? then find some more rss stuff to fill there?
+** TODO Games in emacs:
+*** DONE [[https://www.masteringemacs.org/article/fun-games-in-emacs][link 1]]
+*** TODO [[https://www.emacswiki.org/emacs/CategoryGames][link 2]]
+** DONE how to copy with evil without whitespace? - g{motion}y
+** DONE what is 'timer', 'char timer'? ~spc s s timer~..
+** DONE [[https://orgmode.org/manual/Attachments.html][org-attachments]] - ~spc m a~ prefix, sir.. everything else in =org-readme=
