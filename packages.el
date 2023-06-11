@@ -1,22 +1,12 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
-;; To install a package with Doom you must declare them here and run 'doom sync'
-;; on the command line, then restart Emacs for the changes to take effect -- or
-;; use 'M-x doom/reload'.
-
-
-;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
-;(package! some-package)
-
-;; (package! jest)
 (package! telega)
 ;; (package! 0x0 :recipe (:host gitlab :repo "willvaughn/emacs-0x0"))
 (package! ewal
   :recipe (:host github :repo "cyruseuros/ewal"
             :files ("ewal.el" "*/*.el")))
 (package! gptel)
-;; (package! elcord)
 
 ;; evil-collection for mu4e fix
 ;; https://github.com/doomemacs/doomemacs/issues/7196

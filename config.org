@@ -527,16 +527,6 @@ Forge:
          gptel-api-key #'e/read-openai-key))
 #+end_src
 
-* WAIT Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
-#+begin_src elisp
-;; (use-package! elcord
-;;   :config
-;;   (elcord-mode))
-
-;; (require 'elcord)
-;; (elcord-mode)
-#+end_src
-
 * Other settings
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
