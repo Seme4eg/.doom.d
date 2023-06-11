@@ -5,6 +5,9 @@
 :sources:  [[https://yamadharma.github.io/ru/post/2021/01/22/mail-synchronization-mbsync/#синхронизация][mbsync configs for different email clients]], [[https://www.youtube.com/watch?v=olXpfaSnf0o][system crafters 2]], [[https://help.mail.ru/mail/mailer/popsmtp][mail ru official]]
 :END:
 
+# z i
+[[yt:Qq6s3PwSwjo][nice intro vid]]
+
 *Mu init*:
 
 ~mu init --maildir ~/.mail --my-address one@mail.com --my-address two@mail.com~
