@@ -202,12 +202,12 @@ Forge:
 ;; (setq org-time-stamp-custom-formats '("<%a %d-%m-%Y>" . "<%a %d-%m-%Y %H:%M>"))
 ;; (setq org-display-custom-times t)
 
-;; TODO: make those active only in org-mode
 (after! org
-  (map! :leader
-        :desc "Shrink" "mbS" 'org-table-shrink
-        :desc "Expand" "mbE" 'org-table-expand
-        :desc "Toggle width" "mbts" 'org-table-toggle-column-width)
+  (map! :map org-mode-map
+        :localleader
+        :n "bS" 'org-table-shrink
+        :n "bE" 'org-table-expand
+        :n "bts" 'org-table-toggle-column-width)
 
   (setq
    org-src-window-setup 'current-window
