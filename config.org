@@ -541,8 +541,9 @@ Forge:
   ;; +lookup-xwidget-webkit-open-url-fn
   (setq dash-docs-browser-func #'eww))
 
-(setq locate-command "plocate"
-      consult-locate-args "plocate --ignore-case")
+(after! consult
+  (setq locate-command "plocate"
+        consult-locate-args "plocate --ignore-case"))
 #+end_src
 
 A useful macro (sometimes) for timing the execution of things. From
