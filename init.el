@@ -7,7 +7,7 @@
   ;;layout        ; auie,ctsrnm is the superior home row
 
   :completion
-  company           ; the ultimate code completion backend
+  ;; company           ; the ultimate code completion backend
   (vertico +icons)
 
   :ui

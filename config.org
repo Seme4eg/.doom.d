@@ -526,6 +526,45 @@ Forge:
          gptel-default-mode 'org-mode
          gptel-api-key #'e/read-openai-key))
 #+end_src
+* Corfu [[https://github.com/minad/corfu][#github]]
+_NOTE_: while in search menu in order to do orderless completion ~M-SPC~ + space
+and there's fuzzy search
+
+#+begin_src emacs-lisp
+(use-package! corfu
+  ;; optimal?
+  :custom
+  (corfu-cycle t)
+  (corfu-auto nil)
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.0)
+  (corfu-quit-at-boundary 'separator)
+  (corfu-preview-current 'insert)
+  (corfu-preselect nil)
+  :init
+  (global-corfu-mode)
+  ;; (corfu-history-mode)
+  (map! :g "C-SPC" #'completion-at-point)
+  (map! :map corfu-map
+        :nvi "C-j" #'corfu-next
+        :nvi "C-k" #'corfu-previous
+        :nvi "C-j" #'corfu-next
+        :nvi "C-l" #'corfu-insert-separator
+        :nvi "C-h" #'corfu-reset))
+#+end_src
+* Cape [[https://github.com/minad/cape][#github]]
+#+begin_src emacs-lisp
+(use-package! cape
+  :defer 10
+  :init
+  ;; Add 'completion-at-point-functions', used by 'completion-at-point'.
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  :config
+  ;; silence then pcomplete capf, no errors or messages
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+#+end_src
 
 * Other settings
 #+begin_src emacs-lisp

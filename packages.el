@@ -7,6 +7,8 @@
   :recipe (:host github :repo "cyruseuros/ewal"
             :files ("ewal.el" "*/*.el")))
 (package! gptel)
+(package! corfu)
+(package! cape)
 
 ;; evil-collection for mu4e fix
 ;; https://github.com/doomemacs/doomemacs/issues/7196
