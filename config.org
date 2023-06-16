@@ -527,12 +527,11 @@ Forge:
          gptel-api-key #'e/read-openai-key))
 #+end_src
 * Corfu [[https://github.com/minad/corfu][#github]]
-_NOTE_: while in search menu in order to do orderless completion ~M-SPC~ + space
-and there's fuzzy search
+
+NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
 
 #+begin_src emacs-lisp
 (use-package! corfu
-  ;; optimal?
   :custom
   (corfu-cycle t)
   (corfu-auto nil)
@@ -540,18 +539,21 @@ and there's fuzzy search
   (corfu-auto-delay 0.0)
   (corfu-quit-at-boundary 'separator)
   (corfu-preview-current 'insert)
-  (corfu-preselect nil)
+  (corfu-preselect 'first)
   :init
   (global-corfu-mode)
-  ;; (corfu-history-mode)
+  ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
+  (corfu-history-mode)
+  ;; (corfu-echo-mode)
+  (evil-collection-corfu-setup)
   (map! :g "C-SPC" #'completion-at-point)
   (map! :map corfu-map
-        :nvi "C-j" #'corfu-next
-        :nvi "C-k" #'corfu-previous
-        :nvi "C-j" #'corfu-next
-        :nvi "C-l" #'corfu-insert-separator
-        :nvi "C-h" #'corfu-reset))
+        :nvi "SPC" #'corfu-insert-separator
+        :nvi "C-g" (lambda () (progn (corfu-reset)
+                                (evil-collection-corfu-quit-and-escape)))
+        :nvi "C-h" #'corfu-info-documentation))
 #+end_src
+
 * Cape [[https://github.com/minad/cape][#github]]
 #+begin_src emacs-lisp
 (use-package! cape

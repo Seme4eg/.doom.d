@@ -7,7 +7,7 @@
   :recipe (:host github :repo "cyruseuros/ewal"
             :files ("ewal.el" "*/*.el")))
 (package! gptel)
-(package! corfu)
+(package! corfu :recipe (:files ("corfu.el" "extensions/*.el")))
 (package! cape)
 
 ;; evil-collection for mu4e fix
