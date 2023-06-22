@@ -1,7 +1,7 @@
-* Doom [[file:~/.emacs.d/docs/index.org][#docs-index]] [[file:~/.emacs.d/docs/getting_started.org][#getting-started]] [[file:~/.emacs.d/docs/modules.org][#modules]]
+
 [[https://www.emacswiki.org/emacs/GccEmacs][Installation]]
 
-*IMPORTANT* - [[file:~/.emacs.d/docs/getting_started.org::*Looking up documentation and state from within Emacs][Looking up documentation and HELP]] in *ANY* possible way e.g. /vars,
+*IMPORTANT* - [[file:~/.config/emacs/docs/getting_started.org::*Looking up documentation and state from within Emacs][Looking up documentation and HELP]] in *ANY* possible way e.g. /vars,
 funcs, faces, *bindings*, keys, keymaps, chars, libs/
 
 config reload - ~spc h r r~
@@ -32,7 +32,7 @@ font string. You generally only need these two:
 
 * Shortcuts
 :PROPERTIES:
-:Sources: [[file:~/.emacs.d/modules/config/default/+evil-bindings.el][+evil-bindings.el]], [[https://github.com/hlissner/doom-emacs/blob/96bea9e9ad4f3e3412472fa0f26a19d19be66a1a/modules/config/default/%2Bbindings.el][bindings.el]], [[file:~/.emacs.d/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
+:Sources: [[file:~/.config/emacs/modules/config/default/+evil-bindings.el][+evil-bindings.el]], [[https://github.com/hlissner/doom-emacs/blob/96bea9e9ad4f3e3412472fa0f26a19d19be66a1a/modules/config/default/%2Bbindings.el][bindings.el]], [[file:~/.config/emacs/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
 :END:
 
 - ~SPC u~ replaces ~C-u~ as the *universal* argument.
@@ -71,7 +71,7 @@ Anywhere in =help= / =apropos= buffers:
 - X :: Org Capture
 - ~ :: Toggle last *popup*
 
-_Leader mode map links_: *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]] ([[file:~/.emacs.d/modules/ui/workspaces/README.org::*Commands & Keybindings][doom]] & C-t - new, gt/T), *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]], *f* [[elisp:(helpful-variable
+_Leader mode map links_: *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]] ([[file:~/.config/emacs/modules/ui/workspaces/README.org::*Commands & Keybindings][doom]] & C-t - new, gt/T), *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]], *f* [[elisp:(helpful-variable
  'doom-leader-file-map)][file]], *g* [[elisp:(helpful-variable 'doom-leader-git-map)][git]], *i* [[elisp:(helpful-variable 'doom-leader-insert-map)][insert]], *n* [[elisp:(helpful-variable 'doom-leader-notes-map)][notes]], *o* [[elisp:(helpful-variable 'doom-leader-open-map)][open]], *p* [[elisp:(helpful-variable 'doom-leader-project-map)][project]], *q* [[elisp:(helpful-variable 'doom-leader-quit/session-map)][quit/session]], *s* [[elisp:(helpful-variable 'doom-leader-search-map)][search]], *t* [[elisp:(helpful-variable
  'doom-leader-toggle-map)][toggle]] (+ *s*[pell] checker), *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *J*[ump] to symbol in any workspace), *w* [[elisp:(helpful-variable
  'evil-window-map)][window]]
@@ -149,7 +149,7 @@ Custom evil keybinds:
 - :v  ">"     #'+evil/shift-right  ; vnoremap > >gv
 
 * Packages
-** git [[file:~/.emacs.d/modules/tools/magit/README.org::*Plugins][#plugins]] [[elisp:(helpful-variable 'doom-leader-git-map)][#modemap]]
+** git [[file:~/.config/emacs/modules/tools/magit/README.org::*Plugins][#plugins]] [[elisp:(helpful-variable 'doom-leader-git-map)][#modemap]]
 - ~SPC g t~ - [[https://github.com/emacsmirror/git-timemachine][git-timemachine]] - view file =x= time ago;
 - ~%~ - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]]
 
@@ -162,8 +162,8 @@ github/gitlab/bitbucket/stash/git.savannah.gnu.org/sourcehut from Emacs:
 - ~SPC g o o~ - Open URL to current file (and line if selection is active) in
   browser
 
-** evil [[file:~/.emacs.d/modules/editor/evil/README.org::*Features][#features]]
-[[file:~/.emacs.d/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
+** evil [[file:~/.config/emacs/modules/editor/evil/README.org::*Features][#features]]
+[[file:~/.config/emacs/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
 
 - *[[https://github.com/emacs-evil/evil-collection][evil-collection]]* - plugin used as a foundation for flag =+everywhere=, which
   enables evilified keybinds everywhere possible.
@@ -172,7 +172,7 @@ github/gitlab/bitbucket/stash/git.savannah.gnu.org/sourcehut from Emacs:
   command that allows to invoke evil-multiedit with a regular expression -
   =ie[dit]=. There is also a [[https://www.youtube.com/watch?v=zXdT5jY_ui0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][quick vid tut]]. Also ~R~ - #'evil-multiedit-match-all.
 - *evil-mc* - ~gz ..~. Which-key available. For some reason kbds in
-  [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/evil-mc/evil-collection-evil-mc.el][evil-collection-evil-mc.el]] ain't there.
+  [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/evil-mc/evil-collection-evil-mc.el][evil-collection-evil-mc.el]] ain't there.
 - *evil-nerd-commenter* - comment any viable /text objects/ (below). ~gc {motion}~
   Inobvious motions: c / *l*[line], *r*[egion], *\* - comment current line and enter
   insert mode on point
@@ -199,13 +199,13 @@ kill-stay, teleport, mark, yank ...)/.
 - a/A   :: forward/backward-*arg*
 
 ** Development
-[[https://github.com/emacs-lsp/lsp-mode][lsp]] - [[https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/][tutorial]], ~SPC c l~ - prefix ([[file:~/.emacs.d/modules/tools/lsp/README.org::*Features][lsp doom features]]).
+[[https://github.com/emacs-lsp/lsp-mode][lsp]] - [[https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/][tutorial]], ~SPC c l~ - prefix ([[file:~/.config/emacs/modules/tools/lsp/README.org::*Features][lsp doom features]]).
 
 [[https://github.com/hlissner/doom-snippets][snippets and how to use / write them]]
 - :i  [C-tab] #'aya-expand
 - :nv [C-tab] #'aya-create
 
-*** eval [[file:~/.emacs.d/modules/tools/eval/README.org::*Features][#features]]
+*** eval [[file:~/.config/emacs/modules/tools/eval/README.org::*Features][#features]]
 instead of opening console in all browser tabs...
 
 - g r :: +eval:region
@@ -225,7 +225,7 @@ instead of opening console in all browser tabs...
 
 =eros-eval-defun= - Wrapper for ‘eval-defun’ that overlays results.
 
-*** lookup [[file:~/.emacs.d/modules/tools/lookup/README.org::*Features][#features]]
+*** lookup [[file:~/.config/emacs/modules/tools/lookup/README.org::*Features][#features]]
 *K* documentation, g *d*[efinition], g *D* - references, g *f*[ile], g
 *I*[mplementations], g *A*[ssignments]
 
@@ -255,7 +255,7 @@ This mode isn't enabled in all prog-modes.
 There's also =hide-sublevels= command
 
 *** Languages
-- JS [[file:~/.emacs.d/modules/lang/javascript/README.org::*Commands][#commands]] (js2-mode / tide / js2-refactor / skewer-mode / npm-mode), and
+- JS [[file:~/.config/emacs/modules/lang/javascript/README.org::*Commands][#commands]] (js2-mode / tide / js2-refactor / skewer-mode / npm-mode), and
   ~spc h v js map~, also there is [[https://github.com/NicolasPetton/Indium][Indium]] (js development environment), [[https://www.purescript.org/][purescript]],
   [[https://github.com/reasonml-editor/reason-mode][reason-mode]] ([[https://reasonml.github.io][Reason github]] - JavaScript & OCaml ecosystems)
 - [[elisp:(helpful-variable 'sh-mode-map)][sh-mode-map]]
@@ -322,7 +322,7 @@ with '[' all same but 'previous':
 - [ g l - +goto-previous-loop.outer
 - ...
 
-***** [[file:~/.emacs.d/.local/straight/repos/go-mode.el/go-guru.el][Go-guru]]* (code navigation)
+***** [[file:~/.config/emacs/.local/straight/repos/go-mode.el/go-guru.el][Go-guru]]* (code navigation)
 - go-guru-peers (SPC m h p) - Enumerate the set of possible corresponding
   sends/receives for
 - go-guru-callees (SPC m h C) - Show possible callees of the function call at
@@ -361,9 +361,9 @@ Edit field tags for golang struct fields.
 - go-tag-open-github - go-tag open Github page.
 
 **** (e)lisp future
-[[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/edebug/evil-collection-edebug.el][evil-collection-edebug.el]],  [[elisp:(helpful-variable 'emacs-lisp-mode-map)][#elisp-mode-map]],  [[elisp:(helpful-variable 'elisp-refs-mode-map)][#elisp-refs-mode-map]]
+[[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/edebug/evil-collection-edebug.el][evil-collection-edebug.el]],  [[elisp:(helpful-variable 'emacs-lisp-mode-map)][#elisp-mode-map]],  [[elisp:(helpful-variable 'elisp-refs-mode-map)][#elisp-refs-mode-map]]
 ***** debug
-[[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/debug/evil-collection-debug.el][evil-collction-debug]] + :
+[[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/debug/evil-collection-debug.el][evil-collction-debug]] + :
 - ‘#’ Toggle ‘print-circle’ for the frame at point.
 - ‘:’ Toggle ‘print-gensym’ for the frame at point.
 - ‘.’ Expand all the forms abbreviated with “...” in the frame at point.
@@ -400,11 +400,11 @@ Files ending with ~.http~ will have restclient-mode enabled by default.
 - ~C-c C-i~: show information on resclient variables at point
 
 ** Navigation
-*** window-select [[file:~/.emacs.d/modules/ui/window-select/README.org::*Description][#description]] ~spc w w~
+*** window-select [[file:~/.config/emacs/modules/ui/window-select/README.org::*Description][#description]] ~spc w w~
 I'm using ace-window. Kill windows, move them around, split them and more by
 using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
 
-*** dired [[file:~/.emacs.d/modules/emacs/dired/README.org::*Keybindings][#kbds]], [[elisp:(helpful-variable 'dired-mode-map)][#modemap]]
+*** dired [[file:~/.config/emacs/modules/emacs/dired/README.org::*Keybindings][#kbds]], [[elisp:(helpful-variable 'dired-mode-map)][#modemap]]
 - ~M~ - change permissions
 - ~o~ - sort by modes.
 - ~O~ - change the owner.
@@ -509,7 +509,7 @@ using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
   - w f :: Open current file in a new frame.
   - w j :: Open current file in ‘other-window’.
   - w e :: Open the current file or dired marked files in external - modifier-cache
-*** ibuffer [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/ibuffer/evil-collection-ibuffer.el][evil-collection-ibuffer.el]]
+*** ibuffer [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/ibuffer/evil-collection-ibuffer.el][evil-collection-ibuffer.el]]
 *Important*: if any kbds doesn't work - call it from =emacs-state=!
 
 + *Marking*. ~m u U d~ - as expected, others:
@@ -663,10 +663,10 @@ groups will be inserted before the group at point.
 ** Completion
 ~M-/~ - #'dabbrev-expand - Expand previous word "dynamically".
 
-- vertico [[file:~/.emacs.d/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.emacs.d/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] , ~C-SPC~ embark-preview
-- syntax (flycheck) [[file:~/.emacs.d/modules/checkers/syntax/README.org::*Features][#features]] [[elisp:(helpful-variable 'flycheck-mode-map)][#modemap]] [[elisp:(helpful-variable 'flycheck-error-list-mode-map)][#list modemap]]
+- vertico [[file:~/.config/emacs/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.config/emacs/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] , ~C-SPC~ embark-preview
+- syntax (flycheck) [[file:~/.config/emacs/modules/checkers/syntax/README.org::*Features][#features]] [[elisp:(helpful-variable 'flycheck-mode-map)][#modemap]] [[elisp:(helpful-variable 'flycheck-error-list-mode-map)][#list modemap]]
 
-*** company [[file:~/.emacs.d/modules/completion/company/README.org::*Code completion][#Code completion]] ~C-SPC~ to trigger completion.
+*** company [[file:~/.config/emacs/modules/completion/company/README.org::*Code completion][#Code completion]] ~C-SPC~ to trigger completion.
 ~C-SPC/@~ - (cmds! (not (minibufferp)) #'company-complete-common)
 
 - [[elisp:(helpful-variable 'company-active-map)][company-active-map]], "C-w" doesn't interfere with `evil-delete-backward-word'
@@ -683,7 +683,7 @@ Omni-completion :prefix "C-x":
 - :i "C-n"    #'+company/dabbrev
 - :i "C-p"    #'+company/dabbrev-code-previous
 
-*** spell (dictionary) [[file:~/.emacs.d/modules/checkers/spell/README.org::+TITLE: checkers/spell][#source]] [[https://gitlab.com/ideasman42/emacs-spell-fu][spell-fu]]
+*** spell (dictionary) [[file:~/.config/emacs/modules/checkers/spell/README.org::+TITLE: checkers/spell][#source]] [[https://gitlab.com/ideasman42/emacs-spell-fu][spell-fu]]
 Flycheck might be slow and won't be running automatically as of emacs 28, that's
 why i use default option - /spell-fu/.
 
@@ -705,7 +705,7 @@ Evil already defines 'z=' to `ispell-word' = correct word at point
 - :m  "[s"   #'+spell/previous-error
 - :m  "]s"   #'+spell/next-error)
 
-** Info [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/info/evil-collection-info.el][evil-collection-info.el]]
+** Info [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/info/evil-collection-info.el][evil-collection-info.el]]
 #+begin_comment
 Info files are created from Texinfo source files. You can use the same source
 file to make a printed manual or produce other formats, such as HTML and
@@ -779,7 +779,7 @@ To look up Info-mode _variables_ go ~SPC h i~ -> ~g m~ -> Info -> ~g G Variables
 
 - ~f~ :: following cross reference (part 1.7 of ~M-h~)
 - f? :: list all references in cur. node
-** Embark [[https://github.com/oantolin/embark/wiki/Default-Actions][#default-actions]] [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/embark/evil-collection-embark.el][evil-collection-embark.el]]
+** Embark [[https://github.com/oantolin/embark/wiki/Default-Actions][#default-actions]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/embark/evil-collection-embark.el][evil-collection-embark.el]]
 *Emacs Mini-Buffer Actions Rooted in Keymaps*
 
 Thing that allows u to:
@@ -898,12 +898,12 @@ command falls back to the generic ‘embark-collect-snapshot’.
 
 ** Utility
 - [[https://github.com/tecosaur/emacs-everywhere#usage][everywhere]] - Invoke Emacs everywhere
-- [[file:~/.emacs.d/modules/ui/popup/README.org::*Commands][popup]]:
+- [[file:~/.config/emacs/modules/ui/popup/README.org::*Commands][popup]]:
   + C-~ (+popup/raise) - Raise the current popup window into a regular window
   + C-` (+popup/toggle) - Toggle any visible popups.
   + SPC ~  (+popup/toggle) - Toggle any visible popups.
   + C-x p  (+popup/other) - Cycle through popup windows, like ‘other-window’....
-- [[file:~/.emacs.d/modules/tools/editorconfig/README.org::*Features][editorconfig]]
+- [[file:~/.config/emacs/modules/tools/editorconfig/README.org::*Features][editorconfig]]
 - better-jumper, [[https://github.com/gilbertw1/better-jumper#comparison-with-evil-jump][here]] is it's comparison to evil-jump. Basically its ~C-i / o~
   functionality. But if u type ~M-x better-..~ u will get all its possible
   functions, among which is =better-jumper-jump-newest=, which doesn't have kbd,
@@ -914,12 +914,12 @@ command falls back to the generic ‘embark-collect-snapshot’.
 - [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
 - [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
   regular expression (regexp) or keywords that you type.
-- Nov [[https://depp.brause.cc/nov.el/][#docs]] [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/nov/evil-collection-nov.el][evil-collectoin-nov.el]]
+- Nov [[https://depp.brause.cc/nov.el/][#docs]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/nov/evil-collection-nov.el][evil-collectoin-nov.el]]
 
-Some other modes: [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/xref/evil-collection-xref.el][evil-collection-xref.el]],
+Some other modes: [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/xref/evil-collection-xref.el][evil-collection-xref.el]],
 
 *** EWW - Emacs Web Wowser
-[[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]] - bookmarks, buffers list, open, external ...
+[[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]] - bookmarks, buffers list, open, external ...
 
 - M-RET :: *open* URL (or same page if not on URL) at point in *new buffer*
 - g h :: list browsing *history*. The history is lost when EWW is quit. If you
@@ -962,7 +962,7 @@ DEL (scroll-down-command)
 _Commands_:
 - eww-open-file :: open a local HTML file
 
-*** Xwidget [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/xwidget/evil-collection-xwidget.el][evil-collection-xwidget.el]]
+*** Xwidget [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/xwidget/evil-collection-xwidget.el][evil-collection-xwidget.el]]
 Inside the web browser, you can type ‘e’ to enter “edit mode”, where self
 inserting characters are passed to the WebKit widget, or ‘C-s’ to perform
 incremental search on the contents of the WebKit widget.
@@ -981,7 +981,7 @@ only renders link on cur. page.
 - g   :: revert-buffer
 - w   :: xwidget-webkit-current-url
 
-*** IRC [[file:~/.emacs.d/modules/app/irc/README.org::*An IRC Client in Emacs][#kbds]] ~SPC m~
+*** IRC [[file:~/.config/emacs/modules/app/irc/README.org::*An IRC Client in Emacs][#kbds]] ~SPC m~
 #+NAME: what is IRC
 #+begin_comment
 [[https://github.com/emacs-circe/circe/wiki/Introduction-to-IRC][Introduction to IRC]]

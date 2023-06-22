@@ -3,9 +3,9 @@
 ** TODO ~spc h b f macro~ - solve my macro problems
 ** TODO god mode?
 ** TODO check out another emacs info [[https://scripter.co/search/?q=emacs][source]]
-** TODO gnus? [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/gnus/evil-collection-gnus.el][evil-collection-gnus.el]]
+** TODO gnus? [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/gnus/evil-collection-gnus.el][evil-collection-gnus.el]]
 ** TODO telega evil collection check -> less in telega.org
-** TODO any way to make some 'prev/next in history' funcs in [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/helpful/evil-collection-helpful.el][helpful]]
+** TODO any way to make some 'prev/next in history' funcs in [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/helpful/evil-collection-helpful.el][helpful]]
 ** TODO *allow doom to HELP u* ffs -> ~spc h~
 ** TODO rss? setup yt rss client maybe? then find some more rss stuff to fill there?
 ** TODO Games in emacs:

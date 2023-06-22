@@ -1,6 +1,6 @@
 #+TITLE: Telega
 
-* Telega [[https://zevlg.github.io/telega.el/][#docs]] [[file:~/.emacs.d/.local/straight/repos/evil-collection/modes/telega/evil-collection-telega.el][evil-collection-telega.el]]
+* Telega [[https://zevlg.github.io/telega.el/][#docs]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/telega/evil-collection-telega.el][evil-collection-telega.el]]
 _Chat Filters_ (~\/~ prefix) are used to match chats, same as regexps are used to
 match strings. Chat Filters uses S-exp notation similar to rx package for
 regexps. Consider Chat Filters as extremely powerful "Folders" functionality in
