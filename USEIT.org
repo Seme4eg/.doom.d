@@ -1,75 +1,69 @@
-~C-~~ - Raise the current popup window into a regular window
+
+[[file:~/.config/emacs/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]] !!!
 
 In minibuffer:
-- ~C-a~   move-*beginning*-of-line
-- ~C-w~   delete-*backward-word*
+- ~C-a~   move-_beginning_-of-line
 - ~C-u~   delete-back-to-indentation
-- C-s   consult-*history*
-- M-<   minibuffer-*beginning*-of-buffer
+- M-<   minibuffer-_beginning_-of-buffer
 - M-p/n previous/next-history-element
 
 ~g~ key:
-- g u/U :: Convert text to lower/upper case.
 - g i :: Switch to Insert state at previous insertion point.
 - g O, SPC s i :: Jump to a place in the buffer chosen using a buffer menu or
   mouse menu. (=imenu=)
 
-spc tab - *workspace*:
+spc tab - _workspace_:
 - "Switch workspace"          "."   #'+workspace/switch-to
 
-spc b - *buffers*:
+spc b - _buffers_:
 - "Set bookmark"                "m"   #'bookmark-set
 - "Delete bookmark"             "M"   #'bookmark-delete
 
-spc c - *code*:
-- "Format buffer/region" "f"   #'+format/region-or-buffer
-
-*Create file* (also):
+_Create file_ (also):
 - "Find file from here"         "F"   #'+default/find-file-under-here
 
-spc g - *magit*:
+spc g - _magit_:
 - "Magit dispatch"            "/"   #'magit-dispatch
 - "Magit file dispatch"       "."   #'magit-file-dispatch
 
-spc i - *inset*:
+spc i - _insert_:
 - "From clipboard"                "y"   #'+default/yank-pop
 
-spc p - *project*:
+spc p - _project_:
 "Browse other project"         ">" #'doom/browse-in-other-project
 "Find recent project files"    "r" #'projectile-recentf
 
-spc s - *search*:
-- "Search other directory"       "D" #'+default/search-other-cwd
+spc s - _search_:
 - "Jump list"                    "j" #'evil-show-jumps
 - "Jump to bookmark"             "m" #'bookmark-jump
 
-spc w - *windows* (use ~spc w~ instead of ~C-c w~):
+spc w - _windows_ (use ~spc w~ instead of ~C-c w~):
 - "C-c"     #'ace-delete-window
 
 :n  "zx" #'kill-this-buffer
 :n  "]w" #'+workspace/switch-right
 :n  "[w" #'+workspace/switch-left
-:m  "gt" #'+workspace/switch-right
-:m  "gT" #'+workspace/switch-left
 :v  "gp" #'+evil/paste-preserve-register
 :v  "@"  #'+evil:apply-macro
 :n  "g@" #'+evil:apply-macro
 
-:m  ~]c~ / ~[c~   #'+evil/next-comment / '+evil/previous-comment
-:m  ~]e~ / ~[e~   #'next-error / 'previous-error
 :m  ~]m~ / ~[m~   #'+evil/next/prev-beginning-of-method
 :m  ~]M~ / ~[M~   #'+evil/next-end-of-method / '+evil/previous-end-of-method
 :nv "gx"    #'evil-exchange
 :nv "gy"    #'+evil:yank-unindented
 
-
-*PLUGINS:*
-- :o "s" #'evil-surround-edit
-- :o "S" #'evil-Surround-edit
-
-Learn [[file:~/.emacs.d/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
-
 ~SPC h K~ (Info-goto-emacs-key-command-node) - Go to the node in the Emacs manual
 which detailed description
+* done
 
-To find out how to use with evil-everywhere:
+- C ~ - Raise the current popup window into a regular window
+- g u/U - Convert text to lower/upper case.
+- spc s D - "Search other directory" #'+default/search-other-cwd
+- :m  "gt" #'+workspace/switch-right
+- :m  "gT" #'+workspace/switch-left
+- :m  ~]c~ / ~[c~   #'+evil/next-comment / '+evil/previous-comment
+- :m  ~]e~ / ~[e~   #'next-error / 'previous-error
+- :o "s" #'evil-surround-edit
+- :o "S" #'evil-Surround-edit
+- - ~C-w~   delete-_backward-word_
+- - C-s   consult-_history_
