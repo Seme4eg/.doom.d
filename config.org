@@ -277,7 +277,7 @@ Forge:
 #+end_src
 * Mu4e
 #+begin_src emacs-lisp
-(load "./mu4e.el")
+(load-file "~/.config/doom/mu4e.el")
 #+end_src
 
 * Telega
