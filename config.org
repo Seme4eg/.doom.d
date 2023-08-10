@@ -527,6 +527,23 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 #+end_src
+* Langtool
+#+begin_src emacs-lisp
+(after! langtool
+  (setq langtool-default-language "ru-RU"
+        langtool-disabled-rules '("Many_PNN[1] premium: false prio=-50")))
+
+(map! :after langtool :leader
+    :prefix ("y" . "langtool")
+    "." #'langtool-show-message-at-point
+    "," #'langtool-show-brief-message-at-point
+    "c" #'langtool-check
+    "b" #'langtool-check-buffer
+    "f" #'langtool-correct-buffer ;; fix fix fix
+    "s" #'langtool-check-done
+    "[" #'langtool-goto-previous-error
+    "]" #'langtool-goto-next-error)
+#+end_src
 
 * Other settings
 #+begin_src emacs-lisp
