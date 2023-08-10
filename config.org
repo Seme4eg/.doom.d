@@ -603,6 +603,21 @@ Made this function only cuz im too often too lazy to make a choice."
   (load-theme
    (nth (random (length (custom-available-themes))) (custom-available-themes)) t))
 
+(defun earthian/set-unicode-font ()
+  "Sets 'doom-unicode-font' var to bellotatext and reloads doom font"
+  (interactive)
+  (setq doom-unicode-font "bellotatext")
+  (doom/reload-font))
+
+(defun earthian/unset-unicode-font ()
+  "Sets 'doom-unicode-font' var to bellotatext and reloads doom font"
+  (interactive)
+  (setq doom-unicode-font (font-spec :family "Symbola"))
+  (doom/reload-font))
+
+(map! :leader :desc "Set other unicode font" "y q" 'earthian/set-unicode-font)
+(map! :leader :desc "Unset other unicode font" "y w" 'earthian/unset-unicode-font)
+
 (defun advice--center-buffer (orig-fun &rest args)
   "Center butter."
   (evil-scroll-line-to-center (line-number-at-pos)))
