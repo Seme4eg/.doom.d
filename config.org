@@ -137,24 +137,9 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
      ;; ("gopls.hints" ...)
      ("gopls.staticcheck" t t))))
 #+end_src
-** JS
-#+begin_src emacs-lisp
-;; does this even work? and is it even needed?
-(set-docsets! 'js2-mode "JavaScript")
-
-(after! js2-mode
-  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
-#+end_src
 ** Elm
 #+begin_src emacs-lisp
-;; (add-to-list 'company-backends 'elm-company)
 ;; (add-hook 'elm-mode-hook 'elm-format-on-save-mode)
-#+end_src
-** Shell
-#+begin_src emacs-lisp
-(after! sh-script
-  (set-company-backend! 'sh-mode
-    '(company-shell :with company-yasnippet)))
 #+end_src
 ** Magit & forge
 Magit:
@@ -190,13 +175,22 @@ Forge:
 
 * Org
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'auto-fill-mode)
-;; (add-hook! 'org-mode-hook (company-mode -1))
-(add-hook! 'org-capture-mode-hook (company-mode -1))
+(add-hook 'org-mode-hook 'sad/org-mode-setup)
 
-(add-hook 'org-mode-hook
-          (lambda () (add-hook 'after-save-hook #'org-babel-tangle
-                          :append :local)))
+(defun sad/org-mode-setup ()
+  (auto-fill-mode)
+  ;; Cyrillyc fonts:
+  ;; BellotaText-Regular.ttf -> ../.
+  ;; Comfortaa-VariableFont_wght.ttf
+  ;; PoiretOne-Regular.ttf
+  ;; PressStart2P-Regular.ttf
+  ;; ShantellSans-VariableFont_BNCE,
+  ;; Unbounded-VariableFont_wght.ttf
+  ;; Jura-VariableFont_wght.ttf -> ..
+  ;; MontserratAlternates-Regular.ttf
+  ;; (setq doom-unicode-font (font-spec :family "bellotatext"))
+  ;; (doom/reload-font)
+  (add-hook 'after-save-hook #'org-babel-tangle :append :local))
 
 ;; didn't work out for me cuz https://orgmode.org/manual/Custom-time-format.html
 ;; (setq org-time-stamp-custom-formats '("<%a %d-%m-%Y>" . "<%a %d-%m-%Y %H:%M>"))
@@ -301,7 +295,6 @@ Forge:
   (telega-notifications-mode)
   (telega-mode-line-mode)
   (global-telega-squash-message-mode)
-  ;; FIXME: kbds shadowed by evil
   (telega-image-mode) ;; n/p next prev img in chat
   (auto-fill-mode)
 
@@ -314,36 +307,24 @@ Forge:
   (require 'telega-url-shorten)
   (global-telega-url-shorten-mode)
 
-  ;; company-mode setup might look like:
   (setq
    telega-completing-read-function #'completing-read
-   telega-emoji-company-backend 'telega-company-emoji
-   telega-notifications-timeout 3600) ;; crutch basically
+   telega-notifications-timeout 3600 ;; crutch basically
+   telega-url-shorten-use-images t)
 
+  (add-hook 'telega-chat-mode-hook
+            (lambda ()
+             (define-key telega-msg-button-map (kbd "SPC") nil)
+             (setq truncate-lines nil)))
 
-  ;; (setq telega-url-shorten-use-images t)
-  ;; (add-to-list 'telega-browse-url-alist
-  ;;              '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
-  ;; (add-to-list 'telega-browse-url-alist
-  ;;              '("https?://youtu.be/" . my-watch-in-mpv))
-
-  (add-hook 'telega-chat-mode-hook 'my-telega-chat-mode)
+  (add-to-list 'telega-browse-url-alist
+               '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
+  (add-to-list 'telega-browse-url-alist
+               '("https?://youtu.be/" . my-watch-in-mpv))
 
   ;; play youtube videos using mpv player
   (defun my-watch-in-mpv (url)
-    (async-shell-command (format "mpv -v %S" url)))
-
-  (defun my-telega-chat-mode ()
-    (define-key telega-msg-button-map (kbd "SPC") nil)
-    (setq truncate-lines nil)
-    (set (make-local-variable 'company-backends)
-         (append (list telega-emoji-company-backend
-                       'telega-company-username
-                       'telega-company-hashtag)
-                 (when (telega-chat-bot-p telega-chatbuf--chat)
-                   '(telega-company-botcmd))))
-    (company-mode 1)))
-
+    (async-shell-command (format "mpv -v %S" url))))
 #+end_src
 * Emms
 #+begin_src emacs-lisp
