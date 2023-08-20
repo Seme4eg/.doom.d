@@ -47,7 +47,16 @@ Global:
  doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 17) ;; :weight 'light
  ;; for text modes, like Zen, Org or Markdown.
  doom-variable-pitch-font (font-spec :family "daddytimemono nerd font" :size 17)
- doom-unicode-font (font-spec :family "Symbola")
+ ;; Cyrillyc fonts:
+ ;; BellotaText-Regular.ttf -> ../.
+ ;; Comfortaa-VariableFont_wght.ttf
+ ;; PoiretOne-Regular.ttf
+ ;; PressStart2P-Regular.ttf
+ ;; ShantellSans-VariableFont_BNCE,
+ ;; Unbounded-VariableFont_wght.ttf
+ ;; Jura-VariableFont_wght.ttf -> ..
+ ;; MontserratAlternates-Regular.ttf
+ doom-unicode-font (font-spec :family "bellotatext") ;; Symbola
  doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 24))
 
   ;; 'pmsl nerd' - get all installed nerd fonts
@@ -179,17 +188,6 @@ Forge:
 
 (defun sad/org-mode-setup ()
   (auto-fill-mode)
-  ;; Cyrillyc fonts:
-  ;; BellotaText-Regular.ttf -> ../.
-  ;; Comfortaa-VariableFont_wght.ttf
-  ;; PoiretOne-Regular.ttf
-  ;; PressStart2P-Regular.ttf
-  ;; ShantellSans-VariableFont_BNCE,
-  ;; Unbounded-VariableFont_wght.ttf
-  ;; Jura-VariableFont_wght.ttf -> ..
-  ;; MontserratAlternates-Regular.ttf
-  ;; (setq doom-unicode-font (font-spec :family "bellotatext"))
-  ;; (doom/reload-font)
   (add-hook 'after-save-hook #'org-babel-tangle :append :local))
 
 ;; didn't work out for me cuz https://orgmode.org/manual/Custom-time-format.html
@@ -583,18 +581,6 @@ Made this function only cuz im too often too lazy to make a choice."
   (interactive)
   (load-theme
    (nth (random (length (custom-available-themes))) (custom-available-themes)) t))
-
-(defun earthian/set-unicode-font ()
-  "Sets 'doom-unicode-font' var to bellotatext and reloads doom font"
-  (interactive)
-  (setq doom-unicode-font "bellotatext")
-  (doom/reload-font))
-
-(defun earthian/unset-unicode-font ()
-  "Sets 'doom-unicode-font' var to bellotatext and reloads doom font"
-  (interactive)
-  (setq doom-unicode-font (font-spec :family "Symbola"))
-  (doom/reload-font))
 
 (map! :leader :desc "Set other unicode font" "y q" 'earthian/set-unicode-font)
 (map! :leader :desc "Unset other unicode font" "y w" 'earthian/unset-unicode-font)
