@@ -301,9 +301,6 @@ Forge:
   ;; (require 'telega-dashboard)
   ;; (add-to-list 'dashboard-items '(telega-chats . 5))
 
-  (require 'telega-url-shorten)
-  (global-telega-url-shorten-mode)
-
   (setq
    telega-completing-read-function #'completing-read
    telega-notifications-timeout 3600 ;; crutch basically
