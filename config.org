@@ -450,6 +450,23 @@ Forge:
             (enable-theme 'ewal-doom-one)
             (ewal-evil-cursors-get-colors :apply t)))
 #+end_src
+* Syntax + flymake
+#+begin_src emacs-lisp
+(after! flymake
+  ;; Didn't manage to make it ignore my config files
+  ;; (add-to-list 'flymake-proc-allowed-file-name-masks
+  ;;              '("init\\.el\\'" nil))
+
+  (map! :leader
+    :prefix ("v" . "syntax")
+    "l" #'consult-flymake
+    "]" #'flymake-goto-next-error
+    "[" #'flymake-goto-prev-error
+    "b" #'flymake-running-backends
+    "B" #'flymake-reporting-backends
+    "x" #'flymake-proc-stop-all-syntax-checks))
+#+end_src
+
 * GPTel [[https://github.com/karthink/gptel][#gh]]
 #+begin_src elisp
 (defun e/read-openai-key ()
