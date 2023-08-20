@@ -1137,7 +1137,7 @@ Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
   - C-c C-a a :: List all attachments in a dired buffer.
   - C-c C-g :: jump to PDF location from source (/doesn't work/)
 * unused kbds
-~SPC~ .. j, k, r, v, y
+~SPC~ .. j, k, r
 * Todos
 - fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
 - when running emacs as client can't set DISPLAY var to ':0', it always is
