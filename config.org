@@ -523,9 +523,18 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
 #+begin_src emacs-lisp
 (after! langtool
   (setq langtool-default-language "ru-RU"
-        langtool-disabled-rules '("Many_PNN[1] premium: false prio=-50")))
-
-(map! :after langtool :leader
+        langtool-disabled-rules '(
+                                  "Many_PNN"
+                                  "OPREDELENIA"
+                                  "talk"
+                                  "DoubleNOT"
+                                  "COMMA_DEFIS"
+                                  "UPPERCASE_SENTENCE_START"
+                                  "DOUBLE_PUNCTUATION"
+                                  "DoubleIH"
+                                  "LICHNO_JA")))
+;; langtool-disabled-rules '("DOUBLE_PUNCTUATION[1] premium: false" "Many_PNN[1] premium: false prio=-50")))
+(map! :leader
     :prefix ("y" . "langtool")
     "." #'langtool-show-message-at-point
     "," #'langtool-show-brief-message-at-point
@@ -536,7 +545,6 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
     "[" #'langtool-goto-previous-error
     "]" #'langtool-goto-next-error)
 #+end_src
-
 * Other settings
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
