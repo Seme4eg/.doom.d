@@ -114,7 +114,6 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
 (global-subword-mode)
-(global-display-fill-column-indicator-mode)
 (global-auto-revert-mode)
 #+end_src
 
@@ -548,7 +547,7 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
 * Other settings
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
-;; (add-hook 'doom-after-init-modules-hook #'doom-load-session) ;; slows down
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
 ;; (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
 (setq +lookup-open-url-fn #'eww
