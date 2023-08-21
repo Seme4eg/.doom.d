@@ -111,7 +111,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 * Startup and Global modes
 #+begin_src emacs-lisp
 ;; Prevents some cases of Emacs flickering
-(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+;; (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
 (global-subword-mode)
 (global-auto-revert-mode)
@@ -583,20 +583,6 @@ A useful macro (sometimes) for timing the execution of things. From
   (+popup/raise (selected-window)))
 
 (advice-add 'eww :around #'sad-eww-other-window)
-
-(defun sad-wrapped-eik ()
-  "Call 'edmacro-insert-key' and wrap it's output in ~~ so those kbds look
-better in org mode. Does nothing if was called on the beginning of a line"
-  (interactive)
-  (let ((opoint (point)))
-    (unless (bolp)
-      (insert "~")
-      (call-interactively 'edmacro-insert-key)
-      (backward-char)
-      (insert "~"))))
-
-(map! :leader :desc "Set other unicode font" "y q" 'earthian/set-unicode-font)
-(map! :leader :desc "Unset other unicode font" "y w" 'earthian/unset-unicode-font)
 
 (defun advice--center-buffer (orig-fun &rest args)
   "Center butter."
