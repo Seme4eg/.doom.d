@@ -36,8 +36,8 @@ Global:
   ;; A depth of 1 means check all the subdirectories of DIRECTORY.
   projectile-project-search-path '(("~/git" . 1))
   ;; make emacs always use its own browser for opening URL links
-  browse-url-browser-function 'eww-browse-url)
-
+  browse-url-browser-function 'eww-browse-url
+  browse-url-secondary-browser-function 'browse-url-firefox)
 #+end_src
 
 [[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]]:
