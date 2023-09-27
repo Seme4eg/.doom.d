@@ -8,10 +8,6 @@
 # z i
 [[yt:Qq6s3PwSwjo][nice intro vid]]
 
-*Mu init*:
-
-~mu init --maildir ~/.mail --my-address one@mail.com --my-address two@mail.com~
-
 _On main mu4e interface page:_
 - ; :: switch focus - change mail account
 - u :: update email (throws an error if in your emacs config u got
@@ -51,20 +47,6 @@ to one of the following values:
 ** Compose & send email
 [[https://www.youtube.com/watch?v=dSZu4jwvaSs][Here]] is also a video of how to create org-mail workflow, which for now i kinda
 don't need.
-
-*** Configuring SMTP
-
-SMTP is [[https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol][Simple Mail Transfer Protocol]], an old standard for connecting to a server to send email.
-
-Traditionally, SMTP servers run on port 25 without any kind of encryption.  These days, most will either use SSL or TLS, either of which may use different ports.
-
-- =smtpmail-smtp-server= - The host where we connect to send mail
-- =smtpmail-smtp-service= - The port number of the SMTP service (defaults to 25)
-- =smtpmail-stream-type= - Determines whether SSL or TLS should be used when connecting
-
-Add an entry to your =~/.authinfo.gpg= file for your SMTP server:
-
-: machine smtp.samplesmtpserver.com login your@mail.com password your_pass port 465
 
 *** Customizing the HTML export style
 #+begin_src emacs-lisp

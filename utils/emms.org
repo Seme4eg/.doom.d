@@ -1,6 +1,11 @@
 #+TITLE: Emms
 
 * Emms [[https://www.gnu.org/software/emms/][#docs]] [[https://www.gnu.org/software/emms/manual/][#manual]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/emms/evil-collection-emms.el][evil-collection-emms.el]]
+
+First use:
+- emms-player-mpd-connect
+- emms-player-mpd-update-all-reset-cache
+
 Emms can:
 - play streaming audio (look it up in /info/)
 - tag music files
