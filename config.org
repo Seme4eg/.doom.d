@@ -216,26 +216,12 @@ Forge:
          '(
            ("t" "Tea entry" entry
             (file +org-capture-project-notes-file)
-            "%[~/git/tea/templates/newEntry]"
+            "%[~/git/tea/template]"
             :jump-to-captured t
             :immediate-finish t
             :clock-in t
             :clock-keep t
             :empty-lines 1)
-           ("n" "Notes file settings prepend" plain
-            (file +org-capture-project-notes-file)
-            "%[~/git/tea/templates/notesFileSettings]"
-            :prepend t
-            :immediate-finish t
-            :empty-lines-after 1)
-           ;; To insert template at point, in current file call 'spc-X' with
-           ;; 'spc u 0' prefix
-           ("i" "Info file settings prepend (call from a directory with info file!)" plain
-            (file "./info.org")
-            "%[~/git/tea/templates/infoFileSettings]"
-            :prepend t
-            :immediate-finish t
-            :empty-lines-after 1)
            ("p" "Project-local todo" checkitem
             (file+headline +org-capture-project-todo-file "List of todos")
             "" :prepend t)
