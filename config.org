@@ -182,15 +182,7 @@ Forge:
 
 * Org
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'sad/org-mode-setup)
-
-(defun sad/org-mode-setup ()
-  (auto-fill-mode)
-  (add-hook 'after-save-hook #'org-babel-tangle :append :local))
-
-;; didn't work out for me cuz https://orgmode.org/manual/Custom-time-format.html
-;; (setq org-time-stamp-custom-formats '("<%a %d-%m-%Y>" . "<%a %d-%m-%Y %H:%M>"))
-;; (setq org-display-custom-times t)
+(add-hook 'org-mode-hook 'auto-fill-mode)
 
 (after! org
   (map! :map org-mode-map
@@ -201,44 +193,22 @@ Forge:
 
   (setq
    org-src-window-setup 'current-window
-   ;; Sort the footnote definitions by reference sequence.
-   org-footnote-auto-adjust 'sort
    ;; show files like TOC on startup
    org-startup-folded 'content
    org-hide-block-startup t
    org-startup-shrink-all-tables t
-   ;; org-ellipsis " ▾ "
    org-hide-emphasis-markers t)
 
-  ;; org capture templates redefining
-  (setq org-capture-templates
-        (append
-         '(
-           ("t" "Tea entry" entry
-            (file +org-capture-project-notes-file)
-            "%[~/git/tea/template]"
-            :jump-to-captured t
-            :immediate-finish t
-            :clock-in t
-            :clock-keep t
-            :empty-lines 1)
-           ("p" "Project-local todo" checkitem
-            (file+headline +org-capture-project-todo-file "List of todos")
-            "" :prepend t)
-           ("T" "Personal todo" entry
-            (file+headline +org-capture-todo-file "Todo")
-            "* [ ] %?\n%i" :prepend t)
-           ("j" "Journal" entry
-            (file+olp+datetree +org-capture-journal-file)
-            "* %U %?\n%i\n%a" :prepend t))
+  (add-to-list 'org-capture-templates '("t" "Tea entry" entry
+                                        (file +org-capture-project-notes-file)
+                                        "%[~/git/tea/template]"
+                                        :jump-to-captured t
+                                        :clock-in t
+                                        :clock-keep t
+                                        :empty-lines 1))
 
-         org-capture-templates)))
-
-;; org-mode agenda options
-;; TODO: how to do it with evil embrace?
-;; now after typing 'C-c C-,' u will will get a new option to chose from
-(after! org (add-to-list 'org-structure-template-alist
-             '("el" . "src emacs-lisp\n")))
+  ;; now after typing 'C-c C-,' u will will get a new option to chose from
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp\n")))
 
 #+end_src
 
