@@ -433,6 +433,11 @@ Forge:
          gptel-default-mode 'org-mode
          gptel-api-key #'e/read-openai-key))
 #+end_src
+* Elfeed
+#+begin_src emacs-lisp
+(setq rmh-elfeed-org-files '("~/.config/doom/elfeed.org"))
+#+end_src
+
 * Corfu [[https://github.com/minad/corfu][#github]]
 
 NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
