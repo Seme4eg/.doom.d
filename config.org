@@ -438,6 +438,16 @@ Forge:
 (setq rmh-elfeed-org-files '("~/.config/doom/elfeed.org"))
 #+end_src
 
+* WAIT Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
+#+begin_src elisp
+(use-package! elcord
+  :config
+  (elcord-mode))
+
+(require 'elcord)
+(elcord-mode)
+#+end_src
+
 * Corfu [[https://github.com/minad/corfu][#github]]
 
 NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
