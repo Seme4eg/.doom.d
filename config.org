@@ -428,9 +428,7 @@ Forge:
 (use-package! gptel
   :config
   (map! :leader "e" 'gptel)
-  (setq! gptel-model "gpt-3.5-turbo"
-         gptel-playback t
-         gptel-default-mode 'org-mode
+  (setq! gptel-default-mode 'org-mode
          gptel-api-key #'e/read-openai-key))
 #+end_src
 * Elfeed

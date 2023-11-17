@@ -4,8 +4,7 @@
 (package! telega)
 ;; (package! 0x0 :recipe (:host gitlab :repo "willvaughn/emacs-0x0"))
 (package! ewal
-  :recipe (:host github :repo "cyruseuros/ewal"
-            :files ("ewal.el" "*/*.el")))
+  :recipe (:host github :repo "cyruseuros/ewal" :files ("ewal.el" "*/*.el")))
 (package! gptel)
 (package! corfu :recipe (:files ("corfu.el" "extensions/*.el")))
 (package! cape)
@@ -13,9 +12,7 @@
 
 ;; evil-collection for mu4e fix
 ;; https://github.com/doomemacs/doomemacs/issues/7196
-(unpin! evil-collection)
-;; (package! evil-collection
-;;   :recipe (:repo "meliache/evil-collection" :branch "mu4e-development"))
+(unpin! evil-collection lsp-mode)
 
 ;; (package! soundklaus
 ;;   :recipe (:local-repo "lisp/soundklaus" :build (:not compile)))
