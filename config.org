@@ -44,7 +44,7 @@ Global:
 #+begin_src emacs-lisp
 (setq
  ;; firacode nerd font
- doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 17) ;; :weight 'light
+ doom-font (font-spec :family "jetbrainsmono nf" :size 17) ;; :weight 'light
  ;; for text modes, like Zen, Org or Markdown.
  doom-variable-pitch-font (font-spec :family "daddytimemono nerd font" :size 17)
  ;; Cyrillyc fonts:
@@ -57,7 +57,7 @@ Global:
  ;; Jura-VariableFont_wght.ttf -> ..
  ;; MontserratAlternates-Regular.ttf
  doom-unicode-font (font-spec :family "bellotatext") ;; Symbola
- doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 24))
+ doom-big-font (font-spec :family "jetbrainsmono nf" :size 24))
 
   ;; 'pmsl nerd' - get all installed nerd fonts
   ;; doom-font (font-spec :family "saucecodepro nerd font" :size 17)
