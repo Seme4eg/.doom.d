@@ -149,24 +149,22 @@ Custom evil keybinds:
 - :v  ">"     #'+evil/shift-right  ; vnoremap > >gv
 
 * Packages
-** git [[file:~/.config/emacs/modules/tools/magit/README.org::*Plugins][#plugins]] [[elisp:(helpful-variable 'doom-leader-git-map)][#modemap]]
-- ~SPC g t~ - [[https://github.com/emacsmirror/git-timemachine][git-timemachine]] - view file =x= time ago;
-- ~%~ - [[https://github.com/petervanderdoes/gitflow-avh][gitflow]]
+- _git_: prefix ~SPC-g~, read all commands there, you won't miss anything
+- _window-select_ prefix ~spc w w~ (Hit ~?~ to bring up the actions menu.)
+- _vertico_ [[file:~/.config/emacs/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.config/emacs/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] , ~C-SPC~ embark-preview
+- [[file:~/.config/emacs/modules/ui/popup/README.org::*Commands][popup]]:
+  + C-~ (+popup/raise) - Raise the current popup window into a regular window
+  + C-` (+popup/toggle) - Toggle any visible popups.
+  + SPC ~  (+popup/toggle) - Toggle any visible popups.
+  + C-x p  (+popup/other) - Cycle through popup windows, like ‘other-window’....
+- =evil-quick-diff= - used to diff and edit two separate blocks of text.
+- [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
+- [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
+  regular expression (regexp) or keywords that you type.
+- _Nov_ [[https://depp.brause.cc/nov.el/][#docs]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/nov/evil-collection-nov.el][evil-collectoin-nov.el]]
 
-[[https://github.com/rmuslimov/browse-at-remote][browse at remote]] - easiest way to open particular link on
-github/gitlab/bitbucket/stash/git.savannah.gnu.org/sourcehut from Emacs:
-- ~SPC g Y~ - Copy homepage URL of current project to clipboard.
-- ~SPC g y~ - Copy URL to current file (and line if selection is active) to
-  clipboard.
-- ~SPC g o h~ - Open homepage for current project in browser.
-- ~SPC g o o~ - Open URL to current file (and line if selection is active) in
-  browser
-
-** evil [[file:~/.config/emacs/modules/editor/evil/README.org::*Features][#features]]
-[[file:~/.config/emacs/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
-
-- *[[https://github.com/emacs-evil/evil-collection][evil-collection]]* - plugin used as a foundation for flag =+everywhere=, which
-  enables evilified keybinds everywhere possible.
+** evil
+- [[file:~/.config/emacs/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
 - *[[https://github.com/emacs-evil/evil-surround#usage][evil-surround]]* - ~ys~, ~cs~, ~ds~ & [[elisp:(helpful-variable 'evil-surround-mode-map)][modemap]]
 - *[[https://github.com/hlissner/evil-multiedit#usage][evil-multiedit]]* - ~M-d / D~ , ~RET~ to exclude, ~C-M-D~ to restore last group. Ex
   command that allows to invoke evil-multiedit with a regular expression -
@@ -399,12 +397,7 @@ Files ending with ~.http~ will have restclient-mode enabled by default.
 - ~restclient-toggle-body-visibility-or-indent~  (TAB)
 - ~C-c C-i~: show information on resclient variables at point
 
-** Navigation
-*** window-select [[file:~/.config/emacs/modules/ui/window-select/README.org::*Description][#description]] ~spc w w~
-I'm using ace-window. Kill windows, move them around, split them and more by
-using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
-
-*** dired [[file:~/.config/emacs/modules/emacs/dired/README.org::*Keybindings][#kbds]], [[elisp:(helpful-variable 'dired-mode-map)][#modemap]]
+** dired [[file:~/.config/emacs/modules/emacs/dired/README.org::*Keybindings][#kbds]], [[elisp:(helpful-variable 'dired-mode-map)][#modemap]]
 - ~M~ - change permissions
 - ~o~ - sort by modes.
 - ~O~ - change the owner.
@@ -414,7 +407,7 @@ using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
 - ~R~ - move to another window
 - ~i~ - edit file/dir name
 
-*** ranger [[https://github.com/ralesi/ranger.el#ranger-key-bindings][#kbds]]
+** ranger [[https://github.com/ralesi/ranger.el#ranger-key-bindings][#kbds]]
 + *Basic Commands*
   - ? :: show basic commands in the minibuffer
   - du :: show selected files, file size
@@ -509,7 +502,7 @@ using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
   - w f :: Open current file in a new frame.
   - w j :: Open current file in ‘other-window’.
   - w e :: Open the current file or dired marked files in external - modifier-cache
-*** ibuffer [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/ibuffer/evil-collection-ibuffer.el][evil-collection-ibuffer.el]]
+** ibuffer [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/ibuffer/evil-collection-ibuffer.el][evil-collection-ibuffer.el]]
 *Important*: if any kbds doesn't work - call it from =emacs-state=!
 
 + *Marking*. ~m u U d~ - as expected, others:
@@ -634,7 +627,7 @@ using the dispatch keys. (Hit ~?~ to bring up the dispatch menu.)
   - g v :: do-view
   - C-x v, g V :: As ‘ibuffer-do-view’, but split windows horizontally.
 
-**** Filtering
+*** Filtering
 Each Ibuffer buffer has its *own stack* of active filters. For example, you can
 create an Ibuffer buffer displaying only ‘emacs-lisp-mode’ buffers via ‘/ RET
 emacs-lisp-mode RET’.
@@ -650,7 +643,7 @@ Additionally, you can *OR* the top two filters together with ~/ |~ (*AND* with ~
 Filters can also be saved and restored using mnemonic names: see the
 functions ‘ibuffer-save-filters’ and ‘ibuffer-switch-to-saved-filters’.
 
-**** Filter Groups
+*** Filter Groups
 A filter group is basically a named group of buffers which
 match a filter, which are displayed together in an Ibuffer buffer.
 
@@ -660,13 +653,7 @@ group is used. The filter groups are displayed in this order of *precedence*.
 You may *rearrange* filter groups by using the usual pair ‘C-k’ and ‘C-y’. Yanked
 groups will be inserted before the group at point.
 
-** Completion
-~M-/~ - #'dabbrev-expand - Expand previous word "dynamically".
-
-- vertico [[file:~/.config/emacs/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.config/emacs/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] , ~C-SPC~ embark-preview
-- syntax (flycheck) [[file:~/.config/emacs/modules/checkers/syntax/README.org::*Features][#features]] [[elisp:(helpful-variable 'flycheck-mode-map)][#modemap]] [[elisp:(helpful-variable 'flycheck-error-list-mode-map)][#list modemap]]
-
-*** company [[file:~/.config/emacs/modules/completion/company/README.org::*Code completion][#Code completion]] ~C-SPC~ to trigger completion.
+** company [[file:~/.config/emacs/modules/completion/company/README.org::*Code completion][#Code completion]] ~C-SPC~ to trigger completion.
 ~C-SPC/@~ - (cmds! (not (minibufferp)) #'company-complete-common)
 
 - [[elisp:(helpful-variable 'company-active-map)][company-active-map]], "C-w" doesn't interfere with `evil-delete-backward-word'
@@ -683,10 +670,7 @@ Omni-completion :prefix "C-x":
 - :i "C-n"    #'+company/dabbrev
 - :i "C-p"    #'+company/dabbrev-code-previous
 
-*** spell (dictionary) [[file:~/.config/emacs/modules/checkers/spell/README.org::+TITLE: checkers/spell][#source]] [[https://gitlab.com/ideasman42/emacs-spell-fu][spell-fu]]
-Flycheck might be slow and won't be running automatically as of emacs 28, that's
-why i use default option - /spell-fu/.
-
+** spell
 Dictionary is set by =ispell-dictionary= variable. Can be changed locally with the
 function =ispell-change-dictionary=.
 
@@ -699,7 +683,6 @@ Settings i used (besides having /aspell, aspell-en, aspell-ru/ installed on pc):
 #+end_src
 
 Evil already defines 'z=' to `ispell-word' = correct word at point
-
 - :n  "zg"   #'+spell/add-word
 - :n  "zw"   #'+spell/remove-word
 - :m  "[s"   #'+spell/previous-error
@@ -897,27 +880,6 @@ command falls back to the generic ‘embark-collect-snapshot’.
 /switch-to-buffer/ -> /find-file/)
 
 ** Utility
-- [[https://github.com/tecosaur/emacs-everywhere#usage][everywhere]] - Invoke Emacs everywhere
-- [[file:~/.config/emacs/modules/ui/popup/README.org::*Commands][popup]]:
-  + C-~ (+popup/raise) - Raise the current popup window into a regular window
-  + C-` (+popup/toggle) - Toggle any visible popups.
-  + SPC ~  (+popup/toggle) - Toggle any visible popups.
-  + C-x p  (+popup/other) - Cycle through popup windows, like ‘other-window’....
-- [[file:~/.config/emacs/modules/tools/editorconfig/README.org::*Features][editorconfig]]
-- better-jumper, [[https://github.com/gilbertw1/better-jumper#comparison-with-evil-jump][here]] is it's comparison to evil-jump. Basically its ~C-i / o~
-  functionality. But if u type ~M-x better-..~ u will get all its possible
-  functions, among which is =better-jumper-jump-newest=, which doesn't have kbd,
-  but jus keep it in mind. Nothing else interesting there.
-- =evil-quick-diff= - used to diff and edit two separate blocks of text.
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/tools/pass/README.org#description][pass]] - ~M-x pass~; view [[https://git.zx2c4.com/password-store/about/][pass man page]]
-- [[https://github.com/hlissner/doom-emacs/blob/develop/modules/term/vterm/README.org][vterm]] - new terminal
-- [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
-- [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
-  regular expression (regexp) or keywords that you type.
-- Nov [[https://depp.brause.cc/nov.el/][#docs]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/nov/evil-collection-nov.el][evil-collectoin-nov.el]]
-
-Some other modes: [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/xref/evil-collection-xref.el][evil-collection-xref.el]],
-
 *** EWW - Emacs Web Wowser
 [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]] - bookmarks, buffers list, open, external ...
 
@@ -961,25 +923,6 @@ DEL (scroll-down-command)
 
 _Commands_:
 - eww-open-file :: open a local HTML file
-
-*** Xwidget [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/xwidget/evil-collection-xwidget.el][evil-collection-xwidget.el]]
-Inside the web browser, you can type ‘e’ to enter “edit mode”, where self
-inserting characters are passed to the WebKit widget, or ‘C-s’ to perform
-incremental search on the contents of the WebKit widget.
-
-In [[https://github.com/jave/xwidget-emacs#webkit-hints][hints section]] author sais that he uses =ffap= to go to links, but for me it
-only renders link on cur. page.
-
-~C-s~ - incremental search inside WebKit buffers.
-
-"shadowed" ones:
-- RET :: xwidget-webkit-insert-string
-- a   :: xwidget-webkit-adjust-size-dispatch
-- e   :: xwidget-webkit-edit-mode
-- w   :: xwidget-webkit-current-url
-- H   :: xwidget-webkit-browse-history
-- g   :: revert-buffer
-- w   :: xwidget-webkit-current-url
 
 *** IRC [[file:~/.config/emacs/modules/app/irc/README.org::*An IRC Client in Emacs][#kbds]] ~SPC m~
 #+NAME: what is IRC
@@ -1136,11 +1079,10 @@ Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
   - C-x h :: *Mark* the whole *page*.
   - C-c C-a a :: List all attachments in a dired buffer.
   - C-c C-g :: jump to PDF location from source (/doesn't work/)
+*** Rss
+just locate file =evil-collection-elfeed.el= for the bindings
+
 * unused kbds
 ~SPC~ .. j, k, r
 * Todos
 - fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
-- when running emacs as client can't set DISPLAY var to ':0', it always is
-  'wayland-1', which i suppose is a reason why mu4e fails on pinentry step. For
-  now switched back to non-client emacs and disabled systemd daemon untill i
-  will find solution.
