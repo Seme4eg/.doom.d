@@ -335,11 +335,8 @@ Forge:
 
        ;; Play ...
        (:prefix ("l" . "Play")
-        :desc "dired" "d" #'emms-play-dired
-        ;; NOTE: mainly using this since it just adds tracks from dir
-        ;; (not recursively) to the playlist
-        :desc "directory" "D" #'emms-play-directory
-        ;; emms-play-directory-tree ;; source for multiple directory trees
+        :desc "directory" "d" #'emms-play-directory
+        :desc "directory tree" "D" #'emms-play-directory-tree
         :desc "files matching regex" "f" #'emms-play-find
         :desc "file" "F" #'emms-play-file
         :desc "url (ie for streaming)" "u" #'emms-play-url
