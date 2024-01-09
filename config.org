@@ -264,7 +264,8 @@ Forge:
   (add-hook 'telega-chat-mode-hook
             (lambda ()
               (define-key telega-msg-button-map (kbd "SPC") nil)
-              (setq truncate-lines nil))))
+              (setq truncate-lines nil
+                    visual-fill-column-extra-text-width '(0 . 2)))))
 
 ;; (add-to-list 'telega-browse-url-alist
 ;;              '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
