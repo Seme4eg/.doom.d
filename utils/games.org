@@ -57,12 +57,15 @@ Emacs’s very own Zork-like *text adventure* game.
 
 Type =help= in the quest chat to get started.
 
+Also see =dun-verbolist= var to see all verbs.
+
 #+begin_quote
 If you find yourself with time to kill between your TPS reports then it’s a
 great game with a built-in “boss screen” as it’s text-only.
 
 Oh, and, don’t try to eat the CPU card :)
 #+end_quote
+
 ** Gomoku [[https://www.masteringemacs.org/static/uploads/gomoku.png][#pic]] :excellent:
 Another game written in the 1980s. You have to connect 5 squares, tic-tac-toe
 style. You can play against Emacs with M-x gomoku. The game also supports the
