@@ -437,18 +437,19 @@ Forge:
 * Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
 #+begin_src emacs-lisp
 (setq! proced-tree-flag t
-      proced-auto-update-flag t
-      proced-format 'medium
-      proced-format-alist
-      '((short user pid tree pcpu pmem start time (args comm))
-        (medium user pid tree pcpu pmem vsize rss ttname state start time comm)
-        (long
-         user euid group pid tree pri nice pcpu pmem vsize rss ttname state
-         start time comm)
-        (verbose
-         user euid group egid pid ppid tree pgrp sess pri nice pcpu pmem state
-         thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
-         utime stime ctime cutime cstime etime comm)))
+       proced-auto-update-flag t
+       proced-enable-color-flag t
+       proced-format 'medium
+       proced-format-alist
+       '((short user pid tree pcpu pmem start time (args comm))
+         (medium user pid tree pcpu pmem vsize rss ttname state start time comm)
+         (long
+          user euid group pid tree pri nice pcpu pmem vsize rss ttname state
+          start time comm)
+         (verbose
+          user euid group egid pid ppid tree pgrp sess pri nice pcpu pmem state
+          thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
+          utime stime ctime cutime cstime etime comm)))
 #+end_src
 
 * WAIT Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
