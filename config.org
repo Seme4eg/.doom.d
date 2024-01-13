@@ -451,6 +451,15 @@ Forge:
           thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
           utime stime ctime cutime cstime etime comm)))
 #+end_src
+* Golden-ratio
+#+begin_src emacs-lisp
+(use-package! golden-ratio
+  :config
+  (setq! golden-ratio-extra-commands
+         '(windmove-left windmove-right windmove-down windmove-up evil-window-up
+           evil-window-down evil-window-right evil-window-left)
+         golden-ratio-exclude-buffer-regexp '("^\\*"))) ;; otherwise emacs hangs
+#+end_src
 
 * WAIT Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
 #+begin_src elisp
