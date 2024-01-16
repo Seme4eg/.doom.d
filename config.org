@@ -37,6 +37,7 @@ Global:
   projectile-project-search-path '((~/git . 2))
   ;; make emacs always use its own browser for opening URL links
   browse-url-browser-function 'eww-browse-url
+  evil-want-C-u-delete nil
   browse-url-secondary-browser-function 'browse-url-firefox)
 #+end_src
 
@@ -92,6 +93,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (map! :leader :desc "Ace window" "ww" 'ace-window)
 (map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
 (map! :leader :desc "Web Wowser" "oe" 'eww)
+(map! :leader :desc "Previous workspace" "-" '+workspace/other)
 
 (map! :leader :desc "Edmacro insert key" "i k" 'sad-wrapped-eik)
 (map! :leader :desc "Find file other window" "f o" 'find-file-other-window)
@@ -105,9 +107,8 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
        :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
        :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
        :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
-
-(setq! evil-want-C-u-delete nil)
 #+end_src
+
 * Startup and Global modes
 #+begin_src emacs-lisp
 ;; Prevents some cases of Emacs flickering
@@ -288,7 +289,6 @@ Forge:
    emms-info-native--max-vorbis-comment-size 150000
    emms-playlist-mode-center-when-go t
    emms-show-format "♪ %s"
-   ;; emms-player-mpd-server-port "6600"
    emms-browser-default-browse-type 'info-album
    ;; new settings
    ;; covers
@@ -296,15 +296,9 @@ Forge:
    emms-browser-thumbnail-small-size 32
    emms-browser-thumbnail-medium-size 64))
 
-;; notifications
-;; (require 'emms-dbus)
-;; (emms-dbus-enable)
-
-
-;; Once you've done the above, run the 'M-x emms-cache-set-from-mpd-all'
-;; command to fill the Emms cache with the contents of your MusicPD
-;; database. The music in your MusicPD database should then be accessible
-;; via the Emms browser.
+;; run the 'emms-cache-set-from-mpd-all' to fill the Emms cache with the
+;; contents of your MusicPD database. The music in your MusicPD database should
+;; then be accessible via the Emms browser.
 
 (map! :leader
       (:prefix ("l" . "listen")
