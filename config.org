@@ -434,6 +434,7 @@ Forge:
        proced-auto-update-flag t
        proced-enable-color-flag t
        proced-format 'medium
+       proced-auto-update-interval 1
        proced-format-alist
        '((short user pid tree pcpu pmem start time (args comm))
          (medium user pid tree pcpu pmem vsize rss ttname state start time comm)
