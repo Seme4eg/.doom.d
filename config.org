@@ -37,9 +37,7 @@ Global:
  projectile-project-search-path '((~/git . 2))
  ;; make emacs always use its own browser for opening URL links
  browse-url-browser-function 'eww-browse-url
- evil-want-C-u-delete nil
- browse-url-generic-program "floorp"
- browse-url-secondary-browser-function 'browse-url-generic)
+ evil-want-C-u-delete nil)
 #+end_src
 
 [[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]]:
@@ -459,12 +457,9 @@ Forge:
 
 * WAIT Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
 #+begin_src elisp
-(use-package! elcord
-  :config
-  (elcord-mode))
-
-(require 'elcord)
-(elcord-mode)
+;; (use-package! elcord
+;;   :config
+;;   (elcord-mode))
 #+end_src
 
 * Corfu [[https://github.com/minad/corfu][#github]]
