@@ -22,23 +22,24 @@ Local:
 Global:
 #+begin_src emacs-lisp
 (setq
-  ;; Some functionality uses this to identify you,
-  ;; e.g. GPG configuration, email clients, file templates and snippets.
-  user-full-name "sad"
-  user-mail-address "d3v1ant@mail.ru"
+ ;; Some functionality uses this to identify you,
+ ;; e.g. GPG configuration, email clients, file templates and snippets.
+ user-full-name "sad"
+ user-mail-address "d3v1ant@mail.ru"
 
-  ;; doom-theme 'doom-opera
-  org-directory "~/org/"
-  fill-column 80 ;; 70, must be a default value to work
-  display-fill-column-indicator-column 80
-  better-jumper-context 'buffer
-  default-input-method "russian-computer"
-  ;; A depth of 1 means check all the subdirectories of DIRECTORY.
-  projectile-project-search-path '((~/git . 2))
-  ;; make emacs always use its own browser for opening URL links
-  browse-url-browser-function 'eww-browse-url
-  evil-want-C-u-delete nil
-  browse-url-secondary-browser-function 'browse-url-firefox)
+ ;; doom-theme 'doom-opera
+ org-directory "~/org/"
+ fill-column 80 ;; 70, must be a default value to work
+ display-fill-column-indicator-column 80
+ better-jumper-context 'buffer
+ default-input-method "russian-computer"
+ ;; A depth of 1 means check all the subdirectories of DIRECTORY.
+ projectile-project-search-path '((~/git . 2))
+ ;; make emacs always use its own browser for opening URL links
+ browse-url-browser-function 'eww-browse-url
+ evil-want-C-u-delete nil
+ browse-url-generic-program "floorp"
+ browse-url-secondary-browser-function 'browse-url-generic)
 #+end_src
 
 [[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]]:
