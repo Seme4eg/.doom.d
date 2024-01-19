@@ -144,9 +144,21 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
      ;; ("gopls.hints" ...)
      ("gopls.staticcheck" t t))))
 #+end_src
+** JS
+#+begin_src emacs-lisp
+(after! js2-mode
+  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
+#+end_src
 ** Elm
 #+begin_src emacs-lisp
-;; (add-hook 'elm-mode-hook 'elm-format-on-save-mode)
+(after! elm-mode
+  (add-to-list 'company-backends 'elm-company)
+  (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
+#+end_src
+** Shell
+#+begin_src emacs-lisp
+(after! sh-script
+  (set-company-backend! 'sh-mode '(company-shell :with company-yasnippet)))
 #+end_src
 ** Magit & forge
 Magit:
@@ -182,7 +194,9 @@ Forge:
 
 * Org
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'auto-fill-mode)
+(add-hook! 'org-mode-hook 'auto-fill-mode)
+(add-hook! 'org-mode-hook (company-mode -1))
+(add-hook! 'org-capture-mode-hook (company-mode -1))
 
 (after! org
   (map! :map org-mode-map
@@ -257,7 +271,8 @@ Forge:
   ;; (add-to-list 'dashboard-items '(telega-chats . 5))
 
   (setq
-   telega-completing-read-function #'completing-read
+   ;; telega-completing-read-function #'completing-read
+   telega-emoji-company-backend 'telega-company-emoji
    telega-notifications-timeout 3600 ;; crutch basically
    telega-url-shorten-use-images t)
 
@@ -265,7 +280,14 @@ Forge:
             (lambda ()
               (define-key telega-msg-button-map (kbd "SPC") nil)
               (setq truncate-lines nil
-                    visual-fill-column-extra-text-width '(0 . 2)))))
+                    visual-fill-column-extra-text-width '(0 . 2))
+              (set (make-local-variable 'company-backends)
+                   (append (list telega-emoji-company-backend
+                                 'telega-company-username
+                                 'telega-company-hashtag)
+                           (when (telega-chat-bot-p telega-chatbuf--chat)
+                             '(telega-company-botcmd))))
+              (company-mode 1))))
 
 ;; (add-to-list 'telega-browse-url-alist
 ;;              '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
@@ -467,27 +489,28 @@ Forge:
 NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
 
 #+begin_src emacs-lisp
-(use-package! corfu
-  :custom
-  (corfu-cycle t)
-  (corfu-auto nil)
-  (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.0)
-  (corfu-quit-at-boundary 'separator)
-  (corfu-preview-current 'insert)
-  (corfu-preselect 'first)
-  :init
-  (global-corfu-mode)
-  ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
-  (corfu-history-mode)
-  ;; (corfu-echo-mode)
-  (evil-collection-corfu-setup)
-  (map! :g "C-SPC" #'completion-at-point)
-  (map! :map corfu-map
-        :nvi "SPC" #'corfu-insert-separator
-        :nvi "C-g" (lambda () (progn (corfu-reset)
-                                (evil-collection-corfu-quit-and-escape)))
-        :nvi "C-h" #'corfu-info-documentation))
+;; (use-package! corfu
+;;   :custom
+;;   (corfu-cycle t)
+;;   (corfu-auto nil)
+;;   (corfu-auto-prefix 2)
+;;   (corfu-auto-delay 0.0)
+;;   (corfu-quit-at-boundary 'separator)
+;;   (corfu-preview-current 'insert)
+;;   (corfu-preselect 'first)
+;;   :init
+;;   (global-corfu-mode)
+;;   ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
+;;   (corfu-history-mode)
+;;   ;; (corfu-echo-mode)
+;;   (evil-collection-corfu-setup)
+;;   (map! :g "C-SPC" #'completion-at-point)
+;;   (map! :map corfu-map
+;;         :nvi "SPC" #'corfu-insert-separator
+;;         :nvi "C-g" (lambda () (progn (corfu-reset)
+;;                                 (evil-collection-corfu-quit-and-escape)))
+;;         :nvi "C-h" #'corfu-info-documentation))
+#+end_src
 #+end_src
 
 * Cape [[https://github.com/minad/cape][#github]]

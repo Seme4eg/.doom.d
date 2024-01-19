@@ -6,8 +6,8 @@
 (package! ewal
   :recipe (:host github :repo "cyruseuros/ewal" :files ("ewal.el" "*/*.el")))
 (package! gptel)
-(package! corfu :recipe (:files ("corfu.el" "extensions/*.el")))
-(package! cape)
+;; (package! corfu :recipe (:files ("corfu.el" "extensions/*.el")))
+;; (package! cape)
 (package! elcord)
 (package! golden-ratio)
 
