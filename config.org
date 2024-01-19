@@ -511,6 +511,10 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
 ;;                                 (evil-collection-corfu-quit-and-escape)))
 ;;         :nvi "C-h" #'corfu-info-documentation))
 #+end_src
+* Docker
+#+begin_src emacs-lisp
+(setq! docker-command "podman"
+       docker-container-shell-file-name "/bin/zsh")
 #+end_src
 
 * Cape [[https://github.com/minad/cape][#github]]
