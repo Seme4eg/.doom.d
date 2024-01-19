@@ -271,7 +271,7 @@ Forge:
   ;; (add-to-list 'dashboard-items '(telega-chats . 5))
 
   (setq
-   ;; telega-completing-read-function #'completing-read
+   telega-completing-read-function #'completing-read
    telega-emoji-company-backend 'telega-company-emoji
    telega-notifications-timeout 3600 ;; crutch basically
    telega-url-shorten-use-images t)
