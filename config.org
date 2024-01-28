@@ -530,11 +530,9 @@ Forge:
          golden-ratio-exclude-buffer-regexp '("^\\*"))) ;; otherwise emacs hangs
 #+end_src
 
-* WAIT Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
+* Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
 #+begin_src elisp
-;; (use-package! elcord
-;;   :config
-;;   (elcord-mode))
+(elcord-mode)
 #+end_src
 
 * Corfu [[https://github.com/minad/corfu][#github]]
