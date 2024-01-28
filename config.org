@@ -190,6 +190,59 @@ Forge:
 ;; Focus new window after splitting
 (setq evil-split-window-below t
       evil-vsplit-window-right t)
+
+* WAIT Colemak
+- my-hjkl-rotation func doesn't change anything, tried many things, didn't work
+- [[https://github.com/emacs-evil/evil-collection#key-translation][evil-collection key translation]], some ppl also have troubles making it work in doom.
+- penging [[https://github.com/doomemacs/doomemacs/pull/5835/files][PR]] in doom emacs repo for colemak
+- [[https://github.com/wbolster/emacs-evil-colemak-basics][emacs-evil-colemak-basics]] is awesome but overwrides too much and isn't
+  integrated with evil-collection, well.. its 'basics'
+- in [[https://github.com/Phundrak/config.phundrak.com/blob/87b3deeed34305985e4cc5253d71ca6640efb1f3/docs/emacs/keybinding-managers.org#L155][this]] setup same code works
+
+#+begin_src emacs-lisp
+;; (use-package! evil-colemak-basics
+;;   :init
+;;   (setq evil-colemak-basics-layout-mod 'mod-dh))
+  ;; :config
+  ;; (global-evil-colemak-basics-mode))
+
+;; hjkl
+;; mnei
+;; (defun my-hjkl-rotation (_mode mode-keymaps &rest _rest)
+;;   ;; (evil-collection-translate-key '(normal motion visual operator) mode-keymaps
+;;   (evil-collection-translate-key 'normal mode-keymaps
+;;     "m" "h"
+;;     "n" "j"
+;;     "e" "k"
+;;     "i" "l"
+;;     "h" "m"
+;;     "j" "e"
+;;     "k" "n"
+;;     "l" "i"
+;;     (kbd "C-n") (kbd "C-j")
+;;     (kbd "C-e") (kbd "C-k")
+;;     "gn" "gj"
+;;     "ge" "gk"
+;;     :destructive t))
+
+;; called after evil-collection makes its keybindings
+;; (add-hook! 'evil-collection-setup-hook #'my-hjkl-rotation)
+;; (add-hook 'evil-collection-setup-hook #'my-hjkl-rotation)
+;; (evil-collection-init)
+
+
+;; (evil-collection-translate-key nil 'evil-motion-state-map
+;;   ;; colemak hnei is qwerty hjkl
+;;   "m" "h"
+;;   "n" "j"
+;;   "e" "k"
+;;   "i" "l"
+;;   ;; add back nei
+;;   "h" "m"
+;;   "j" "n"
+;;   "k" "e"
+;;   "l" "i")
+#+end_src
 #+end_src
 
 * Org

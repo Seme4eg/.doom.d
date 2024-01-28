@@ -10,6 +10,7 @@
 ;; (package! cape)
 (package! elcord)
 (package! golden-ratio)
+;; (package! evil-colemak-basics)
 
 ;; evil-collection for mu4e fix
 ;; https://github.com/doomemacs/doomemacs/issues/7196
