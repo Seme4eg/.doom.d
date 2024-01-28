@@ -34,7 +34,7 @@ Global:
  better-jumper-context 'buffer
  default-input-method "russian-computer"
  ;; A depth of 1 means check all the subdirectories of DIRECTORY.
- projectile-project-search-path '((~/git . 2))
+ projectile-project-search-path '(("~/git" . 2))
  ;; make emacs always use its own browser for opening URL links
  browse-url-browser-function 'eww-browse-url
  evil-want-C-u-delete nil)
