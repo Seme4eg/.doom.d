@@ -533,6 +533,7 @@ Forge:
 * Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
 #+begin_src elisp
 (elcord-mode)
+(setq! elcord-idle-message "Brewing tea ...")
 ;; ignore all telega stuff
 (add-to-list 'elcord-boring-buffers-regexp-list "◀")
 (add-to-list 'elcord-boring-buffers-regexp-list  "\\\\*Telega Root\\\\*")
