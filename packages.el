@@ -10,6 +10,7 @@
 ;; (package! cape)
 (package! elcord)
 (package! golden-ratio)
+(package! insert-kaomoji)
 ;; (package! evil-colemak-basics)
 
 ;; evil-collection for mu4e fix

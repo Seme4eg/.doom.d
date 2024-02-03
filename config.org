@@ -94,7 +94,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (map! :leader :desc "Web Wowser" "oe" 'eww)
 (map! :leader :desc "Previous workspace" "-" '+workspace/other)
 
-(map! :leader :desc "Edmacro insert key" "i k" 'sad-wrapped-eik)
+(map! :leader :desc "Edmacro insert key" "i k" 'insert-kaomoji)
 (map! :leader :desc "Find file other window" "f o" 'find-file-other-window)
 (map! :leader :desc "Switch to true last buffer" "b o" 'sad-true-switch-last-buffer)
 
