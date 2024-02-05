@@ -80,6 +80,7 @@ Hlissner:
   company-idle-delay nil
   )
 #+end_src
+
 * Keybindings
 Learn how to properly define your custom keybindings you can in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=28][this vid]]
 
@@ -106,13 +107,13 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
        :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
        :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
        :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
+
+(map! :leader :desc "Workspace swap right" :n "TAB ]" '+workspace/swap-right)
+(map! :leader :desc "Workspace swap left" :n "TAB [" '+workspace/swap-left)
 #+end_src
 
 * Startup and Global modes
 #+begin_src emacs-lisp
-;; Prevents some cases of Emacs flickering
-;; (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
-
 (global-subword-mode)
 (global-auto-revert-mode)
 #+end_src
@@ -129,6 +130,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 
 (setq lsp-vetur-format-default-formatter-html '"prettier")
 #+end_src
+
 ** Golang
 #+begin_src emacs-lisp
 ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
@@ -144,22 +146,26 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
      ;; ("gopls.hints" ...)
      ("gopls.staticcheck" t t))))
 #+end_src
+
 ** JS
 #+begin_src emacs-lisp
 (after! js2-mode
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
 #+end_src
-** Elm
+
+** WAIT Elm
 #+begin_src emacs-lisp
-(after! elm-mode
-  (add-to-list 'company-backends 'elm-company)
-  (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
+;; (after! elm-mode
+;;   (add-to-list 'company-backends 'elm-company)
+;;   (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
 #+end_src
+
 ** Shell
 #+begin_src emacs-lisp
 (after! sh-script
   (set-company-backend! 'sh-mode '(company-shell :with company-yasnippet)))
 #+end_src
+
 ** Magit & forge
 Magit:
 #+begin_src emacs-lisp
@@ -224,25 +230,12 @@ Forge:
 ;;     (kbd "C-e") (kbd "C-k")
 ;;     "gn" "gj"
 ;;     "ge" "gk"
-;;     :destructive t))
+;;     :destructive nil))
 
 ;; called after evil-collection makes its keybindings
 ;; (add-hook! 'evil-collection-setup-hook #'my-hjkl-rotation)
 ;; (add-hook 'evil-collection-setup-hook #'my-hjkl-rotation)
 ;; (evil-collection-init)
-
-
-;; (evil-collection-translate-key nil 'evil-motion-state-map
-;;   ;; colemak hnei is qwerty hjkl
-;;   "m" "h"
-;;   "n" "j"
-;;   "e" "k"
-;;   "i" "l"
-;;   ;; add back nei
-;;   "h" "m"
-;;   "j" "n"
-;;   "k" "e"
-;;   "l" "i")
 #+end_src
 
 * Org
@@ -288,6 +281,7 @@ Forge:
 (setq +doom-dashboard-functions
       '(doom-dashboard-widget-banner doom-dashboard-widget-loaded))
 #+end_src
+
 * Mu4e
 #+begin_src emacs-lisp
 (load-file "~/.config/doom/mu4e.el")
@@ -351,6 +345,7 @@ Forge:
 ;; (defun my-watch-in-mpv (url)
 ;;   (async-shell-command (format "mpv -v %S" url))))
 #+end_src
+
 * Emms
 #+begin_src emacs-lisp
 (after! emms
@@ -468,6 +463,7 @@ Forge:
             (enable-theme 'ewal-doom-one)
             (ewal-evil-cursors-get-colors :apply t)))
 #+end_src
+
 * Syntax + flymake
 #+begin_src emacs-lisp
 (after! flymake
@@ -498,10 +494,12 @@ Forge:
   (setq! gptel-default-mode 'org-mode
          gptel-api-key #'e/read-openai-key))
 #+end_src
+
 * Elfeed
 #+begin_src emacs-lisp
 (setq rmh-elfeed-org-files '("~/.config/doom/elfeed.org"))
 #+end_src
+
 * Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
 #+begin_src emacs-lisp
 (setq! proced-tree-flag t
@@ -520,6 +518,7 @@ Forge:
           thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
           utime stime ctime cutime cstime etime comm)))
 #+end_src
+
 * Golden-ratio
 #+begin_src emacs-lisp
 (use-package! golden-ratio
@@ -530,7 +529,7 @@ Forge:
          golden-ratio-exclude-buffer-regexp '("^\\*"))) ;; otherwise emacs hangs
 #+end_src
 
-* Elcord [[https://github.com/Mstrodl/elcord][#gh]] [[https://github.com/Mstrodl/elcord/issues/84][#issue]]
+* Elcord [[https://github.com/Mstrodl/elcord][#gh]]
 #+begin_src elisp
 (elcord-mode)
 (setq! elcord-idle-message "Brewing tea ...")
@@ -566,6 +565,7 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
 ;;                                 (evil-collection-corfu-quit-and-escape)))
 ;;         :nvi "C-h" #'corfu-info-documentation))
 #+end_src
+
 * Docker
 #+begin_src emacs-lisp
 (setq! docker-command "podman"
@@ -585,6 +585,7 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 #+end_src
+
 * Langtool
 #+begin_src emacs-lisp
 (after! langtool
@@ -611,6 +612,7 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
     "[" #'langtool-goto-previous-error
     "]" #'langtool-goto-next-error)
 #+end_src
+
 * Other settings
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
@@ -628,17 +630,6 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
 (after! consult
   (setq locate-command "plocate"
         consult-locate-args "plocate --ignore-case"))
-#+end_src
-
-A useful macro (sometimes) for timing the execution of things. From
-[[https://stackoverflow.com/questions/23622296/emacs-timing-execution-of-function-calls-in-emacs-lisp][StackOverflow]].
-
-#+begin_src emacs-lisp
-(defmacro zz/measure-time (&rest body)
-  "Measure the time it takes to evaluate BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (float-time (time-since time))))
 #+end_src
 
 * Custom f-s & advices
