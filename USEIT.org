@@ -19,7 +19,7 @@ spc b - _buffers_:
 - "Set bookmark"                "m"   #'bookmark-set
 - "Delete bookmark"             "M"   #'bookmark-delete
 
-_Create file_ (also):
+_Find file UNDER particular dir_:
 - "Find file from here"         "F"   #'+default/find-file-under-here
 
 spc g - _magit_:
@@ -54,8 +54,8 @@ spc w - _windows_ (use ~spc w~ instead of ~C-c w~):
 
 ~SPC h K~ (Info-goto-emacs-key-command-node) - Go to the node in the Emacs manual
 which detailed description
-* done
 
+* done
 - C ~ - Raise the current popup window into a regular window
 - g u/U - Convert text to lower/upper case.
 - spc s D - "Search other directory" #'+default/search-other-cwd
