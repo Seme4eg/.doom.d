@@ -4,7 +4,7 @@
 *IMPORTANT* - [[file:~/.config/emacs/docs/getting_started.org::*Looking up documentation and state from within Emacs][Looking up documentation and HELP]] in *ANY* possible way e.g. /vars,
 funcs, faces, *bindings*, keys, keymaps, chars, libs/
 
-config reload - ~spc h r r~
+!!! ~spc h~ sir
 
 ** Doom Theme [[https://github.com/hlissner/emacs-doom-themes][#here]]
 There are two ways to load a theme. Both assume the theme is installed and
@@ -1082,6 +1082,9 @@ Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
 *** Rss ([[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]])
 
 * unused kbds
-~SPC~ .. j, k, r
-* Todos
-- fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
+~SPC~ .. j, k
+
+* Todos [0/4]
+** TODO fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
+** TODO gnus? [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/gnus/evil-collection-gnus.el][evil-collection-gnus.el]]
+** TODO any way to make some 'prev/next in history' funcs in [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/helpful/evil-collection-helpful.el][helpful]]

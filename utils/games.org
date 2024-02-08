@@ -4,7 +4,8 @@
 
 ~?~ (sometimes ~h~) - get help for current game-mode (bindings & rules)
 
-** 5x5 [[https://www.masteringemacs.org/static/uploads/5x5.png][#pic]] :excellent:
+** Builtin games / amusements
+*** 5x5 [[https://www.masteringemacs.org/static/uploads/5x5.png][#pic]] :excellent:
 Your goal is to fill all the cells by toggling them on and off in the right
 order to win. It’s not as easy as it sounds!
 
@@ -25,16 +26,16 @@ solution. This runs in real time and is fun to watch:
 - M-x 5x5-crack-randomly :: Attempt to crack 5x5 using random solutions.
 - M-x 5x5-crack-xor-mutate :: Attempt to crack 5x5 by xoring the current and
   best solution.
-** Blackbox [[help:blackbox][#rules]] :excellent:
+*** Blackbox [[help:blackbox][#rules]] :excellent:
 It’s a bit like the Battleship most of us played as kids but… for people with
 advanced degrees in physics?
 
-** Bubbles [[https://www.masteringemacs.org/static/uploads/bubbles.png][#pic]] :neutral:
+*** Bubbles [[https://www.masteringemacs.org/static/uploads/bubbles.png][#pic]] :neutral:
 - =M-x bubbles-set-game-<difficulty>= - one of: easy, medium, difficult, hard, or
   userdefined.
 - =M-x customize-group bubbles= - alter the graphics, grid size and colors using
 
-** Decipher :neutral:
+*** Decipher :neutral:
 Helps you break simple substitution ciphers (like cryptogram puzzles) using a
 helpful user interface.
 
@@ -52,7 +53,7 @@ character:
 - N :: Shows adjacency of characters. I am not entirely sure how this works.
 - M / R :: Save / restore a checkpoint, allowing you to branch your work and
   explore different ways of cracking the cipher.
-** Dunnet :excellent:
+*** Dunnet :excellent:
 Emacs’s very own Zork-like *text adventure* game.
 
 Type =help= in the quest chat to get started.
@@ -66,12 +67,17 @@ great game with a built-in “boss screen” as it’s text-only.
 Oh, and, don’t try to eat the CPU card :)
 #+end_quote
 
-** Gomoku [[https://www.masteringemacs.org/static/uploads/gomoku.png][#pic]] :excellent:
+*** Gomoku [[https://www.masteringemacs.org/static/uploads/gomoku.png][#pic]] :excellent:
 Another game written in the 1980s. You have to connect 5 squares, tic-tac-toe
 style. You can play against Emacs with M-x gomoku. The game also supports the
 mouse, which is rather handy. You can customize the group gomoku to adjust the
 size of the grid.
-** Pong, Snake and Tetris [[https://www.masteringemacs.org/static/uploads/tetris.png][#pic]] :neutral:
+*** Mpuz [[https://www.masteringemacs.org/static/uploads/mpuz.png][#pic]]
+Multiplication puzzle where you have to replace the letters with numbers and
+ensure the first 2 rows of numbers multiply and 3rd and 4th add up.
+
+=mpuz-show-solution= to solve the puzzle if you get stuck.
+*** Pong, Snake and Tetris [[https://www.masteringemacs.org/static/uploads/tetris.png][#pic]] :neutral:
 These classic games are all implemented using the Emacs package gamegrid, a
 generic framework for building grid-based games like Tetris and Snake.
 
@@ -83,22 +89,19 @@ gradual speed increase and the ability to slide blocks into place. And given you
 have the code to it, you can finally remove that annoying Z-shaped piece no one
 likes!
 #+end_quote
-** Solitaire [[https://www.masteringemacs.org/static/uploads/solitaire.png][#pic]] :good:
+*** Snake - guide a snake around the screen, eat to grow
+*** Solitaire [[https://www.masteringemacs.org/static/uploads/solitaire.png][#pic]] :good:
 Peg-based game where you have to end up with just one stone on the board, by
 taking a stone (the o) and “jumping” over an adjacent stone into the hole (the .
 ), removing the stone you jumped over in the process. Rinse and repeat until the
 board is empty.
 
 =solitaire-solve= if you get stuck.
-** Mpuz [[https://www.masteringemacs.org/static/uploads/mpuz.png][#pic]]
-Multiplication puzzle where you have to replace the letters with numbers and
-ensure the first 2 rows of numbers multiply and 3rd and 4th add up.
-
-=mpuz-show-solution= to solve the puzzle if you get stuck.
-** Zero-player games / not actually 'games'
+*** TetrisMode - arrange falling blocks (see also: https://github.com/skeeto/autotetris-mode)
+*** Zero-player games / not actually 'games'
 =animate-birthday-present name=, =butterfly=
 
-*** Tower of Nahoi [[https://www.masteringemacs.org/static/uploads/hanoi.png][#pic]]
+**** Tower of Nahoi [[https://www.masteringemacs.org/static/uploads/hanoi.png][#pic]]
 #+begin_quote What it is?
 The [[https://en.wikipedia.org/wiki/Tower_of_Hanoi][Tower of Hanoi]] is an ancient mathematical puzzle game and one that is
 probably familiar to some of us as it is often used in Computer Science as a
@@ -118,7 +121,7 @@ Three commands to trigger the Tower of Hanoi:
 
 =M-x customize-group RET hanoi RET= (or ~spc h v hanoi~) - few Customize options
 such as enabling colorized discs.
-*** Fortune & Cookie
+**** Fortune & Cookie
 I like the fortune command. Snarky, unhelpful and often sarcastic “advice” mixed
 in with literature and riddles brightens up my day whenever I launch a new
 shell.
@@ -136,14 +139,14 @@ files are found in the /usr/share/games/fortunes/ directory.
 
 You can then call M-x cookie or, should you want to do this, find all matching
 cookies with M-x cookie-apropos.
-*** Doctor [[https://www.masteringemacs.org/static/uploads/doctor.png][#pic]] :excellent:
+**** Doctor [[https://www.masteringemacs.org/static/uploads/doctor.png][#pic]] :excellent:
 #+begin_quote
 Ah, the Emacs doctor. Based on the original [[https://en.wikipedia.org/wiki/ELIZA][ELIZA]] the “Doctor” tries to
 psychoanalyze what you say and attempts to repeat the question back to you.
 Rather fun, for a few minutes, and one of the more famous Emacs oddities. You
 can run it with M-x doctor.
 #+end_quote
-*** Game of Life ~M-x life~ :excellent:
+**** Game of Life ~M-x life~ :excellent:
 [[https://en.wikipedia.org/wiki/Conway's_Game_of_Life][Conway’s Game of Life]] is a famous example of cellular automata. The Emacs
 version comes with a handful of starting patterns that you can (programmatically
 with elisp) alter by adjusting the life-patterns variable.
@@ -152,7 +155,7 @@ with elisp) alter by adjusting the life-patterns variable.
 The fact that the whole thing, display code, comments and all, come in at less
 than 300 characters is also rather impressive.
 #+end_quote
-*** Zone, emacs's 'screensaver'
+**** Zone, emacs's 'screensaver'
 Just run it and watch..
 
 =zone-when-idle= - configure a screensaver idle time.
@@ -160,7 +163,7 @@ Just run it and watch..
 
 This one’s guaranteed to make your coworkers freak out if it kicks off while they are looking.
 
-*** Miscallaneous
+**** Miscallaneous
 - =(un)morse-region= - (un)translate a region into morse code
 - =dissociated-press= - applies something like a random walk markov-chain
   generator to a body of text in a buffer and generates nonsensical text from
@@ -170,10 +173,27 @@ This one’s guaranteed to make your coworkers freak out if it kicks off while t
   from the 1980s and 1990s – with various words the spooks are supposedly
   listening for. Of course, even ten years ago that would’ve seemed awfully
   paranoid and quaint but not so much any more…
+- =studlify-region= - convert text to stUdlY caps
 
-** Missing
+*** Missing
 - [[https://github.com/sthilaid/igo.el][igo]] - Play Go / Weichi / Baduk or read a game in SGF.
 - landmark - neural net robot that learns landmarks; in Emacs 24 it is invoked
   with landmark; in previous version it is invoked with lm.
   http://www.gnu.org/software/emacs/news/NEWS.24.2
 - yow - random Zippy quote
+- meese - stop impressionable young minds of America from seeing the etc/sex.6 man page
+** Add-on games
+*** [[https://github.com/alezost/ducpel][Ducpel]] – logic game with sokoban elements
+*** [[https://www.emacswiki.org/emacs/GoMode][GoMode]] – play GNU Go within Emacs
+**** [[https://www.emacswiki.org/emacs/IgsGoMode][IgsGoMode]] – play Go over the internet
+**** [[https://www.emacswiki.org/emacs/GoProblemMode][GoProblemMode]] – solve go problems interactively
+*** [[https://github.com/leoliu/sokoban][SokobanMode]]
+*** [[https://www.emacswiki.org/emacs/TypingOfEmacs][TypingOfEmacs]] – a game for fast typers
+*** [[https://www.emacswiki.org/emacs/TypingPractice][TypingPractice]] – typing practice in the minibuffer.
+*** [[https://github.com/ScottishPig/Elisp/blob/master/2048.el][2048-mode]] Port of popular game 2048 to Elisp
+*** [[https://www.emacswiki.org/emacs/MineSweeper][MineSweeper]] – a game of mine sweeper
+*** [[https://www.emacswiki.org/emacs/Sudoku][Sudoku]] – classic number puzzle
+*** [[https://github.com/codingteam/pacmacs.el][Pacmacs]] – Pacman-like game for Emacs
+*** [[https://github.com/federicotdn/key-quiz][Key Quiz]] – Guess the correct key sequence for different commands
+** Other amusements
+https://github.com/rbanffy/selectric-mode
