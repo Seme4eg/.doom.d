@@ -24,7 +24,7 @@ Global:
  user-mail-address "418@duck.com"
 
  ;; doom-theme 'doom-opera
- org-directory "~/org/"
+ org-directory "~/Documents/org/"
  fill-column 80 ;; 70, must be a default value to work
  display-fill-column-indicator-column 80
  better-jumper-context 'buffer
