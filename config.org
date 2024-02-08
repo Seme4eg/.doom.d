@@ -20,8 +20,8 @@ Global:
 (setq
  ;; Some functionality uses this to identify you,
  ;; e.g. GPG configuration, email clients, file templates and snippets.
- user-full-name "sad"
- user-mail-address "d3v1ant@mail.ru"
+ user-full-name "earthian"
+ user-mail-address "418@duck.com"
 
  ;; doom-theme 'doom-opera
  org-directory "~/org/"
