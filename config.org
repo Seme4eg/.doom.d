@@ -489,24 +489,23 @@ Forge:
           utime stime ctime cutime cstime etime comm)))
 #+end_src
 
-** Syntax + flymake
+** TODO Syntax + flymake
 #+begin_src emacs-lisp
 (after! flymake
   ;; Didn't manage to make it ignore my config files
   ;; (add-to-list 'flymake-proc-allowed-file-name-masks
   ;;              '("init\\.el\\'" nil))
 
-  (map! :leader
-    :prefix ("v" . "syntax")
-    "l" #'consult-flymake
-    "]" #'flymake-goto-next-error
-    "[" #'flymake-goto-prev-error
-    "b" #'flymake-running-backends
-    "B" #'flymake-reporting-backends
-    "x" #'flymake-proc-stop-all-syntax-checks))
+  (map! :n "]e" #'flymake-goto-next-error)
+  (map! :n "[e" #'flymake-goto-prev-error)
+  (map! :leader :prefix ("v" . "syntax")
+        "l" #'consult-flymake
+        "]" #'flymake-goto-next-error
+        "[" #'flymake-goto-prev-error
+        "x" #'flymake-proc-stop-all-syntax-checks))
 #+end_src
 
-** Telega
+** TODO Telega
 #+begin_src emacs-lisp
 (map! :leader "o c" 'telega)
 (setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
