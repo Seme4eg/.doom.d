@@ -522,7 +522,7 @@ Forge:
   (telega-notifications-mode)
   (telega-mode-line-mode)
   (global-telega-squash-message-mode)
-  (telega-image-mode) ;; n/p next prev img in chat
+  ;; (telega-image-mode) ;; n/p next prev img in chat
   (auto-fill-mode)
 
   (require 'telega-dired-dwim)
