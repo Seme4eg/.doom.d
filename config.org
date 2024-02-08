@@ -570,42 +570,42 @@ Forge:
 
 NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
 
-#+begin_src emacs-lisp
-;; (after! corfu
-;;   :custom
-;;   (corfu-cycle t)
-;;   (corfu-auto nil)
-;;   (corfu-auto-prefix 2)
-;;   (corfu-auto-delay 0.0)
-;;   (corfu-quit-at-boundary 'separator)
-;;   (corfu-preview-current 'insert)
-;;   (corfu-preselect 'first)
-;;   :init
-;;   (global-corfu-mode)
-;;   ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
-;;   (corfu-history-mode)
-;;   ;; (corfu-echo-mode)
-;;   (evil-collection-corfu-setup)
-;;   (map! :g "C-SPC" #'completion-at-point)
-;;   (map! :map corfu-map
-;;         :nvi "SPC" #'corfu-insert-separator
-;;         :nvi "C-g" (lambda () (progn (corfu-reset)
-;;                                 (evil-collection-corfu-quit-and-escape)))
-;;         :nvi "C-h" #'corfu-info-documentation))
+#+begin_src emacs-lisp :tangle no
+(after! corfu
+  :custom
+  (corfu-cycle t)
+  (corfu-auto nil)
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.0)
+  (corfu-quit-at-boundary 'separator)
+  (corfu-preview-current 'insert)
+  (corfu-preselect 'first)
+  :init
+  (global-corfu-mode)
+  ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
+  (corfu-history-mode)
+  ;; (corfu-echo-mode)
+  (evil-collection-corfu-setup)
+  (map! :g "C-SPC" #'completion-at-point)
+  (map! :map corfu-map
+        :nvi "SPC" #'corfu-insert-separator
+        :nvi "C-g" (lambda () (progn (corfu-reset)
+                                (evil-collection-corfu-quit-and-escape)))
+        :nvi "C-h" #'corfu-info-documentation))
 #+end_src
 
 ** WAIT Cape [[https://github.com/minad/cape][#github]]
-#+begin_src emacs-lisp
-;; (after! cape
-;;   :defer 10
-;;   :init
-;;   ;; Add 'completion-at-point-functions', used by 'completion-at-point'.
-;;   (add-to-list 'completion-at-point-functions #'cape-file)
-;;   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-;;   :config
-;;   ;; silence then pcomplete capf, no errors or messages
-;;   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-;;   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+#+begin_src emacs-lisp :tangle no
+(after! cape
+  :defer 10
+  :init
+  ;; Add 'completion-at-point-functions', used by 'completion-at-point'.
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  :config
+  ;; silence then pcomplete capf, no errors or messages
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 #+end_src
 
 ** WAIT Colemak
@@ -616,7 +616,7 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
   integrated with evil-collection, well.. its 'basics'
 - in [[https://github.com/Phundrak/config.phundrak.com/blob/87b3deeed34305985e4cc5253d71ca6640efb1f3/docs/emacs/keybinding-managers.org#L155][this]] setup same code works
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 ;; (use-package! evil-colemak-basics
 ;;   :init
 ;;   (setq evil-colemak-basics-layout-mod 'mod-dh))
@@ -648,8 +648,8 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
 ;; (evil-collection-init)
 #+end_src
 ** WAIT Elm
-#+begin_src emacs-lisp
-;; (after! elm-mode
-;;   (add-to-list 'company-backends 'elm-company)
-;;   (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
+#+begin_src emacs-lisp :tangle no
+(after! elm-mode
+  (add-to-list 'company-backends 'elm-company)
+  (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
 #+end_src
