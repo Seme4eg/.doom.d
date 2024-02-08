@@ -327,7 +327,6 @@ Forge:
   (setq
    ewal-use-built-in-always-p nil
    ewal-use-built-in-on-failure-p t
-   ewal-built-in-palette "sexy-material"
    ewal-shade-percent-difference 20)
   :config 
   (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
