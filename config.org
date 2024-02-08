@@ -228,7 +228,13 @@ Forge:
 
 ** Elfeed
 #+begin_src emacs-lisp
-(setq rmh-elfeed-org-files '("~/.config/doom/elfeed.org"))
+(use-package! elfeed
+  :config
+  (map! :leader :desc "Elfeed" "r" 'elfeed)
+  (setq
+   rmh-elfeed-org-files '("~/.config/doom/elfeed.org")
+   ;; unset default 2-week filter (maybe do "@6-month-ago +unread")
+   elfeed-search-filter ""))
 #+end_src
 
 ** Emms
