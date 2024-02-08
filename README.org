@@ -1079,8 +1079,7 @@ Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
   - C-x h :: *Mark* the whole *page*.
   - C-c C-a a :: List all attachments in a dired buffer.
   - C-c C-g :: jump to PDF location from source (/doesn't work/)
-*** Rss
-just locate file =evil-collection-elfeed.el= for the bindings
+*** Rss ([[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]])
 
 * unused kbds
 ~SPC~ .. j, k, r
