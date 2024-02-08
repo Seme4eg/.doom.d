@@ -309,17 +309,21 @@ Forge:
 
 #+end_src
 
-** Ewal
+** TODO Ewal
+- [ ] any way to make all colors brighter? not contrasty, but just brighter
+
 #+begin_src emacs-lisp
 (use-package! ewal
-  :init (setq ewal-use-built-in-always-p nil
-              ewal-use-built-in-on-failure-p t
-              ewal-built-in-palette "sexy-material"
-              ewal-shade-percent-difference 10)
-  :config (progn
-            (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
-            (enable-theme 'ewal-doom-one)
-            (ewal-evil-cursors-get-colors :apply t)))
+  :init
+  (setq
+   ewal-use-built-in-always-p nil
+   ewal-use-built-in-on-failure-p t
+   ewal-built-in-palette "sexy-material"
+   ewal-shade-percent-difference 20)
+  :config 
+  (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
+  (enable-theme 'ewal-doom-one)
+  (ewal-evil-cursors-get-colors :apply t))
 #+end_src
 
 ** TODO Eww
@@ -464,7 +468,6 @@ Forge:
 
   ;; now after typing 'C-c C-,' u will will get a new option to chose from
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp\n")))
-
 #+end_src
 
 ** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
