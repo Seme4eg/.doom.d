@@ -440,8 +440,6 @@ Forge:
 ** Org
 #+begin_src emacs-lisp
 (add-hook! 'org-mode-hook 'auto-fill-mode)
-(add-hook! 'org-mode-hook (company-mode -1))
-(add-hook! 'org-capture-mode-hook (company-mode -1))
 
 (after! org
   (map! :map org-mode-map
