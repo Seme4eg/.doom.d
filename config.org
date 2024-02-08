@@ -30,10 +30,7 @@ Global:
  better-jumper-context 'buffer
  default-input-method "russian-computer"
  ;; A depth of 1 means check all the subdirectories of DIRECTORY.
- projectile-project-search-path '(("~/git" . 2))
- ;; make emacs always use its own browser for opening URL links
- browse-url-browser-function 'eww-browse-url
- evil-want-C-u-delete nil)
+ projectile-project-search-path '(("~/git" . 2)))
 #+end_src
 
 [[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]]:
@@ -88,7 +85,6 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (map! :leader :desc "Git show hunk" "g}" 'diff-hl-show-hunk-next)
 (map! :leader :desc "Ace window" "ww" 'ace-window)
 (map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
-(map! :leader :desc "Web Wowser" "oe" 'eww)
 (map! :leader :desc "Previous workspace" "-" '+workspace/other)
 
 (map! :leader :desc "Edmacro insert key" "i k" 'insert-kaomoji)
@@ -185,15 +181,6 @@ Forge:
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
-;; (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
-(setq +lookup-open-url-fn #'eww
-      ;; title / url / custom func
-      eww-auto-rename-buffer 'title)
-
-(after! dash-docs
-  ;; +lookup-xwidget-webkit-open-url-fn
-  (setq dash-docs-browser-func #'eww))
-
 (after! consult
   (setq locate-command "plocate"
         consult-locate-args "plocate --ignore-case"))
@@ -201,14 +188,6 @@ Forge:
 
 ** Custom f-s & advices
 #+begin_src emacs-lisp
-(defun sad-eww-other-window (orig-func &rest args)
-  "Open eww web wowser in other window passing URL to origial 'eww' command'"
-  (other-window 1)
-  (apply orig-func args)
-  (+popup/raise (selected-window)))
-
-(advice-add 'eww :around #'sad-eww-other-window)
-
 (defun advice--center-buffer (orig-fun &rest args)
   "Center butter."
   (evil-scroll-line-to-center (line-number-at-pos)))
@@ -341,6 +320,36 @@ Forge:
             (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
             (enable-theme 'ewal-doom-one)
             (ewal-evil-cursors-get-colors :apply t)))
+#+end_src
+
+** TODO Eww
+- [ ] setup bookmarks (gopkgs) and bindings
+
+#+begin_src emacs-lisp
+(map! :leader :desc "Web Wowser" "oe" 'eww)
+
+(setq!
+ ;; make emacs always use its own browser for opening URL links
+ browse-url-browser-function 'eww-browse-url
+ )
+
+;; (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
+(setq +lookup-open-url-fn #'eww
+      ;; title / url / custom func
+      eww-auto-rename-buffer 'title)
+
+(after! dash-docs
+  ;; +lookup-xwidget-webkit-open-url-fn
+  (setq dash-docs-browser-func #'eww))
+
+(defun sad-eww-other-window (orig-func &rest args)
+  "Open eww web wowser in other window passing URL to origial 'eww' command'"
+  (other-window 1)
+  (apply orig-func args)
+  (+popup/raise (selected-window)))
+
+(advice-add 'eww :around #'sad-eww-other-window)
+
 #+end_src
 
 ** Golden-ratio
