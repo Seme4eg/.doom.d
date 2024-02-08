@@ -1,9 +1,5 @@
 #+STARTUP: nohideblocks
 
-* Readme
-Place your private configuration here! Remember, you do not need to run 'doom
-sync' after modifying this file!
-
 Here are some additional functions/macros that could help you configure Doom:
 - ~load!~ for loading external *.el files relative to this one
 - ~use-package!~ for configuring packages
@@ -13,7 +9,7 @@ Here are some additional functions/macros that could help you configure Doom:
   `require' or `use-package'.
 - ~map!~ for binding new keys
 
-* Variables
+** Variables
 Local:
 #+begin_src emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
@@ -81,7 +77,7 @@ Hlissner:
   )
 #+end_src
 
-* Keybindings
+** Keybindings
 Learn how to properly define your custom keybindings you can in [[https://www.youtube.com/watch?v=QRmKpqDP5yE&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=28][this vid]]
 
 #+begin_src emacs-lisp
@@ -112,14 +108,14 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (map! :leader :desc "Workspace swap left" :n "TAB [" '+workspace/swap-left)
 #+end_src
 
-* Startup and Global modes
+** Startup and Global modes
 #+begin_src emacs-lisp
 (global-subword-mode)
 (global-auto-revert-mode)
 #+end_src
 
-* Development
-** LSP
+** Development
+*** LSP
 #+begin_src emacs-lisp
 ;; Disable invasive lsp-mode features
 ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
@@ -131,7 +127,7 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (setq lsp-vetur-format-default-formatter-html '"prettier")
 #+end_src
 
-** Golang
+*** Golang
 #+begin_src emacs-lisp
 ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
 (after! go-mode
@@ -147,26 +143,19 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
      ("gopls.staticcheck" t t))))
 #+end_src
 
-** JS
+*** JS
 #+begin_src emacs-lisp
 (after! js2-mode
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
 #+end_src
 
-** WAIT Elm
-#+begin_src emacs-lisp
-;; (after! elm-mode
-;;   (add-to-list 'company-backends 'elm-company)
-;;   (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
-#+end_src
-
-** Shell
+*** Shell
 #+begin_src emacs-lisp
 (after! sh-script
   (set-company-backend! 'sh-mode '(company-shell :with company-yasnippet)))
 #+end_src
 
-** Magit & forge
+*** Magit & forge
 Magit:
 #+begin_src emacs-lisp
 (setq
@@ -191,88 +180,60 @@ Forge:
           "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
 #+end_src
 
-* Evil
+** Other settings
 #+begin_src emacs-lisp
-;; Focus new window after splitting
-(setq evil-split-window-below t
-      evil-vsplit-window-right t)
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
+
+;; (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
+(setq +lookup-open-url-fn #'eww
+      ;; title / url / custom func
+      eww-auto-rename-buffer 'title)
+
+(after! dash-docs
+  ;; +lookup-xwidget-webkit-open-url-fn
+  (setq dash-docs-browser-func #'eww))
+
+(after! consult
+  (setq locate-command "plocate"
+        consult-locate-args "plocate --ignore-case"))
 #+end_src
 
-* WAIT Colemak
-- my-hjkl-rotation func doesn't change anything, tried many things, didn't work
-- [[https://github.com/emacs-evil/evil-collection#key-translation][evil-collection key translation]], some ppl also have [[https://github.com/emacs-evil/evil-collection/issues/583][trouble]] making it work in doom.
-- penging [[https://github.com/doomemacs/doomemacs/pull/5835/files][PR]] in doom emacs repo for colemak
-- [[https://github.com/wbolster/emacs-evil-colemak-basics][emacs-evil-colemak-basics]] is awesome but overwrides too much and isn't
-  integrated with evil-collection, well.. its 'basics'
-- in [[https://github.com/Phundrak/config.phundrak.com/blob/87b3deeed34305985e4cc5253d71ca6640efb1f3/docs/emacs/keybinding-managers.org#L155][this]] setup same code works
-
+** Custom f-s & advices
 #+begin_src emacs-lisp
-;; (use-package! evil-colemak-basics
-;;   :init
-;;   (setq evil-colemak-basics-layout-mod 'mod-dh))
-  ;; :config
-  ;; (global-evil-colemak-basics-mode))
+(defun sad-eww-other-window (orig-func &rest args)
+  "Open eww web wowser in other window passing URL to origial 'eww' command'"
+  (other-window 1)
+  (apply orig-func args)
+  (+popup/raise (selected-window)))
 
-;; hjkl
-;; mnei
-;; (defun my-hjkl-rotation (_mode mode-keymaps &rest _rest)
-;;   ;; (evil-collection-translate-key '(normal motion visual operator) mode-keymaps
-;;   (evil-collection-translate-key 'normal mode-keymaps
-;;     "m" "h"
-;;     "n" "j"
-;;     "e" "k"
-;;     "i" "l"
-;;     "h" "m"
-;;     "j" "e"
-;;     "k" "n"
-;;     "l" "i"
-;;     (kbd "C-n") (kbd "C-j")
-;;     (kbd "C-e") (kbd "C-k")
-;;     "gn" "gj"
-;;     "ge" "gk"
-;;     :destructive nil))
+(advice-add 'eww :around #'sad-eww-other-window)
 
-;; called after evil-collection makes its keybindings
-;; (add-hook! 'evil-collection-setup-hook #'my-hjkl-rotation)
-;; (add-hook 'evil-collection-setup-hook #'my-hjkl-rotation)
-;; (evil-collection-init)
+(defun advice--center-buffer (orig-fun &rest args)
+  "Center butter."
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
+(advice-add 'evil-ex-search :after #'advice--center-buffer)
+(advice-add 'Info-next-reference :after #'advice--center-buffer)
+(advice-add 'Info-prev-reference :after #'advice--center-buffer)
+
+(defun sad-true-switch-last-buffer ()
+  "Switch to REAL last open buffer (including buffers starting with *)."
+  (interactive)
+  (let ((previous-place (car (window-prev-buffers))))
+    (when previous-place
+      (switch-to-buffer (car previous-place))
+      (goto-char (car (last previous-place))))))
 #+end_src
 
-* Org
+
+** Docker
 #+begin_src emacs-lisp
-(add-hook! 'org-mode-hook 'auto-fill-mode)
-(add-hook! 'org-mode-hook (company-mode -1))
-(add-hook! 'org-capture-mode-hook (company-mode -1))
-
-(after! org
-  (map! :map org-mode-map
-        :localleader
-        :n "bS" 'org-table-shrink
-        :n "bE" 'org-table-expand
-        :n "bts" 'org-table-toggle-column-width)
-
-  (setq
-   org-src-window-setup 'current-window
-   ;; show files like TOC on startup
-   org-startup-folded 'content
-   org-hide-block-startup t
-   org-startup-shrink-all-tables t
-   org-hide-emphasis-markers t)
-
-  (add-to-list 'org-capture-templates '("t" "Tea entry" entry
-                                        (file +org-capture-project-notes-file)
-                                        "%[~/git/tea/template]"
-                                        :jump-to-captured t
-                                        :clock-in t
-                                        :clock-keep t
-                                        :empty-lines 1))
-
-  ;; now after typing 'C-c C-,' u will will get a new option to chose from
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp\n")))
-
+(setq! docker-command "podman"
+       docker-container-shell-file-name "/bin/zsh")
 #+end_src
 
-* Doom dashboard
+** Doom dashboard
 #+begin_src emacs-lisp
 ;; (setq fancy-splash-image (concat doom-private-dir "splash.png"))
 ;; Hide the menu for as minimalistic a startup screen as possible.
@@ -282,71 +243,21 @@ Forge:
       '(doom-dashboard-widget-banner doom-dashboard-widget-loaded))
 #+end_src
 
-* Mu4e
-#+begin_src emacs-lisp
-(load-file "~/.config/doom/mu4e.el")
+** Elcord [[https://github.com/Mstrodl/elcord][#gh]]
+#+begin_src elisp
+(elcord-mode)
+(setq! elcord-idle-message "Brewing tea ...")
+;; ignore all telega stuff
+(add-to-list 'elcord-boring-buffers-regexp-list "◀")
+(add-to-list 'elcord-boring-buffers-regexp-list  "\\\\*Telega Root\\\\*")
 #+end_src
 
-* Telega
+** Elfeed
 #+begin_src emacs-lisp
-(map! :leader "o c" 'telega)
-(setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
-(map! :after telega :leader
-      :prefix ("z" . "telegram")
-      "a" #'telega-account-switch
-      "b" #'telega-switch-buffer
-      "c" #'telega-chat-with
-      "e" #'telega-edit-file-switch-buffer
-      "i" #'telega-switch-important-chat
-      "f" #'telega-buffer-file-send
-      "s" #'telega-saved-messages
-      "t" #'telega
-      "u" #'telega-switch-unread-chat
-      "w" #'telega-browse-url)
-
-(after! telega
-  (telega-notifications-mode)
-  (telega-mode-line-mode)
-  (global-telega-squash-message-mode)
-  (telega-image-mode) ;; n/p next prev img in chat
-  (auto-fill-mode)
-
-  (require 'telega-dired-dwim)
-
-  ;; eval-buffer: Cannot open load file: No such file or directory, dashboard
-  ;; (require 'telega-dashboard)
-  ;; (add-to-list 'dashboard-items '(telega-chats . 5))
-
-  (setq
-   telega-completing-read-function #'completing-read
-   telega-emoji-company-backend 'telega-company-emoji
-   telega-notifications-timeout 3600 ;; crutch basically
-   telega-url-shorten-use-images t)
-
-  (add-hook 'telega-chat-mode-hook
-            (lambda ()
-              (define-key telega-msg-button-map (kbd "SPC") nil)
-              (setq truncate-lines nil
-                    visual-fill-column-extra-text-width '(0 . 2))
-              (set (make-local-variable 'company-backends)
-                   (append (list telega-emoji-company-backend
-                                 'telega-company-username
-                                 'telega-company-hashtag)
-                           (when (telega-chat-bot-p telega-chatbuf--chat)
-                             '(telega-company-botcmd))))
-              (company-mode 1))))
-
-;; (add-to-list 'telega-browse-url-alist
-;;              '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
-;; (add-to-list 'telega-browse-url-alist
-;;              '("https?://youtu.be/" . my-watch-in-mpv))
-
-;; play youtube videos using mpv player
-;; (defun my-watch-in-mpv (url)
-;;   (async-shell-command (format "mpv -v %S" url))))
+(setq rmh-elfeed-org-files '("~/.config/doom/elfeed.org"))
 #+end_src
 
-* Emms
+** Emms
 #+begin_src emacs-lisp
 (after! emms
   (add-to-list 'emms-player-list 'emms-player-mpd)
@@ -412,7 +323,37 @@ Forge:
         :desc "playlist dir tree" "x" #'emms-play-playlist-directory-tree)))
 #+end_src
 
-* IRC [[https://github.com/emacs-circe/circe/wiki/Configuration][#configuration docs]]
+** Evil
+#+begin_src emacs-lisp
+;; Focus new window after splitting
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+#+end_src
+
+** Ewal
+#+begin_src emacs-lisp
+(use-package! ewal
+  :init (setq ewal-use-built-in-always-p nil
+              ewal-use-built-in-on-failure-p t
+              ewal-built-in-palette "sexy-material"
+              ewal-shade-percent-difference 10)
+  :config (progn
+            (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
+            (enable-theme 'ewal-doom-one)
+            (ewal-evil-cursors-get-colors :apply t)))
+#+end_src
+
+** Golden-ratio
+#+begin_src emacs-lisp
+(use-package! golden-ratio
+  :config
+  (setq! golden-ratio-extra-commands
+         '(windmove-left windmove-right windmove-down windmove-up evil-window-up
+           evil-window-down evil-window-right evil-window-left)
+         golden-ratio-exclude-buffer-regexp '("^\\*"))) ;; otherwise emacs hangs
+#+end_src
+
+** IRC [[https://github.com/emacs-circe/circe/wiki/Configuration][#configuration docs]]
 #+BEGIN_SRC emacs-lisp
 (map! :leader :desc "IRC" "oi" '=irc)
 
@@ -451,142 +392,7 @@ Forge:
 ;; (use-package! 0x0)
 #+END_SRC
 
-* Ewal
-#+begin_src emacs-lisp
-(use-package! ewal
-  :init (setq ewal-use-built-in-always-p nil
-              ewal-use-built-in-on-failure-p t
-              ewal-built-in-palette "sexy-material"
-              ewal-shade-percent-difference 10)
-  :config (progn
-            (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
-            (enable-theme 'ewal-doom-one)
-            (ewal-evil-cursors-get-colors :apply t)))
-#+end_src
-
-* Syntax + flymake
-#+begin_src emacs-lisp
-(after! flymake
-  ;; Didn't manage to make it ignore my config files
-  ;; (add-to-list 'flymake-proc-allowed-file-name-masks
-  ;;              '("init\\.el\\'" nil))
-
-  (map! :leader
-    :prefix ("v" . "syntax")
-    "l" #'consult-flymake
-    "]" #'flymake-goto-next-error
-    "[" #'flymake-goto-prev-error
-    "b" #'flymake-running-backends
-    "B" #'flymake-reporting-backends
-    "x" #'flymake-proc-stop-all-syntax-checks))
-#+end_src
-
-* GPTel [[https://github.com/karthink/gptel][#gh]]
-#+begin_src elisp
-(defun e/read-openai-key ()
-  (with-temp-buffer
-    (insert-file-contents "~/key.txt")
-    (string-trim (buffer-string))))
-
-(use-package! gptel
-  :config
-  (map! :leader "e" 'gptel)
-  (setq! gptel-default-mode 'org-mode
-         gptel-api-key #'e/read-openai-key))
-#+end_src
-
-* Elfeed
-#+begin_src emacs-lisp
-(setq rmh-elfeed-org-files '("~/.config/doom/elfeed.org"))
-#+end_src
-
-* Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
-#+begin_src emacs-lisp
-(setq! proced-tree-flag t
-       proced-auto-update-flag t
-       proced-enable-color-flag t
-       proced-format 'medium
-       proced-auto-update-interval 1
-       proced-format-alist
-       '((short user pid tree pcpu pmem start time (args comm))
-         (medium user pid tree pcpu pmem vsize rss ttname state start time comm)
-         (long
-          user euid group pid tree pri nice pcpu pmem vsize rss ttname state
-          start time comm)
-         (verbose
-          user euid group egid pid ppid tree pgrp sess pri nice pcpu pmem state
-          thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
-          utime stime ctime cutime cstime etime comm)))
-#+end_src
-
-* Golden-ratio
-#+begin_src emacs-lisp
-(use-package! golden-ratio
-  :config
-  (setq! golden-ratio-extra-commands
-         '(windmove-left windmove-right windmove-down windmove-up evil-window-up
-           evil-window-down evil-window-right evil-window-left)
-         golden-ratio-exclude-buffer-regexp '("^\\*"))) ;; otherwise emacs hangs
-#+end_src
-
-* Elcord [[https://github.com/Mstrodl/elcord][#gh]]
-#+begin_src elisp
-(elcord-mode)
-(setq! elcord-idle-message "Brewing tea ...")
-;; ignore all telega stuff
-(add-to-list 'elcord-boring-buffers-regexp-list "◀")
-(add-to-list 'elcord-boring-buffers-regexp-list  "\\\\*Telega Root\\\\*")
-#+end_src
-
-* Corfu [[https://github.com/minad/corfu][#github]]
-
-NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
-
-#+begin_src emacs-lisp
-;; (use-package! corfu
-;;   :custom
-;;   (corfu-cycle t)
-;;   (corfu-auto nil)
-;;   (corfu-auto-prefix 2)
-;;   (corfu-auto-delay 0.0)
-;;   (corfu-quit-at-boundary 'separator)
-;;   (corfu-preview-current 'insert)
-;;   (corfu-preselect 'first)
-;;   :init
-;;   (global-corfu-mode)
-;;   ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
-;;   (corfu-history-mode)
-;;   ;; (corfu-echo-mode)
-;;   (evil-collection-corfu-setup)
-;;   (map! :g "C-SPC" #'completion-at-point)
-;;   (map! :map corfu-map
-;;         :nvi "SPC" #'corfu-insert-separator
-;;         :nvi "C-g" (lambda () (progn (corfu-reset)
-;;                                 (evil-collection-corfu-quit-and-escape)))
-;;         :nvi "C-h" #'corfu-info-documentation))
-#+end_src
-
-* Docker
-#+begin_src emacs-lisp
-(setq! docker-command "podman"
-       docker-container-shell-file-name "/bin/zsh")
-#+end_src
-
-* Cape [[https://github.com/minad/cape][#github]]
-#+begin_src emacs-lisp
-(use-package! cape
-  :defer 10
-  :init
-  ;; Add 'completion-at-point-functions', used by 'completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  :config
-  ;; silence then pcomplete capf, no errors or messages
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
-#+end_src
-
-* Langtool
+** Langtool
 #+begin_src emacs-lisp
 (after! langtool
   (setq langtool-default-language "ru-RU"
@@ -613,48 +419,239 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
     "]" #'langtool-goto-next-error)
 #+end_src
 
-* Other settings
+** Mu4e
 #+begin_src emacs-lisp
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
-(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
-
-;; (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
-(setq +lookup-open-url-fn #'eww
-      ;; title / url / custom func
-      eww-auto-rename-buffer 'title)
-
-(after! dash-docs
-  ;; +lookup-xwidget-webkit-open-url-fn
-  (setq dash-docs-browser-func #'eww))
-
-(after! consult
-  (setq locate-command "plocate"
-        consult-locate-args "plocate --ignore-case"))
+(load-file "~/.config/doom/mu4e.el")
 #+end_src
 
-* Custom f-s & advices
+** Org
 #+begin_src emacs-lisp
-(defun sad-eww-other-window (orig-func &rest args)
-  "Open eww web wowser in other window passing URL to origial 'eww' command'"
-  (other-window 1)
-  (apply orig-func args)
-  (+popup/raise (selected-window)))
+(add-hook! 'org-mode-hook 'auto-fill-mode)
+(add-hook! 'org-mode-hook (company-mode -1))
+(add-hook! 'org-capture-mode-hook (company-mode -1))
 
-(advice-add 'eww :around #'sad-eww-other-window)
+(after! org
+  (map! :map org-mode-map
+        :localleader
+        :n "bS" 'org-table-shrink
+        :n "bE" 'org-table-expand
+        :n "bts" 'org-table-toggle-column-width)
 
-(defun advice--center-buffer (orig-fun &rest args)
-  "Center butter."
-  (evil-scroll-line-to-center (line-number-at-pos)))
+  (setq
+   org-src-window-setup 'current-window
+   ;; show files like TOC on startup
+   org-startup-folded 'content
+   org-hide-block-startup t
+   org-startup-shrink-all-tables t
+   org-hide-emphasis-markers t)
 
-(advice-add 'evil-ex-search :after #'advice--center-buffer)
-(advice-add 'Info-next-reference :after #'advice--center-buffer)
-(advice-add 'Info-prev-reference :after #'advice--center-buffer)
+  (add-to-list 'org-capture-templates '("t" "Tea entry" entry
+                                        (file +org-capture-project-notes-file)
+                                        "%[~/git/tea/template]"
+                                        :jump-to-captured t
+                                        :clock-in t
+                                        :clock-keep t
+                                        :empty-lines 1))
 
-(defun sad-true-switch-last-buffer ()
-  "Switch to REAL last open buffer (including buffers starting with *)."
-  (interactive)
-  (let ((previous-place (car (window-prev-buffers))))
-    (when previous-place
-      (switch-to-buffer (car previous-place))
-      (goto-char (car (last previous-place))))))
+  ;; now after typing 'C-c C-,' u will will get a new option to chose from
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp\n")))
+
+#+end_src
+
+** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
+#+begin_src emacs-lisp
+(setq! proced-tree-flag t
+       proced-auto-update-flag t
+       proced-enable-color-flag t
+       proced-format 'medium
+       proced-auto-update-interval 1
+       proced-format-alist
+       '((short user pid tree pcpu pmem start time (args comm))
+         (medium user pid tree pcpu pmem vsize rss ttname state start time comm)
+         (long
+          user euid group pid tree pri nice pcpu pmem vsize rss ttname state
+          start time comm)
+         (verbose
+          user euid group egid pid ppid tree pgrp sess pri nice pcpu pmem state
+          thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
+          utime stime ctime cutime cstime etime comm)))
+#+end_src
+
+** Syntax + flymake
+#+begin_src emacs-lisp
+(after! flymake
+  ;; Didn't manage to make it ignore my config files
+  ;; (add-to-list 'flymake-proc-allowed-file-name-masks
+  ;;              '("init\\.el\\'" nil))
+
+  (map! :leader
+    :prefix ("v" . "syntax")
+    "l" #'consult-flymake
+    "]" #'flymake-goto-next-error
+    "[" #'flymake-goto-prev-error
+    "b" #'flymake-running-backends
+    "B" #'flymake-reporting-backends
+    "x" #'flymake-proc-stop-all-syntax-checks))
+#+end_src
+
+** Telega
+#+begin_src emacs-lisp
+(map! :leader "o c" 'telega)
+(setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
+(map! :after telega :leader
+      :prefix ("z" . "telegram")
+      "a" #'telega-account-switch
+      "b" #'telega-switch-buffer
+      "c" #'telega-chat-with
+      "e" #'telega-edit-file-switch-buffer
+      "i" #'telega-switch-important-chat
+      "f" #'telega-buffer-file-send
+      "s" #'telega-saved-messages
+      "t" #'telega
+      "u" #'telega-switch-unread-chat
+      "w" #'telega-browse-url)
+
+(after! telega
+  (telega-notifications-mode)
+  (telega-mode-line-mode)
+  (global-telega-squash-message-mode)
+  (telega-image-mode) ;; n/p next prev img in chat
+  (auto-fill-mode)
+
+  (require 'telega-dired-dwim)
+
+  ;; eval-buffer: Cannot open load file: No such file or directory, dashboard
+  ;; (require 'telega-dashboard)
+  ;; (add-to-list 'dashboard-items '(telega-chats . 5))
+
+  (setq
+   telega-completing-read-function #'completing-read
+   telega-emoji-company-backend 'telega-company-emoji
+   telega-notifications-timeout 3600 ;; crutch basically
+   telega-url-shorten-use-images t)
+
+  (add-hook 'telega-chat-mode-hook
+            (lambda ()
+              (define-key telega-msg-button-map (kbd "SPC") nil)
+              (setq truncate-lines nil
+                    visual-fill-column-extra-text-width '(0 . 2))
+              (set (make-local-variable 'company-backends)
+                   (append (list telega-emoji-company-backend
+                                 'telega-company-username
+                                 'telega-company-hashtag)
+                           (when (telega-chat-bot-p telega-chatbuf--chat)
+                             '(telega-company-botcmd))))
+              (company-mode 1))))
+
+;; (add-to-list 'telega-browse-url-alist
+;;              '("https?://\\(www\\.\\)?youtube.com/watch" . my-watch-in-mpv))
+;; (add-to-list 'telega-browse-url-alist
+;;              '("https?://youtu.be/" . my-watch-in-mpv))
+
+;; play youtube videos using mpv player
+;; (defun my-watch-in-mpv (url)
+;;   (async-shell-command (format "mpv -v %S" url))))
+#+end_src
+
+
+** WAIT GPTel [[https://github.com/karthink/gptel][#gh]]
+#+begin_src elisp
+(defun e/read-openai-key ()
+  (with-temp-buffer
+    (insert-file-contents "~/key.txt")
+    (string-trim (buffer-string))))
+
+(use-package! gptel
+  :config
+  (map! :leader "e" 'gptel)
+  (setq! gptel-default-mode 'org-mode
+         gptel-api-key #'e/read-openai-key))
+#+end_src
+
+** WAIT Corfu [[https://github.com/minad/corfu][#github]]
+
+NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
+
+#+begin_src emacs-lisp
+;; (after! corfu
+;;   :custom
+;;   (corfu-cycle t)
+;;   (corfu-auto nil)
+;;   (corfu-auto-prefix 2)
+;;   (corfu-auto-delay 0.0)
+;;   (corfu-quit-at-boundary 'separator)
+;;   (corfu-preview-current 'insert)
+;;   (corfu-preselect 'first)
+;;   :init
+;;   (global-corfu-mode)
+;;   ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
+;;   (corfu-history-mode)
+;;   ;; (corfu-echo-mode)
+;;   (evil-collection-corfu-setup)
+;;   (map! :g "C-SPC" #'completion-at-point)
+;;   (map! :map corfu-map
+;;         :nvi "SPC" #'corfu-insert-separator
+;;         :nvi "C-g" (lambda () (progn (corfu-reset)
+;;                                 (evil-collection-corfu-quit-and-escape)))
+;;         :nvi "C-h" #'corfu-info-documentation))
+#+end_src
+
+** WAIT Cape [[https://github.com/minad/cape][#github]]
+#+begin_src emacs-lisp
+;; (after! cape
+;;   :defer 10
+;;   :init
+;;   ;; Add 'completion-at-point-functions', used by 'completion-at-point'.
+;;   (add-to-list 'completion-at-point-functions #'cape-file)
+;;   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+;;   :config
+;;   ;; silence then pcomplete capf, no errors or messages
+;;   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+;;   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+#+end_src
+
+** WAIT Colemak
+- my-hjkl-rotation func doesn't change anything, tried many things, didn't work
+- [[https://github.com/emacs-evil/evil-collection#key-translation][evil-collection key translation]], some ppl also have [[https://github.com/emacs-evil/evil-collection/issues/583][trouble]] making it work in doom.
+- penging [[https://github.com/doomemacs/doomemacs/pull/5835/files][PR]] in doom emacs repo for colemak
+- [[https://github.com/wbolster/emacs-evil-colemak-basics][emacs-evil-colemak-basics]] is awesome but overwrides too much and isn't
+  integrated with evil-collection, well.. its 'basics'
+- in [[https://github.com/Phundrak/config.phundrak.com/blob/87b3deeed34305985e4cc5253d71ca6640efb1f3/docs/emacs/keybinding-managers.org#L155][this]] setup same code works
+
+#+begin_src emacs-lisp
+;; (use-package! evil-colemak-basics
+;;   :init
+;;   (setq evil-colemak-basics-layout-mod 'mod-dh))
+  ;; :config
+  ;; (global-evil-colemak-basics-mode))
+
+;; hjkl
+;; mnei
+;; (defun my-hjkl-rotation (_mode mode-keymaps &rest _rest)
+;;   ;; (evil-collection-translate-key '(normal motion visual operator) mode-keymaps
+;;   (evil-collection-translate-key 'normal mode-keymaps
+;;     "m" "h"
+;;     "n" "j"
+;;     "e" "k"
+;;     "i" "l"
+;;     "h" "m"
+;;     "j" "e"
+;;     "k" "n"
+;;     "l" "i"
+;;     (kbd "C-n") (kbd "C-j")
+;;     (kbd "C-e") (kbd "C-k")
+;;     "gn" "gj"
+;;     "ge" "gk"
+;;     :destructive nil))
+
+;; called after evil-collection makes its keybindings
+;; (add-hook! 'evil-collection-setup-hook #'my-hjkl-rotation)
+;; (add-hook 'evil-collection-setup-hook #'my-hjkl-rotation)
+;; (evil-collection-init)
+#+end_src
+** WAIT Elm
+#+begin_src emacs-lisp
+;; (after! elm-mode
+;;   (add-to-list 'company-backends 'elm-company)
+;;   (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
 #+end_src
