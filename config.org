@@ -283,24 +283,13 @@ Forge:
        :desc "Update db" "u" #'+emms/mpc-update-database ;; gets called on 'start'
        :desc "Update all + cache" "R" #'emms-player-mpd-update-all-reset-cache
 
-       ;; Playlists
-       (:prefix ("P" . "Playlist")
-        :desc "Loop playlist (toggle)" "L" #'emms-toggle-repeat-playlist
-        :desc "Shuffle (toggle)" "S" #'emms-toggle-random-playlist
-        :desc "Edit playlist buffers" "l" #'emms-metaplaylist-mode-go)
-
        ;; Play ...
        (:prefix ("l" . "Play")
         :desc "directory" "d" #'emms-play-directory
         :desc "directory tree" "D" #'emms-play-directory-tree
         :desc "files matching regex" "f" #'emms-play-find
         :desc "file" "F" #'emms-play-file
-        :desc "url (ie for streaming)" "u" #'emms-play-url
-        ;; Playlists
-        :desc "playlist" "p" #'emms-play-playlist
-        :desc "playlist file" "P" #'emms-play-playlist-file
-        :desc "playlist dir" "z" #'emms-play-playlist-directory
-        :desc "playlist dir tree" "x" #'emms-play-playlist-directory-tree)))
+        :desc "url (ie for streaming)" "u" #'emms-play-url)))
 #+end_src
 
 ** Evil
