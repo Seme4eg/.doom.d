@@ -84,7 +84,6 @@ Learn how to properly define your custom keybindings you can in [[https://www.yo
 (map! :leader :desc "Git show hunk" "g{" 'diff-hl-show-hunk-previous)
 (map! :leader :desc "Git show hunk" "g}" 'diff-hl-show-hunk-next)
 (map! :leader :desc "Ace window" "ww" 'ace-window)
-(map! :leader :desc "Xwidget" "ox" 'xwidget-webkit-browse-url)
 (map! :leader :desc "Previous workspace" "-" '+workspace/other)
 
 (map! :leader :desc "Edmacro insert key" "i k" 'insert-kaomoji)
