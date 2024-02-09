@@ -471,6 +471,22 @@ Forge:
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp\n")))
 #+end_src
 
+** Popup
+- see doom package readme, but here is settings [[https://github.com/amosbird/serverconfig/blob/master/.config/doom/config.el#L1657][example]]
+
+#+begin_src emacs-lisp
+;; don't waste all that space with popup on the bottom
+(plist-put +popup-defaults :side 'right)
+(plist-put +popup-defaults :size 85)
+;; Any way to open helpful buffers on top of each other?
+;; (plist-put +popup-defaults :reusable-frames nil)
+(set-popup-rules!
+  '(("^\\*eww" :ignore t)
+    ("^\\*helpful" :ignore t) ;; for now at least
+    ("^\\*Warnings" :side bottom :size 0.16)
+    ("^\\*Org Src" :size 80))) ;; FIXME: hardcoded 'fill-column' var
+#+end_src
+
 ** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
 #+begin_src emacs-lisp
 (setq! proced-tree-flag t
