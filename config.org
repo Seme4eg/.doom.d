@@ -314,7 +314,7 @@ Forge:
 
 ;; Evil digraph
 (map! :leader
-      (:prefix-map ("d" . "digraph")
+      (:prefix ("d" . "digraph")
        :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
        :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
        :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
