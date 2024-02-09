@@ -114,6 +114,39 @@ describe-function map!
 (global-auto-revert-mode)
 #+end_src
 
+** Other settings
+#+begin_src emacs-lisp
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
+
+(after! consult
+  (setq locate-command "plocate"
+        consult-locate-args "plocate --ignore-case"))
+
+(after! ranger
+  (setq! ranger-show-hidden "format"))
+#+end_src
+
+** Custom f-s & advices
+#+begin_src emacs-lisp
+(defun advice--center-buffer (orig-fun &rest args)
+  "Center butter."
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
+(advice-add 'evil-ex-search :after #'advice--center-buffer)
+(advice-add 'Info-next-reference :after #'advice--center-buffer)
+(advice-add 'Info-prev-reference :after #'advice--center-buffer)
+
+(defun sad-true-switch-last-buffer ()
+  "Switch to REAL last open buffer (including buffers starting with *)."
+  (interactive)
+  (let ((previous-place (car (window-prev-buffers))))
+    (when previous-place
+      (switch-to-buffer (car previous-place))
+      (goto-char (car (last previous-place))))))
+#+end_src
+
+
 ** Development
 *** LSP
 #+begin_src emacs-lisp
@@ -179,36 +212,6 @@ Forge:
   (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
           "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
 #+end_src
-
-** Other settings
-#+begin_src emacs-lisp
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
-(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
-
-(after! consult
-  (setq locate-command "plocate"
-        consult-locate-args "plocate --ignore-case"))
-#+end_src
-
-** Custom f-s & advices
-#+begin_src emacs-lisp
-(defun advice--center-buffer (orig-fun &rest args)
-  "Center butter."
-  (evil-scroll-line-to-center (line-number-at-pos)))
-
-(advice-add 'evil-ex-search :after #'advice--center-buffer)
-(advice-add 'Info-next-reference :after #'advice--center-buffer)
-(advice-add 'Info-prev-reference :after #'advice--center-buffer)
-
-(defun sad-true-switch-last-buffer ()
-  "Switch to REAL last open buffer (including buffers starting with *)."
-  (interactive)
-  (let ((previous-place (car (window-prev-buffers))))
-    (when previous-place
-      (switch-to-buffer (car previous-place))
-      (goto-char (car (last previous-place))))))
-#+end_src
-
 
 ** Docker
 #+begin_src emacs-lisp
