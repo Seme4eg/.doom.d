@@ -339,32 +339,24 @@ Forge:
 
 ** TODO Eww
 - [ ] setup bookmarks (gopkgs) and bindings
+- [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]]
 
 #+begin_src emacs-lisp
 (map! :leader :desc "Web Wowser" "oe" 'eww)
 
-(setq!
- ;; make emacs always use its own browser for opening URL links
- browse-url-browser-function 'eww-browse-url
- )
+(after! eww
+  (setq!
+   ;; make emacs always use its own browser for opening URL links
+   browse-url-browser-function 'eww-browse-url
+   eww-search-prefix "https://www.google.com/search?q="
+   eww-bookmarks-directory "~/Documents/"
+   +lookup-open-url-fn #'eww
+   ;; title / url / custom func
+   eww-auto-rename-buffer 'title)
+  (map! :map eww-mode-map :n "gy" #'eww-copy-page-url)
+  (map! :map eww-mode-map :n "r" #'eww-reload))
 
-;; (setq +lookup-open-url-fn #'+lookup-xwidget-webkit-open-url-fn
-(setq +lookup-open-url-fn #'eww
-      ;; title / url / custom func
-      eww-auto-rename-buffer 'title)
-
-(after! dash-docs
-  ;; +lookup-xwidget-webkit-open-url-fn
-  (setq dash-docs-browser-func #'eww))
-
-(defun sad-eww-other-window (orig-func &rest args)
-  "Open eww web wowser in other window passing URL to origial 'eww' command'"
-  (other-window 1)
-  (apply orig-func args)
-  (+popup/raise (selected-window)))
-
-(advice-add 'eww :around #'sad-eww-other-window)
-
+(after! dash-docs (setq dash-docs-browser-func #'eww))
 #+end_src
 
 ** Golden-ratio
