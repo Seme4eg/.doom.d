@@ -148,7 +148,7 @@ describe-function map!
 
 
 ** Development
-*** LSP
+*** TODO LSP
 #+begin_src emacs-lisp
 ;; Disable invasive lsp-mode features
 ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
@@ -176,7 +176,7 @@ describe-function map!
      ("gopls.staticcheck" t t))))
 #+end_src
 
-*** JS
+*** KILL JS
 #+begin_src emacs-lisp
 (after! js2-mode
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
@@ -322,6 +322,7 @@ Forge:
 #+end_src
 
 ** TODO Ewal
+- [ ] package is abandoned, some time in the future clone it and rewrite to your needs
 - [ ] any way to make all colors brighter? not contrasty, but just brighter
 
 #+begin_src emacs-lisp
@@ -505,7 +506,6 @@ Forge:
           thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
           utime stime ctime cutime cstime etime comm)))
 #+end_src
-
 ** TODO Syntax + flymake
 #+begin_src emacs-lisp
 (after! flymake

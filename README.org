@@ -1084,7 +1084,6 @@ Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
 * unused kbds
 ~SPC~ .. j, k
 
-* Todos [0/4]
+* Todos [0/2]
+** TODO [#B] [[~/dotfiles/.config/emacs/lisp/demos.org][doom lisp demos]]
 ** TODO fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
-** TODO gnus? [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/gnus/evil-collection-gnus.el][evil-collection-gnus.el]]
-** TODO any way to make some 'prev/next in history' funcs in [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/helpful/evil-collection-helpful.el][helpful]]
