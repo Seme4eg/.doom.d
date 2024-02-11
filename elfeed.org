@@ -9,3 +9,4 @@ https://xkcd.com/rss.xml
 *** [[https://dave.cheney.net/feed/atom][Dave Cheney]]
 *** [[https://bitfieldconsulting.com/golang?format=rss][Bitfield Consulting]]
 *** [[https://jvns.ca/atom.xml][Julia Evans]]
+*** [[https://rednafi.com/tags/go/index.xml][Redowan's Reflections]]

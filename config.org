@@ -370,7 +370,10 @@ Forge:
          golden-ratio-exclude-buffer-regexp '("^\\*"))) ;; otherwise emacs hangs
 #+end_src
 
-** IRC [[https://github.com/emacs-circe/circe/wiki/Configuration][#configuration docs]]
+** IRC
+
+- https://github.com/emacs-circe/circe/wiki/Configuration
+
 #+BEGIN_SRC emacs-lisp
 (map! :leader :desc "IRC" "oi" '=irc)
 
@@ -486,7 +489,7 @@ Forge:
   '(("^\\*eww" :ignore t)
     ("^\\*helpful" :ignore t) ;; for now at least
     ("^\\*Warnings" :side bottom :size 0.16)
-    ("^\\*doom:\\(?:v?term\\|e?shell\\)-popup" :size 80 :quit nil)
+    ("^\\*doom:\\(?:v?term\\|e?shell\\)-popup" :size 80 :quit nil :select t)
     ("^\\*Org Src" :size 80))) ;; FIXME: hardcoded 'fill-column' var
 #+end_src
 
