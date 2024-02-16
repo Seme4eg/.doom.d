@@ -517,17 +517,11 @@ Forge:
 - current popup settings see in ~display-buffer-alist~ var
 
 #+begin_src emacs-lisp
-;; don't waste all that space with popup on the bottom
-(plist-put +popup-defaults :side 'right)
-(plist-put +popup-defaults :size 80)
-;; Any way to open helpful buffers on top of each other?
-;; (plist-put +popup-defaults :reusable-frames nil)
 (set-popup-rules!
   '(("^\\*eww" :ignore t)
-    ("^\\*helpful" :ignore t) ;; for now at least
-    ("^\\*Warnings" :side bottom :size 0.16)
-    ("^\\*doom:\\(?:v?term\\|e?shell\\)-popup" :size 80 :quit nil :select t)
-    ("^\\*Org Src" :size 80))) ;; FIXME: hardcoded 'fill-column' var
+    ("^\\*helpful" :ignore t) ;; Any way to open helpful buffers on top of each other?
+    ("^\\*info\\*$" :ignore t)
+    ("^\\*Org Src" :ignore t)))
 #+end_src
 
 ** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
