@@ -10,13 +10,10 @@ Here are some additional functions/macros that could help you configure Doom:
 - ~map!~ for binding new keys
 
 ** Variables
-Local:
-#+begin_src emacs-lisp
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-#+end_src
-
 Global:
 #+begin_src emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
 (setq
  ;; Some functionality uses this to identify you,
  ;; e.g. GPG configuration, email clients, file templates and snippets.
@@ -72,6 +69,13 @@ Hlissner:
   ;; rarely. So opt for manual completion
   company-idle-delay nil
   )
+#+end_src
+
+Other:
+#+begin_src emacs-lisp
+(setq!
+ browse-url-secondary-browser-function #'eww
+ browse-url-generic-program #'eww)
 #+end_src
 
 ** Keybindings
