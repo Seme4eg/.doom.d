@@ -243,14 +243,47 @@ Forge:
 #+end_src
 
 ** Elfeed
+- https://github.com/skeeto/elfeed#filter-syntax
+- maybe setup [[https://github.com/emacsmirror/spray][spray]] for effective reading? ([[https://noonker.github.io/posts/2020-04-22-elfeed/][source]])
+- [[https://nullprogram.com/blog/2013/11/26/][Elfeed Tips and Tricks]] (from the author himself)
+
 #+begin_src emacs-lisp
-(use-package! elfeed
-  :config
-  (map! :leader :desc "Elfeed" "r" 'elfeed)
-  (setq
-   rmh-elfeed-org-files '("~/.config/doom/elfeed.org")
-   ;; unset default 2-week filter (maybe do "@6-month-ago +unread")
-   elfeed-search-filter ""))
+(setq
+ rmh-elfeed-org-files '("~/Documents/rss/elfeed.org")
+ elfeed-db-directory "~/Documents/rss/db"
+ ;; "@6-month-ago +unread" will show only unread ones
+ ;; and thats how you add tags to filter string
+ elfeed-search-filter "@6-month-ago")
+
+(map! :leader
+      :prefix ("r" . "RSS")
+      "o" #'=rss
+      "r" #'elfeed-update
+      "l" #'elfeed-goodies/toggle-logs
+      "e" #'sad/elfeed-org-export-opml
+      "u" #'elfeed-show-tag--unread)
+
+;; maybe call this func in 'elfeed-new-entry-hook', but for now manually
+(defun sad/elfeed-org-export-opml ()
+  "Export Org feeds under `rmh-elfeed-org-files' to an OPML file."
+  (interactive)
+  (let ((opml-body (cl-loop for org-file in rmh-elfeed-org-files
+                            concat
+                            (with-temp-buffer
+                              (insert-file-contents
+                               (expand-file-name org-file org-directory))
+                              (rmh-elfeed-org-convert-org-to-opml
+                               (current-buffer))))))
+    (with-temp-file "~/Documents/rss/elfeed.opml"
+      (insert "<?xml version=\"1.0\"?>\n")
+      (insert "<opml version=\"1.0\">\n")
+      (insert "  <head>\n")
+      (insert "    <title>Elfeed-Org Export</title>\n")
+      (insert "  </head>\n")
+      (insert "  <body>\n")
+      (insert opml-body)
+      (insert "  </body>\n")
+      (insert "</opml>\n"))))
 #+end_src
 
 ** Emms
