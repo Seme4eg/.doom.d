@@ -74,7 +74,7 @@ Hlissner:
 Other:
 #+begin_src emacs-lisp
 (setq!
- browse-url-secondary-browser-function #'eww
+ browse-url-secondary-browser-function #'browse-url-xdg-open
  browse-url-generic-program #'eww)
 #+end_src
 

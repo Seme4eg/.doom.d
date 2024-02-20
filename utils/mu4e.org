@@ -321,15 +321,13 @@ draft messages are _not_ encrypted. So if you are using e.g. offlineimap or mbsy
 to synchronize with some remote IMAP-service, make sure the drafts folder is _not_
 in the set of synchronized folders, for obvious reasons.
 ** 7 Searching
-:PROPERTIES:
-:sources:  https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html
-:END:
+- https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html
 
 =mu4e-headers-search= command.
 
 ~M-left/right~ - move backward/forward in search history
 
-*Queries* -> ~1 spc h i~ -> ~g m mu4e~ -> ~i queries~ ... and next section is *Bookmarks*
+*Queries* -> ~spc h i~ -> ~g m mu4e~ -> ~i queries~ ... and next section is *Bookmarks*
 (7.2)
 
 You can create bookmarks to show merged views of folders across accounts:
