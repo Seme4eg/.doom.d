@@ -8,9 +8,12 @@ In minibuffer:
 - M-p/n previous/next-history-element
 
 ~g~ key:
-- g i :: Switch to Insert state at previous insertion point.
-- g O, SPC s i :: Jump to a place in the buffer chosen using a buffer menu or
-  mouse menu. (=imenu=)
+- g i :: *Switch to Insert state at previous insertion point.*
+
+SPC:
+- * :: *Search* for *symbol at point* in project
+- ` :: Switch to *last buffer*
+- a :: *embark* actions
 
 spc tab - _workspace_:
 - "Switch workspace"          "."   #'+workspace/switch-to
@@ -18,6 +21,7 @@ spc tab - _workspace_:
 spc b - _buffers_:
 - "Set bookmark"                "m"   #'bookmark-set
 - "Delete bookmark"             "M"   #'bookmark-delete
+- "C" - clone current buffer to other window
 
 _Find file UNDER particular dir_:
 - "Find file from here"         "F"   #'+default/find-file-under-here
@@ -25,9 +29,12 @@ _Find file UNDER particular dir_:
 spc g - _magit_:
 - "Magit dispatch"            "/"   #'magit-dispatch
 - "Magit file dispatch"       "."   #'magit-file-dispatch
+- *] / [  +goto prev/next tree sitter*
 
 spc i - _insert_:
 - "From clipboard"                "y"   #'+default/yank-pop
+- "p" - insert result of command ran from current directory (prompts for bash cmd)
+- "s" - insert snippet from current table ...
 
 spc p - _project_:
 "Browse other project"         ">" #'doom/browse-in-other-project
@@ -36,14 +43,21 @@ spc p - _project_:
 spc s - _search_:
 - "Jump list"                    "j" #'evil-show-jumps
 - "Jump to bookmark"             "m" #'bookmark-jump
+- *"S" - search symbol at point in current buffer !!!*
+- "B" - search in all opened buffers
+- "I" - Select item from the imenus of all buffers from the same project.
+- maybe "j" - show jumplist ?
+
+C-SPC - _company_:
+- C-x (omni completion) C-f - complete files at point
 
 spc w - _windows_ (use ~spc w~ instead of ~C-c w~):
 - "C-c"     #'ace-delete-window
+- *"u" winner-undo !!!*
 
 :n  "zx" #'kill-this-buffer
 :n  "]w" #'+workspace/switch-right
 :n  "[w" #'+workspace/switch-left
-:v  "gp" #'+evil/paste-preserve-register
 :v  "@"  #'+evil:apply-macro
 :n  "g@" #'+evil:apply-macro
 
@@ -55,15 +69,7 @@ spc w - _windows_ (use ~spc w~ instead of ~C-c w~):
 ~SPC h K~ (Info-goto-emacs-key-command-node) - Go to the node in the Emacs manual
 which detailed description
 
-* done
-- C ~ - Raise the current popup window into a regular window
-- g u/U - Convert text to lower/upper case.
-- spc s D - "Search other directory" #'+default/search-other-cwd
-- :m  "gt" #'+workspace/switch-right
-- :m  "gT" #'+workspace/switch-left
-- :m  ~]c~ / ~[c~   #'+evil/next-comment / '+evil/previous-comment
-- :m  ~]e~ / ~[e~   #'next-error / 'previous-error
-- :o "s" #'evil-surround-edit
-- :o "S" #'evil-Surround-edit
-- - ~C-w~   delete-_backward-word_
+* done ?
 - - C-s   consult-_history_
+- g O, SPC s i :: Jump to a place in the buffer chosen using a buffer menu or
+  mouse menu. (=imenu=)

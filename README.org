@@ -1,49 +1,9 @@
 
-[[https://www.emacswiki.org/emacs/GccEmacs][Installation]]
-
-*IMPORTANT* - [[file:~/.config/emacs/docs/getting_started.org::*Looking up documentation and state from within Emacs][Looking up documentation and HELP]] in *ANY* possible way e.g. /vars,
-funcs, faces, *bindings*, keys, keymaps, chars, libs/
-
 !!! ~spc h~ sir
 
-** Doom Theme [[https://github.com/hlissner/emacs-doom-themes][#here]]
-There are two ways to load a theme. Both assume the theme is installed and
-available. You can either set =doom-theme= or manually load a theme with the
-=load-theme= function. This is the default - ~(setq doom-theme 'doom-one)~
-
-- ~SPC h t~   load-theme Load Custom theme named THEME from its file and p...
-- ~SPC h r t~ doom/reload-theme Reload the current Emacs theme.
-
-** Fonts
-
-Doom exposes five (optional) variables for controlling fonts in Doom. Here
-are the three important ones:
-+ `doom-font'
-+ `doom-variable-pitch-font'
-+ `doom-big-font' -- used for `doom-big-font-mode'; use this for
-  presentations or streaming.
-
-They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-font string. You generally only need these two:
-#+begin_src elisp
-(setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "sans" :size 13))
-#+end_src
-
 * Shortcuts
-:PROPERTIES:
-:Sources: [[file:~/.config/emacs/modules/config/default/+evil-bindings.el][+evil-bindings.el]], [[https://github.com/hlissner/doom-emacs/blob/96bea9e9ad4f3e3412472fa0f26a19d19be66a1a/modules/config/default/%2Bbindings.el][bindings.el]], [[file:~/.config/emacs/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
-:END:
-
-- ~SPC u~ replaces ~C-u~ as the *universal* argument.
-- ~SPC h~ - *help* map
-- ~C-S-f~ / ~spc t F~ - *toggle* frame *fullscreen*
-
-Anywhere in =help= / =apropos= buffers:
-- ~o~ - *open link* at point
-- ~TAB / backtab~ - forward / backward link
-
-[[elisp:(helpful-variable 'minibuffer-local-map)][minibuffer]] map + :
+** Minibuffer
+[[elisp:(helpful-variable 'minibuffer-local-map)][minibuffer]] map + some keybings from [[elisp:(helpful-variable 'global-map)][global-map]]:
 - { 'ctrl+b',      function() prev_char() end             },
 - { 'ctrl+f',      function() next_char() end             },
 - { 'alt+b',       prev_word                              },
@@ -52,90 +12,60 @@ Anywhere in =help= / =apropos= buffers:
 - { 'ctrl+e',      go_end                                 },
 - { 'ctrl+d',      del_char_right                         },
 - { 'ctrl+u',      del_to_start                           },
-- { 'ctrl+del',    del_next_word                          },
 - { 'alt+d',       del_next_word                          },
 
 ** <leader> [[elisp:(helpful-variable 'doom-leader-map)][#keymap]]
-- RET :: Jump to *bookmark*
-- SPC :: Find *file* in project
-- ' :: Resume last *search*
-- * :: *Search* for *symbol* in project
-- , :: Switch *workspace* buffer
-- . :: Find *file*
-- / :: search *project*
-- ; :: *Eval* expression
-- < :: Switch *buffer*
-- ` :: Switch to *last buffer*
-- a :: *embark* actions
-- u :: *universal* argument
-- X :: Org Capture
-- ~ :: Toggle last *popup*
-
-_Leader mode map links_: *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]] ([[file:~/.config/emacs/modules/ui/workspaces/README.org::*Commands & Keybindings][doom]] & C-t - new, gt/T), *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]], *f* [[elisp:(helpful-variable
- 'doom-leader-file-map)][file]], *g* [[elisp:(helpful-variable 'doom-leader-git-map)][git]], *i* [[elisp:(helpful-variable 'doom-leader-insert-map)][insert]], *n* [[elisp:(helpful-variable 'doom-leader-notes-map)][notes]], *o* [[elisp:(helpful-variable 'doom-leader-open-map)][open]], *p* [[elisp:(helpful-variable 'doom-leader-project-map)][project]], *q* [[elisp:(helpful-variable 'doom-leader-quit/session-map)][quit/session]], *s* [[elisp:(helpful-variable 'doom-leader-search-map)][search]], *t* [[elisp:(helpful-variable
- 'doom-leader-toggle-map)][toggle]] (+ *s*[pell] checker), *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *J*[ump] to symbol in any workspace), *w* [[elisp:(helpful-variable
+- _press ~<leader> <key> ?~ to see all keys under that prefix_
+- *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]] ([[file:~/.config/emacs/modules/ui/workspaces/README.org::*Commands & Keybindings][doom]] & C-t - new, gt/T)
+- *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]]
+- *f* [[elisp:(helpful-variable
+ 'doom-leader-file-map)][file]]
+- *g* [[elisp:(helpful-variable 'doom-leader-git-map)][git]]
+- *i* [[elisp:(helpful-variable 'doom-leader-insert-map)][insert]]
+- *n* [[elisp:(helpful-variable 'doom-leader-notes-map)][notes]]
+- *o* [[elisp:(helpful-variable 'doom-leader-open-map)][open]]
+- *p* [[elisp:(helpful-variable 'doom-leader-project-map)][project]]
+- *q* [[elisp:(helpful-variable 'doom-leader-quit/session-map)][quit/session]]
+- *s* [[elisp:(helpful-variable 'doom-leader-search-map)][search]]
+- *t* [[elisp:(helpful-variable
+ 'doom-leader-toggle-map)][toggle]] (+ *s*[pell] checker)
+- *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *J*[ump] to symbol in any workspace)
+- *w* [[elisp:(helpful-variable
  'evil-window-map)][window]]
 
 _Mine_: [[elisp:(helpful-variable 'doom-leader-digraph-map)][digraph]], [[elisp:(helpful-variable 'doom-leader-listen-map)][listen]]
+
 ** ~g~ prefix
 _Move the cursor_ ... :
 - g e/E :: to the end of the COUNT-th previous word/WORD.
-- g 0 :: to the first character of the current *screen* line.
-- g ^/$ :: to the first/last character of the current *screen* line.
-- g _ :: to the last non-blank character of the current line.
-- g m :: to the middle of the current *visual* line.
-- g <down>/<up> :: COUNT screen lines down/up
 
 _Yank, paste, (re)selection_:
 - gy :: yank unindented
 - gv :: Restore previous selection.
 - gp :: reselect paste / alt paste
-- :v gp :: paste preserve register
 - g n/N :: Select next/previous match.
-
-+Feeling+ _Filling text_:
-- g w :: Fill text.
-- g q :: Fill text and move point to the end of the filled region.
-- g Q :: Fill element at point, when applicable.
 
 Other stuff:
 - g u/U :: Convert text to lower/upper case.
-- g & :: Repeat last substitute command on the whole buffer.
 - g i :: Switch to Insert state at previous insertion point.
 - g J :: Join the selected lines without changing whitespace.
-- g , :: Go back to more recent changes after g ; have been used.
+- g ;/, :: Go back/forward in changes history.
 - g O, SPC s i :: Jump to a place in the buffer chosen using a buffer menu or
   mouse menu. (=imenu=)
 - :nv g@ :: Apply *macro* to each line. (:v  "@"  #'+evil:apply-macro)
-- g C-g :: Count words between START and END.
-- g s / :: ??? Evil motion for ‘avy-goto-char-timer’.
+- g s SPC :: Evil motion for ‘avy-goto-char-timer’.
 - g f/F :: Opens the file at point (and goes to line-number).
-- g C-], C-] :: Jump to tag under point.
-- (:after helpful :n "gr" #'helpful-update)
-- (:after compile :n "gr" #'recompile)
-- (:after dired :n "gr" #'revert-buffer)
 
 ** ported from [[https://github.com/tpope/vim-unimpaired][vim-unimpaired]]
-?? - where is the keymap for this?
+- see [[elisp:(helpful-variable 'evil-motion-state-map)][evil-motion-state-map]]
 
 _Objects_:
-- *b*[uffer], *f*[ile], *w*[orkspace], *a*[rg], *c*[omment], *e*[rror], *F*[rame], *h*[eading],
+- *b*[uffer], *f*[ile], *w*[orkspace], *a*[rg], *c*[omment], *e*[rror], *h*[eading],
   *m*[ethod] start, *M*[ethod] end
 - *d* git gutter hunk / diff
 - hl *t*[odo]
 
-Complementary pairs of mappings:
-- :n  ~] SPC~ / ~[ SPC~  #'+evil/insert-newline-below/above
-- :n  ~[o~ / ~]o~   #'+evil/insert-newline-above / '+evil/insert-newline-below
-- :m  ~]u~ / ~[u~   #'+evil:url-encode / '+evil:url-decode
-- :m  ~]y~ / ~[y~   #'+evil:c-string-encode / '+evil:c-string-decode
-- :m ~]x~ / ~[x~  #'+web:encode-html-entities / '+web:decode-html-entities)
-- :m  ~]#~ / ~[#~   #'+evil/next/prev-preproc-directive
-
 ** other - text scale, narrowing
-
-- Buffer-local font resizing: ~C-= / C--~ #'text-scale-increase/decrease
-- Frame-local font resizing: ~M-C-=/-~  #'doom/increase/decrease-font-size
 - ~C-+~   #'doom/reset-font-size
 
 Custom evil keybinds:
@@ -144,211 +74,72 @@ Custom evil keybinds:
 - :n  "zx"    #'kill-current-buffer
 - :n  "ZX"    #'doom/save-and-kill-buffer
 
-;; don't leave visual mode after shifting:
-- :v  "<"     #'+evil/shift-left  ; vnoremap < <gv
-- :v  ">"     #'+evil/shift-right  ; vnoremap > >gv
-
 * Packages
-- _git_: prefix ~SPC-g~, read all commands there, you won't miss anything
+For any package / mode you are interested in keybindings for try first ~SPC h m~
+and then ~evil-colleciton-<mode>[-map]~ var
+
 - _window-select_ prefix ~spc w w~ (Hit ~?~ to bring up the actions menu.)
 - _vertico_ [[file:~/.config/emacs/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.config/emacs/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] , ~C-SPC~ embark-preview
-- [[file:~/.config/emacs/modules/ui/popup/README.org::*Commands][popup]]:
-  + C-~ (+popup/raise) - Raise the current popup window into a regular window
-  + C-` (+popup/toggle) - Toggle any visible popups.
-  + SPC ~  (+popup/toggle) - Toggle any visible popups.
-  + C-x p  (+popup/other) - Cycle through popup windows, like ‘other-window’....
+- [[file:~/.config/emacs/modules/ui/popup/README.org::*Commands][popup]]: C-~ (+popup/raise); C-` (+popup/toggle)
 - =evil-quick-diff= - used to diff and edit two separate blocks of text.
-- [[https://github.com/emacsmirror/undo-tree/blob/master/undo-tree.el][undo-tree]] (shortcuts bit below in doc.)
 - [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
   regular expression (regexp) or keywords that you type.
-- _Nov_ [[https://depp.brause.cc/nov.el/][#docs]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/nov/evil-collection-nov.el][evil-collectoin-nov.el]]
 
 ** evil
+- [[file:~/.config/emacs/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
 - [[file:~/.config/emacs/modules/editor/evil/README.org::*Custom Text Objects][Custom Text Objects]]
 - *[[https://github.com/emacs-evil/evil-surround#usage][evil-surround]]* - ~ys~, ~cs~, ~ds~ & [[elisp:(helpful-variable 'evil-surround-mode-map)][modemap]]
-- *[[https://github.com/hlissner/evil-multiedit#usage][evil-multiedit]]* - ~M-d / D~ , ~RET~ to exclude, ~C-M-D~ to restore last group. Ex
-  command that allows to invoke evil-multiedit with a regular expression -
-  =ie[dit]=. There is also a [[https://www.youtube.com/watch?v=zXdT5jY_ui0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][quick vid tut]]. Also ~R~ - #'evil-multiedit-match-all.
-- *evil-mc* - ~gz ..~. Which-key available. For some reason kbds in
-  [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/evil-mc/evil-collection-evil-mc.el][evil-collection-evil-mc.el]] ain't there.
 - *evil-nerd-commenter* - comment any viable /text objects/ (below). ~gc {motion}~
   Inobvious motions: c / *l*[line], *r*[egion], *\* - comment current line and enter
   insert mode on point
 - *[[https://github.com/edkolev/evil-lion#usage][evil-lion]]* - allows to align text by some CHAR; ~gl/L {motion} {char}~
 - *evil-numbers* - works like C-a/C-x in vim, but here it is ~g-/g=~.
 - *evil-exchange* - ~gx {motion}~ - exchange two regions with evil motion
+- *evil-easymotion* (~gs spc~ or ~gs /~) - ~g s ?~ to see possible command modifier.
 
-*** [[https://github.com/PythonNut/evil-easymotion][evil-easymotion]] ~gs..~ [[https://www.youtube.com/watch?v=zar4GsOBU0g&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][#vid]]
-Just ~gs spc~ or ~gs /~
-
-When given a selection type ~?~ to see possible command modifier /(kill-move,
-kill-stay, teleport, mark, yank ...)/.
-
-=evilem-motion..= - *#nftbew,  kj gj gk
-- -/+   :: previous/next-*line*-first-*non-blank*
-- )/(   :: forward/backward-*sentence*-begin
-- ][    :: forward-*section*-end
-- ]]    :: forward-*section*-begin
-- []    :: backward-*section*-end
-- [[    :: backward-*section*-begin
-- s     :: goto-*char-2*
-- g k/j :: previous/next-*visual-line*
-- g e/E :: backward-*word/WORD-end*
-- a/A   :: forward/backward-*arg*
+FYI:
+- *[[https://github.com/hlissner/evil-multiedit#usage][evil-multiedit]]* - ~M-d / D~ , ~RET~ to exclude, ~C-M-D~ to restore last group. Ex
+  command that allows to invoke evil-multiedit with a regular expression -
+  =ie[dit]=. There is also a [[https://www.youtube.com/watch?v=zXdT5jY_ui0&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj&index=8][quick vid tut]]. Also ~R~ - #'evil-multiedit-match-all.
 
 ** Development
-[[https://github.com/emacs-lsp/lsp-mode][lsp]] - [[https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/][tutorial]], ~SPC c l~ - prefix ([[file:~/.config/emacs/modules/tools/lsp/README.org::*Features][lsp doom features]]).
+~SPC c~ - prefix
+- eval [[file:~/.config/emacs/modules/tools/eval/README.org][#readme]]
+  - SPC ; :: Evaluate EXPRESSION and pretty-print its value.
+  - M-x +eval ... :: see all provided commands and bindings
 
-[[https://github.com/hlissner/doom-snippets][snippets and how to use / write them]]
-- :i  [C-tab] #'aya-expand
-- :nv [C-tab] #'aya-create
+- lookup [[file:~/.config/emacs/modules/tools/lookup/README.org::*Features][#features]]
+  - *K* documentation, g *d*[efinition], g *D* - references, g *f*[ile], g
+    *I*[mplementations], g *A*[ssignments]
+  - ~SPC s ?~ - see all possible movements
 
-*** eval [[file:~/.config/emacs/modules/tools/eval/README.org::*Features][#features]]
-instead of opening console in all browser tabs...
+- _+tree-sitter_ maps
+  - [[elisp:(helpful-variable '+tree-sitter-goto-previous-map)][+tree-sitter-goto-previous-map]] (~[ g~ prefix)
+  - [[elisp:(helpful-variable '+tree-sitter-goto-next-map)][+tree-sitter-goto-next-map]] (~] g~ prefix)
+  - [[elisp:(helpful-variable '+tree-sitter-inner-text-objects-map)][+tree-sitter-inner-text-objects-map]] ??
 
-- g r :: +eval:region
-- M-r, g R :: Evaluate the whole buffer.
-- SPC ; :: Evaluate EXPRESSION and pretty-print its value.
+- all _mode-specific_ keybinds reside under (SPC m ..)
 
-- SPC o r :: Does ‘+eval/open-repl’, but in a popup window.
-- SPC o R :: Opens (or reopens) the REPL associated with the current major-mode and place
-- SPC c s :: Execute the selected region in the REPL.
-
-- SPC c e :: Evaluate the region if it’s active, otherwise evaluate the whole buffer.
-- SPC c E :: +eval:replace-region
-- M-ESC :, M-: :: Evaluate EXP and print value in the echo area.
-- C-x C-e :: Evaluate sexp before point; print value in the echo area.
-- C-c C-y, SPC m c t :: Evaluate a time range by computing the difference between start and end.
-- C-c = :: Replace the table field value at the cursor by the result of a calculation.
-
-=eros-eval-defun= - Wrapper for ‘eval-defun’ that overlays results.
-
-*** lookup [[file:~/.config/emacs/modules/tools/lookup/README.org::*Features][#features]]
-*K* documentation, g *d*[efinition], g *D* - references, g *f*[ile], g
-*I*[mplementations], g *A*[ssignments]
-
-- SPC s T (+lookup/synonyms)              - Look up and insert a synonym for the word at poin...
-- SPC s t (+lookup/dictionary-definition) - Look up the definition of the word at point (or s...
-- SPC s K (+lookup/in-all-docsets)        - TODO
-- SPC s k (+lookup/in-docsets)            - Lookup QUERY in dash DOCSETS.
-- SPC s O (+lookup/online-select)         - Run ‘+lookup/online’, but always prompt for the p...
-- SPC s o (+lookup/online)                - Look up QUERY in the browser using PROVIDER.
-- SPC c t (+lookup/type-definition)       - Jump to the type definition of IDENTIFIER (defaul...
-- SPC c k (+lookup/documentation)         - Show documentation for IDENTIFIER (defaults to sy...
-- SPC c i (+lookup/implementations)       - Jump to the implementations of IDENTIFIER (defaul...
-- SPC c D (+lookup/references)            - Show a list of usages of IDENTIFIER (defaults to ...
-- SPC c d (+lookup/definition)            - Jump to the definition of IDENTIFIER (defaults to...
-- SPC h O (+lookup/online)                - Look up QUERY in the browser using PROVIDER.
-
-*** hide / fold (hideshow mode)
-This mode isn't enabled in all prog-modes.
-
-~C-c @~ prefix:
-- C-e/c (hs-toggle-hiding) - Toggle hiding/showing of a block.
-- C-d/s (hs-hide-block) - Select a block and hide it.  With prefix arg...
-- C-t / C-M-h (hs-hide-all) - Hide all top level blocks, displaying only f...
-- C-a / C-M-s (hs-show-all) - Show everything then run ‘hs-show-hook’.  Se...
-- C-l/h (hs-hide-level) - Hide all blocks ARG levels below this block.
-
-There's also =hide-sublevels= command
-
-*** Languages
-- JS [[file:~/.config/emacs/modules/lang/javascript/README.org::*Commands][#commands]] (js2-mode / tide / js2-refactor / skewer-mode / npm-mode), and
-  ~spc h v js map~, also there is [[https://github.com/NicolasPetton/Indium][Indium]] (js development environment), [[https://www.purescript.org/][purescript]],
-  [[https://github.com/reasonml-editor/reason-mode][reason-mode]] ([[https://reasonml.github.io][Reason github]] - JavaScript & OCaml ecosystems)
 - [[elisp:(helpful-variable 'sh-mode-map)][sh-mode-map]]
 
-**** Golang
-todos [0/2]:
-- [ ] use goimports or the organize-imports feature of gopls to manage
-  adding/removing/organizing imports automatically. -- set it up
-- [ ] https://github.com/x-motemen/gore
+- Restclient [[https://github.com/pashky/restclient.el][#github]] [[https://codelearn.me/2017/10/22/restclient.html][#examples]] [[https://www.youtube.com/watch?v=fTvQTMOGJaw][#vid-demo]]
+  - [[elisp:(helpful-variable 'restclient-mode-map)][restclient-mode-map]]
+  - [[elisp:(helpful-variable 'restclient-outline-mode-map)][restclient-outline-mode-map]]
+  - [[elisp:(helpful-variable 'restclient-response-mode-map)][restclient-response-mode-map]]
+  - Files ending with ~.http~ will have restclient-mode enabled by default.
+  - Company completion (~C-SPC~) works in this mode.
+  - ~C-c C-i~: show information on resclient variables at point
 
-_Installation_: set and add GOPATH to your path, then run ~doom env~ _outside_ emacs
-to regenerate env vars, install [[https://github.com/golang/tools/blob/master/gopls/doc/emacs.md][gopls]], start emacs. For [[file:~/dotfiles/.config/emacs/modules/lang/go/README.org::*Dependencies][golangci-lint]] (see doom
-go documentation) i have aur package installed
-
-[[file:~/dotfiles/.config/emacs/modules/lang/go/README.org::*Keybinds][Keybinds]] (SPC m ..)
-
-Other info:
-- go-_import_-add (SPC m r i a) - Add a new IMPORT to the list of imports.
-- go-goto-_imports_ (SPC m i) - Move point to the block of imports.
-- go-remove-unused-_imports_ (SPC m r i r) - Remove all unused imports.
-- _godef_-jump (C-c C-j) - Jump to the definition of the expression at POINT.
-- _godef_-describe (C-c C-d) - Describe the expression at POINT.
-- _godef_-jump-other-window  (C-x 4 C-c C-j)
-- basic support for _imenu_ (functions and vars) : (SPC s i)
-- ~go-coverage~ display _code coverage_ as calculated by go test
+**** Golang [[file:~/dotfiles/.config/emacs/modules/lang/go/README.org::*Keybinds][#keybinds]]
 - [[https://github.com/x-motemen/gore][gore]]pl
   - ~C-c C-r~ (gorepl-eval-line) - Evaluate current line.
   - ~C-c C-e~ (gorepl-eval-region) - Evaluate region selected.
   - ~C-c C-l~ (gorepl-run-load-current-file) - Run a GoREPL with a context file in
     it
   - ~C-c C-g~ (gorepl-run) - Start or switch to the GoREPL buffer
-- godoc-at-point (SPC m h .) - Show Go documentation for the identifier at
-  POINT.
-- +go/play-buffer-or-region (SPC m e) - Evaluate active selection or buffer in
-  the Go playground.
-  ~go-gen-test-default-functions~.
-- f-s for jumping to and manipulating the individual parts of function
-  signatures. These functions support anonymous functions, but are smart enough
-  to skip them when required (e.g. when jumping to a method receiver or
-  docstring.) All of these functions accept a prefix argument (C-u), causing
-  them to skip anonymous functions.
-  - go-goto-imports (SPC m i) - Move point to the block of imports.
-  - go-goto-function (C-c C-f f) - Go to the function definition (named or
-    anonymous) surrounding point.
-  - go-goto-arguments (C-c C-f a) - Go to the arguments of the current function.
-  - go-goto-docstring (C-c C-f d) - Go to the top of the docstring of the current
-    function.
-  - go-goto-function-name (C-c C-f n) - Go to the name of the current function.
-  - go-goto-return-values (C-c C-f r) - Go to the return value declaration of the
-    current function.
-  - go-goto-method-receiver (C-c C-f m) Go to the receiver of the current method.
-- [[https://github.com/hlissner/doom-snippets/tree/master/go-mode][Snippets]] (or just [[elisp:(yas/describe-tables)][yas/describe-tables]])
-
-***** Goto bindings
-- ] g l - +goto-loop.outer
-- ] g v - +goto-conditional.outer
-- ] g c - +goto-comment.outer
-- ] g C - +goto-class.outer
-- ] g F - +goto-call.outer
-- ] g f - +goto-function.outer
-- ] g a - +goto-parameter.outer
-
-with '[' all same but 'previous':
-- [ g l - +goto-previous-loop.outer
-- ...
-
-***** [[file:~/.config/emacs/.local/straight/repos/go-mode.el/go-guru.el][Go-guru]]* (code navigation)
-- go-guru-peers (SPC m h p) - Enumerate the set of possible corresponding
-  sends/receives for
-- go-guru-callees (SPC m h C) - Show possible callees of the function call at
-  the current point.
-- go-guru-callers (SPC m h c) - Show the set of callers of the function
-  containing the current point.
-- go-guru-describe (SPC m h d) - Describe the selected syntax, its kind, type
-  and methods.
-- go-guru-freevars (SPC m h v) - Enumerate the free variables of the current
-  selection.
-- go-guru-pointsto (SPC m h P) - Show what the selected expression points to.
-- go-guru-callstack - Show an arbitrary path from a root of the call graph to
-  the
-- go-guru-referrers (SPC m h r) - Enumerate all references to the object denoted
-  by the selected
-- go-guru-set-scope - Set the scope for the Go guru, prompting the user to edit
-  the previous scope.
-- go-guru-whicherrs (SPC m h e) - Show globals, constants and types to which the
-  selected
-- go-guru-definition - Jump to the definition of the selected identifier.
-- go-guru-implements (SPC m h i) - Describe the ’implements’ relation for types
-  in the package
-- go-guru-hl-identifier - Highlight all instances of the identifier under point.
-  Removes
-- go-guru-hl-identifier-mode - Highlight instances of the identifier at point
-  after a short
-- go-guru-definition-other-window - Jump to the defintion of the selected
-  identifier in another window
+- [[elisp:(helpful-variable 'go-goto-map)][go-goto-map]] (prefix ~C-c C-f~) - jumping to and manipulating the individual
+  parts of function signatures.
+- [[elisp:(yas/describe-tables)][yas/describe-tables]]
 
 ***** Go tag [[https://github.com/brantou/emacs-go-tag/tree/33f2059551d5298ca228d90f525b99d1a8d70364#commands][#commands docs]]
 Edit field tags for golang struct fields.
@@ -356,46 +147,15 @@ Edit field tags for golang struct fields.
 - go-tag-add (SPC m a) - Add field TAGS for struct fields.
 - go-tag-remove (SPC m d) - Remove field TAGS for struct fields.
 - go-tag-refresh - Refresh field TAGS for struct fields.
-- go-tag-open-github - go-tag open Github page.
 
 **** (e)lisp future
 [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/edebug/evil-collection-edebug.el][evil-collection-edebug.el]],  [[elisp:(helpful-variable 'emacs-lisp-mode-map)][#elisp-mode-map]],  [[elisp:(helpful-variable 'elisp-refs-mode-map)][#elisp-refs-mode-map]]
-***** debug
-[[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/debug/evil-collection-debug.el][evil-collction-debug]] + :
+
+_Debug_: [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/debug/evil-collection-debug.el][evil-collction-debug]] + :
 - ‘#’ Toggle ‘print-circle’ for the frame at point.
 - ‘:’ Toggle ‘print-gensym’ for the frame at point.
 - ‘.’ Expand all the forms abbreviated with “...” in the frame at point.
-*** Restclient ([[https://github.com/pashky/restclient.el][restclient-mode]]) [[https://codelearn.me/2017/10/22/restclient.html][#examples]] [[https://www.youtube.com/watch?v=fTvQTMOGJaw][#vid-demo]]
-- [[elisp:(helpful-variable 'restclient-mode-map)][> restclient-mode-map]]
-- [[elisp:(helpful-variable 'restclient-outline-mode-map)][> restclient-outline-mode-map]]
-- [[elisp:(helpful-variable 'restclient-response-mode-map)][> restclient-response-mode-map]]
 
-Files ending with ~.http~ will have restclient-mode enabled by default.
-
-- ~company-restclient~ (C-<leader>) - ‘company-mode’ completion back-end for
-  ‘restclient-mode’.
-- ~restclient-jump-next/prev~ (] ] / [ [) - Jump to next/prev request in buffer.
-- ~restclient-show-info~ (C-c TAB)
-- ~restclient-mark-current~ (C-c C-.) - Mark current request.
-- ~restclient-outline-mode~ - Minor mode to allow show/hide of request bodies by
-  TAB.
-- ~restclient-response-mode~ - Minor mode to allow additional keybindings in
-  restclient response buffer.
-- ~restclient-copy-curl-command~ (SPC m c) - Formats the request as a curl
-  command and copies the command to the clipboard.
-- ~restclient-http-send-current~ (SPC m e) - Sends current request.
-- ~restclient-narrow-to-current~ (C-c n n) - Narrow to region of current request
-- ~restclient-http-send-current-raw~ (SPC m E) - Sends current request and get
-  raw result (no reformatting or syntax highlight o…
-- ~restclient-jq-interactive-result~ - Run jq interactively on a restclient JSON
-  response buffer.
-- ~restclient-toggle-body-visibility~ (z a)
-- ~evil-collection-restclient-result-mode~ - A minor mode to attach to
-  ‘restclient’ results
-- ~restclient-http-send-current-stay-in-window~ (C-c C-v) - Send current request
-  and keep focus in request window.
-- ~restclient-toggle-body-visibility-or-indent~  (TAB)
-- ~C-c C-i~: show information on resclient variables at point
 
 ** dired [[file:~/.config/emacs/modules/emacs/dired/README.org::*Keybindings][#kbds]], [[elisp:(helpful-variable 'dired-mode-map)][#modemap]]
 - ~M~ - change permissions
@@ -654,15 +414,13 @@ You may *rearrange* filter groups by using the usual pair ‘C-k’ and ‘C-y�
 groups will be inserted before the group at point.
 
 ** company [[file:~/.config/emacs/modules/completion/company/README.org::*Code completion][#Code completion]] ~C-SPC~ to trigger completion.
-~C-SPC/@~ - (cmds! (not (minibufferp)) #'company-complete-common)
-
 - [[elisp:(helpful-variable 'company-active-map)][company-active-map]], "C-w" doesn't interfere with `evil-delete-backward-word'
 - [[elisp:(helpful-variable 'company-search-map)][company-search-map]] (~C-s~)
 
-Omni-completion :prefix "C-x":
+Omni-completion _:prefix "C-x"_:
 - :i "C-l"    #'+company/whole-lines
 - :i "C-k"    #'+company/dict-or-keywords
-- :i "C-f"    #'company-files
+- :i "C-f"    _#'company-files_
 - :i "C-]"    #'company-etags
 - :i "s"      #'company-ispell
 - :i "C-s"    #'company-yasnippet
@@ -688,7 +446,7 @@ Evil already defines 'z=' to `ispell-word' = correct word at point
 - :m  "[s"   #'+spell/previous-error
 - :m  "]s"   #'+spell/next-error)
 
-** Info [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/info/evil-collection-info.el][evil-collection-info.el]]
+** Info [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/info/evil-collection-info.el][evil-collection-info.el]] [[elisp:(helpful-variable 'Info-mode-map)][Info-mode-map]]
 #+begin_comment
 Info files are created from Texinfo source files. You can use the same source
 file to make a printed manual or produce other formats, such as HTML and
@@ -703,8 +461,6 @@ do the same.
 command switches / creates Info buffer with that number. (They r *independent*)
 
 ~M-h~ (Info-help) - Enter the Info tutorial.
-
-~g ?~ (Info-summary) - Display a brief summary of all Info commands.
 
 _Basics:_
 - ~g k/j~ or ~C-k/j~ (Info-prev/next) - Go to the "previous/next" node, but C-k/j
@@ -743,43 +499,29 @@ _Advanced:_
 - ~M-n~ (clone-buffer) - creates a new *independent* Info buffer. The new buffer
   starts out as an exact copy of the old one, but you will be able to move
   independently between nodes in the two buffers.
-- ~SPC h 4 i~ (info-other-window) - Like ‘info’ but show the Info buffer in
-  anoter window
-
-#+CAPTION: produce new Info buffers
-#+begin_comment
-In Emacs Info, you can also produce new Info buffers by giving a numeric prefix
-argument to the ‘m’ and ‘g’ commands. ‘C-u m’ and ‘C-u g’ go to a new node in
-exactly the same way that ‘m’ and ‘g’ do, but they do so in a new Info buffer
-which they select in another window.
-
-Or use a numeric prefix argument for the ‘C-h i’ command (‘info’) which switches
-to the Info buffer with that number. Thus, ‘C-u 2 C-h i’ switches to the buffer
-‘*info*<2>’, creating it if necessary.
-#+end_comment
 
 To look up Info-mode _variables_ go ~SPC h i~ -> ~g m~ -> Info -> ~g G Variables~
 
 - ~f~ :: following cross reference (part 1.7 of ~M-h~)
 - f? :: list all references in cur. node
-** Embark [[https://github.com/oantolin/embark/wiki/Default-Actions][#default-actions]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/embark/evil-collection-embark.el][evil-collection-embark.el]]
-*Emacs Mini-Buffer Actions Rooted in Keymaps*
 
+** Embark [[https://github.com/oantolin/embark/wiki/Default-Actions][#default-actions]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/embark/evil-collection-embark.el][evil-collection-embark.el]]
 Thing that allows u to:
-- Insert a minibuffer candidate into the buffer (~i~)
 - Visit a package’s URL from the minibuffer (~C-h p {package}~ -> ~spc ; u~)
 - Add a keybinding for a command name from anywhere it appears: ~spc a~ on
   =dired-jump= -> l (set local kbd (globally is also there))
-- Export buffer candidates to ibuffer (~spc ,~ -> ~spc ; E~), same with files &
-  variables.
-- Export grep or line candidates to a grep buffer: ~{any seach cmd}~ ->
-  =embark-export= (~E~) -> ~C-c C-f~ to turn on 'follow on point'
+- Working with sets of possible targets (~collect~ / ~export~)
+  - Prefer ‘embark-export’ since when an exporter to a special major mode is
+    available for a given type of target, it will be more featureful than an
+    Embark collect buffer, and if no such exporter is configured the
+    ‘embark-export’ command falls back to the generic ‘embark-collect-snapshot’.
+  - Export buffer candidates to ibuffer (~spc ,~ -> ~spc ; E~), same with files &
+    variables.
+  - Export grep or line candidates to a grep buffer: ~{any seach cmd}~ ->
+    =embark-export= (~E~) -> ~C-c C-f~ to turn on 'follow on point'
 
 *** Acting on targets
-This package provides a sort of right-click contextual menu for Emacs, accessed
-through the ‘embark-act’ command (which you should bind to a convenient key),
-offering you relevant _actions_ to use on a _target_ determined by the context:
-
+Offering relevant _actions_ to use on a _target_ determined by the context:
 - In the *minibuffer*, the target is the current top completion candidate.
 - In the *Completions* buffer the target is the completion at point.
 - In a *regular buffer*, the target is the region if active, or else the file,
@@ -848,38 +590,10 @@ offered candidates!). You can press ‘embark-keymap-prompter-key’, which is �
 by default, at the prompt and then one of the key bindings to enter the name of
 the corresponding action.
 
-*** Working with sets of possible targets (~collect~ / ~export~)
-- ~S~ =embark-collect-snapshot= - produces a buffer listing all the current
-  candidates.
-- ~E~ =embark-export= - command tries to open a buffer in an appropriate major mode
-  for the set of candidates. If the candidates are files export produces a Dired
-  buffer; if they are buffers, you get an Ibuffer buffer; and if they are
-  packages you get a buffer in package menu mode.
-
-#+NAME: embark-consult (for wgrep mostly)
-#+begin_comment
-If you use the grepping commands from the [[https://github.com/minad/consult/][Consult]] package, ‘consult-grep’,
-‘consult-git-grep’ or ‘consult-ripgrep’, then you’ll probably want to install
-and load the ‘embark-consult’ package, which adds support for exporting a list
-of grep results to an honest grep-mode buffer, on which you can even use wgrep
-if you wish.
-#+end_comment
-
-#+NAME: collect vs export (prefer 'export' over 'collect')
-#+begin_comment
-Prefer ‘embark-export’ since when an exporter to a special major mode is
-available for a given type of target, it will be more featureful than an Embark
-collect buffer, and if no such exporter is configured the ‘embark-export’
-command falls back to the generic ‘embark-collect-snapshot’.
-#+end_comment
-
-=embark-collect-live= useless with /vertico/.
-
 *** Switching command without losing input | ~embark-become~
 ~B~ =embark-become= - change current command keeping your input (like
 /switch-to-buffer/ -> /find-file/)
 
-** Utility
 *** EWW - Emacs Web Wowser
 [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]] - bookmarks, buffers list, open, external ...
 
@@ -924,166 +638,10 @@ DEL (scroll-down-command)
 _Commands_:
 - eww-open-file :: open a local HTML file
 
-*** IRC [[file:~/.config/emacs/modules/app/irc/README.org::*An IRC Client in Emacs][#kbds]] ~SPC m~
-#+NAME: what is IRC
-#+begin_comment
-[[https://github.com/emacs-circe/circe/wiki/Introduction-to-IRC][Introduction to IRC]]
-
-Contrary to most Instant Messenger (IM) systems, users usually don’t
-connect to a central server.  Instead, users connect to a random server
-in a network, and servers relay messages from one to the next.
-
-Here’s a typical example:
-
-When you connect to the Libera.Chat network (‘https://libera.chat’),
-you point your IRC client at the server ‘irc.libera.chat’.  That server
-will redirect your client to a random server on the network, such as
-‘zirconium.libera.chat’.
-
-Once you’re connected, you can send messages to all other users
-connected to the same network, and you can join all channels on the same
-network.  You might join the ‘#emacs’ and the ‘#rcirc’ channels, for
-example.  (Typically, channel names begin with a hash character.)
-
-Once you have joined a channel, anything you type will be broadcast
-to all the other users on the same channel.
-#+end_comment
-
-- Channel activity is tracked in the mode line. C-c C-SPC cycles through
-  channels with activity, and back to the buffer you came from.
-- A fools list complements the ignore list. Lines from fools are by default
-  hidden, but can be shown temporarily with a keyboard command. This makes it
-  possible to ignore some annoying person, but still figure out what is going on
-  in case someone starts talking with them.
-- Both the ignore and fool features do not only ignore people, but try to be
-  smart about also ignoring those who address the ignored person.
-
-For private messages, Circe creates a query buffer, which is dedicated to the
-conversation with a single other individual. Circe tries to keep track of the
-nick of that individual. - What is the difference from DCC?
-
-[[https://github.com/emacs-circe/circe/wiki/Configuration][Configuration]]
-
-[[https://github.com/emacs-circe/circe/wiki/Using-Circe-with-IRC-bouncers-like-ZNC][Bouncer (znc)]]
-
-**** Commands
-- /SAY text :: Say ~text~ to the current target. This is useful to prevent a
-  misinterpretation of a slash at the beginning of a line.
-- /ME action :: Tell the current channel that you are doing =action=. This is
-  usually displayed to others as follows (where =padawan= is your nick): ~/ME
-  smiles at the people in the channel.~ -> ~padawan smiles at the people in the
-  channel.~
-- M-x circe-reconnect :: reconnects current IRC seccion, i.e. ur net died.
-- /JOIN channel [key] :: Join =channel=, optionally supplying a =key=. Some
-  channels have a keyword set so that only those in the know can join it. This
-  is rare, though.
-- /PART [reason] :: leave cur. channel. You can give a =reason=, too.
-- /NAMES [channel] / C-c C-n :: get a list of people on the cur. channel, or
-  possibly on =channel=
-- topic [newtext] :: retrieves or sets the topic of the current channel. The
-  topic is a (more or less) long line of text, usually announcing important URLs
-  or events.
-- /CHTOPIC / C-c C-t :: Replace the current input line with a command to set the
-  topic as it is at the moment. This is useful if you want to change the topic
-  slightly.
-- /WL [number] :: Who Left command, useful on =netsplit= & =netmerge=. [[https://github.com/emacs-circe/circe/wiki/Commands#wl-number][#docs]]
-- /MSG nick text :: send =nick= a message containing =text=. This is equivalent
-  to opening (or switching to) a query buffer for this person, and typing text
-  at the prompt.
-- /QUERY nick :: Open a query buffer for user =nick=.
-- /AWAY [reason], /GAWAY [reason] :: This command sets you =away=, which means
-  you're not available for talking at the moment. The reason is told to everyone
-  who sends messages to you, or checks your whois information. The =gaway= variant
-  does the same, but on all servers you are connected to.
-- /BACK :: This command removes any away status. It is equivalent to AWAY
-  without any arguments.
-- /QUIT [reason], /GQUIT [reason] :: A completely useless command which makes
-  you leave IRC. Since this is such a completely incomprehensible thing to do,
-  it is very useful to give a =reason= why you did that. =GQUIT= does the same, but
-  on all servers you are on.
-- /IGNORE [pattern] :: [[https://github.com/emacs-circe/circe/wiki/Commands#ignore-pattern][#docs]]
-- /PING nick :: The net being what it is, it is possible that sometimes a
-  connection is very slow. How fast someone is receiving your messages can be
-  tested with this message.
-- /WHOIS nick [nick], /WHOWAS nick :: =WHOIS= returns some information about
-  another user. WHOWAS works on nicks that are not on IRC anymore, though it
-  returns less information.
-- /WHOAMI :: When you don't see your own nick in messages you send, it is
-  sometimes quite nice to be remembered who you are again. This command does a
-  WHOIS on yourself.
-- /CTCP nick command arguments :: CTCP is the [[https://www.irchelp.org/protocol/ctcpspec.html][Client-To-Client Protocol]] used on
-  IRC. If you want to test it, try to send yourself a CTCP message. Possible
-  commands are obtained from CLIENTINFO command (no args)
-- /QUOTE text :: Sometimes it is desirable for some people to send IRC commands
-  themselves. The QUOTE command just takes its argument and passes it unmodified
-  to the IRC server.
-- /SV :: tells the current target the version of Circe and Emacs
-  you are using. Besides being useful in bragging contests, this also helps in
-  debugging problems.
-*** Pdf-tools
-??? Virtual - Use a collection of documents as if it were one, big single PDF.
-
-/Image-mode/ keymap might also be somehow useful in pdf-mode?
-
-=pdf-virtual-edit-mode= - for editing pdfs, but something might b wront with
-encoding.
-
-Like in *VIM*: gg/G, hjkl, nN, /?, m[arking] and jumping to marks (')
-
-+ Navigation
-  - C-x ], ] ], g j, C-j :: *next* page
-  - C-x [, [ [, g k, C-k :: *previous* page
-  - C-f, C-d :: Scroll *page up* ARG lines if possible, else go to the next page.
-  - C-b, C-u, <delete> :: Scroll *page down* ARG lines if possible, else go
-    to the previous page.
-  - \ </> :: (call from =emacs-state= (~\~) cuz there is no evil kbds) *top / bottom*
-    of cur. page
-  - M-s o :: *Occur* (list all lines containing a phrase) (/doesn't work/)
-  - F :: pick a *link* and *jump*
-  - f :: incremental *search in links*
-  - o :: Display *outline* and *jump* to section
-  - M-g l, g l :: *Go to* the page corresponding to *LABEL*.
-  - M-g M-g, M-g g :: *Go to PAGE*
-  - \ B / N :: (.. from =emacs-state=) *History* back / forward
-+ Display
-  - =, z i, +, = :: *Enlarge* PDF by FACTOR.
-  - z o, - :: *Shrink* PDF by FACTOR.
-  - z 0, 0 :: *Reset* zoom
-  - H / W / P :: *Fit* Height / Width / Page
-  - s b :: Trim *margins* (set slice to bounding box)
-  - s r :: Reset margins
-+ Look
-  - C-c C-d, z d :: *dark* background
-  - C-c C-r m, z m :: Apply a *color-filter* appropriate for past *midnight* reading.
-  - C-c C-r t :: *Synchronize* color filter with the present Emacs *theme*.
-  - C-c C-r p, z p :: Display the PDF as it would be printed.
-+ Annotations (if any of kbds below *don't* work - use ~\~)
-  - C-c C-a l :: *List* annotations
-  - C-c C-a D :: *Delete* annotation A.
-  - C-c C-a h/m/s/o/t/u :: Add a new highlight / markup / squiggly / strike-out
-    / text / underline annotation in the selected window.
-  - SPACE :: Jump to Annotations from List
-  - d :: Mark Annotation for Deletion
-  - x :: Delete Marked Annotations
-  - u :: Unmark Annotations
-  - q :: Close Annotation List
-+ Quitting
-  - Q / Z Q :: kill-this-buffer
-  - Z Z / q :: quit-window
-  - q       :: kill-current-buffer
-+ Other
-  - $ :: image-eol
-  - C-c C-p :: pdf-misc-print-document
-  - C-c <tab>, C-c TAB :: *Create* a PNG *image* of REGIONS.
-  - M-w, S-<delete>, <visual-state> y :: *Copy region* to the ‘kill-ring’.
-  - C-x h :: *Mark* the whole *page*.
-  - C-c C-a a :: List all attachments in a dired buffer.
-  - C-c C-g :: jump to PDF location from source (/doesn't work/)
 *** Rss ([[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]])
 
 * unused kbds
 ~SPC~ .. j, k
 
 * Todos [0/2]
-** TODO [#B] [[~/dotfiles/.config/emacs/lisp/demos.org][doom lisp demos]]
 ** TODO fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers

@@ -9,6 +9,8 @@ Here are some additional functions/macros that could help you configure Doom:
   `require' or `use-package'.
 - ~map!~ for binding new keys
 
+!!! [[~/dotfiles/.config/emacs/lisp/demos.org][doom lisp demos]]
+
 ** Variables
 Global:
 #+begin_src emacs-lisp
@@ -355,7 +357,6 @@ Forge:
        :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
        :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
        :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
-
 #+end_src
 
 ** TODO Ewal

@@ -1,0 +1,99 @@
+#+title: Irc
+
+[[file:~/.config/emacs/modules/app/irc/README.org::*An IRC Client in Emacs][#kbds]] ~SPC m~
+
+#+NAME: what is IRC
+#+begin_comment
+[[https://github.com/emacs-circe/circe/wiki/Introduction-to-IRC][Introduction to IRC]]
+
+Contrary to most Instant Messenger (IM) systems, users usually don’t
+connect to a central server.  Instead, users connect to a random server
+in a network, and servers relay messages from one to the next.
+
+Here’s a typical example:
+
+When you connect to the Libera.Chat network (‘https://libera.chat’),
+you point your IRC client at the server ‘irc.libera.chat’.  That server
+will redirect your client to a random server on the network, such as
+‘zirconium.libera.chat’.
+
+Once you’re connected, you can send messages to all other users
+connected to the same network, and you can join all channels on the same
+network.  You might join the ‘#emacs’ and the ‘#rcirc’ channels, for
+example.  (Typically, channel names begin with a hash character.)
+
+Once you have joined a channel, anything you type will be broadcast
+to all the other users on the same channel.
+#+end_comment
+
+- Channel activity is tracked in the mode line. C-c C-SPC cycles through
+  channels with activity, and back to the buffer you came from.
+- A fools list complements the ignore list. Lines from fools are by default
+  hidden, but can be shown temporarily with a keyboard command. This makes it
+  possible to ignore some annoying person, but still figure out what is going on
+  in case someone starts talking with them.
+- Both the ignore and fool features do not only ignore people, but try to be
+  smart about also ignoring those who address the ignored person.
+
+For private messages, Circe creates a query buffer, which is dedicated to the
+conversation with a single other individual. Circe tries to keep track of the
+nick of that individual. - What is the difference from DCC?
+
+[[https://github.com/emacs-circe/circe/wiki/Configuration][Configuration]]
+
+[[https://github.com/emacs-circe/circe/wiki/Using-Circe-with-IRC-bouncers-like-ZNC][Bouncer (znc)]]
+
+** Commands
+- /SAY text :: Say ~text~ to the current target. This is useful to prevent a
+  misinterpretation of a slash at the beginning of a line.
+- /ME action :: Tell the current channel that you are doing =action=. This is
+  usually displayed to others as follows (where =padawan= is your nick): ~/ME
+  smiles at the people in the channel.~ -> ~padawan smiles at the people in the
+  channel.~
+- M-x circe-reconnect :: reconnects current IRC seccion, i.e. ur net died.
+- /JOIN channel [key] :: Join =channel=, optionally supplying a =key=. Some
+  channels have a keyword set so that only those in the know can join it. This
+  is rare, though.
+- /PART [reason] :: leave cur. channel. You can give a =reason=, too.
+- /NAMES [channel] / C-c C-n :: get a list of people on the cur. channel, or
+  possibly on =channel=
+- topic [newtext] :: retrieves or sets the topic of the current channel. The
+  topic is a (more or less) long line of text, usually announcing important URLs
+  or events.
+- /CHTOPIC / C-c C-t :: Replace the current input line with a command to set the
+  topic as it is at the moment. This is useful if you want to change the topic
+  slightly.
+- /WL [number] :: Who Left command, useful on =netsplit= & =netmerge=. [[https://github.com/emacs-circe/circe/wiki/Commands#wl-number][#docs]]
+- /MSG nick text :: send =nick= a message containing =text=. This is equivalent
+  to opening (or switching to) a query buffer for this person, and typing text
+  at the prompt.
+- /QUERY nick :: Open a query buffer for user =nick=.
+- /AWAY [reason], /GAWAY [reason] :: This command sets you =away=, which means
+  you're not available for talking at the moment. The reason is told to everyone
+  who sends messages to you, or checks your whois information. The =gaway= variant
+  does the same, but on all servers you are connected to.
+- /BACK :: This command removes any away status. It is equivalent to AWAY
+  without any arguments.
+- /QUIT [reason], /GQUIT [reason] :: A completely useless command which makes
+  you leave IRC. Since this is such a completely incomprehensible thing to do,
+  it is very useful to give a =reason= why you did that. =GQUIT= does the same, but
+  on all servers you are on.
+- /IGNORE [pattern] :: [[https://github.com/emacs-circe/circe/wiki/Commands#ignore-pattern][#docs]]
+- /PING nick :: The net being what it is, it is possible that sometimes a
+  connection is very slow. How fast someone is receiving your messages can be
+  tested with this message.
+- /WHOIS nick [nick], /WHOWAS nick :: =WHOIS= returns some information about
+  another user. WHOWAS works on nicks that are not on IRC anymore, though it
+  returns less information.
+- /WHOAMI :: When you don't see your own nick in messages you send, it is
+  sometimes quite nice to be remembered who you are again. This command does a
+  WHOIS on yourself.
+- /CTCP nick command arguments :: CTCP is the [[https://www.irchelp.org/protocol/ctcpspec.html][Client-To-Client Protocol]] used on
+  IRC. If you want to test it, try to send yourself a CTCP message. Possible
+  commands are obtained from CLIENTINFO command (no args)
+- /QUOTE text :: Sometimes it is desirable for some people to send IRC commands
+  themselves. The QUOTE command just takes its argument and passes it unmodified
+  to the IRC server.
+- /SV :: tells the current target the version of Circe and Emacs
+  you are using. Besides being useful in bragging contests, this also helps in
+  debugging problems.
