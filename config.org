@@ -169,7 +169,10 @@ describe-function map!
 #+begin_src emacs-lisp
 ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
 (after! go-mode
-  (setq gofmt-args '("-s")))
+  (setq
+   gofmt-command "goimports"
+   gofmt-args '("-s"))
+  (add-hook! 'go-mode-hook #'flymake-golangci-load-backend))
 
 (after! lsp-mode
   (lsp-register-custom-settings

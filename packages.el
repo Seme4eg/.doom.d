@@ -8,6 +8,8 @@
 (package! gptel)
 (package! elcord)
 (package! golden-ratio)
+(package! flymake-golangci
+  :recipe (:host github :repo "storvik/flymake-golangci"))
 ;; (package! evil-colemak-basics)
 
 
