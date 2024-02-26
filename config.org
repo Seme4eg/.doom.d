@@ -494,9 +494,8 @@ Forge:
         :n "bS" 'org-table-shrink
         :n "bE" 'org-table-expand
         :n "bts" 'org-table-toggle-column-width)
-
+  (set-popup-rule! "^\\*Org Src" :ignore t)
   (setq
-   org-src-window-setup 'current-window
    ;; show files like TOC on startup
    org-startup-folded 'content
    org-hide-block-startup t
@@ -523,8 +522,7 @@ Forge:
 (set-popup-rules!
   '(("^\\*eww" :ignore t)
     ("^\\*helpful" :ignore t) ;; Any way to open helpful buffers on top of each other?
-    ("^\\*info\\*$" :ignore t)
-    ("^\\*Org Src" :ignore t)))
+    ("^\\*info\\*$" :ignore t)))
 #+end_src
 
 ** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
