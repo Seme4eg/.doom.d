@@ -645,3 +645,8 @@ _Commands_:
 
 * Todos [0/2]
 ** TODO fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
+** TODO tree sitter
+- https://github.com/doomemacs/doomemacs/issues/7623
+- https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
+- https://magnus.therning.org/2023-11-16-using-the-golang-mode-shipped-with-emacs.html
+- https://www.reddit.com/r/emacs/comments/17wgpsp/using_the_golang_mode_shipped_with_emacs/
