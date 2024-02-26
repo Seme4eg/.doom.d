@@ -522,6 +522,7 @@ Forge:
 (set-popup-rules!
   '(("^\\*eww" :ignore t)
     ("^\\*helpful" :ignore t) ;; Any way to open helpful buffers on top of each other?
+    ("^\\*\\(?:Wo\\)?Man " :ignore t)
     ("^\\*info\\*$" :ignore t)))
 #+end_src
 

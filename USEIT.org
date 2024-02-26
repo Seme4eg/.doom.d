@@ -18,6 +18,23 @@ SPC:
 spc tab - _workspace_:
 - "Switch workspace"          "."   #'+workspace/switch-to
 
+spc h - _help_:
+- d m - doom/help-modules :: instead of opening init.el all the time..
+- d p h - doom/help-package-homepage :: open homepage of a doom package directly
+- d x / E - doom/sandbox :: test bed for running Emacs Lisp in another instance,
+  without sacrificing access to installed packages. Use the sandbox to reproduce
+  bugs and determine if Doom is to blame.
+- h e - view-echo-area-messages :: open *Messages* buffer in popup (instead of
+  switching to it)
+- M - doom/describe-active-minor-mode :: instead of 'm'
+- o - describe-symbol :: useful also to see info on modes, including keybindings
+- P - find-library :: useful when need to see the source code of some package
+- R - info-display-manual :: *quick info open*, instead of first opening info then
+  searching there
+- V - doom/help-custom-variable :: like 'v', but for defcustoms
+- W - +default/man-or-woman :: *run grep on all man files*
+- x - describe-command :: like describe-function, but only on interactive ones
+
 spc b - _buffers_:
 - "Set bookmark"                "m"   #'bookmark-set
 - "Delete bookmark"             "M"   #'bookmark-delete
