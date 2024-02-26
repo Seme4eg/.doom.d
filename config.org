@@ -203,8 +203,6 @@ Magit:
  ;; magit-save-repository-buffers nil
  ;; Don't restore the wconf after quitting magit, it's jarring
  magit-inhibit-save-previous-winconf t
- transient-values '((magit-rebase "--autosquash" "--autostash")
-                    (magit-pull "--rebase" "--autostash"))
  ;; Enable Gravatars REVIEW does it even works?
  ;; This will enable gravatars when viewing commits.
  ;; The service used by default is Libravatar.
