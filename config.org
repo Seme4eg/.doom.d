@@ -104,7 +104,6 @@ describe-function map!
 
 ;; Other packages
 (map! :leader :desc "Ace window" "ww" 'ace-window)
-(map! :leader :desc "Edmacro insert key" "i k" 'insert-kaomoji)
 
 (map! :leader
       (:prefix "o" ;; just adds to already existing binds under that prefix
