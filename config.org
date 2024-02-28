@@ -196,7 +196,8 @@ describe-function map!
 *** Shell
 #+begin_src emacs-lisp
 (after! sh-script
-  (set-company-backend! 'sh-mode '(company-shell :with company-yasnippet)))
+  (set-company-backend! 'sh-mode '(company-shell :with company-yasnippet))
+  (add-hook! 'sh-mode-hook (setq apheleia-formatter 'shfmt)))
 #+end_src
 
 *** Magit & forge
