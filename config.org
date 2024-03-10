@@ -299,6 +299,8 @@ Forge:
 (after! emms
   (add-to-list 'emms-player-list 'emms-player-mpd)
   (add-to-list 'emms-info-functions 'emms-info-mpd)
+  (add-hook 'emms-player-started-hook #'emms-mpris-enable)
+  (add-hook 'emms-player-stopped-hook #'emms-mpris-disable)
   (setq!
    emms-source-file-default-directory "~/Music"
    emms-player-mpd-music-directory "~/Music"
