@@ -130,6 +130,11 @@ FYI:
   - Company completion (~C-SPC~) works in this mode.
   - ~C-c C-i~: show information on resclient variables at point
 
+- Debug (dap):
+  - M-x dap-debug
+  - select ‘Go Dlv Launch File Configuration’
+  - SPC m d - launch dap hydra
+
 **** Golang [[file:~/dotfiles/.config/emacs/modules/lang/go/README.org::*Keybinds][#keybinds]]
 - [[https://github.com/x-motemen/gore][gore]]pl
   - ~C-c C-r~ (gorepl-eval-line) - Evaluate current line.
