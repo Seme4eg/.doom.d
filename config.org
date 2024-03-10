@@ -172,18 +172,21 @@ describe-function map!
 (after! go-mode
   (setq
    gofmt-command "gofmt"
-   gofmt-args '("-s"))
+   gofmt-args '("-s")
+   lsp-inlay-hint-enable t)
   (add-hook! 'go-mode-hook
-   (add-hook 'before-save-hook 'lsp-organize-imports nil t))
-  (add-hook! 'go-mode-hook #'flymake-golangci-load-backend))
+    (add-hook 'before-save-hook 'lsp-organize-imports nil t))
+  (add-hook! 'go-mode-hook #'flymake-golangci-load-backend)
+  (map! :map go-mode-map :localleader :n "z" 'dap-breakpoint-toggle))
 
 (after! lsp-mode
+  ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
   (lsp-register-custom-settings
    '(("gopls.completeUnimported" t t)
      ;; ("gopls.vulncheck" "imports")
      ;; https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
-     ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md#inlayhint
-     ;; ("gopls.hints" ...)
+     ("gopls.hints.assignVariableTypes" t t)
+     ("gopls.hints.compositeLiteralFields" t t)
      ("gopls.staticcheck" t t))))
 #+end_src
 
