@@ -159,11 +159,17 @@ describe-function map!
 ;; Disable invasive lsp-mode features
 ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
 (setq
-  lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
-  lsp-ui-doc-enable nil        ; slow and redundant with K
-  lsp-enable-symbol-highlighting t) ; why not
+ lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
+ lsp-ui-doc-enable nil        ; slow and redundant with K
+ lsp-enable-symbol-highlighting t) ; why not
 
 (setq lsp-vetur-format-default-formatter-html '"prettier")
+
+(map!
+ :map lsp-mode-map
+ :leader
+ :desc "Inlay hints mode"
+ :n "c I" 'lsp-inlay-hints-mode)
 #+end_src
 
 *** Golang
@@ -172,8 +178,7 @@ describe-function map!
 (after! go-mode
   (setq
    gofmt-command "gofmt"
-   gofmt-args '("-s")
-   lsp-inlay-hint-enable t)
+   gofmt-args '("-s"))
   (add-hook! 'go-mode-hook
     (add-hook 'before-save-hook 'lsp-organize-imports nil t))
   (add-hook! 'go-mode-hook #'flymake-golangci-load-backend)
