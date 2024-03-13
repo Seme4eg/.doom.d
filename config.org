@@ -326,21 +326,20 @@ Forge:
       (:prefix ("l" . "listen")
 
        ;; Playback
-       :desc "Current playlist buffer" "c" #'emms ;; NOTE: this thing!
-       :desc "Browser / open close" "b" #'emms-smart-browse
-       :desc "Play cur. playlist" "SPC" #'emms-start ;; TODO: needed?
+       :desc "Current playlist buffer" "c" #'emms
        :desc "Pause" "x" #'emms-pause
        :desc "Stop" "X" #'emms-stop
        :desc "Next" "n" #'emms-next
        :desc "Previous" "p" #'emms-previous
        :desc "Shuffle" "S" #'emms-shuffle
+       :desc "Loop playlist (toggle)" "L" #'emms-toggle-repeat-playlist
        ;; :desc "Loop track (toggle)" "L" #'emms-toggle-repeat-track
-       :desc "Bury emms buffers" "q" #'emms-browser-bury-buffer
+       ;; :desc "Browser / open close" "b" #'emms-smart-browse
+       ;; :desc "Bury emms buffers" "q" #'emms-browser-bury-buffer
 
        ;; Daemon / db bindings
        :desc "Start daemon" "s" #'+emms/mpd-start-music-daemon
        :desc "Restart daemon" "r" #'+emms/mpd-restart-music-daemon
-       :desc "Kill daemon" "k" #'+emms/mpd-kill-music-daemon
        ;; call this manually for the newly added tracks to show up in emms
        :desc "Update db" "u" #'+emms/mpc-update-database ;; gets called on 'start'
        :desc "Update all + cache" "R" #'emms-player-mpd-update-all-reset-cache
