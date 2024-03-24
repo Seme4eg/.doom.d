@@ -582,7 +582,7 @@ Forge:
       "a" #'telega-account-switch
       "b" #'telega-switch-buffer
       "c" #'telega-chat-with
-      "i" #'telega-switch-important-chat
+      "S" #'telega-chatbuf-attach-scheduled
       "f" #'telega-buffer-file-send
       "s" #'telega-saved-messages
       "t" #'telega
