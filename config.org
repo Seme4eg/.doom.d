@@ -321,6 +321,7 @@ Forge:
    emms-player-mpd-music-directory "~/Music"
    emms-source-playlist-default-format 'm3u
    emms-info-native--max-vorbis-comment-size 150000
+   emms-repeat-playlist t
    emms-playlist-mode-center-when-go t
    emms-show-format "♪ %s"
    emms-browser-default-browse-type 'info-album
