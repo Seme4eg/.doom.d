@@ -18,6 +18,8 @@ SPC:
 spc tab - _workspace_:
 - "Switch workspace"          "."   #'+workspace/switch-to
 
+spc i s - yasnippet-consult (*instead of yas/lookup tables*)
+
 spc h - _help_:
 - d m - doom/help-modules :: instead of opening init.el all the time..
 - d p h - doom/help-package-homepage :: open homepage of a doom package directly
