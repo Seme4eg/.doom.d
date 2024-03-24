@@ -170,6 +170,13 @@ describe-function map!
  :leader
  :desc "Inlay hints mode"
  :n "c I" 'lsp-inlay-hints-mode)
+
+
+(map!
+ :map lsp-mode-map
+ :leader
+ :desc "Inlay hints mode"
+ :n "c r" 'lsp-rename)
 #+end_src
 
 *** Golang
