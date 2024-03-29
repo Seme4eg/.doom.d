@@ -127,7 +127,7 @@ describe-function map!
 
 (after! consult
   (setq locate-command "plocate"
-        consult-locate-args "plocate --ignore-case"))
+        consult-locate-args "plocate --ignore-case --regex"))
 
 (after! ranger
   (setq! ranger-show-hidden "format"))
