@@ -163,6 +163,9 @@ describe-function map!
  lsp-ui-doc-enable nil        ; slow and redundant with K
  lsp-enable-symbol-highlighting t) ; why not
 
+;; FIXME: waiting for https://github.com/doomemacs/doomemacs/issues/7491
+(setq lsp-auto-register-remote-clients nil)
+
 (setq lsp-vetur-format-default-formatter-html '"prettier")
 
 (map!
