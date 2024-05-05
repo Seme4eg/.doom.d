@@ -163,9 +163,6 @@ describe-function map!
  lsp-ui-doc-enable nil        ; slow and redundant with K
  lsp-enable-symbol-highlighting t) ; why not
 
-;; FIXME: waiting for https://github.com/doomemacs/doomemacs/issues/7491
-(setq lsp-auto-register-remote-clients nil)
-
 (setq lsp-vetur-format-default-formatter-html '"prettier")
 
 (map!
@@ -173,13 +170,6 @@ describe-function map!
  :leader
  :desc "Inlay hints mode"
  :n "c I" 'lsp-inlay-hints-mode)
-
-
-(map!
- :map lsp-mode-map
- :leader
- :desc "Inlay hints mode"
- :n "c r" 'lsp-rename)
 #+end_src
 
 *** Golang
