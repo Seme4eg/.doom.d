@@ -6,7 +6,8 @@
 (package! ewal
   :recipe (:host github :repo "cyruseuros/ewal" :files ("ewal.el" "*/*.el")))
 (package! gptel)
-(package! elcord)
+(package! elcord
+  :recipe (:host github :repo "seme4eg/elcord"))
 (package! golden-ratio)
 (package! flymake-golangci
   :recipe (:host github :repo "storvik/flymake-golangci"))
