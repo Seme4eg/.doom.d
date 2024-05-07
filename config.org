@@ -194,6 +194,13 @@ describe-function map!
      ("gopls.hints.compositeLiteralFields" t t)
      ("gopls.staticcheck" t t))))
 #+end_src
+*** SQL
+#+begin_src emacs-lisp
+(setq sqlformat-command 'sqlfluff)
+;; Optional additional args
+(setq sqlformat-args '("-n" "--dialect=postgres" "--exclude-rules=LT06"))
+(add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
+#+end_src
 
 *** KILL JS
 #+begin_src emacs-lisp
