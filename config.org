@@ -196,9 +196,9 @@ describe-function map!
 #+end_src
 *** SQL
 #+begin_src emacs-lisp
-(setq sqlformat-command 'sqlfluff)
+(setq sqlformat-command 'pgformatter)
 ;; Optional additional args
-(setq sqlformat-args '("-n" "--dialect=postgres" "--exclude-rules=LT06"))
+(setq sqlformat-args '("-s2" "-f2" "-w80" "--no-space-function"))
 (add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
 #+end_src
 
