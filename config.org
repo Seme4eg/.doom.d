@@ -206,6 +206,8 @@ describe-function map!
 #+begin_src emacs-lisp
 (after! js2-mode
   (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
+
+(push '(rjsx-mode . typescript-mode) major-mode-remap-alist)
 #+end_src
 
 *** Shell
