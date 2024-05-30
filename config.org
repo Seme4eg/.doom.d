@@ -644,6 +644,7 @@ Forge:
   :config
   (map! :leader "e" 'gptel)
   (setq! gptel-default-mode 'org-mode
+         gptel-model "gpt-4o"
          gptel-api-key #'e/read-openai-key))
 #+end_src
 
