@@ -2,3 +2,6 @@ config.el
 mu4e.el
 /lisp/
 custom.el
+/emacsbuild/*
+!/emacsbuild/PKGBUILD
+!/emacsbuild/emacs-git.install

@@ -42,7 +42,7 @@ NOGZ="YES"        # Don't compress .el files. (Gain is neglible, IMHO)
 
 ################################################################################
 pkgname="emacs-git"
-pkgver=30.0.50.169253
+pkgver=30.0.50.172645
 pkgrel=1
 pkgdesc="GNU Emacs. Development master branch."
 arch=('x86_64')
@@ -53,12 +53,10 @@ depends=("${depends_nox[@]}" 'harfbuzz' 'libotf')
 makedepends=('git')
 provides=('emacs')
 conflicts=('emacs')
-source=("emacs-git::git+https://git.savannah.gnu.org/git/emacs.git"
-   "nemacs")
+source=("emacs-git::git+https://git.savannah.gnu.org/git/emacs.git")
 options=(!strip)
 install=emacs-git.install
-b2sums=('SKIP'
-        '58e028b439d3c7cf03ea0be617b429a2c54e7aa1b8ca32b5ed489214daaa71e22c323de9662761ad2ce4de58e21dbe45ce6ce198f402686828574f8043d053d0')
+b2sums=('SKIP')
 ################################################################################
 
 ################################################################################
@@ -242,8 +240,6 @@ package() {
   cd "$srcdir/emacs-git/build"
 
   make DESTDIR="$pkgdir/" install
-
-  install -D -m 755 "$srcdir"/nemacs "$pkgdir"/usr/bin/nemacs
 
   # fix user/root permissions on usr/share files
   find "$pkgdir"/usr/share/emacs/ | xargs chown root:root
