@@ -10,6 +10,9 @@ In minibuffer:
 ~g~ key:
 - g i :: *Switch to Insert state at previous insertion point.*
 
+- ~M-x project-compile RET grep -Rn "something" RET~ - will create a compilation
+  buffer with the results from grep, and each result will be a clickable link
+
 SPC:
 - * :: *Search* for *symbol at point* in project
 - ` :: Switch to *last buffer*
