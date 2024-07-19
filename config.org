@@ -616,7 +616,11 @@ Forge:
    telega-completing-read-function #'completing-read
    telega-emoji-company-backend 'telega-company-emoji
    telega-notifications-timeout 3600 ;; crutch basically
-   telega-url-shorten-use-images t)
+   telega-url-shorten-use-images t
+   telega-video-player-command '(concat "mpv"
+                                 (when telega-ffplay-media-timestamp
+                                   (format "%f" telega-ffplay-media-timestamp)))
+   )
 
   (add-hook 'telega-chat-mode-hook
             (lambda ()
