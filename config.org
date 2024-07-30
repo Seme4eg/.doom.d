@@ -385,8 +385,8 @@ Forge:
   (setq
    ewal-use-built-in-always-p nil
    ewal-use-built-in-on-failure-p t
-   ewal-shade-percent-difference 5)
-  :config 
+   ewal-shade-percent-difference 20)
+  :config
   (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
   (enable-theme 'ewal-doom-one)
   (ewal-evil-cursors-get-colors :apply t))
