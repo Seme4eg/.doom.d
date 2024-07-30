@@ -20,8 +20,16 @@ SPC:
 
 spc tab - _workspace_:
 - "Switch workspace"          "."   #'+workspace/switch-to
+- SPC TAB D - deletes workspace AND its savefile
+
+ORG:
+- spc m (localleader) l y - yank link at point
+
+spc u spc f s - save file _without formatting it_
 
 spc i s - yasnippet-consult (*instead of yas/lookup tables*)
+
+g f - lookup file ([[https://github.com/doomemacs/doomemacs/commit/0a2bcf928c868db5cf41041bd707d3f395504130][gh commit]])
 
 spc h - _help_:
 - d m - doom/help-modules :: instead of opening init.el all the time..
@@ -101,6 +109,21 @@ spc w - _windows_ (use ~spc w~ instead of ~C-c w~):
 
 ~SPC h K~ (Info-goto-emacs-key-command-node) - Go to the node in the Emacs manual
 which detailed description
+
+In case ever be in project with for example different formatting params then
+this might be useful to know:
+
+#+begin_quote from 'format' module documentation
+1. In a project's =.dir-locals.el= file:
+   #+begin_src emacs-lisp
+   ((js2-mode    . (+format-with . lsp))
+    (python-mode . (+format-with . (isort black)))
+
+    ;; If +format-inhibit is non-nil, formatting-on-save behavior will be
+    ;; disabled, regardless of apheleia-global-mode.
+    (rustic-mode . (+format-inhibit . t)))
+   #+end_src
+#+end_quote
 
 * done ?
 - - C-s   consult-_history_
