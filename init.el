@@ -7,7 +7,7 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       (company +tnf +childframe)           ; the ultimate code completion backend
+       (corfu +orderless +icons +dabbrev)  ; complete with cap(f), cape and a flying feather!
        (vertico +icons)     ; the search engine of the future
 
        :ui

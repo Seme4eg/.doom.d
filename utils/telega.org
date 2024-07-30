@@ -133,16 +133,6 @@ Only for _supergroups_:
 - = (telega-msg-diff-edits) Display edits to MSG user did
 - t (telega-msg-open-thread) Open thread initiated by MSG.
 
-_Completing input_ in chatbuf:
-
-telega-company-emoji - Complete emojis via :<emoji>: syntax.
-
-Customizable Options:
-- telega-emoji-fuzzy-match
-- telega-company-telegram-emoji
-- telega-company-username
-- telega-company-botcmd
-- telega-company-hashtag
 
 *** Attaching media, ~C-c / Z~ prefix
 - ~C-a~ / ~a~ (=telega-chatbuf-attach=) Attach something to the chatbuf input. C-u is

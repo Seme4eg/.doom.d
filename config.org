@@ -64,12 +64,6 @@ Hlissner:
   ;; Line numbers are pretty slow all around. The performance boost of
   ;; disabling them outweighs the utility of always keeping them on.
   display-line-numbers-type nil
-
-  ;; IMO, modern editors have trained a bad habit into us all: a burning need for
-  ;; completion all the time -- as we type, as we breathe, as we pray to the
-  ;; ancient ones -- but how often do you *really* need that information? I say
-  ;; rarely. So opt for manual completion
-  company-idle-delay nil
   )
 #+end_src
 
@@ -204,9 +198,6 @@ describe-function map!
 
 *** KILL JS
 #+begin_src emacs-lisp
-(after! js2-mode
-  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
-
 (push '(rjsx-mode . typescript-mode) major-mode-remap-alist)
 #+end_src
 
@@ -214,7 +205,6 @@ describe-function map!
 #+begin_src emacs-lisp
 (after! sh-script
   (setq! sh-shellcheck-arguments '("-x"))
-  (set-company-backend! 'sh-mode '(company-shell :with company-yasnippet))
   (add-hook! 'sh-mode-hook (setq apheleia-formatter 'shfmt)))
 #+end_src
 
@@ -614,26 +604,19 @@ Forge:
 
   (setq
    telega-completing-read-function #'completing-read
-   telega-emoji-company-backend 'telega-company-emoji
+   telega-notifications-delay 1
    telega-notifications-timeout 3600 ;; crutch basically
    telega-url-shorten-use-images t
    telega-video-player-command '(concat "mpv"
                                  (when telega-ffplay-media-timestamp
-                                   (format "%f" telega-ffplay-media-timestamp)))
-   )
+                                   (format "%f" telega-ffplay-media-timestamp))))
+
 
   (add-hook 'telega-chat-mode-hook
             (lambda ()
               (define-key telega-msg-button-map (kbd "SPC") nil)
               (setq truncate-lines nil
-                    visual-fill-column-extra-text-width '(0 . 2))
-              (set (make-local-variable 'company-backends)
-                   (append (list telega-emoji-company-backend
-                                 'telega-company-username
-                                 'telega-company-hashtag)
-                           (when (telega-chat-bot-p telega-chatbuf--chat)
-                             '(telega-company-botcmd))))
-              (company-mode 1))))
+                    visual-fill-column-extra-text-width '(0 . 2)))))
 #+end_src
 
 
@@ -652,46 +635,29 @@ Forge:
          gptel-api-key #'e/read-openai-key))
 #+end_src
 
-** WAIT Corfu [[https://github.com/minad/corfu][#github]]
+** Corfu [[https://github.com/minad/corfu][#gh]]
 
 NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
 
-#+begin_src emacs-lisp :tangle no
-(after! corfu
-  :custom
-  (corfu-cycle t)
-  (corfu-auto nil)
-  (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.0)
-  (corfu-quit-at-boundary 'separator)
-  (corfu-preview-current 'insert)
-  (corfu-preselect 'first)
-  :init
-  (global-corfu-mode)
-  ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
-  (corfu-history-mode)
-  ;; (corfu-echo-mode)
-  (evil-collection-corfu-setup)
-  (map! :g "C-SPC" #'completion-at-point)
-  (map! :map corfu-map
-        :nvi "SPC" #'corfu-insert-separator
-        :nvi "C-g" (lambda () (progn (corfu-reset)
-                                (evil-collection-corfu-quit-and-escape)))
-        :nvi "C-h" #'corfu-info-documentation))
-#+end_src
+| [[kbd:][C-S-j]]    | (evil) Go to next doc line      |
+| [[kbd:][C-S-k]]    | (evil) Go to previous doc line  |
 
-** WAIT Cape [[https://github.com/minad/cape][#github]]
-#+begin_src emacs-lisp :tangle no
-(after! cape
-  :defer 10
-  :init
-  ;; Add 'completion-at-point-functions', used by 'completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  :config
-  ;; silence then pcomplete capf, no errors or messages
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+Using Vertico , one could use this to export with [[doom-package:embark]] via [[kbd:][C-c
+C-l]] and get a buffer with all candidates.
+
+#+begin_src emacs-lisp
+(after! corfu
+  (setq corfu-preselect 'first) ;; prompt is in doom
+  (map! :map corfu-map
+        :nvi "C-g" (lambda () (progn
+                                (corfu-reset)
+                                (evil-collection-corfu-quit-and-escape)))))
+;; :nvi "C-h" #'corfu-info-documentation))
+;; To disable idle (as-you-type) completion, unset ~corfu-auto~:
+;;   (corfu-auto nil) ;; t is in doom
+;; Configures startup selection, choosing between the first candidate or the prompt.
+;;   ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
+;;   ;; (corfu-echo-mode)
 #+end_src
 
 ** WAIT Colemak
@@ -736,6 +702,5 @@ NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][tr
 ** WAIT Elm
 #+begin_src emacs-lisp :tangle no
 (after! elm-mode
-  (add-to-list 'company-backends 'elm-company)
   (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
 #+end_src

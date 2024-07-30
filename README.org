@@ -127,7 +127,6 @@ FYI:
   - [[elisp:(helpful-variable 'restclient-outline-mode-map)][restclient-outline-mode-map]]
   - [[elisp:(helpful-variable 'restclient-response-mode-map)][restclient-response-mode-map]]
   - Files ending with ~.http~ will have restclient-mode enabled by default.
-  - Company completion (~C-SPC~) works in this mode.
   - ~C-c C-i~: show information on resclient variables at point
 
 - Debug (dap):
@@ -418,20 +417,20 @@ group is used. The filter groups are displayed in this order of *precedence*.
 You may *rearrange* filter groups by using the usual pair ‘C-k’ and ‘C-y’. Yanked
 groups will be inserted before the group at point.
 
-** company [[file:~/.config/emacs/modules/completion/company/README.org::*Code completion][#Code completion]] ~C-SPC~ to trigger completion.
-- [[elisp:(helpful-variable 'company-active-map)][company-active-map]], "C-w" doesn't interfere with `evil-delete-backward-word'
-- [[elisp:(helpful-variable 'company-search-map)][company-search-map]] (~C-s~)
-
-Omni-completion _:prefix "C-x"_:
-- :i "C-l"    #'+company/whole-lines
-- :i "C-k"    #'+company/dict-or-keywords
-- :i "C-f"    _#'company-files_
-- :i "C-]"    #'company-etags
-- :i "s"      #'company-ispell
-- :i "C-s"    #'company-yasnippet
-- :i "C-o"    #'company-capf
-- :i "C-n"    #'+company/dabbrev
-- :i "C-p"    #'+company/dabbrev-code-previous
+** corfu
+prefix C-x (C-SPC) - _corfu + cape_:
+Emulation of Vim's omni-completion keybinds
+    (:prefix "C-x"
+      (:when (modulep! :completion corfu)
+        :i "C-l"  #'cape-line
+        :i "C-k"  #'cape-keyword
+        :i "C-f"  #'cape-file
+        :i "C-]"  #'complete-tag
+        :i "s"    #'cape-dict
+        :i "C-s"  #'yasnippet-capf
+        :i "C-o"  #'completion-at-point
+        :i "C-n"  #'cape-dabbrev
+        :i "C-p"  #'+corfu/dabbrev-this-buffer))) <-- check it out
 
 ** spell
 Dictionary is set by =ispell-dictionary= variable. Can be changed locally with the

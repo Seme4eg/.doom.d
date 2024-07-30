@@ -70,8 +70,19 @@ spc s - _search_:
 - "I" - Select item from the imenus of all buffers from the same project.
 - maybe "j" - show jumplist ?
 
-C-SPC - _company_:
-- C-x (omni completion) C-f - complete files at point
+C-x (C-SPC) - _corfu + cape_:
+Emulation of Vim's omni-completion keybinds
+    (:prefix "C-x"
+      (:when (modulep! :completion corfu)
+        :i "C-l"  #'cape-line
+        :i "C-k"  #'cape-keyword
+        :i "C-f"  #'cape-file
+        :i "C-]"  #'complete-tag
+        :i "s"    #'cape-dict
+        :i "C-s"  #'yasnippet-capf
+        :i "C-o"  #'completion-at-point
+        :i "C-n"  #'cape-dabbrev
+        :i "C-p"  #'+corfu/dabbrev-this-buffer))) <-- check it out
 
 spc w - _windows_ (use ~spc w~ instead of ~C-c w~):
 - "C-c"     #'ace-delete-window
