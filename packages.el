@@ -13,7 +13,12 @@
   :recipe (:host github :repo "storvik/flymake-golangci"))
 (package! sqlformat
   :recipe (:host github :repo "purcell/sqlformat"))
+(package! mu4e-alert :disable t) ;; no beeping
+
+;; TODO:
 ;; (package! evil-colemak-basics)
+;; (unpin! everywhere)
+(unpin! vterm)
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
