@@ -18,7 +18,6 @@
 ;; TODO:
 ;; (package! evil-colemak-basics)
 ;; (unpin! everywhere)
-(unpin! vterm)
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
