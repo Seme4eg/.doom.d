@@ -119,12 +119,7 @@ describe-function map!
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
-(after! consult
-  (setq locate-command "plocate"
-        consult-locate-args "plocate --ignore-case --regex"))
-
-(after! ranger
-  (setq! ranger-show-hidden "format"))
+(map! :leader "fl" (cmd! (consult-fd "/")))
 #+end_src
 
 ** Custom f-s & advices
