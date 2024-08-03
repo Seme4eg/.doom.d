@@ -671,19 +671,20 @@ C-l]] and get a buffer with all candidates.
 #+end_src
 
 ** WAIT Colemak
-- my-hjkl-rotation func doesn't change anything, tried many things, didn't work
-- [[https://github.com/emacs-evil/evil-collection#key-translation][evil-collection key translation]], some ppl also have [[https://github.com/emacs-evil/evil-collection/issues/583][trouble]] making it work in doom.
 - penging [[https://github.com/doomemacs/doomemacs/pull/5835/files][PR]] in doom emacs repo for colemak
 - [[https://github.com/wbolster/emacs-evil-colemak-basics][emacs-evil-colemak-basics]] is awesome but overwrides too much and isn't
   integrated with evil-collection, well.. its 'basics'
+- ~Ctrl-j/k~ are still from qwerty.. rip
+- [[https://github.com/emacs-evil/evil-collection#key-translation][evil-collection key translation]], some ppl also have [[https://github.com/emacs-evil/evil-collection/issues/583][trouble]] making it work in doom.
 - in [[https://github.com/Phundrak/config.phundrak.com/blob/87b3deeed34305985e4cc5253d71ca6640efb1f3/docs/emacs/keybinding-managers.org#L155][this]] setup same code works
 
 #+begin_src emacs-lisp :tangle no
-;; (use-package! evil-colemak-basics
-;;   :init
-;;   (setq evil-colemak-basics-layout-mod 'mod-dh))
-  ;; :config
-  ;; (global-evil-colemak-basics-mode))
+(use-package! evil-colemak-basics
+  :after evil
+  :init
+  (setq evil-colemak-basics-layout-mod 'mod-dh) ;; swap h and m
+  :config
+  (global-evil-colemak-basics-mode))
 
 ;; hjkl
 ;; mnei
