@@ -161,111 +161,141 @@ _Debug_: [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/debu
 - ‘.’ Expand all the forms abbreviated with “...” in the frame at point.
 
 
-** dired [[file:~/.config/emacs/modules/emacs/dired/README.org::*Keybindings][#kbds]], [[elisp:(helpful-variable 'dired-mode-map)][#modemap]]
-- ~M~ - change permissions
-- ~o~ - sort by modes.
-- ~O~ - change the owner.
-- ~SPC .~ - create or find a file
-- ~*~ - select all directories.
-- ~C~ - copy to another window
-- ~R~ - move to another window
-- ~i~ - edit file/dir name
+** dirvish [[https://github.com/alexluigit/dirvish/blob/main/docs/EXTENSIONS.org][#extensions]]
+In dirvish, you can mark files across multiple dirvish buffers, and paste/move
+marked files/directory to current directory with one keystroke (dirvish-yank).
 
-** ranger [[https://github.com/ralesi/ranger.el#ranger-key-bindings][#kbds]]
-+ *Basic Commands*
-  - ? :: show basic commands in the minibuffer
-  - du :: show selected files, file size
-  - q / ZZ :: close tab or disable (quit) ranger
-  - Q / ZQ :: disable (quit) ranger
-  - C-r :: refresh ranger buffer
-+ *Navigation*. hjkl, gg, G, C-b/f - same.
-  - </> :: to previous/next directory
-  - gh :: to home directory
-  - K/C-u / J/C-d :: scroll ranger window half page up/down
-  - C-k/j :: scroll preview window up/down
-  - ]/[ :: next/previous parent directory
-  - ;M-{ / ;M-} :: previous/next marked file / directory
-+ *Search* for a File / Directory
-  - f :: search for file / directory
-+ *Copy, Rename/Move or Delete*. When the copy command is called by pressing ;C,
-  and only a single file or directory is selected. Then a you'll be asked to
-  enter a new name. However when it's called with multiple marked files /
-  directories, then a you'll be asked for the path to the target directory.
-  - ;C :: copy the current/marked file(s) / dir(s)
-  - R :: rename/move the current/marked file(s) / dir(s)
-  - D :: delete the current/marked file(s) / dir(s)
-  - ;d :: flag current file/dir for deletion, and select next
-  - ;x :: delete flagged file(s) / dir(s)
-+ *Subdirectories*
-  - I :: insert subdirectory from selected folder
-  - gk/j :: move to prev/next subdirectory
-+ *Marking*
-  - t :: toggle mark on current file / directory
-  - ;m/C-SPC/TAB :: mark current file / dir, and select next
-  - ;u :: unmark current file / dir, and select next
-  - ;U :: unmark all files
-  - v :: invert all marks
-  - " :: mark files (regexp)
-+ *Sorting*. Capital 2nd letter for reverse sorting
-  - on :: name
-  - oe :: extension
-  - os :: size
-  - ot :: modified date/time
-  - oc :: created date/time
-  - zd :: sort directories first or last
-+ *Toggles / Settings*
-  - i :: toggle the preview window
-  - zh :: toggle hidden files (e.g. dotfiles)
-  - zi :: toggle literal / full-text previews
-  - zf :: toggle image full-size / fit to window
-  - zP :: toggle between full ranger / deer-mode
-  - zp :: toggle file details in deer-mode
-  - z-/+ :: reduce/increase number of parent windows
-+ *Shell*
-  - ! :: run shell command on file
-  - ;& :: run async shell command on file
-  - S :: eshell popup window
-+ *Writable Dired Mode*. WDired mode changes the file listings buffer to editable
-  text. This makes it easier to rename multiple files. Depending on the width of
-  the Emacs frame. It might be useful to toggle off the preview window, by
-  pressing: i. Before starting WDired mode. This leaves more room for editing
-  the file names.
-  - C-c C-e :: start WDired mode
+- , :: dirvish-dispatch
+- f :: dirvish-file-info-menu
+- z :: dirvish-history-jump
+- F :: dirvish-layout-toggle
+- b :: dirvish-quick-access
+- q :: dirvish-quit
+- TAB :: #'dirvish-subtree-toggle
+- gh :: #'dirvish-subtree-up
+- gl :: #'dirvish-subtree-down
+
+_F-s good to know_:
+
+dirvish-peek-mode - Show file preview when narrowing candidates using
+minibuffer.
+
+- dirvish - Start a full frame Dirvish session with optional PATH.
+- (*) dirvish-rename-space-to-underscore - Rename marked files by replacing
+  space to underscore.
+- dirvish-_side_ - Toggle a Dirvish session at the side window.
+- dirvish-_side_-follow-mode - Toggle ‘dirvish-side-follow-mode’.
+- dirvish-chxxx-_menu_ - Help Menu for file attribute modification commands. Don't
+  see reason to bind since just '!/& chmod ..' does the job
+- dirvish-epa-dired-_menu_ - Help menu for ‘epa-dired-do-*’ commands.
+- dirvish-subdir-_menu_ - Help Menu for Dired subdir management. Don't think its
+  needed.
+- _dirvish-layout_-switch - Switch Dirvish layout according to RECIPE.
+- _dirvish-layout_-toggle - Toggle layout of current Dirvish session.
+
+** dired [[elisp:(helpful-variable 'dired-mode-map)][#modemap]] + dirvish
+| [[kbd:][SPC f d]] | Find directory with dired                   |
+| [[kbd:][C-c C-r]] | Run [[doom-package:dired-rsync]]            |
+| [[kbd:][C-c C-e]] | Rename entries with [[doom-package:wdired]] |
+
+- *Opening file*:
+  - a :: dired-find-alternate-file
+  - S-<return> / g O :: dired-find-file-other-window. In Dired, visit this file
+    or directory in another window.
+  - g o :: dired-view-file - In Dired, examine a file in view mode, returning to
+    Dired when done.
+  - M-RET :: dired-display-file
+- ~g~ prefix:
+  - ? :: dired-summary - Summarize basic Dired commands and show recent Dired errors.
+  - $ :: dired-hide-subdir - Hide or unhide the current subdirectory and move to next directory.
+  - y :: dired-show-file-type - Print the type of FILE, according to the ‘file’ command.
+  - G :: dired-do-chgrp - Change the group of the marked (or next ARG) files.
+  - r :: revert-buffer
+- *Navigation*.
+  - J :: dired-goto-file
+  - I :: dired-maybe-insert-subdir
+  - > and ] ] and g j  /  < and [ [ and g k :: dired-next/prev-dirline
+  - C-M-n / C-M-p :: dired-next/prev-subdir
+  - < / > :: beginning/end-of-buffer
+- *Marking* - ~*~ prefix, and:
+  - m              dired-mark
+  - t              dired-toggle-marks
+  - u              dired-unmark
+  - DEL            dired-unmark-backward
+  - F              dired-do-find-marked-files
+  - M-(            dired-mark-sexp
+  - M-DEL          dired-unmark-all-files
+  - M-{/}          dired-prev/next-marked-file
+  - U              dired-unmark-all-marks
+- *Flagging*:
+  - # :: dired-flag-auto-save-files
+  - ~ :: dired-flag-backup-files
+  - d :: dired-flag-file-deletion
+  - % & :: dired-flag-garbage-files
+- *Regexp* based shortcuts, ~%~ prefix, and additionally:
+  - A :: dired-do-find-regexp
+  - Q :: dired-do-find-regexp-and-replace
+- *Shell*
+  - !/X :: run shell command on file
+  - & :: run async shell command on file
+  - M-! :: dired-smart-shell-command
+- *Dired-do-*
+  - B                             byte-compile
+  - C                             copy
+  - D                             delete
+  - E                             open
+  - H                             hardlink
+  - I                             info
+  - L                             load
+  - M                             chmod
+  - M-s a C-s                     isearch
+  - N                             man
+  - O                             chown
+  - P                             print
+  - R                             rename
+  - S                             symlink
+  - T                             touch
+  - V                             run-mail
+  - Y                             relsymlink
+  - Z                             compress
+  - c                             compress-to
+  - g G (evil, G - orig)          chgrp
+  - k                             kill-lines
+  - r (evil, 'l' - orig)          redisplay
+  - x                             flagged-delete
+- *Writable Dired Mode*.
+  - i :: togglable via 'dired-toggle-read-only'
+  - C-c C-e :: wdired-change-to-wdired-mode
+  - writable Dired mode is under dirvish menu (currently ~, r w~)
   - C-c C-c/C-x C-s :: finish, rename changed file names, exit WDired mode
   - C-c C-k/C-c ESC :: abort, reverting any changes
   - C-x C-q :: exit, ask to save/revert modified file names
-+ *Other*. (create dir, diff, revert, hide)
-  - ;+/+ :: create directory
-  - ;=/= :: diff: current file and asks for 2nd file
-  - ;g :: revert current buffer, with file on disk
-  - ;k :: kill (hide) marked lines, C-r to unhide
+- *Decrypt*:
+  - : d :: epa-dired-do-decrypt
+  - : e :: epa-dired-do-encrypt
+  - : s :: epa-dired-do-sign
+  - : v :: epa-dired-do-verify
+- *Image* bindings - ~C-t~ prefix
+- *Other*:
+  - + :: create directory
+  - = :: diff: current file and asks for 2nd file
+  - gr :: revert current buffer, with file on disk
+  - o :: dired-sort-toggle-or-edit - Toggle sorting by date, and refresh the
+    Dired buffer. With a prefix argument, edit the current listing switches
+    instead.
+  - <localleader> h :: toggle 'omitted' files (hidden)
+  - ) :: dired-git-info-mode
+  - ( :: dired-hide-details-mode
+  - Y :: dired-copy-filename-as-kill
+  - = :: dired-diff
+  - W :: browse-url-of-dired-file
+  - % l :: dired-downcase
+  - % u :: dired-upcase
+  - M-s f C-s :: dired-isearch-filenames
+  - C-x u :: dired-undo
+  - . :: dired-clean-directory (Flag numerical backups for deletion)
+  - ? / h :: describe-mode
 
------
-
-+ *Bookmark Navigation*. By creating bookmarks with the name ranger-?, where ? can
-  be any single key.
-  - `/' :: go to bookmark
-  - m :: set bookmark
-  - um :: delete bookmark
-  - B :: show the bookmarks prompt
-+ *Tab and History Usage*.
-  - gn :: create a new tab
-  - gt/T :: go to next/previous tab
-  - gc :: close current tab
-  - uq :: restore the last closed tab
-  - zz :: search through history
-  - H/L :: history back/next
-+ *Copy and Paste Functionality*.
-  - yy :: mark files to copy
-  - dd :: mark files to move
-  - pp :: paste files in copy ring
-  - po :: paste files in copy ring and overwrite existing
-  - p? :: show the copy contents
-+ *Selected File Actions*
-  - w v/s :: Open current file as a split with previously opened window
-  - w f :: Open current file in a new frame.
-  - w j :: Open current file in ‘other-window’.
-  - w e :: Open the current file or dired marked files in external - modifier-cache
 ** ibuffer [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/ibuffer/evil-collection-ibuffer.el][evil-collection-ibuffer.el]]
 *Important*: if any kbds doesn't work - call it from =emacs-state=!
 

@@ -539,6 +539,18 @@ Forge:
     ("^\\*\\(?:Wo\\)?Man " :ignore t)
     ("^\\*info\\*$" :ignore t)))
 #+end_src
+** Dirvish
+#+begin_src emacs-lisp
+(after! dirvish
+  (setq dirvish-hide-details t
+        dirvish-default-layout '(0 0 0.55))
+  (map! :leader "sF" #'dirvish-fd-jump)
+  (map! :map dirvish-mode-map
+        :n "," #'dirvish-dispatch
+        :n "/" #'dirvish-fd
+        :n "?" #'dirvish-fd-switches-menu
+        :n "s" #'dirvish-total-file-size))
+#+end_src
 
 ** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
 #+begin_src emacs-lisp
