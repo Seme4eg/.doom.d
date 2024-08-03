@@ -630,8 +630,7 @@ Forge:
                     visual-fill-column-extra-text-width '(0 . 2)))))
 #+end_src
 
-
-** WAIT GPTel [[https://github.com/karthink/gptel][#gh]]
+** GPTel [[https://github.com/karthink/gptel][#gh]]
 #+begin_src elisp
 (defun e/read-openai-key ()
   (with-temp-buffer
