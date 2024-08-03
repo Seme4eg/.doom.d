@@ -412,11 +412,15 @@ Forge:
 ** Golden-ratio
 #+begin_src emacs-lisp
 (use-package! golden-ratio
+  :init
+  (golden-ratio-mode)
   :config
   (setq! golden-ratio-extra-commands
          '(windmove-left windmove-right windmove-down windmove-up evil-window-up
            evil-window-down evil-window-right evil-window-left)
-         golden-ratio-exclude-buffer-regexp '("^\\*"))) ;; otherwise emacs hangs
+         golden-ratio--value 1.95
+         golden-ratio-exclude-buffer-regexp '("^\\*")
+         golden-ratio-exclude-modes '(dired-mode))) ;; otherwise emacs hangs
 #+end_src
 
 ** IRC
