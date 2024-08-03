@@ -439,13 +439,13 @@ Forge:
   (setq circe-network-options
     `(("Libera Chat"
        :nick "earthian"
-       :sasl-username ,(+pass-get-user "irc/libera.chat")
-       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat")))
+       :sasl-username ,(+pass-get-user "social/irc/libera.chat")
+       :sasl-password ,(+pass-get-secret "social/irc/libera.chat"))
        ;; :channels ("#emacs" "#systemcrafters"))
       ("OFTC"
        :nick "earthian"
-       :sasl-username ,(+pass-get-user "irc/libera.chat")
-       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))))
+       :sasl-username ,(+pass-get-user "social/irc/libera.chat")
+       :sasl-password ,(+pass-get-secret "social/irc/libera.chat")))))
        ;; :channels ("#emacs" "#systemcrafters")))))
 
   ;; in case circe will start supporting DCC
