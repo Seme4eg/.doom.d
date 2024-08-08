@@ -691,16 +691,9 @@ C-l]] and get a buffer with all candidates.
     ;; (funcall-interactively #'corfu-next (- corfu-count)))))))
 
     (map! :map corfu-map
-          ;; don't want RET to do anything, TAB instead. TAB cycling is meh
-          :gi "RET" nil
-          :gi [return] nil
-          :gi [tab] cmds-ret
-          :gi "TAB" cmds-ret
           :nvi "SPC" #'corfu-insert-separator
           "C-g" (lambda () (progn (corfu-reset)
-                                  (corfu-quit)))
-          "S-TAB" nil
-          [backtab] nil)))
+                                  (corfu-quit))))))
 #+end_src
 
 ** WAIT Colemak
