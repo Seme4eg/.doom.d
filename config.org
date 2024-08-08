@@ -649,25 +649,58 @@ Forge:
 
 NOTE: [[https://github.com/minad/corfu#transfer-completion-to-the-minibuffer][transfer completion to minibuffer]]
 
-| [[kbd:][C-S-j]]    | (evil) Go to next doc line      |
-| [[kbd:][C-S-k]]    | (evil) Go to previous doc line  |
-
 Using Vertico , one could use this to export with [[doom-package:embark]] via [[kbd:][C-c
 C-l]] and get a buffer with all candidates.
 
 #+begin_src emacs-lisp
 (after! corfu
-  (setq corfu-preselect 'first) ;; prompt is in doom
-  (map! :map corfu-map
-        :nvi "C-g" (lambda () (progn
-                                (corfu-reset)
-                                (evil-collection-corfu-quit-and-escape)))))
-;; :nvi "C-h" #'corfu-info-documentation))
-;; To disable idle (as-you-type) completion, unset ~corfu-auto~:
-;;   (corfu-auto nil) ;; t is in doom
-;; Configures startup selection, choosing between the first candidate or the prompt.
-;;   ;; (corfu-popupinfo-mode) ;; C-h below does same but manually
-;;   ;; (corfu-echo-mode)
+  (remove-hook 'corfu-mode-hook #'corfu-history-mode)
+  (setq
+   ;; Configures startup selection, choosing between the first candidate or the prompt.
+   corfu-preselect 'first
+   corfu-sort-function nil
+
+   ;; corfu-info ;; Actions to access the candidate location and documentation
+   corfu-auto nil ;; disable idle (as-you-type) completion
+   ;; corfu-popupinfo-mode ;; C-h below does same but manually
+   ;; corfu-echo-mode
+   corfu-history-mode nil
+
+   +corfu-want-ret-to-confirm t) ;; prompt is in doom
+
+  (let ((cmds-ret
+         `(menu-item "Insert completion DWIM" corfu-insert
+           :filter ,(lambda (cmd)
+                      (cond
+                       ((null +corfu-want-ret-to-confirm)
+                        (corfu-quit)
+                        nil)
+                       ((eq +corfu-want-ret-to-confirm 'minibuffer)
+                        (funcall-interactively cmd)
+                        nil)
+                       ((and (or (not (minibufferp nil t))
+                                 (eq +corfu-want-ret-to-confirm t))
+                             (>= corfu--index 0))
+                        cmd)
+                       ((or (not (minibufferp nil t))
+                            (eq +corfu-want-ret-to-confirm t))
+                        nil)
+                       (t cmd))))))
+
+    ;; "C-u" (cmd! (let (corfu-cycle)
+    ;; (funcall-interactively #'corfu-next (- corfu-count)))))))
+
+    (map! :map corfu-map
+          ;; don't want RET to do anything, TAB instead. TAB cycling is meh
+          :gi "RET" nil
+          :gi [return] nil
+          :gi [tab] cmds-ret
+          :gi "TAB" cmds-ret
+          :nvi "SPC" #'corfu-insert-separator
+          "C-g" (lambda () (progn (corfu-reset)
+                                  (corfu-quit)))
+          "S-TAB" nil
+          [backtab] nil)))
 #+end_src
 
 ** WAIT Colemak
