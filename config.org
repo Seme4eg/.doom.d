@@ -420,7 +420,7 @@ Forge:
            evil-window-down evil-window-right evil-window-left)
          golden-ratio--value 1.95
          golden-ratio-exclude-buffer-regexp '("^\\*")
-         golden-ratio-exclude-modes '(dired-mode))) ;; otherwise emacs hangs
+         golden-ratio-exclude-modes '(dired-mode image-mode))) ;; otherwise emacs hangs
 #+end_src
 
 ** IRC
