@@ -166,11 +166,11 @@ describe-function map!
 ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
 (after! go-mode
   (setq
-   gofmt-command "gofmt"
-   gofmt-args '("-s"))
-  (add-hook! 'go-mode-hook
-    (add-hook 'before-save-hook 'lsp-organize-imports nil t))
-  (add-hook! 'go-mode-hook #'flymake-golangci-load-backend)
+   gofmt-command "golines"
+   gofmt-args '("-m" "80"))
+  ;; (add-hook 'go-mode-hook #'flymake-golangci-load-backend)
+  (add-hook 'go-mode-hook
+            (lambda () (add-hook 'before-save-hook 'gofmt-before-save)))
   (map! :map go-mode-map :localleader :n "z" 'dap-breakpoint-toggle))
 
 (after! lsp-mode
