@@ -172,7 +172,7 @@ describe-function map!
   (lsp-register-custom-settings
    '(("gopls.completeUnimported" t t)
      ;; ("gopls.vulncheck" "imports")
-     ;; https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
+     ("gopls.usePlaceholders" t t)
      ("gopls.hints.assignVariableTypes" t t)
      ("gopls.hints.compositeLiteralFields" t t)
      ("gopls.staticcheck" t t)
