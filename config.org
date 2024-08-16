@@ -642,16 +642,9 @@ Forge:
 ** TODO Syntax + flymake
 #+begin_src emacs-lisp
 (after! flymake
-  ;; Didn't manage to make it ignore my config files
-  ;; (add-to-list 'flymake-proc-allowed-file-name-masks
-  ;;              '("init\\.el\\'" nil))
-  (setq flymake-popon-width 95) ;; fix weird newlines
-  (map! :n "]e" #'flymake-goto-next-error)
-  (map! :n "[e" #'flymake-goto-prev-error)
   (map! :leader :prefix ("v" . "syntax")
         "l" #'consult-flymake
-        "]" #'flymake-goto-next-error
-        "[" #'flymake-goto-prev-error
+        "P" #'flymake-show-project-diagnostics
         "x" #'flymake-proc-stop-all-syntax-checks))
 #+end_src
 
