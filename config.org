@@ -143,22 +143,18 @@ describe-function map!
 
 
 ** Development
-*** TODO LSP
+*** LSP
 #+begin_src emacs-lisp
 ;; Disable invasive lsp-mode features
 ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
 (setq
- lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
- lsp-ui-doc-enable nil        ; slow and redundant with K
- lsp-enable-symbol-highlighting t) ; why not
+ ;; lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
+ lsp-ui-doc-enable nil)        ; slow and redundant with K
 
 (setq lsp-vetur-format-default-formatter-html '"prettier")
 
-(map!
- :map lsp-mode-map
- :leader
- :desc "Inlay hints mode"
- :n "c I" 'lsp-inlay-hints-mode)
+(map! :map lsp-mode-map :leader
+      :desc "Inlay hints mode" :n "c I" 'lsp-inlay-hints-mode)
 #+end_src
 
 *** Golang
