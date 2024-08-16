@@ -674,6 +674,11 @@ Other
 - eww-view-source (g f)                     View the HTML source code of the current page.
 - eww-search-words  (M-s M-w)   Search the web for the text in the region.
 
+Shrface insignificant binds
+- shrface-html-export-as-org      Export HTML to an org buffer.
+- shrface-html-export-to-org      Export HTML to an org file as FILENAME.
+- shrface-default-keybindings     Setup default keybingings for variable ‘shrface-mode’.
+
 *** Rss ([[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]])
 
 * unused kbds
