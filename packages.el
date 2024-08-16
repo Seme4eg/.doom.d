@@ -13,6 +13,10 @@
   :recipe (:host github :repo "storvik/flymake-golangci"))
 (package! sqlformat
   :recipe (:host github :repo "purcell/sqlformat"))
+(package! shrface)
+(package! shr-tag-pre-highlight)
+(package! language-detection)
+
 (package! mu4e-alert :disable t) ;; no beeping
 
 ;; TODO:

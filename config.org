@@ -387,12 +387,11 @@ Forge:
   (ewal-evil-cursors-get-colors :apply t))
 #+end_src
 
-** TODO Eww
-- [ ] setup bookmarks (gopkgs) and bindings
-- [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]]
-
+** Eww
 #+begin_src emacs-lisp
-(map! :leader :desc "Web Wowser" "oe" 'eww)
+(map! :leader :desc "Web Wowser" "oe" 'eww) ;; from within eww its just 'o'
+
+(setq! +lookup-open-url-fn #'eww)
 
 (after! eww
   (setq!
@@ -400,11 +399,66 @@ Forge:
    browse-url-browser-function 'eww-browse-url
    eww-search-prefix "https://www.google.com/search?q="
    eww-bookmarks-directory "~/Documents/"
-   +lookup-open-url-fn #'eww
-   ;; title / url / custom func
+   eww-history-limit 500
    eww-auto-rename-buffer 'title)
-  (map! :map eww-mode-map :n "gy" #'eww-copy-page-url)
-  (map! :map eww-mode-map :n "r" #'eww-reload))
+
+  (map! :leader "ge" #'eww-switch-to-buffer)
+
+  (map! :map eww-text-map "TAB" nil "<backtab>" nil)
+  (map! :map eww-textarea-map "TAB" nil "<backtab>" nil)
+  (map! :map shr-map "TAB" nil "<backtab>" nil)
+
+  (map! :map eww-mode-map
+        :nv "C-k" #'shrface-previous-headline
+        :nv "C-j" #'shrface-next-headline
+        :n "<tab>" #'shrface-outline-cycle
+        :n "<backtab>" #'shrface-outline-cycle-buffer)
+
+  (map! :map eww-buffers-mode-map
+        :n "C-k" #'eww-buffer-show-previous
+        :n "C-j" #'eww-buffer-show-next)
+
+  (map! :map eww-mode-map :localleader
+        :n "y" #'eww-copy-page-url
+        :n "r" #'eww-reload
+        :vn "s" #'eww-search-words
+        :n "l" #'shrface-links-consult
+        :n "." #'shrface-headline-consult
+        ;; different from 'headline-consult' since uses separate buffer
+        :n "h" #'shrface-occur)
+
+  ;; (add-hook 'eww-after-render-hook #'org-indent-mode) ;; FIXME
+  (add-hook 'eww-mode-hook #'shrface-mode))
+
+(after! shrface
+  ;; (unless shrface-toggle-bullets
+  ;;   (shrface-regexp)
+  ;;   (setq-local imenu-create-index-function #'shrface-imenu-get-tree)))
+  (require 'shr-tag-pre-highlight)
+  (add-hook 'outline-view-change-hook 'shrface-outline-visibility-changed)
+  (setq!
+   shr-max-width 100
+   shr-cookie-policy nil
+   ;; shr-table-vertical-line "|"
+   ;; shr-width 65
+   shr-indentation 3
+   tab-width 2
+   ;; shrface-toggle-bullets nil
+   shr-use-fonts nil
+   shrface-href-versatile t
+
+   shr-external-rendering-functions (append '((title . eww-tag-title)
+                                              (form . eww-tag-form)
+                                              (input . eww-tag-input)
+                                              (button . eww-form-submit)
+                                              (textarea . eww-tag-textarea)
+                                              (select . eww-tag-select)
+                                              (link . eww-tag-link)
+                                              (meta . eww-tag-meta)
+                                              ;; (a . eww-tag-a)
+                                              (code . shrface-tag-code)
+                                              (pre . shr-tag-pre-highlight))
+                                            shrface-supported-faces-alist)))
 
 (after! dash-docs (setq dash-docs-browser-func #'eww))
 #+end_src

@@ -628,49 +628,51 @@ the corresponding action.
 ~B~ =embark-become= - change current command keeping your input (like
 /switch-to-buffer/ -> /find-file/)
 
-*** EWW - Emacs Web Wowser
-[[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][evil-collection-eww.el]] - bookmarks, buffers list, open, external ...
+*** EWW + shrface [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][#evil-collection-eww.el]]
+- eww-open-in-new-buffer   (M-RET)   Fetch URL (interactively, the link at point) into a new EWW buffer.
+- eww-browse-with-external-browser  (& / S-RET / go)   Browse the current URL with an external browser.
+- eww-readable    (r / R)   Toggle display of only the main "readable" parts of the current web page.
+- eww-copy-page-url (SPC m y / y u - default)   Copy the URL of the current page into the kill ring.
+- eww-list-histories (g h)   List the eww-histories. The
+  history is lost when EWW is quit. If you want to remember websites - use
+  bookmarks. History limit is stored in =eww-history-limit= var.
 
-- M-RET :: *open* URL (or same page if not on URL) at point in *new buffer*
-- g h :: list browsing *history*. The history is lost when EWW is quit. If you
-  want to remember websites - use bookmarks. History limit is stored in
-  =eww-history-limit= var.
-- <tab> / <backtab> :: shr *next / previous link*
-- g h :: list browsing *history*. The history is lost when EWW is quit. If you
-  want to remember websites - use bookmarks. History limit is stored in
-  =eww-history-limit= var.
-- r/R (eww-readable) :: attampt to determine which part of the doc contains the
-  'readable' text, and will only display this part. This usually gets rid of
-  menus and the like.
+Navigation
+- eww-up-url      (u)   Go to the page marked ‘up’.
+- eww-top-url     (U)   Go to the page marked ‘top’.
+- eww-back-url    (H)   Go to the previously displayed page.
+- eww-forward-url (L)   Go to the next displayed page.
+- eww-next-url     (] ] / gj)   Go to the page marked ‘next’.
+- eww-previous-url ([ [ / gk)   Go to the page marked ‘previous’.
 
-M-C - toggle whether to use HTML-specified colors or not. (=shr-use-colors=
-variable)
+Bookmarks
+- eww-*list*-bookmarks    (g b)   Display the bookmarks.
+- eww-add-bookmark      (m)   Bookmark the current page.
+- eww-bookmark-kill     (D)      Kill the current bookmark.
+- eww-bookmark-urls     Get the URLs from the current list of bookmarks.
+- eww-bookmark-yank     (P / y u)     Yank a previously killed bookmark to the current line.
+- eww-next-bookmark     (M-n)   Go to the next bookmark in the list.
+- eww-previous-bookmark (M-p)   Go to the previous bookmark in the list.
 
-Hotkeys below are the default hotkeys. They r shadowed, but relevant if u enter
-'insert mode' in eww buffer (or if called from =emacs-state=):
-#+begin_comment
-TAB (shr-next-link)
-C (url-cookie-list)
-D (eww-toggle-paragraph-direction)
-E (eww-set-character-encoding)
-G (eww)
-H (eww-list-histories)
-S (eww-list-buffers)
-b (eww-add-bookmark)
-g (eww-reload)
-h (describe-mode)
-l/n (eww-back/next-url)
-p/r (eww-previous/forward-url)
-s (eww-switch-to-buffer)
-t (eww-top-url)
-v (eww-view-source)
-w (eww-copy-page-url) - copy current page's url to kill ring
-DEL (scroll-down-command)
-<delete> (scroll-down-command)
-#+end_comment
+Buffers
+- eww-*switch*-to-buffer     Prompt for an EWW buffer to display in the selected window.
+- eww-*list*-buffers         (g t)   Enlist eww buffers.
+- eww-buffer-kill          (D)       Kill buffer from eww list.
+- eww-buffer-show-next     (]] / gj)        Move to next eww buffer in the list and display it.
+- eww-buffer-show-previous ([[ / gk)        Move to previous eww buffer in the list and display it.
 
-_Commands_:
-- eww-open-file :: open a local HTML file
+Togglables
+- eww-toggle-fonts  (z f)   Toggle whether to use monospaced or font-enabled layouts.
+- eww-toggle-colors (M-C)   Toggle whether to use HTML-specified colors or not.
+- eww-toggle-images (M-I)   Toggle whether or not to display images.
+- eww-toggle-checkbox Toggle the value of the checkbox under point.
+
+Other
+- eww-open-file   Render FILE using EWW.
+- eww-select-file Change the value of the upload file menu under point.
+- eww-download    (d)   Download URL to ‘eww-download-directory’.
+- eww-view-source (g f)                     View the HTML source code of the current page.
+- eww-search-words  (M-s M-w)   Search the web for the text in the region.
 
 *** Rss ([[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]])
 
