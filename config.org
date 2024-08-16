@@ -151,8 +151,6 @@ describe-function map!
  ;; lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
  lsp-ui-doc-enable nil)        ; slow and redundant with K
 
-(setq lsp-vetur-format-default-formatter-html '"prettier")
-
 (map! :map lsp-mode-map :leader
       :desc "Inlay hints mode" :n "c I" 'lsp-inlay-hints-mode)
 #+end_src
