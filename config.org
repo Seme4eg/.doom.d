@@ -440,8 +440,14 @@ Forge:
         ;; different from 'headline-consult' since uses separate buffer
         :n "h" #'shrface-occur)
 
-  ;; (add-hook 'eww-after-render-hook #'org-indent-mode) ;; FIXME
-  (add-hook 'eww-mode-hook #'shrface-mode))
+(after! dash-docs (setq dash-docs-browser-func #'eww))
+#+end_src
+
+** Shrface
+#+begin_src emacs-lisp
+;; (add-hook 'eww-after-render-hook #'org-indent-mode) ;; FIXME
+(add-hook 'eww-mode-hook #'shrface-mode)
+(add-hook 'mu4e-view-mode-hook #'shrface-mode)
 
 (after! shrface
   ;; (unless shrface-toggle-bullets
@@ -452,7 +458,6 @@ Forge:
   (setq!
    shr-max-width 100
    shr-cookie-policy nil
-   ;; shr-table-vertical-line "|"
    ;; shr-width 65
    shr-indentation 3
    tab-width 2
@@ -472,8 +477,6 @@ Forge:
                                               (code . shrface-tag-code)
                                               (pre . shr-tag-pre-highlight))
                                             shrface-supported-faces-alist)))
-
-(after! dash-docs (setq dash-docs-browser-func #'eww))
 #+end_src
 
 ** Golden-ratio

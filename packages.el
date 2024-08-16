@@ -11,6 +11,8 @@
 (package! golden-ratio)
 (package! sqlformat
   :recipe (:host github :repo "purcell/sqlformat"))
+
+;; for eww
 (package! shrface)
 (package! shr-tag-pre-highlight)
 (package! language-detection)
