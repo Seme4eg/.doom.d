@@ -9,8 +9,6 @@
 (package! elcord
   :recipe (:host github :repo "seme4eg/elcord"))
 (package! golden-ratio)
-(package! flymake-golangci
-  :recipe (:host github :repo "storvik/flymake-golangci"))
 (package! sqlformat
   :recipe (:host github :repo "purcell/sqlformat"))
 (package! shrface)
