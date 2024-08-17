@@ -177,7 +177,7 @@ describe-function map!
      ("gopls.hints.compositeLiteralFields" t t)
      ("gopls.staticcheck" t t)
      ;; NOTE: setting passed args here doesn't work for some reason
-     ("golangci-lint.command" ["golangci-lint" "run"])))
+     ("golangci-lint.command" ["golangci-lint" "run" "--out-format=json" "--show-stats=false"])))
 
   (setq lsp-golangci-lint-run-args '("--out-format=json" "--show-stats=false"))
 
