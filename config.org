@@ -639,9 +639,13 @@ Forge:
           thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
           utime stime ctime cutime cstime etime comm)))
 #+end_src
-** TODO Syntax + flymake
+** Syntax + flymake
 #+begin_src emacs-lisp
 (after! flymake
+  (setq flymake-popon-method (if (modulep! :checkers syntax +childframe)
+                                 'postframe
+                               'popon)
+        flymake-popon-width 75)
   (map! :leader :prefix ("v" . "syntax")
         "l" #'consult-flymake
         "P" #'flymake-show-project-diagnostics
