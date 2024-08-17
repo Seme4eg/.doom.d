@@ -438,7 +438,7 @@ Forge:
         :n "l" #'shrface-links-consult
         :n "." #'shrface-headline-consult
         ;; different from 'headline-consult' since uses separate buffer
-        :n "h" #'shrface-occur)
+        :n "h" #'shrface-occur))
 
 (after! dash-docs (setq dash-docs-browser-func #'eww))
 #+end_src
