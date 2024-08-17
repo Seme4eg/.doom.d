@@ -646,6 +646,9 @@ Forge:
                                  'postframe
                                'popon)
         flymake-popon-width 75)
+  (map! :n
+        "]e" #'flymake-goto-next-error
+        "[e" #'flymake-goto-prev-error)
   (map! :leader :prefix ("v" . "syntax")
         "l" #'consult-flymake
         "P" #'flymake-show-project-diagnostics
