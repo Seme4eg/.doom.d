@@ -617,7 +617,6 @@ Forge:
   (map! :leader "sF" #'dirvish-fd-jump)
   (map! :map dirvish-mode-map
         :n "," #'dirvish-dispatch
-        :n "/" #'dirvish-narrow
         :n "?" #'dirvish-fd-switches-menu
         :n "s" #'dirvish-total-file-size))
 #+end_src
