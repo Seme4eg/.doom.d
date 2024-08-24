@@ -608,8 +608,9 @@ Forge:
     ("^\\*\\(?:Wo\\)?Man " :ignore t)
     ("^\\*info\\*$" :ignore t)))
 #+end_src
-** Dirvish
+** Dired + Dirvish
 #+begin_src emacs-lisp
+(setq dired-omit-mode nil)
 (after! dirvish
   (setq dirvish-hide-details t
         dirvish-default-layout '(0 0 0.55))
