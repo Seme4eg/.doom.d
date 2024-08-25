@@ -610,7 +610,7 @@ Forge:
 #+end_src
 ** Dired + Dirvish
 #+begin_src emacs-lisp
-(setq dired-omit-mode nil)
+(remove-hook 'dired-mode-hook #'dired-omit-mode)
 (after! dirvish
   (setq dirvish-hide-details t
         dirvish-default-layout '(0 0 0.55))
