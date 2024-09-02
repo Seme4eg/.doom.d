@@ -614,7 +614,7 @@ Forge:
 (after! dirvish
   (setq dirvish-hide-details t
         dirvish-default-layout '(0 0 0.55))
-  (map! :leader "sF" #'dirvish-fd-jump)
+  (map! :leader "sf" #'dirvish-fd-jump)
   (map! :map dirvish-mode-map
         :n "," #'dirvish-dispatch
         :n "?" #'dirvish-fd-switches-menu
