@@ -446,7 +446,9 @@ Forge:
 #+begin_src emacs-lisp
 ;; (add-hook 'eww-after-render-hook #'org-indent-mode) ;; FIXME
 (add-hook 'eww-mode-hook #'shrface-mode)
-(add-hook 'mu4e-view-mode-hook #'shrface-mode)
+(add-hook 'mu4e-view-mode-hook (lambda () (progn)
+                                       (require 'eww)
+                                       (shrface-mode)))
 
 (after! shrface
   ;; (unless shrface-toggle-bullets
