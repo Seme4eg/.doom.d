@@ -28,8 +28,7 @@ Global:
  display-fill-column-indicator-column 80
  better-jumper-context 'buffer
  default-input-method "russian-computer"
- ;; A depth of 1 means check all the subdirectories of DIRECTORY.
- projectile-project-search-path '(("~/git" . 2)))
+ projectile-project-search-path '(("~/git" . 3)))
 #+end_src
 
 [[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]]:
