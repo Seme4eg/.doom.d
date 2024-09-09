@@ -22,7 +22,7 @@
 ;; TODO:
 ;; (package! evil-colemak-basics)
 ;; (unpin! everywhere)
-
+;; (package! casual-suite) ;; don't need for now
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)

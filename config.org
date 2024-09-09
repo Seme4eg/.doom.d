@@ -607,6 +607,15 @@ Forge:
     ("^\\*\\(?:Wo\\)?Man " :ignore t)
     ("^\\*info\\*$" :ignore t)))
 #+end_src
+** Casual Suite
+#+begin_src emacs-lisp
+;; (require 'casual-suite)
+;; (map! :map reb-mode-map :n "," #'casual-re-builder-tmenu)
+
+;; (keymap-set ibuffer-mode-map "F" #'casual-ibuffer-filter-tmenu)
+;; (keymap-set ibuffer-mode-map "s" #'casual-ibuffer-sortby-tmenu)
+#+end_src
+
 ** Dired + Dirvish
 #+begin_src emacs-lisp
 (remove-hook 'dired-mode-hook #'dired-omit-mode)
