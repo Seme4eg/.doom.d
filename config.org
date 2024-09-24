@@ -600,7 +600,14 @@ Forge:
 
 ** Org
 #+begin_src emacs-lisp
+(defun org-iscroll-setup ()
+  "Set up iscroll mode and keybindings for iscroll in org mode."
+  (iscroll-mode)
+  (map! :n "C-n" (cmd! (iscroll-up 1))
+        :n "C-p" (cmd! (iscroll-down 1))))
+
 (add-hook! 'org-mode-hook 'auto-fill-mode)
+(add-hook 'org-mode-hook #'org-iscroll-setup)
 
 (after! org
   (map! :map org-mode-map

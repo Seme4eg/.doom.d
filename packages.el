@@ -11,6 +11,7 @@
 (package! golden-ratio)
 (package! sqlformat
   :recipe (:host github :repo "purcell/sqlformat"))
+(package! iscroll)
 
 ;; for eww
 (package! shrface)
