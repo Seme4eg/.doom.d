@@ -81,8 +81,7 @@ Other:
 #+begin_src emacs-lisp
 (setq!
  browse-url-secondary-browser-function #'browse-url-xdg-open
- browse-url-generic-program #'eww
- pass-username-field "user")
+ browse-url-generic-program #'eww)
 #+end_src
 
 ** Keybindings
@@ -109,13 +108,6 @@ describe-function map!
 
 ;; Other packages
 (map! :leader :desc "Ace window" "ww" 'ace-window)
-
-(map! :leader
-      (:prefix "o" ;; just adds to already existing binds under that prefix
-               (:prefix ("p" . "pass")
-                :desc "Open pass buffer" "o" #'pass
-                :desc "Pass consult" "p" #'+pass/consult
-                :desc "Pass copy user" "u" #'+pass/copy-user)))
 #+end_src
 
 ** Startup and Global modes
@@ -522,11 +514,11 @@ Forge:
          golden-ratio-exclude-modes '(dired-mode image-mode))) ;; otherwise emacs hangs
 #+end_src
 
-** IRC
+** WAIT IRC
 
 - https://github.com/emacs-circe/circe/wiki/Configuration
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (map! :leader :desc "IRC" "oi" '=irc)
 
 ;; if you omit =:host=, ~SERVER~ will be used instead.

@@ -83,7 +83,7 @@
        (lsp +peek)         ; M-x vscode
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
-       (pass +auth)        ; password manager for nerds
+       ;; (pass +auth)        ; password manager for nerds
        pdf                 ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;taskrunner        ; taskrunner for all your projects
@@ -170,7 +170,7 @@
        calendar
        emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
-       irc                 ; how neckbeards socialize
+       ;; irc                 ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
 
        :config
