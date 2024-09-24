@@ -167,7 +167,17 @@ describe-function map!
   ;; (add-hook 'go-mode-hook #'flymake-golangci-load-backend)
   (add-hook 'go-mode-hook
             (lambda () (add-hook 'before-save-hook 'gofmt-before-save)))
-  (map! :map go-mode-map :localleader :n "z" 'dap-breakpoint-toggle))
+  (map! :map go-mode-map :localleader :n "z" 'dap-breakpoint-toggle)
+  (set-ligatures! 'go-mode
+    :def "func" ; function keyword
+    :true "true" :false "false"
+    ; this will replace not only definitions
+    ; but coresponding functions aswell
+    :int "int" :str "string"
+    :float "float" :bool "bool"
+    :for "for"
+    :return "return" :yield "yield"))
+
 
 (after! lsp-mode
   ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
