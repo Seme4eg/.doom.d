@@ -12,7 +12,6 @@ Here are some additional functions/macros that could help you configure Doom:
 !!! [[~/dotfiles/.config/emacs/lisp/demos.org][doom lisp demos]]
 
 ** Variables
-Global:
 #+begin_src emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
@@ -22,25 +21,25 @@ Global:
  user-full-name "earthian"
  user-mail-address "418@duck.com"
 
- ;; doom-theme 'doom-opera
  org-directory "~/Documents/org/"
- fill-column 80 ;; 70, must be a default value to work
+ fill-column 80
  display-fill-column-indicator-column 80
  better-jumper-context 'buffer
  default-input-method "russian-computer"
+ browse-url-secondary-browser-function #'browse-url-xdg-open
+ browse-url-generic-program #'eww
  projectile-project-search-path '(("~/git" . 3)))
 #+end_src
 
 [[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]]:
 #+begin_src emacs-lisp
 ;; 'pmsl nerd' - get all installed nerd fonts
-;; doom-font (font-spec :family "saucecodepro nerd font" :size 17)
-;; copy of source code pro but with better composite glyphs
-;; doom-font (font-spec :family "hasklug nerd font" :size 17)
-;; doom-font (font-spec :family "hack nerd font" :size 17)
 
 (setq
  ;; firacode nerd font
+ ;; saucecodepro nerd font - copy of source code pro but with better composite glyphs
+ ;; hasklug nerd font
+ ;; hack nerd font
  doom-font (font-spec :family "jetbrainsmono nf" :size 17) ;; :weight 'light
  ;; for text modes, like Zen, Org or Markdown.
  doom-variable-pitch-font (font-spec :family "daddytimemono nerd font" :size 17)
@@ -70,18 +69,18 @@ Global:
 
 Hlissner:
 #+begin_src emacs-lisp
-(setq
-  ;; Line numbers are pretty slow all around. The performance boost of
-  ;; disabling them outweighs the utility of always keeping them on.
-  display-line-numbers-type nil
-  )
-#+end_src
+;; https://github.com/hlissner/.doom.d
 
-Other:
-#+begin_src emacs-lisp
-(setq!
- browse-url-secondary-browser-function #'browse-url-xdg-open
- browse-url-generic-program #'eww)
+(setq
+ ;; Line numbers are pretty slow all around. The performance boost of
+ ;; disabling them outweighs the utility of always keeping them on.
+ display-line-numbers-type nil
+ doom-scratch-initial-major-mode 'org-mode ;; or lisp-interaction-mode
+ ;; An evil mode indicator is redundant with cursor shape
+ doom-modeline-modal nil)
+
+;; Prevents some cases of Emacs flickering.
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 #+end_src
 
 ** Keybindings
@@ -246,14 +245,12 @@ describe-function map!
 Magit:
 #+begin_src emacs-lisp
 (setq
- ;; magit-save-repository-buffers nil
  ;; Don't restore the wconf after quitting magit, it's jarring
  magit-inhibit-save-previous-winconf t
  ;; Enable Gravatars REVIEW does it even works?
  ;; This will enable gravatars when viewing commits.
  ;; The service used by default is Libravatar.
- magit-revision-show-gravatars '("^Author:     " . "^Commit:     ")
- )
+ magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
 #+end_src
 
 Forge:
