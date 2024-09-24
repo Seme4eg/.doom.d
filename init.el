@@ -51,10 +51,11 @@
 
        :emacs
        (dired +dirvish +icons) ; making dired pretty [functional]
-       electric               ; smarter, keyword-based electric-indent
-       (ibuffer +icons)       ; interactive buffer management
-       (undo +tree)           ; persistent, smarter undo for your inevitable mistakes
-       vc                     ; version-control and Emacs, sitting in a tree
+       electric                ; smarter, keyword-based electric-indent
+       eww                     ; the internet is gross
+       (ibuffer +icons)        ; interactive buffer management
+       (undo +tree)            ; persistent, smarter undo for your inevitable mistakes
+       vc                      ; version-control and Emacs, sitting in a tree
 
        :term
        ;;eshell  ; the elisp shell that works everywhere

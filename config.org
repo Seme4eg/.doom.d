@@ -446,6 +446,8 @@ Forge:
   (map! :map shr-map "TAB" nil "<backtab>" nil)
 
   (map! :map eww-mode-map
+        ;; don't need all windows closing
+        [remap quit-window] #'quit-window
         :nv "C-k" #'shrface-previous-headline
         :nv "C-j" #'shrface-next-headline
         :n "<tab>" #'shrface-outline-cycle
@@ -460,6 +462,7 @@ Forge:
         :n "r" #'eww-reload
         :vn "s" #'eww-search-words
         :n "l" #'shrface-links-consult
+        :n "L" #'+eww/jump-to-url-on-page
         :n "." #'shrface-headline-consult
         ;; different from 'headline-consult' since uses separate buffer
         :n "h" #'shrface-occur))

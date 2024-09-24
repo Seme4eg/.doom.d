@@ -79,7 +79,8 @@ For any package / mode you are interested in keybindings for try first ~SPC h m~
 and then ~evil-colleciton-<mode>[-map]~ var
 
 - _window-select_ prefix ~spc w w~ (Hit ~?~ to bring up the actions menu.)
-- _vertico_ [[file:~/.config/emacs/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.config/emacs/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] , ~C-SPC~ embark-preview
+- _vertico_ [[file:~/.config/emacs/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.config/emacs/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] and
+  ~orderless-affix-dispatch-alist~ var, ~C-SPC~ embark-preview
 - [[file:~/.config/emacs/modules/ui/popup/README.org::*Commands][popup]]: C-~ (+popup/raise); C-` (+popup/toggle)
 - =evil-quick-diff= - used to diff and edit two separate blocks of text.
 - [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
@@ -174,6 +175,9 @@ marked files/directory to current directory with one keystroke (dirvish-yank).
 - TAB :: #'dirvish-subtree-toggle
 - gh :: #'dirvish-subtree-up
 - gl :: #'dirvish-subtree-down
+- SPC o p :: #'dirvish-side <- open project sidebar (like treemacs)
+- SPC o P :: #'dirvish-side-and-follow <- ..
+- SPC o / :: open directory in dirvish (dirvish full mode)
 
 _F-s good to know_:
 
@@ -636,6 +640,12 @@ the corresponding action.
 - eww-list-histories (g h)   List the eww-histories. The
   history is lost when EWW is quit. If you want to remember websites - use
   bookmarks. History limit is stored in =eww-history-limit= var.
+
+What useful comes form doom module (rest i configured myself):
+- :ni [C-return] #'+eww/open-in-other-window
+- :n "yy" #'+eww/copy-current-url
+- :n "zk" #'text-scale-increase
+- :n "zj" #'text-scale-decrease
 
 Navigation
 - eww-up-url      (u)   Go to the page marked ‘up’.
