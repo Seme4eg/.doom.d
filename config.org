@@ -234,7 +234,6 @@ Magit:
 (setq
  ;; Don't restore the wconf after quitting magit, it's jarring
  magit-inhibit-save-previous-winconf t
- evil-collection-magit-want-horizontal-movement t
  ;; This will enable gravatars when viewing commits.
  ;; The service used by default is Libravatar.
  magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
