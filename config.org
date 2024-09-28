@@ -763,6 +763,8 @@ C-l]] and get a buffer with all candidates.
    ;; Configures startup selection, choosing between the first candidate or the prompt.
    corfu-preselect 'first
    corfu-sort-function nil
+   ;; fix of memory leak on child-frames on pgtk emacs
+   corfu-popupinfo-resize nil
 
    ;; corfu-info ;; Actions to access the candidate location and documentation
    corfu-auto nil ;; disable idle (as-you-type) completion
