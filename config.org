@@ -589,8 +589,12 @@ Forge:
   (map! :n "C-n" (cmd! (iscroll-up 1))
         :n "C-p" (cmd! (iscroll-down 1))))
 
-(add-hook! 'org-mode-hook 'auto-fill-mode)
-(add-hook 'org-mode-hook #'org-iscroll-setup)
+(add-hook 'org-mode-hook
+          (lambda () (progn
+                       (org-iscroll-setup)
+                       (auto-fill-mode)
+                       (map! :map evil-org-mode-map
+                             :vmn "gl" 'evil-lion-left)))) ;; don't override that
 
 (after! org
   (map! :map org-mode-map
@@ -598,6 +602,7 @@ Forge:
         :n "bS" 'org-table-shrink
         :n "bE" 'org-table-expand
         :n "bts" 'org-table-toggle-column-width)
+
   (set-popup-rule! "^\\*Org Src" :ignore t)
   (setq
    ;; show files like TOC on startup
