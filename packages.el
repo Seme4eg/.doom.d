@@ -13,6 +13,8 @@
   :recipe (:host github :repo "purcell/sqlformat"))
 (package! iscroll)
 
+(package! pacdiff)
+
 ;; for eww
 (package! shrface)
 (package! shr-tag-pre-highlight)
