@@ -6,8 +6,6 @@
 (package! ewal
   :recipe (:host github :repo "cyruseuros/ewal" :files ("ewal.el" "*/*.el")))
 (package! gptel)
-(package! elcord
-  :recipe (:host github :repo "seme4eg/elcord"))
 (package! golden-ratio)
 (package! sqlformat
   :recipe (:host github :repo "purcell/sqlformat"))

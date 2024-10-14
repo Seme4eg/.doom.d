@@ -264,17 +264,6 @@ Forge:
       '(doom-dashboard-widget-banner doom-dashboard-widget-loaded))
 #+end_src
 
-** Elcord [[https://github.com/Mstrodl/elcord][#gh]]
-#+begin_src elisp
-(elcord-mode)
-(setq!
- elcord-idle-message "Brewing tea ..."
- elcord-editor-icon "emacs_material_icon")
-;; ignore all telega stuff
-(add-to-list 'elcord-boring-buffers-regexp-list "◀")
-(add-to-list 'elcord-boring-buffers-regexp-list  "\\\\*Telega Root\\\\*")
-#+end_src
-
 ** Elfeed
 - https://github.com/skeeto/elfeed#filter-syntax
 - maybe setup [[https://github.com/emacsmirror/spray][spray]] for effective reading? ([[https://noonker.github.io/posts/2020-04-22-elfeed/][source]])
@@ -846,4 +835,17 @@ C-l]] and get a buffer with all candidates.
 #+begin_src emacs-lisp :tangle no
 (after! elm-mode
   (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
+#+end_src
+
+** NO Elcord [[https://github.com/Mstrodl/elcord][#gh]]
+Removed cuz its just a fancy-dandy useless stuff + armcord rich presence isn't
+working 80% of the time + moved to different dis client.
+#+begin_src elisp :tangle no
+(elcord-mode)
+(setq!
+ elcord-idle-message "Brewing tea ..."
+ elcord-editor-icon "emacs_material_icon")
+;; ignore all telega stuff
+(add-to-list 'elcord-boring-buffers-regexp-list "◀")
+(add-to-list 'elcord-boring-buffers-regexp-list  "\\\\*Telega Root\\\\*")
 #+end_src
