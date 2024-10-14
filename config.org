@@ -409,7 +409,7 @@ Forge:
    ;; make emacs always use its own browser for opening URL links
    browse-url-browser-function 'eww-browse-url
    eww-search-prefix "https://www.google.com/search?q="
-   eww-bookmarks-directory "~/Documents/"
+   eww-bookmarks-directory "~/Documents/it/"
    eww-history-limit 500
    eww-auto-rename-buffer 'title)
 
