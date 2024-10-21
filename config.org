@@ -137,6 +137,16 @@ describe-function map!
     (when previous-place
       (switch-to-buffer (car previous-place))
       (goto-char (car (last previous-place))))))
+
+;; --- vertico debugging
+;; (setq debug-on-error t)
+
+;; (defun force-debug (func &rest args)
+;;   (condition-case e
+;;       (apply func args)
+;;     ((debug error) (signal (car e) (cdr e)))))
+
+;; (advice-add #'vertico--exhibit :around #'force-debug)
 #+end_src
 
 
