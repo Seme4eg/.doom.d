@@ -726,18 +726,37 @@ Forge:
 #+end_src
 
 ** GPTel [[https://github.com/karthink/gptel][#gh]]
-#+begin_src elisp
-(defun e/read-openai-key ()
-  (with-temp-buffer
-    (insert-file-contents "~/key.txt")
-    (string-trim (buffer-string))))
+Here are some unbound bindings in case you ever decide to go heavier on
+org-gptel integration:
+- gptel-org-set-topic - Store the active gptel topic and limit conversation to it
+- gptel-org-set-properties - Store the active gptel configuration under the current heading.
+- gptel-end-of-response - Move point to the end of the LLM response ARG times.       
+- gptel-beginning-of-response - Move point to the beginning of the LLM response ARG times.
 
+RET not working - user ~C-m~ - https://github.com/karthink/gptel/issues/75
+
+#+begin_src elisp
 (use-package! gptel
   :config
-  (map! :leader "e" 'gptel)
+  (map! :leader
+        :prefix ("e" . "gptel")
+        "e" #'gptel
+        "r" #'gptel-rewrite-menu ;; Rewrite or refactor text region using an LLM
+        "a" #'gptel-add ;; Add/remove regions or buffers from gptel’s context
+        "f" #'gptel-add-file ;; Add files to gptel’s context.
+        ;; if region selected send region otherwise whole buf up from the cursor
+        "s" #'gptel-send
+        "m" #'gptel-menu
+        "M" #'gptel-mode)
+
+  ;; :key can be a function that returns the API key.
+  (gptel-make-gemini "Gemini"
+    :key (+pass-get-secret "apikeys/gemini")
+    :stream t)
+
   (setq! gptel-default-mode 'org-mode
          gptel-model "gpt-4o"
-         gptel-api-key #'e/read-openai-key))
+         gptel-api-key (+pass-get-secret "apikeys/openai")))
 #+end_src
 
 ** Corfu [[https://github.com/minad/corfu][#gh]]
