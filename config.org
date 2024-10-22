@@ -608,6 +608,7 @@ Forge:
    org-startup-folded 'content
    org-hide-block-startup t
    org-startup-shrink-all-tables t
+   org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
    org-hide-emphasis-markers t)
 
   (add-to-list 'org-capture-templates '("t" "Tea entry" entry
