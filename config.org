@@ -701,6 +701,7 @@ Forge:
       "f" #'telega-buffer-file-send
       "s" #'telega-saved-messages
       "t" #'telega
+      "z" #'telega-translate-region
       "u" #'telega-switch-unread-chat)
 
 (after! telega
@@ -723,6 +724,7 @@ Forge:
    telega-notifications-msg-temex '(and (not outgoing) (call telega-notifications-msg-notify-p))
    telega-notifications-timeout 3600 ;; crutch basically
    telega-url-shorten-use-images t
+   telega-translate-to-language-by-default "ru"
    telega-video-player-command '(concat "mpv"
                                  (when telega-ffplay-media-timestamp
                                    (format "%f" telega-ffplay-media-timestamp))))
