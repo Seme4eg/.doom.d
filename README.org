@@ -85,6 +85,7 @@ and then ~evil-colleciton-<mode>[-map]~ var
 - =evil-quick-diff= - used to diff and edit two separate blocks of text.
 - [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
   regular expression (regexp) or keywords that you type.
+- Rss/atom reader - [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]]
 
 ** evil
 - [[file:~/.config/emacs/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
@@ -632,7 +633,7 @@ the corresponding action.
 ~B~ =embark-become= - change current command keeping your input (like
 /switch-to-buffer/ -> /find-file/)
 
-*** EWW + shrface [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][#evil-collection-eww.el]]
+** EWW + shrface [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][#evil-collection-eww.el]]
 - eww-open-in-new-buffer   (M-RET)   Fetch URL (interactively, the link at point) into a new EWW buffer.
 - eww-browse-with-external-browser  (& / S-RET / go)   Browse the current URL with an external browser.
 - eww-readable    (r / R)   Toggle display of only the main "readable" parts of the current web page.
@@ -689,7 +690,6 @@ Shrface insignificant binds
 - shrface-html-export-to-org      Export HTML to an org file as FILENAME.
 - shrface-default-keybindings     Setup default keybingings for variable ‘shrface-mode’.
 
-*** Rss ([[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]])
 
 * unused kbds
 ~SPC~ .. j, k
