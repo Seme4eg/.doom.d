@@ -36,34 +36,34 @@ depends=(
   'tree-sitter' 'sqlite3'
 
   # something other (from arch repos pkgbuild)
-#  gmp
-#  lcms2
-#  libacl.so
-#  libasound.so
-#  libdbus-1.so
-#  libfontconfig.so
-#  libfreetype.so
-#  libgdk-3.so
-#  libgdk_pixbuf-2.0.so
-#  libgif.so
-#  libgio-2.0.so
-#  libglib-2.0.so
-#  libgobject-2.0.so
-#  libgpm.so
-#  libice
-#  libjpeg.so
-#  libncursesw.so
-#  libpango-1.0.so
-#  libpng
-#  librsvg-2.so
-#  libsystemd.so
-#  libtiff.so
-#  libtree-sitter.so
-#  libwebp.so
-#  libwebpdemux.so
-#  libxfixes
-#  m17n-lib
-#  zlib
+  #  gmp
+  #  lcms2
+  #  libacl.so
+  #  libasound.so
+  #  libdbus-1.so
+  #  libfontconfig.so
+  #  libfreetype.so
+  #  libgdk-3.so
+  #  libgdk_pixbuf-2.0.so
+  #  libgif.so
+  #  libgio-2.0.so
+  #  libglib-2.0.so
+  #  libgobject-2.0.so
+  #  libgpm.so
+  #  libice
+  #  libjpeg.so
+  #  libncursesw.so
+  #  libpango-1.0.so
+  #  libpng
+  #  librsvg-2.so
+  #  libsystemd.so
+  #  libtiff.so
+  #  libtree-sitter.so
+  #  libwebp.so
+  #  libwebpdemux.so
+  #  libxfixes
+  #  m17n-lib
+  #  zlib
 )
 
 makedepends=('git' 'libgccjit' 'xorgproto' 'libxi')
@@ -83,8 +83,8 @@ pkgver() {
 
   printf "%s.%s" \
     $(grep AC_INIT configure.ac |
-      awk -F',' '{ gsub("[ \\[\\]]","",$2); print $2 }') \
-    $(git rev-list --count HEAD)
+        awk -F',' '{ gsub("[ \\[\\]]","",$2); print $2 }') \
+          $(git rev-list --count HEAD)
 }
 
 # There is no need to run autogen.sh after first checkout.
