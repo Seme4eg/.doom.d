@@ -116,6 +116,7 @@ describe-function map!
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
+(add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
 
 (map! :leader "fl" (cmd! (consult-fd "/")))
 #+end_src
