@@ -6,8 +6,9 @@ XWIDGETS=  # Use GTK+ widgets pulled from webkit2gtk. Usable.
 NOGZ="YES" # Don't compress .el files. (Gain is neglible, IMHO)
 
 ################################################################################
+
 pkgname="emacs-git"
-pkgver=31.0.50.175326
+pkgver=31.0.50.175369
 pkgrel=1
 pkgdesc='The extensible, customizable, self-documenting real-time display editor with native compilation and PGTK enabled'
 arch=('x86_64')
@@ -34,6 +35,8 @@ depends=(
   'harfbuzz' 'libotf' 'libgccjit'
   'gtk3' 'libsm' 'xcb-util' 'libxcb'
   'tree-sitter' 'sqlite3'
+
+  'm17n-lib'
 
   # something other (from arch repos pkgbuild)
   #  gmp
@@ -71,7 +74,6 @@ provides=('emacs')
 conflicts=('emacs')
 source=("emacs-git::git+https://git.savannah.gnu.org/git/emacs.git")
 options=(!strip)
-install=emacs-git.install
 b2sums=('SKIP')
 
 if [[ $XWIDGETS == "YES" ]]; then
@@ -117,23 +119,24 @@ build() {
     --with-pgtk
 
     --without-xaw3d # no scroll bars
+    --without-sound # --with-sound=no ?
 
-    # https://github.com/raxod502/emacs/blob/master/INSTALL#L257
-    --without-gsettings
+    # ctags/etags may be provided by other packages, e.g, universal-ctags
+    --program-transform-name=s/\([ec]tags\)/\1.emacs/
+
+    # --- not sure about those config flags ---
+
     # Beware https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25228
     # dconf and gconf break font settings you set in ~/.emacs.
     # If you insist you'll need to read that bug report in *full*.
     # Good luck!
-    --without-gconf
-
-    --with-sound=no
-    --without-gpm # TODO: what's that?
+    # --without-gconf
+    # https://github.com/raxod502/emacs/blob/master/INSTALL#L257
+    # --without-gsettings
 
     # --mandir=/usr/share/man # defaults to '/usr/local/share/man/man1'.
-    --without-m17n-flt
-
-    # ctags/etags may be provided by other packages, e.g, universal-ctags 
-    --program-transform-name=s/\([ec]tags\)/\1.emacs/
+    # --without-m17n-flt
+    # --without-gpm # TODO: what's that?
   )
 
   if [[ $XWIDGETS == "YES" ]]; then
@@ -154,11 +157,10 @@ build() {
   # Please note that incremental compilation implies that you
   # are reusing your src directory!
   #
-
   # You may need to run this if 'loaddefs.el' files become corrupt.
-  #cd "$srcdir/emacs-git/lisp"
-  #make autoloads
-  # cd ../build
+  #  cd "$srcdir/emacs-git/lisp"
+  #  make autoloads
+  #  cd ../build
 
   make
 }
@@ -170,4 +172,7 @@ package() {
 
   # fix user/root permissions on usr/share files
   find "$pkgdir"/usr/share/emacs/ | xargs chown root:root
+
+  # fix user/root permissions on usr/share files
+  # find "${pkgdir}"/usr/share/emacs/${pkgver} -exec chown root:root {} \;
 }
