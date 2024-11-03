@@ -634,13 +634,13 @@ the corresponding action.
 /switch-to-buffer/ -> /find-file/)
 
 ** EWW + shrface [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/eww/evil-collection-eww.el][#evil-collection-eww.el]]
-- eww-open-in-new-buffer   (M-RET)   Fetch URL (interactively, the link at point) into a new EWW buffer.
-- eww-browse-with-external-browser  (& / S-RET / go)   Browse the current URL with an external browser.
-- eww-readable    (r / R)   Toggle display of only the main "readable" parts of the current web page.
-- eww-copy-page-url (SPC m y / y u - default)   Copy the URL of the current page into the kill ring.
-- eww-list-histories (g h)   List the eww-histories. The
-  history is lost when EWW is quit. If you want to remember websites - use
-  bookmarks. History limit is stored in =eww-history-limit= var.
+- eww-open-in-new-buffer   (M-RET)
+- eww-browse-with-external-browser  (& / S-RET / go)
+- eww-readable    (r / R)
+- eww-copy-page-url (SPC m y / y u - default)
+- eww-list-histories (g h) . The history is lost when EWW is quit. If you want
+  to remember websites - use bookmarks. History limit is stored in
+  =eww-history-limit= var.
 
 What useful comes form doom module (rest i configured myself):
 - :ni [C-return] #'+eww/open-in-other-window
