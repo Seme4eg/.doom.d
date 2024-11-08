@@ -161,6 +161,8 @@ describe-function map!
  lsp-ui-doc-enable nil)        ; slow and redundant with K
 
 (map! :map lsp-mode-map :leader
+      ;; another option is xref-find-definition-other-window
+      :desc "Find def other window" :n "c O" 'godef-jump-other-window
       :desc "Inlay hints mode" :n "c I" 'lsp-inlay-hints-mode)
 #+end_src
 
