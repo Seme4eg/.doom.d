@@ -722,6 +722,12 @@ Forge:
   ;; (add-to-list 'dashboard-items '(telega-chats . 5))
 
   (setq
+   telega-database-dir (expand-file-name "~/.local/share/telega")
+   telega-directory (expand-file-name "~/.local/share/telega")
+   telega-temp-dir (expand-file-name "~/.local/share/telega/temp")
+   telega-cache-dir (expand-file-name "~/.local/share/telega/cache")
+   telega-voip-logfile (expand-file-name "~/.local/share/telega/telega-voip.log")
+   telega-server-logfile (expand-file-name "~/.local/share/telega/telega-server.log")
    telega-completing-read-function #'completing-read
    telega-notifications-delay 1
    ;; to not get notified on outgoing messages form phone
