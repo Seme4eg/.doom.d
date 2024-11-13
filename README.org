@@ -694,10 +694,33 @@ Shrface insignificant binds
 * unused kbds
 ~SPC~ .. j, k
 
-* Todos [0/2]
+* Todos [0/3]
 ** TODO fix [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/diff-hl/evil-collection-diff-hl.el][evil-collection]] not working properly in 'diff-hl' popup buffers
 ** TODO tree sitter
 - https://github.com/doomemacs/doomemacs/issues/7623
 - https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 - https://magnus.therning.org/2023-11-16-using-the-golang-mode-shipped-with-emacs.html
 - https://www.reddit.com/r/emacs/comments/17wgpsp/using_the_golang_mode_shipped_with_emacs/
+** TODO emacs migration plan
+Good places to start:
+- https://suckless.org/rocks. ([[https://www.youtube.com/watch?v=u-06a36HsrI&list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&index=8][reference]])
+- Also [[https://github.com/naav97/guides][naav97/guides]] (prev. mayfrost/guides) ([[https://youtu.be/u-06a36HsrI?list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&t=150][reference]])
+- https://cat-v.org/ ([[https://youtu.be/u-06a36HsrI?list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&t=234][reference]])
+
+-----
+
+- [[https://www.youtube.com/watch?v=nlolvAVqn10&list=PL-p5XmQHB_JQg53zeRfRu7-Ku-Omh5ZUp&index=18][ranger]] NO, use [[https://github.com/gokcehan/lf][lf]], ranger is sluggish ([[https://www.youtube.com/watch?v=XOMj7JSGR78&list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&index=27][reference]])
+- newsboat - rss reader for terminal ([[https://youtu.be/R9m723tAurA?list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&t=413][reference]] + nice use case of selecting
+  opening program via rofi), [[https://www.youtube.com/watch?v=dUFCRqs822w&list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&index=9][another reference]], also good usecases
+- mutt - terminal mail client ([[https://www.youtube.com/watch?v=2jMInHnpNfQ][reference]], [[https://www.youtube.com/watch?v=2U3vRbF7v5A&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=3][reference (config)]], [[https://www.youtube.com/watch?v=0MiP1Ei_UQw&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=4][and another one]])
+- ncmpcpp - like emms but for terminal ([[https://www.youtube.com/watch?v=sZIEdI9TS2U][reference]])
+- zathura - document reader ([[https://www.youtube.com/watch?v=V_Iz4zdyRM4][reference]]) - epub, pdfs, comic books, everything
+- calcurse - terminal calender ([[https://www.youtube.com/watch?v=hvc-pHjbhdE][reference]])
+- urlview - parse out links from any input ([[https://www.youtube.com/watch?v=IgzpAjFgbCw][reference]])
+- w3m - text based browser
+- st as minimal terminal? - [[https://www.youtube.com/watch?v=FJmm7wl4JUI&list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&index=10][reference]] and [[https://www.youtube.com/watch?v=9H75enWM22k&list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&index=11][this]] and [[https://www.youtube.com/watch?v=9H75enWM22k&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=11][pywalfox compat]]
+- other:
+  - _cronjobs_ - you will need that if you will be using mutt and newsboat ([[https://www.youtube.com/watch?v=rgSxYvFWjUY&list=PL-p5XmQHB_JREOtBfLdKSswBGYyXwXMUy&index=7][ref]])
+  - scim - spread sheets editor ([[https://www.youtube.com/watch?v=K_8_gazN7h0&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=3][reference]])
+  - imagemagick - terminal image manipulation ([[https://www.youtube.com/watch?v=ETumamLjFbg&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=8][ref]])
+  - sdcv - terminal dictionary ([[https://www.youtube.com/watch?v=hTVX2_bcICg&list=PL-p5XmQHB_JQg53zeRfRu7-Ku-Omh5ZUp&index=20][ref]])
