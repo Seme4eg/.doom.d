@@ -708,6 +708,9 @@ Forge:
       "z" #'telega-translate-region
       "u" #'telega-switch-unread-chat)
 
+(map! :after telega :map telega-msg-button-map
+      "D" #'telega-msg-delete-dwim)
+
 (after! telega
   (telega-notifications-mode)
   (telega-mode-line-mode)
