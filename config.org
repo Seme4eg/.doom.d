@@ -119,6 +119,10 @@ describe-function map!
 (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
 
 (map! :leader "fl" (cmd! (consult-fd "/")))
+
+(setq
+ consult-fd-args '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
+                   "--color=never" "--full-path --absolute-path --follow" "--hidden --exclude .git"))
 #+end_src
 
 ** Custom f-s & advices
