@@ -711,8 +711,9 @@ Good places to start:
 
 - [[https://www.youtube.com/watch?v=nlolvAVqn10&list=PL-p5XmQHB_JQg53zeRfRu7-Ku-Omh5ZUp&index=18][ranger]] NO, use [[https://github.com/gokcehan/lf][lf]], ranger is sluggish ([[https://www.youtube.com/watch?v=XOMj7JSGR78&list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&index=27][reference]])
 - newsboat - rss reader for terminal ([[https://youtu.be/R9m723tAurA?list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&t=413][reference]] + nice use case of selecting
-  opening program via rofi), [[https://www.youtube.com/watch?v=dUFCRqs822w&list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&index=9][another reference]], also good usecases
-- mutt - terminal mail client ([[https://www.youtube.com/watch?v=2jMInHnpNfQ][reference]], [[https://www.youtube.com/watch?v=2U3vRbF7v5A&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=3][reference (config)]], [[https://www.youtube.com/watch?v=0MiP1Ei_UQw&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=4][and another one]])
+  opening program via rofi), [[https://www.youtube.com/watch?v=dUFCRqs822w&list=PL-p5XmQHB_JSGspRPnWbjQ2oZzq3ol-32&index=9][another reference]], also good usecases, [[https://www.youtube.com/watch?v=bwJBCfpFT_E&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=18I>>][podcasts \ audio downloading convenience]]
+- (neo)mutt - terminal mail client ([[https://www.youtube.com/watch?v=2jMInHnpNfQ][reference]], [[https://www.youtube.com/watch?v=2U3vRbF7v5A&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=3][reference (config)]], [[https://www.youtube.com/watch?v=0MiP1Ei_UQw&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=4][and another
+  one]]) and [[https://www.youtube.com/watch?v=ZFgCRKX8_f0&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=46][IDEAS source]] + there are some more minimal terminal commands listed
 - ncmpcpp - like emms but for terminal ([[https://www.youtube.com/watch?v=sZIEdI9TS2U][reference]])
 - zathura - document reader ([[https://www.youtube.com/watch?v=V_Iz4zdyRM4][reference]]) - epub, pdfs, comic books, everything
 - calcurse - terminal calender ([[https://www.youtube.com/watch?v=hvc-pHjbhdE][reference]])
@@ -724,3 +725,4 @@ Good places to start:
   - scim - spread sheets editor ([[https://www.youtube.com/watch?v=K_8_gazN7h0&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=3][reference]])
   - imagemagick - terminal image manipulation ([[https://www.youtube.com/watch?v=ETumamLjFbg&list=PL-p5XmQHB_JSjgaGQdMPNm3jKVjaMkxSp&index=8][ref]])
   - sdcv - terminal dictionary ([[https://www.youtube.com/watch?v=hTVX2_bcICg&list=PL-p5XmQHB_JQg53zeRfRu7-Ku-Omh5ZUp&index=20][ref]])
+  - abook - terminal based address book
