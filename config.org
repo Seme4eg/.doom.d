@@ -412,7 +412,16 @@ Forge:
   :config
   (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
   (enable-theme 'ewal-doom-one)
-  (ewal-evil-cursors-get-colors :apply t))
+  (ewal-evil-cursors-get-colors :apply t)
+  ;; call it once on each startup
+  (sync-corfu-current-with-border))
+
+(add-to-list 'doom-load-theme-hook #'sync-corfu-current-with-border)
+
+(defun sync-corfu-current-with-border ()
+  "Synchronize the background of `corfu-current` to match `corfu-border`."
+  (let ((border-bg (face-attribute 'corfu-border :background)))
+    (set-face-attribute 'corfu-current nil :background border-bg)))
 #+end_src
 
 ** Eww
