@@ -509,8 +509,8 @@ Forge:
 ** Golden-ratio
 #+begin_src emacs-lisp
 (use-package! golden-ratio
-  :init
-  (golden-ratio-mode)
+  ;; :init
+  ;; (golden-ratio-mode)
   :config
   (setq! golden-ratio-extra-commands
          '(windmove-left windmove-right windmove-down windmove-up evil-window-up
