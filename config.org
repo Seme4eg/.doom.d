@@ -448,6 +448,7 @@ Forge:
         [remap quit-window] #'quit-window
         :nv "C-k" #'shrface-previous-headline
         :nv "C-j" #'shrface-next-headline
+        :n "y" nil ;; copying is way more useful
         :n "<tab>" #'shrface-outline-cycle
         :n "<backtab>" #'shrface-outline-cycle-buffer)
 
@@ -456,7 +457,6 @@ Forge:
         :n "C-j" #'eww-buffer-show-next)
 
   (map! :map eww-mode-map :localleader
-        :n "y" #'eww-copy-page-url
         :n "r" #'eww-reload
         :vn "s" #'eww-search-words
         :n "l" #'shrface-links-consult
