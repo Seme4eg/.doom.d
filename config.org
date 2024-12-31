@@ -104,6 +104,7 @@ describe-function map!
 
 ;; Other packages
 (map! :leader :desc "Ace window" "ww" 'ace-window)
+(map! :leader :desc "Winner redo" "wr" 'winner-redo)
 #+end_src
 
 ** Startup and Global modes
