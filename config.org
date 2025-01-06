@@ -736,6 +736,11 @@ Forge:
 ** TODO Telega
 #+begin_src emacs-lisp
 (map! :leader "o c" 'telega)
+
+;; telega can't load images without gui cuz size calculation fails, lookup the
+;; 'telega' telegram chat, i did ask about that there. So.. call manually.
+;; (add-to-list 'doom-after-init-hook (telega 1))
+
 (setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
 (map! :after telega :leader
       :prefix ("z" . "telegram")
