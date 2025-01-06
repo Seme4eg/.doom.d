@@ -329,6 +329,8 @@ Forge:
 
 ** Emms
 #+begin_src emacs-lisp
+(add-to-list 'doom-after-init-hook #'+emms/mpd-start-music-daemon)
+
 (after! emms
   (add-to-list 'emms-player-list 'emms-player-mpd)
   (add-to-list 'emms-info-functions 'emms-info-mpd)
