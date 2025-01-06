@@ -675,6 +675,7 @@ Forge:
   '(("^\\*eww" :ignore t)
     ("^\\*helpful" :ignore t) ;; Any way to open helpful buffers on top of each other?
     ("^\\*\\(?:Wo\\)?Man " :ignore t)
+    ("^\\*Telegram Translation\\*$" :height 0.1)
     ("^\\*info\\*$" :ignore t)))
 #+end_src
 ** Casual Suite
