@@ -122,6 +122,9 @@ describe-function map!
 (setq
  consult-fd-args '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
                    "--color=never" "--full-path --absolute-path --follow" "--hidden --exclude .git"))
+
+(after! persp-mode
+  (setq persp-emacsclient-init-frame-behaviour-override "main"))
 #+end_src
 
 ** Custom f-s & advices
