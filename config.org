@@ -75,9 +75,7 @@ Hlissner:
  ;; Line numbers are pretty slow all around. The performance boost of
  ;; disabling them outweighs the utility of always keeping them on.
  display-line-numbers-type nil
- doom-scratch-initial-major-mode 'org-mode ;; or lisp-interaction-mode
- ;; An evil mode indicator is redundant with cursor shape
- doom-modeline-modal nil)
+ doom-scratch-initial-major-mode 'org-mode) ;; or lisp-interaction-mode
 #+end_src
 
 ** Keybindings
@@ -337,6 +335,8 @@ Forge:
    emms-source-file-default-directory "~/Music"
    emms-player-mpd-music-directory "~/Music"
    emms-source-playlist-default-format 'm3u
+   emms-mode-line-mode nil
+   emms-playing-time-display-mode nil
    emms-info-native--max-vorbis-comment-size 150000
    emms-repeat-playlist t
    emms-playlist-mode-center-when-go t
@@ -593,6 +593,25 @@ Forge:
 #+begin_src emacs-lisp
 (load-file "~/.config/doom/mu4e.el")
 #+end_src
+** Modeline
+#+begin_src emacs-lisp
+(setq
+ +modeline-matches '(:eval
+                     (let ((meta (concat (+modeline--macro-recording)
+                                         (+modeline--anzu)
+                                         (+modeline--evil-substitute)
+                                         (+modeline--iedit)
+                                         (+modeline--multiple-cursors))))
+                       meta))
+ ;; '("  %l:%C %p  ")
+ +modeline-position ""
+ +modeline-format-right `(""
+                          mode-line-misc-info
+                          +modeline-modes
+                          "  "
+                          +modeline-encoding
+                          (+modeline-checker ("" +modeline-checker "   "))))
+#+end_src
 
 ** Org
 #+begin_src emacs-lisp
@@ -737,6 +756,8 @@ Forge:
   ;; eval-buffer: Cannot open load file: No such file or directory, dashboard
   ;; (require 'telega-dashboard)
   ;; (add-to-list 'dashboard-items '(telega-chats . 5))
+
+  (telega-mode-line-mode -1)
 
   (setq
    telega-database-dir (expand-file-name "~/.local/share/telega")
