@@ -454,7 +454,8 @@ Forge:
         [remap quit-window] #'quit-window
         :nv "C-k" #'shrface-previous-headline
         :nv "C-j" #'shrface-next-headline
-        :n "y" nil ;; copying is way more useful
+        :n "yy" nil ;; copying is way more useful
+        :n "y" nil
         :n "<tab>" #'shrface-outline-cycle
         :n "<backtab>" #'shrface-outline-cycle-buffer)
 
