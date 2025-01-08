@@ -393,7 +393,7 @@ Forge:
         :desc "directory tree" "D" #'emms-play-directory-tree
         :desc "files matching regex" "f" #'emms-play-find
         :desc "file" "F" #'emms-play-file
-        :desc "current dired" "C" #'emms-play-dired
+        :desc "current dired" "c" #'emms-play-dired
         :desc "url (ie for streaming)" "u" #'emms-play-url)))
 #+end_src
 
