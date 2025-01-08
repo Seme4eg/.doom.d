@@ -145,6 +145,8 @@ _describe-function map!_
 (advice-add 'Info-next-reference :after #'advice--center-buffer)
 (advice-add 'Info-prev-reference :after #'advice--center-buffer)
 
+(add-to-list 'doom-after-init-hook #'doom-load-session)
+
 (defun sad-true-switch-last-buffer ()
   "Switch to REAL last open buffer (including buffers starting with *)."
   (interactive)
