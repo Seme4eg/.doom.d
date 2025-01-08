@@ -1,4 +1,4 @@
-#+STARTUP: nohideblocks
+#+STARTUP: nohideblocks indent
 
 Here are some additional functions/macros that could help you configure Doom:
 - ~load!~ for loading external *.el files relative to this one
@@ -513,19 +513,6 @@ Forge:
                                             shrface-supported-faces-alist)))
 #+end_src
 
-** Golden-ratio
-#+begin_src emacs-lisp
-(use-package! golden-ratio
-  ;; :init
-  ;; (golden-ratio-mode)
-  :config
-  (setq! golden-ratio-extra-commands
-         '(windmove-left windmove-right windmove-down windmove-up evil-window-up
-           evil-window-down evil-window-right evil-window-left)
-         golden-ratio--value 1.95
-         golden-ratio-exclude-buffer-regexp '("^\\*")
-         golden-ratio-exclude-modes '(dired-mode image-mode))) ;; otherwise emacs hangs
-#+end_src
 
 ** WAIT IRC
 
@@ -649,6 +636,7 @@ Forge:
   (setq
    ;; show files like TOC on startup
    org-startup-folded 'content
+   org-startup-indented nil ;; instead of using golden-ration mode
    org-hide-block-startup t
    org-startup-shrink-all-tables t
    org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
