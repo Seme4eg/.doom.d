@@ -694,8 +694,8 @@ Forge:
   (map! :map doom-leader-open-map "h" (lambda () (dired "~")))
   (map! :map dirvish-mode-map
         :n "," #'dirvish-dispatch
-        :n "?" #'dirvish-fd-switches-menu
-        :n "s" #'dirvish-total-file-size))
+        :n "?" #'dirvish-fd-switches-menu))
+;; :n "s" #'dirvish-total-file-size))
 #+end_src
 
 ** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
