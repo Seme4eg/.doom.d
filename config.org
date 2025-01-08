@@ -79,30 +79,38 @@ Hlissner:
 #+end_src
 
 ** Keybindings
-
-describe-function map!
+_describe-function map!_
 
 #+begin_src emacs-lisp
 (map! :leader :desc "M-x" "x" 'execute-extended-command)
 
-(map! :leader :desc "Find file other window" "f o" 'find-file-other-window)
-(map! :leader :desc "Switch to true last buffer" "b o" 'sad-true-switch-last-buffer)
+(map! :map doom-leader-file-map
+      :desc "Find file other window"
+      "o" 'find-file-other-window)
+
+(map! :map doom-leader-buffer-map
+      :desc "Switch to true last buffer"
+      "o" 'sad-true-switch-last-buffer)
 
 (define-key global-map (kbd "C-,") 'embark-act)
 
 ;; Workspace binds
 (map! :leader :desc "Previous workspace" "-" '+workspace/other)
-(map! :leader :desc "Workspace swap right" :n "TAB ]" '+workspace/swap-right)
-(map! :leader :desc "Workspace swap left" :n "TAB [" '+workspace/swap-left)
+(map! :map doom-leader-workspace-map
+      :desc "Workspace swap right"
+      :n "]" '+workspace/swap-right)
+(map! :map doom-leader-workspace-map
+      :desc "Workspace swap left"
+      :n "[" '+workspace/swap-left)
 
 ;; diff-hl bindings
-(map! :leader :desc "Git show hunk" "gv" 'diff-hl-show-hunk)
-(map! :leader :desc "Git show hunk" "g{" 'diff-hl-show-hunk-previous)
-(map! :leader :desc "Git show hunk" "g}" 'diff-hl-show-hunk-next)
+(map! :map doom-leader-git-map :desc "Git show hunk" "v" 'diff-hl-show-hunk)
+(map! :map doom-leader-git-map :desc "Git show hunk" "{" 'diff-hl-show-hunk-previous)
+(map! :map doom-leader-git-map :desc "Git show hunk" "}" 'diff-hl-show-hunk-next)
 
 ;; Other packages
-(map! :leader :desc "Ace window" "ww" 'ace-window)
-(map! :leader :desc "Winner redo" "wr" 'winner-redo)
+(map! :map evil-window-map :desc "Ace window" "w" 'ace-window)
+(map! :map evil-window-map :desc "Winner redo" "r" 'winner-redo)
 #+end_src
 
 ** Startup and Global modes
@@ -117,7 +125,7 @@ describe-function map!
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
 
-(map! :leader "fl" (cmd! (consult-fd "/")))
+(map! :map doom-leader-file-map "l" (cmd! (consult-fd "/")))
 
 (setq
  consult-fd-args '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
@@ -166,10 +174,10 @@ describe-function map!
  ;; lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
  lsp-ui-doc-enable nil)        ; slow and redundant with K
 
-(map! :map lsp-mode-map :leader
+(map! :map doom-leader-code-map
       ;; another option is xref-find-definition-other-window
-      :desc "Find def other window" :n "c O" 'godef-jump-other-window
-      :desc "Inlay hints mode" :n "c I" 'lsp-inlay-hints-mode)
+      :desc "Find def other window" :n "O" 'godef-jump-other-window
+      :desc "Inlay hints mode" :n "I" 'lsp-inlay-hints-mode)
 #+end_src
 
 *** Golang
@@ -430,7 +438,8 @@ Forge:
 
 ** Eww
 #+begin_src emacs-lisp
-(map! :leader :desc "Web Wowser" "oe" 'eww) ;; from within eww its just 'o'
+;; from within eww its just 'o'
+(map! :map doom-leader-open-map :desc "Web Wowser" "e" 'eww)
 
 (setq! +lookup-open-url-fn #'eww)
 
@@ -443,7 +452,7 @@ Forge:
    eww-history-limit 500
    eww-auto-rename-buffer 'title)
 
-  (map! :leader "ge" #'eww-switch-to-buffer)
+  (map! :map doom-leader-buffer-map "e" #'eww-switch-to-buffer)
 
   (map! :map eww-text-map "TAB" nil "<backtab>" nil)
   (map! :map eww-textarea-map "TAB" nil "<backtab>" nil)
@@ -513,13 +522,12 @@ Forge:
                                             shrface-supported-faces-alist)))
 #+end_src
 
-
 ** WAIT IRC
 
 - https://github.com/emacs-circe/circe/wiki/Configuration
 
 #+BEGIN_SRC emacs-lisp :tangle no
-(map! :leader :desc "IRC" "oi" '=irc)
+(map! :map doom-leader-open-map :desc "IRC" "i" '=irc)
 
 ;; if you omit =:host=, ~SERVER~ will be used instead.
 (after! circe
@@ -681,7 +689,7 @@ Forge:
 (after! dirvish
   (setq dirvish-hide-details t
         dirvish-default-layout '(0 0 0.55))
-  (map! :leader "sf" #'dirvish-fd-jump)
+  (map! :map doom-leader-search-map "f" #'dirvish-fd-jump)
   (map! :map dirvish-mode-map
         :n "," #'dirvish-dispatch
         :n "?" #'dirvish-fd-switches-menu
@@ -723,7 +731,7 @@ Forge:
 
 ** TODO Telega
 #+begin_src emacs-lisp
-(map! :leader "o c" 'telega)
+(map! :map doom-leader-open-map "c" 'telega)
 
 ;; telega can't load images without gui cuz size calculation fails, lookup the
 ;; 'telega' telegram chat, i did ask about that there. So.. call manually.
