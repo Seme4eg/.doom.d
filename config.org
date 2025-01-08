@@ -690,6 +690,8 @@ Forge:
   (setq dirvish-hide-details t
         dirvish-default-layout '(0 0 0.55))
   (map! :map doom-leader-search-map "f" #'dirvish-fd-jump)
+  ;; open home dir
+  (map! :map doom-leader-open-map "h" (lambda () (dired "~")))
   (map! :map dirvish-mode-map
         :n "," #'dirvish-dispatch
         :n "?" #'dirvish-fd-switches-menu
