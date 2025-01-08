@@ -604,15 +604,20 @@ Forge:
                                          (+modeline--evil-substitute)
                                          (+modeline--iedit)
                                          (+modeline--multiple-cursors))))
-                       meta))
- ;; '("  %l:%C %p  ")
- +modeline-position ""
- +modeline-format-right `(""
-                          mode-line-misc-info
-                          +modeline-modes
-                          "  "
-                          +modeline-encoding
-                          (+modeline-checker ("" +modeline-checker "   "))))
+                       meta)))
+
+(def-modeline! :my_main
+               '(""
+                 +modeline-matches
+                 " "
+                 +modeline-buffer-identification)
+               `(""
+                 +modeline-modes
+                 "  "
+                 +modeline-encoding
+                 (+modeline-checker ("" +modeline-checker "   "))))
+
+(set-modeline! :my_main 'default)
 #+end_src
 
 ** Org
