@@ -132,7 +132,9 @@ _describe-function map!_
                    "--color=never" "--full-path --absolute-path --follow" "--hidden --exclude .git"))
 
 (after! persp-mode
-  (setq persp-emacsclient-init-frame-behaviour-override "main"))
+  (setq
+   ;; persp-init-frame-behaviour nil <- doens't work
+   persp-emacsclient-init-frame-behaviour-override "main"))
 #+end_src
 
 ** Custom f-s & advices
