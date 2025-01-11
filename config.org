@@ -128,8 +128,8 @@ _describe-function map!_
 (map! :map doom-leader-file-map "l" (cmd! (consult-fd "/")))
 
 (setq
- consult-fd-args '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
-                   "--color=never" "--full-path --absolute-path --follow" "--hidden --exclude .git"))
+ consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
+                   "--exclude .git --exclude .stversions"))
 
 (after! persp-mode
   (setq
