@@ -123,7 +123,7 @@ _describe-function map!_
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
-(add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode)
+(add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode 1)))
 
 (map! :map doom-leader-file-map "l" (cmd! (consult-fd "/")))
 
