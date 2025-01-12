@@ -110,7 +110,6 @@ _describe-function map!_
 
 ;; Other packages
 (map! :map evil-window-map :desc "Ace window" "w" 'ace-window)
-(map! :map evil-window-map :desc "Winner redo" "r" 'winner-redo)
 #+end_src
 
 ** Startup and Global modes
@@ -738,6 +737,13 @@ Forge:
         "l" #'consult-flymake
         "P" #'flymake-show-project-diagnostics
         "x" #'flymake-proc-stop-all-syntax-checks))
+#+end_src
+** Winner
+#+begin_src emacs-lisp
+(after! winner
+  (setq winner-ring-size 10))
+
+(map! :map evil-window-map :desc "Winner redo" "r" 'winner-redo)
 #+end_src
 
 ** TODO Telega
