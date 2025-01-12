@@ -300,12 +300,13 @@ Forge:
 - [[https://nullprogram.com/blog/2013/11/26/][Elfeed Tips and Tricks]] (from the author himself)
 
 #+begin_src emacs-lisp
-(setq
- rmh-elfeed-org-files '("~/Documents/rss/elfeed.org")
- elfeed-db-directory "~/Documents/rss/db"
- ;; "@6-month-ago +unread" will show only unread ones
- ;; and thats how you add tags to filter string
- elfeed-search-filter "@6-month-ago")
+(after! elfeed
+  (setq
+   rmh-elfeed-org-files '("~/Documents/rss/elfeed.org")
+   elfeed-db-directory "~/Documents/rss/db"
+   ;; "@6-month-ago +unread" will show only unread ones
+   ;; and thats how you add tags to filter string
+   elfeed-search-filter ""))
 
 (map! :leader
       :prefix ("r" . "RSS")
