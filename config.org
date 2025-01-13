@@ -278,23 +278,14 @@ Forge:
           "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
 #+end_src
 
-** Docker
+*** Docker
 #+begin_src emacs-lisp
 (setq! docker-command "podman"
        docker-container-shell-file-name "/bin/zsh")
 #+end_src
 
-** Doom dashboard
-#+begin_src emacs-lisp
-;; (setq fancy-splash-image (concat doom-private-dir "splash.png"))
-;; Hide the menu for as minimalistic a startup screen as possible.
-(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
-
-(setq +doom-dashboard-functions
-      '(doom-dashboard-widget-banner doom-dashboard-widget-loaded))
-#+end_src
-
-** Elfeed
+** Apps
+*** Elfeed
 - https://github.com/skeeto/elfeed#filter-syntax
 - maybe setup [[https://github.com/emacsmirror/spray][spray]] for effective reading? ([[https://noonker.github.io/posts/2020-04-22-elfeed/][source]])
 - [[https://nullprogram.com/blog/2013/11/26/][Elfeed Tips and Tricks]] (from the author himself)
@@ -339,7 +330,7 @@ Forge:
       (insert "</opml>\n"))))
 #+end_src
 
-** Emms
+*** Emms
 #+begin_src emacs-lisp
 (add-to-list 'doom-after-init-hook #'+emms/mpd-start-music-daemon)
 
@@ -401,46 +392,45 @@ Forge:
         :desc "url (ie for streaming)" "u" #'emms-play-url)))
 #+end_src
 
-** Evil
+**** Shrface
 #+begin_src emacs-lisp
-(setq
- ;; Focus new window after splitting
- evil-split-window-below t
- evil-vsplit-window-right t
- evil-respect-visual-line-mode t
- evil-want-C-u-delete nil)
+;; (add-hook 'eww-after-render-hook #'org-indent-mode) ;; FIXME
+(add-hook 'eww-mode-hook #'shrface-mode)
+(add-hook 'mu4e-view-mode-hook (lambda () (progn)
+                                       (require 'eww)
+                                       (shrface-mode)))
 
-;; Evil digraph
-(map! :leader
-      (:prefix ("d" . "digraph")
-       :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
-       :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
-       :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
+(after! shrface
+  ;; (unless shrface-toggle-bullets
+  ;;   (shrface-regexp)
+  ;;   (setq-local imenu-create-index-function #'shrface-imenu-get-tree)))
+  (require 'shr-tag-pre-highlight)
+  (add-hook 'outline-view-change-hook 'shrface-outline-visibility-changed)
+  (setq!
+   shr-max-width 100
+   shr-cookie-policy nil
+   ;; shr-width 65
+   shr-indentation 3
+   tab-width 2
+   ;; shrface-toggle-bullets nil
+   shr-use-fonts nil
+   shrface-href-versatile t
+
+   shr-external-rendering-functions (append '((title . eww-tag-title)
+                                              (form . eww-tag-form)
+                                              (input . eww-tag-input)
+                                              (button . eww-form-submit)
+                                              (textarea . eww-tag-textarea)
+                                              (select . eww-tag-select)
+                                              (link . eww-tag-link)
+                                              (meta . eww-tag-meta)
+                                              ;; (a . eww-tag-a)
+                                              (code . shrface-tag-code)
+                                              (pre . shr-tag-pre-highlight))
+                                            shrface-supported-faces-alist)))
 #+end_src
 
-** TODO Ewal
-- [ ] package is abandoned, some time in the future clone it and rewrite to your needs
-- [ ] any way to make all colors brighter? not contrasty, but just brighter
-
-#+begin_src emacs-lisp
-(use-package! ewal
-  :init
-  (setq
-   ewal-use-built-in-always-p nil
-   ewal-use-built-in-on-failure-p t
-   ewal-shade-percent-difference 20)
-  :config
-  (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
-  (enable-theme 'ewal-doom-one)
-  (ewal-evil-cursors-get-colors :apply t))
-
-(defun sync-corfu-current-with-border ()
-  "Synchronize the background of `corfu-current` to match `corfu-border`."
-  (let ((border-bg (face-attribute 'corfu-border :background)))
-    (set-face-attribute 'corfu-current nil :background border-bg)))
-#+end_src
-
-** Eww
+*** Eww
 #+begin_src emacs-lisp
 ;; from within eww its just 'o'
 (map! :map doom-leader-open-map :desc "Web Wowser" "e" 'eww)
@@ -488,85 +478,141 @@ Forge:
 (after! dash-docs (setq dash-docs-browser-func #'eww))
 #+end_src
 
-** Shrface
+*** Mu4e
 #+begin_src emacs-lisp
-;; (add-hook 'eww-after-render-hook #'org-indent-mode) ;; FIXME
-(add-hook 'eww-mode-hook #'shrface-mode)
-(add-hook 'mu4e-view-mode-hook (lambda () (progn)
-                                       (require 'eww)
-                                       (shrface-mode)))
+(load-file "~/.config/doom/mu4e.el")
+#+end_src
+*** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
+#+begin_src emacs-lisp
+(setq! proced-tree-flag t
+       proced-auto-update-flag t
+       proced-enable-color-flag t
+       proced-format 'medium
+       proced-auto-update-interval 1
+       proced-format-alist
+       '((short user pid tree pcpu pmem start time (args comm))
+         (medium user pid tree pcpu pmem vsize rss ttname state start time comm)
+         (long
+          user euid group pid tree pri nice pcpu pmem vsize rss ttname state
+          start time comm)
+         (verbose
+          user euid group egid pid ppid tree pgrp sess pri nice pcpu pmem state
+          thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
+          utime stime ctime cutime cstime etime comm)))
+#+end_src
+*** TODO Telega
+#+begin_src emacs-lisp
+(map! :map doom-leader-open-map "c" 'telega)
 
-(after! shrface
-  ;; (unless shrface-toggle-bullets
-  ;;   (shrface-regexp)
-  ;;   (setq-local imenu-create-index-function #'shrface-imenu-get-tree)))
-  (require 'shr-tag-pre-highlight)
-  (add-hook 'outline-view-change-hook 'shrface-outline-visibility-changed)
-  (setq!
-   shr-max-width 100
-   shr-cookie-policy nil
-   ;; shr-width 65
-   shr-indentation 3
-   tab-width 2
-   ;; shrface-toggle-bullets nil
-   shr-use-fonts nil
-   shrface-href-versatile t
+;; telega can't load images without gui cuz size calculation fails, lookup the
+;; 'telega' telegram chat, i did ask about that there. So.. call manually.
+;; (add-to-list 'doom-after-init-hook (telega 1))
 
-   shr-external-rendering-functions (append '((title . eww-tag-title)
-                                              (form . eww-tag-form)
-                                              (input . eww-tag-input)
-                                              (button . eww-form-submit)
-                                              (textarea . eww-tag-textarea)
-                                              (select . eww-tag-select)
-                                              (link . eww-tag-link)
-                                              (meta . eww-tag-meta)
-                                              ;; (a . eww-tag-a)
-                                              (code . shrface-tag-code)
-                                              (pre . shr-tag-pre-highlight))
-                                            shrface-supported-faces-alist)))
+(setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
+(map! :after telega :leader
+      :prefix ("z" . "telegram")
+      "a" #'telega-account-switch
+      "b" #'telega-switch-buffer
+      "c" #'telega-chat-with
+      "S" #'telega-chatbuf-attach-scheduled
+      "f" #'telega-buffer-file-send
+      "s" #'telega-saved-messages
+      "t" #'telega
+      "z" #'telega-translate-region
+      "u" #'telega-switch-unread-chat)
+
+(map! :after telega :map telega-msg-button-map
+      "D" #'telega-msg-delete-dwim)
+
+(after! telega
+  (telega-notifications-mode)
+  (telega-mode-line-mode)
+  (global-telega-squash-message-mode)
+  ;; (telega-image-mode) ;; n/p next prev img in chat
+  (auto-fill-mode)
+
+  (require 'telega-dired-dwim)
+
+  ;; eval-buffer: Cannot open load file: No such file or directory, dashboard
+  ;; (require 'telega-dashboard)
+  ;; (add-to-list 'dashboard-items '(telega-chats . 5))
+
+  (telega-mode-line-mode -1)
+
+  (setq
+   telega-database-dir (expand-file-name "~/.local/share/telega")
+   telega-directory (expand-file-name "~/.local/share/telega")
+   telega-temp-dir (expand-file-name "~/.local/share/telega/temp")
+   telega-cache-dir (expand-file-name "~/.local/share/telega/cache")
+   telega-voip-logfile (expand-file-name "~/.local/share/telega/telega-voip.log")
+   telega-server-logfile (expand-file-name "~/.local/share/telega/telega-server.log")
+   telega-completing-read-function #'completing-read
+   telega-notifications-delay 1
+   ;; to not get notified on outgoing messages form phone
+   telega-notifications-msg-temex '(and (not outgoing) (call telega-notifications-msg-notify-p))
+   telega-notifications-timeout 3600 ;; crutch basically
+   telega-url-shorten-use-images t
+   telega-translate-to-language-by-default "ru"
+   telega-video-player-command '(concat "mpv"
+                                 (when telega-ffplay-media-timestamp
+                                   (format "%f" telega-ffplay-media-timestamp))))
+
+
+  (add-hook 'telega-chat-mode-hook
+            (lambda ()
+              (define-key telega-msg-button-map (kbd "SPC") nil)
+              (setq truncate-lines nil
+                    visual-fill-column-extra-text-width '(0 . 2)))))
 #+end_src
 
-** WAIT IRC
+** Doom dashboard
+#+begin_src emacs-lisp
+;; (setq fancy-splash-image (concat doom-private-dir "splash.png"))
+;; Hide the menu for as minimalistic a startup screen as possible.
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
-- https://github.com/emacs-circe/circe/wiki/Configuration
+(setq +doom-dashboard-functions
+      '(doom-dashboard-widget-banner doom-dashboard-widget-loaded))
+#+end_src
 
-#+BEGIN_SRC emacs-lisp :tangle no
-(map! :map doom-leader-open-map :desc "IRC" "i" '=irc)
+** Evil
+#+begin_src emacs-lisp
+(setq
+ ;; Focus new window after splitting
+ evil-split-window-below t
+ evil-vsplit-window-right t
+ evil-respect-visual-line-mode t
+ evil-want-C-u-delete nil)
 
-;; if you omit =:host=, ~SERVER~ will be used instead.
-(after! circe
-  (setq circe-default-part-message "(⌣_⌣”)"
-        circe-default-quit-message "o/")
+;; Evil digraph
+(map! :leader
+      (:prefix ("d" . "digraph")
+       :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
+       :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
+       :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
+#+end_src
 
-  ;; view 'circe-network-defaults' var to view predefined networks
-  (setq circe-network-options
-    `(("Libera Chat"
-       :nick "earthian"
-       :sasl-username ,(+pass-get-user "social/irc/libera.chat")
-       :sasl-password ,(+pass-get-secret "social/irc/libera.chat"))
-       ;; :channels ("#emacs" "#systemcrafters"))
-      ("OFTC"
-       :nick "earthian"
-       :sasl-username ,(+pass-get-user "social/irc/libera.chat")
-       :sasl-password ,(+pass-get-secret "social/irc/libera.chat")))))
-       ;; :channels ("#emacs" "#systemcrafters")))))
+** TODO Ewal
+- [ ] package is abandoned, some time in the future clone it and rewrite to your needs
+- [ ] any way to make all colors brighter? not contrasty, but just brighter
 
-  ;; in case circe will start supporting DCC
-  ;; (set-irc-server! "irc.undernet.org"
-  ;;   `(;; :tls t
-  ;;     :port 6667
-  ;;     :nick "seme4eg"
-  ;;     :channels ("#ebooks" "#Bookz")
-  ;;     ))
-  ;; (set-irc-server! "irc.irchighway.net"
-  ;;   `(:port 6669
-  ;;     :nick "seme4eg"
-  ;;     :channels ("#ebooks")
-  ;;     ))
+#+begin_src emacs-lisp
+(use-package! ewal
+  :init
+  (setq
+   ewal-use-built-in-always-p nil
+   ewal-use-built-in-on-failure-p t
+   ewal-shade-percent-difference 20)
+  :config
+  (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
+  (enable-theme 'ewal-doom-one)
+  (ewal-evil-cursors-get-colors :apply t))
 
-;; TODO: write a function to upload image to 0x0 from a clipboard
-;; (use-package! 0x0)
-#+END_SRC
+(defun sync-corfu-current-with-border ()
+  "Synchronize the background of `corfu-current` to match `corfu-border`."
+  (let ((border-bg (face-attribute 'corfu-border :background)))
+    (set-face-attribute 'corfu-current nil :background border-bg)))
+#+end_src
 
 ** Langtool
 #+begin_src emacs-lisp
@@ -595,10 +641,6 @@ Forge:
     "]" #'langtool-goto-next-error)
 #+end_src
 
-** Mu4e
-#+begin_src emacs-lisp
-(load-file "~/.config/doom/mu4e.el")
-#+end_src
 ** Modeline
 #+begin_src emacs-lisp
 (setq
@@ -683,15 +725,6 @@ Forge:
     ("^\\*Telegram Translation\\*$" :height 0.1)
     ("^\\*info\\*$" :ignore t)))
 #+end_src
-** Casual Suite
-#+begin_src emacs-lisp
-;; (require 'casual-suite)
-;; (map! :map reb-mode-map :n "," #'casual-re-builder-tmenu)
-
-;; (keymap-set ibuffer-mode-map "F" #'casual-ibuffer-filter-tmenu)
-;; (keymap-set ibuffer-mode-map "s" #'casual-ibuffer-sortby-tmenu)
-#+end_src
-
 ** Dired + Dirvish
 #+begin_src emacs-lisp
 (remove-hook 'dired-mode-hook #'dired-omit-mode)
@@ -707,24 +740,6 @@ Forge:
 ;; :n "s" #'dirvish-total-file-size))
 #+end_src
 
-** Proced [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/proced/evil-collection-proced.el][evil-collection-proced.el]]
-#+begin_src emacs-lisp
-(setq! proced-tree-flag t
-       proced-auto-update-flag t
-       proced-enable-color-flag t
-       proced-format 'medium
-       proced-auto-update-interval 1
-       proced-format-alist
-       '((short user pid tree pcpu pmem start time (args comm))
-         (medium user pid tree pcpu pmem vsize rss ttname state start time comm)
-         (long
-          user euid group pid tree pri nice pcpu pmem vsize rss ttname state
-          start time comm)
-         (verbose
-          user euid group egid pid ppid tree pgrp sess pri nice pcpu pmem state
-          thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
-          utime stime ctime cutime cstime etime comm)))
-#+end_src
 ** Syntax + flymake
 #+begin_src emacs-lisp
 (after! flymake
@@ -745,71 +760,6 @@ Forge:
   (setq winner-ring-size 10))
 
 (map! :map evil-window-map :desc "Winner redo" "r" 'winner-redo)
-#+end_src
-
-** TODO Telega
-#+begin_src emacs-lisp
-(map! :map doom-leader-open-map "c" 'telega)
-
-;; telega can't load images without gui cuz size calculation fails, lookup the
-;; 'telega' telegram chat, i did ask about that there. So.. call manually.
-;; (add-to-list 'doom-after-init-hook (telega 1))
-
-(setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
-(map! :after telega :leader
-      :prefix ("z" . "telegram")
-      "a" #'telega-account-switch
-      "b" #'telega-switch-buffer
-      "c" #'telega-chat-with
-      "S" #'telega-chatbuf-attach-scheduled
-      "f" #'telega-buffer-file-send
-      "s" #'telega-saved-messages
-      "t" #'telega
-      "z" #'telega-translate-region
-      "u" #'telega-switch-unread-chat)
-
-(map! :after telega :map telega-msg-button-map
-      "D" #'telega-msg-delete-dwim)
-
-(after! telega
-  (telega-notifications-mode)
-  (telega-mode-line-mode)
-  (global-telega-squash-message-mode)
-  ;; (telega-image-mode) ;; n/p next prev img in chat
-  (auto-fill-mode)
-
-  (require 'telega-dired-dwim)
-
-  ;; eval-buffer: Cannot open load file: No such file or directory, dashboard
-  ;; (require 'telega-dashboard)
-  ;; (add-to-list 'dashboard-items '(telega-chats . 5))
-
-  (telega-mode-line-mode -1)
-
-  (setq
-   telega-database-dir (expand-file-name "~/.local/share/telega")
-   telega-directory (expand-file-name "~/.local/share/telega")
-   telega-temp-dir (expand-file-name "~/.local/share/telega/temp")
-   telega-cache-dir (expand-file-name "~/.local/share/telega/cache")
-   telega-voip-logfile (expand-file-name "~/.local/share/telega/telega-voip.log")
-   telega-server-logfile (expand-file-name "~/.local/share/telega/telega-server.log")
-   telega-completing-read-function #'completing-read
-   telega-notifications-delay 1
-   ;; to not get notified on outgoing messages form phone
-   telega-notifications-msg-temex '(and (not outgoing) (call telega-notifications-msg-notify-p))
-   telega-notifications-timeout 3600 ;; crutch basically
-   telega-url-shorten-use-images t
-   telega-translate-to-language-by-default "ru"
-   telega-video-player-command '(concat "mpv"
-                                 (when telega-ffplay-media-timestamp
-                                   (format "%f" telega-ffplay-media-timestamp))))
-
-
-  (add-hook 'telega-chat-mode-hook
-            (lambda ()
-              (define-key telega-msg-button-map (kbd "SPC") nil)
-              (setq truncate-lines nil
-                    visual-fill-column-extra-text-width '(0 . 2)))))
 #+end_src
 
 ** GPTel [[https://github.com/karthink/gptel][#gh]]
@@ -904,6 +854,57 @@ C-l]] and get a buffer with all candidates.
           "C-g" (lambda () (progn (corfu-reset)
                                   (corfu-quit))))))
 #+end_src
+
+** WAIT Casual Suite
+#+begin_src emacs-lisp
+;; (require 'casual-suite)
+;; (map! :map reb-mode-map :n "," #'casual-re-builder-tmenu)
+
+;; (keymap-set ibuffer-mode-map "F" #'casual-ibuffer-filter-tmenu)
+;; (keymap-set ibuffer-mode-map "s" #'casual-ibuffer-sortby-tmenu)
+#+end_src
+
+** WAIT IRC
+
+- https://github.com/emacs-circe/circe/wiki/Configuration
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(map! :map doom-leader-open-map :desc "IRC" "i" '=irc)
+
+;; if you omit =:host=, ~SERVER~ will be used instead.
+(after! circe
+  (setq circe-default-part-message "(⌣_⌣”)"
+        circe-default-quit-message "o/")
+
+  ;; view 'circe-network-defaults' var to view predefined networks
+  (setq circe-network-options
+    `(("Libera Chat"
+       :nick "earthian"
+       :sasl-username ,(+pass-get-user "social/irc/libera.chat")
+       :sasl-password ,(+pass-get-secret "social/irc/libera.chat"))
+       ;; :channels ("#emacs" "#systemcrafters"))
+      ("OFTC"
+       :nick "earthian"
+       :sasl-username ,(+pass-get-user "social/irc/libera.chat")
+       :sasl-password ,(+pass-get-secret "social/irc/libera.chat")))))
+       ;; :channels ("#emacs" "#systemcrafters")))))
+
+  ;; in case circe will start supporting DCC
+  ;; (set-irc-server! "irc.undernet.org"
+  ;;   `(;; :tls t
+  ;;     :port 6667
+  ;;     :nick "seme4eg"
+  ;;     :channels ("#ebooks" "#Bookz")
+  ;;     ))
+  ;; (set-irc-server! "irc.irchighway.net"
+  ;;   `(:port 6669
+  ;;     :nick "seme4eg"
+  ;;     :channels ("#ebooks")
+  ;;     ))
+
+;; TODO: write a function to upload image to 0x0 from a clipboard
+;; (use-package! 0x0)
+#+END_SRC
 
 ** WAIT Colemak
 - penging [[https://github.com/doomemacs/doomemacs/pull/5835/files][PR]] in doom emacs repo for colemak
