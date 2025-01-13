@@ -565,16 +565,6 @@ Forge:
                     visual-fill-column-extra-text-width '(0 . 2)))))
 #+end_src
 
-** Doom dashboard
-#+begin_src emacs-lisp
-;; (setq fancy-splash-image (concat doom-private-dir "splash.png"))
-;; Hide the menu for as minimalistic a startup screen as possible.
-(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
-
-(setq +doom-dashboard-functions
-      '(doom-dashboard-widget-banner doom-dashboard-widget-loaded))
-#+end_src
-
 ** Evil
 #+begin_src emacs-lisp
 (setq
