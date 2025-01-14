@@ -582,26 +582,12 @@ Forge:
        :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
 #+end_src
 
-** TODO Ewal
-- [ ] package is abandoned, some time in the future clone it and rewrite to your needs
-- [ ] any way to make all colors brighter? not contrasty, but just brighter
-
+** Ewal theme
 #+begin_src emacs-lisp
-(use-package! ewal
-  :init
-  (setq
-   ewal-use-built-in-always-p nil
-   ewal-use-built-in-on-failure-p t
-   ewal-shade-percent-difference 20)
-  :config
-  (load-theme 'ewal-doom-one t) ;; ewal-doom-vibrant-theme
-  (enable-theme 'ewal-doom-one)
-  (ewal-evil-cursors-get-colors :apply t))
-
-(defun sync-corfu-current-with-border ()
-  "Synchronize the background of `corfu-current` to match `corfu-border`."
-  (let ((border-bg (face-attribute 'corfu-border :background)))
-    (set-face-attribute 'corfu-current nil :background border-bg)))
+(load! "theme/ewal.el")
+(load-theme 'ewal-doom-one t)
+(enable-theme 'ewal-doom-one)
+(ewal-evil-cursors-set-colors)
 #+end_src
 
 ** Langtool
@@ -798,9 +784,6 @@ C-l]] and get a buffer with all candidates.
 #+begin_src emacs-lisp
 (after! corfu
   (remove-hook 'corfu-mode-hook #'corfu-history-mode)
-
-  (sync-corfu-current-with-border) ;; theme update on startup
-  (add-to-list 'doom-load-theme-hook #'sync-corfu-current-with-border)
 
   (setq
    ;; Configures startup selection, choosing between the first candidate or the prompt.

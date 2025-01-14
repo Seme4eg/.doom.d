@@ -2,14 +2,9 @@
 ;;; $DOOMDIR/packages.el
 
 (package! telega)
-;; (package! 0x0 :recipe (:host gitlab :repo "willvaughn/emacs-0x0"))
-(package! ewal
-  :recipe (:host github :repo "cyruseuros/ewal" :files ("ewal.el" "*/*.el")))
 (package! gptel)
-(package! sqlformat
-  :recipe (:host github :repo "purcell/sqlformat"))
+(package! sqlformat :recipe (:host github :repo "purcell/sqlformat"))
 (package! iscroll)
-
 (package! pacdiff)
 
 ;; for eww
@@ -23,6 +18,7 @@
 ;; (package! evil-colemak-basics)
 ;; (unpin! everywhere)
 ;; (package! casual-suite) ;; don't need for now
+;; (package! easysession :recipe (:host github))
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
