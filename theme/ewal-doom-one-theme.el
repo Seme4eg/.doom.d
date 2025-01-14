@@ -15,10 +15,6 @@
 
 (ewal-load-colors)
 
-;; HACK: fixes bytecode overflow
-;; (defvar ewal-doom-one-hack
-;;   (ewal-doom-themes-get-color 'background 0))
-
 (def-doom-theme
  ewal-doom-one
  "A dark theme inspired by Atom One Dark, cutomized with `ewal'."
