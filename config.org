@@ -179,8 +179,8 @@ _describe-function map!_
 
 (map! :map doom-leader-code-map
       ;; another option is xref-find-definition-other-window
-      :desc "Find def other window" :n "O" 'godef-jump-other-window
-      :desc "Inlay hints mode" :n "I" 'lsp-inlay-hints-mode)
+      :desc "Find def other window" "O" 'xref-find-definitions-other-window
+      :desc "Inlay hints mode" "I" 'lsp-inlay-hints-mode)
 #+end_src
 
 *** Golang
