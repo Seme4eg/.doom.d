@@ -14,6 +14,9 @@
 (require 'doom-themes)
 
 (ewal-load-colors)
+;; most likely its improper to set cursors in the theme itself and is better to
+;; be done via hooks, but this way is just more convenient for me.
+(ewal-evil-cursors-set-colors)
 
 (def-doom-theme
  ewal-doom-one
