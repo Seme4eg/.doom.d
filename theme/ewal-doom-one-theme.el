@@ -1,4 +1,4 @@
-;;; ewal-doom-one-theme.el --- Dread the color of darkness -*- lexical-binding: t; -*-
+;;; ewal-doom-one-theme.el --- Let colors be vivid -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;;; An `ewal' theme, based on `doom-one' from https://github.com/doomemacs/themes
@@ -20,7 +20,7 @@
 
 (def-doom-theme
  ewal-doom-one
- "A dark theme inspired by Atom One Dark, cutomized with `ewal'."
+ "A dynamic pywal theme, based on `doom-one'."
 
  ;; name        default   256       16
  ((bg         `(,(ewal-get-color 'background  0) "black"   "black"))
@@ -30,7 +30,7 @@
   ;; but can also be useful as a basis for subtle highlights (e.g. for hl-line
   ;; or region), especially when paired with the `doom-darken', `doom-lighten',
   ;; and `doom-blend' helper functions.
-  (bg-alt     `(,(ewal-get-color 'background -0.6) "black" "black"))
+  (bg-alt     `(,(ewal-get-color 'background -0.1) "black" "black"))
   (fg-alt     `(,(ewal-get-color 'foreground -0.2) "#2d2d2d" "white"))
 
   ;; These should represent a spectrum from bg to fg, where base0 is a starker
@@ -47,11 +47,11 @@
   (base8      `(,(ewal-get-color 'foreground +0.2) "#dfdfdf" "white"))
 
   (grey       base4)
-  (red        `(,(ewal-get-color 'red      -0.2) "#ff6655" "red"))
-  (orange     `(,(ewal-get-color 'red       0)   "#dd8844" "brightred"))
+  (red        `(,(ewal-get-color 'red       0) "#ff6655" "red"))
+  (orange     `(,(ewal-get-color 'red       0.2)   "#dd8844" "brightred"))
   (green      `(,(ewal-get-color 'green     0.1) "#99bb66" "green"))
   (teal       `(,(ewal-get-color 'green     0.3)   "#44b9b1" "brightgreen"))
-  (yellow     `(,(ewal-get-color 'yellow   -0.2) "#ECBE7B" "yellow"))
+  (yellow     `(,(ewal-get-color 'yellow    0) "#ECBE7B" "yellow"))
   (blue       `(,(ewal-get-color 'blue      0)   "#51afef" "brightblue"))
   (dark-blue  `(,(ewal-get-color 'blue     -0.2) "#2257A0" "blue"))
   (magenta    `(,(ewal-get-color 'magenta   0)   "#c678dd" "brightmagenta"))
@@ -111,7 +111,7 @@
   (css-property             :foreground green)
   (css-selector             :foreground blue)
   ;;;; doom-modeline
-  (doom-modeline-bar :background (if doom-one-brighter-modeline modeline-bg highlight))
+  (doom-modeline-bar :background highlight)
   (doom-modeline-buffer-file :inherit 'mode-line-buffer-id :weight 'bold)
   (doom-modeline-buffer-path :inherit 'mode-line-emphasis :weight 'bold)
   (doom-modeline-buffer-project-root :foreground green :weight 'bold)
