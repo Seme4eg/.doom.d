@@ -602,7 +602,6 @@ Forge:
 (if (file-exists-p "~/.cache/wal/palette.el")
     (progn
       (load! "theme/ewal.el")
-      (load-theme 'ewal-doom-one t)
       (enable-theme 'ewal-doom-one))
   (load-theme 'doom-one))
 #+end_src

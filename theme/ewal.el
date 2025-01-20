@@ -45,6 +45,9 @@ Return SHADE of COLOR. SHADE being a float between 0 and 1."
                (file-name-as-directory
                 (file-name-directory load-file-name))))
 
+(load-theme 'ewal-doom-one t)
+(load-theme 'ewal-doom-one-light t)
+
 (provide 'ewal)
 
 ;;; ewal.el ends here
