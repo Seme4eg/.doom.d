@@ -1,30 +1,30 @@
+  -- dark --                                -- light --
 
+bg-alt #282c34                          bg         #fafafa
+fg-alt #bbc2cf                          fg         #383a42
 
-bg-alt #282c34
-fg-alt #bbc2cf
+bg-alt #21242b                          bg-alt     #f0f0f0
+fg-alt #5B6268                          fg-alt     #c6c7c7
 
-bg-alt #21242b
-fg-alt #5B6268
+base0 #1B2229                           base0      #f0f0f0
+base1 #1c1f24                           base1      #e7e7e7
+base2 #202328                           base2      #dfdfdf
+base3 #23272e                           base3      #c6c7c7
+base4 #3f444a                           base4      #9ca0a4
+base5 #5B6268                           base5      #383a42
+base6 #73797e                           base6      #202328
+base7 #9ca0a4                           base7      #1c1f24
+base8 #DFDFDF                           base8      #1b2229
 
-base0 #1B2229
-base1 #1c1f24
-base2 #202328
-base3 #23272e
-base4 #3f444a
-base5 #5B6268
-base6 #73797e
-base7 #9ca0a4
-base8 #DFDFDF
-
-grey      base4
-red       #ff6c6b
-orange    #da8548
-green     #98be65
-teal      #4db5bd
-yellow    #ECBE7B
-blue      #51afef
-dark-blue #2257A0
-magenta   #c678dd
-violet    #a9a1e1
-cyan      #46D9FF
-dark-cyan #5699AF
+grey      base4                         grey       base4
+red       #ff6c6b                       red        #e45649
+orange    #da8548                       orange     #da8548
+green     #98be65                       green      #50a14f
+teal      #4db5bd                       teal       #4db5bd
+yellow    #ECBE7B                       yellow     #986801
+blue      #51afef                       blue       #4078f2
+dark-blue #2257A0                       dark-blue  #a0bcf8
+magenta   #c678dd                       magenta    #a626a4
+violet    #a9a1e1                       violet     #b751b6
+cyan      #46D9FF                       cyan       #0184bc
+dark-cyan #5699AF                       dark-cyan  #005478
