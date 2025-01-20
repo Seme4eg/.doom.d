@@ -31,21 +31,21 @@
   ;; but can also be useful as a basis for subtle highlights (e.g. for hl-line
   ;; or region), especially when paired with the `doom-darken', `doom-lighten',
   ;; and `doom-blend' helper functions.
-  (bg-alt     `(,(ewal-get-color 'background -0.1) "black" "black"))
-  (fg-alt     `(,(ewal-get-color 'foreground -0.3) "#2d2d2d" "white"))
+  (bg-alt     `(,(ewal-get-color 'background 0.1) "black" "black"))
+  (fg-alt     `(,(ewal-get-color 'foreground 0.8) "#2d2d2d" "white"))
 
   ;; These should represent a spectrum from bg to fg, where base0 is a starker
   ;; bg and base8 is a starker fg. For example, if bg is light grey and fg is
   ;; dark grey, base0 should be white and base8 should be black.
-  (base0      `(,(ewal-get-color 'background +0.6) "#e7e7e7" "brightblack"))
-  (base1      `(,(ewal-get-color 'background +0.5) "#1e1e1e" "brightblack"))
-  (base2      `(,(ewal-get-color 'background +0.4)  "#dfdfdf" "brightblack"))
-  (base3      `(,(ewal-get-color 'background +0.2) "#c6c7c7" "brightblack"))
-  (base4      `(,(ewal-get-color 'background -0.1) "#9ca0a4" "brightblack"))
-  (base5      `(,(ewal-get-color 'comment     0)   "#424242" "brightblack"))
-  (base6      `(,(ewal-get-color 'background -0.2) "#2e2e2e" "brightblack"))
-  (base7      `(,(ewal-get-color 'background -0.4) "#1e1e1e" "brightblack"))
-  (base8      `(,(ewal-get-color 'background -0.6) "black"   "black"))
+  (base0      `(,(ewal-get-color 'background +0.7) "#e7e7e7" "brightblack"))
+  (base1      `(,(ewal-get-color 'background +0.2) "#1e1e1e" "brightblack"))
+  (base2      `(,(ewal-get-color 'background -0.1)  "#dfdfdf" "brightblack"))
+  (base3      `(,(ewal-get-color 'background -0.2) "#c6c7c7" "brightblack"))
+  (base4      `(,(ewal-get-color 'comment    -0.2)   "#9ca0a4" "brightblack"))
+  (base5      `(,(ewal-get-color 'background -0.7)  "#424242" "brightblack"))
+  (base6      `(,(ewal-get-color 'background -0.77) "#2e2e2e" "brightblack"))
+  (base7      `(,(ewal-get-color 'background -0.84) "#1e1e1e" "brightblack"))
+  (base8      `(,(ewal-get-color 'background -0.91) "black"   "black"))
 
   (grey       base4)
   (red        `(,(ewal-get-color 'red       0)   "#e45649" "red"))
@@ -68,7 +68,7 @@
   (vertical-bar   (doom-darken base2 0.1))
   (selection      dark-blue)
   (builtin        magenta)
-  (comments       base5) ;; originally its base4
+  (comments       base4)
   (doc-comments   (doom-darken comments 0.15))
   (constants      violet)
   (functions      magenta)
@@ -157,7 +157,7 @@
   (web-mode-current-element-highlight-face :background dark-blue :foreground bg)
    ;;;; wgrep <built-in>
   (wgrep-face :background base1)
-  (corfu-current :background base6)
+  (corfu-current :background base3)
    ;;;; whitespace
   ((whitespace-tab &override)         :background (if (not (default-value 'indent-tabs-mode)) base0 'unspecified))
   ((whitespace-indentation &override) :background (if (default-value 'indent-tabs-mode) base0 'unspecified)))
