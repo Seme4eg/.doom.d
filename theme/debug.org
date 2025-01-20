@@ -1,0 +1,273 @@
+file serves a color 'debugging' purpose,
+
+C-c C-c on a block, then enable 'css-mode' and check the shades and stuff.
+
+Dont forget to keep the values up to date.
+
+* dark
+#+begin_src emacs-lisp
+(ewal-load-colors)
+
+(let* ((bg         (ewal-get-color 'background  0))
+       (fg         (ewal-get-color 'foreground  0))
+
+       (bg-alt     (ewal-get-color 'background -0.1))
+       (fg-alt     (ewal-get-color 'foreground -0.2))
+
+       (base0      (ewal-get-color 'background -0.8))
+       (base1      (ewal-get-color 'background -0.6))
+       (base2      (ewal-get-color 'background -0.4))
+       (base3      (ewal-get-color 'background -0.2))
+       (base4      (ewal-get-color 'background  0.2))
+       (base5      (ewal-get-color 'comment    -0.3))
+       (base6      (ewal-get-color 'background  0.4))
+       (base7      (ewal-get-color 'background  0.7))
+       (base8      (ewal-get-color 'background  0.9))
+
+       (grey       base4)
+       (red        (ewal-get-color 'red       0))
+       (orange     (ewal-get-color 'red       0.2))
+       (green      (ewal-get-color 'green     0.2))
+       (teal       (ewal-get-color 'green     0.4))
+       (yellow     (ewal-get-color 'yellow    0))
+       (blue       (ewal-get-color 'blue      0))
+       (dark-blue  (ewal-get-color 'blue      -0.2))
+       (magenta    (ewal-get-color 'magenta   0))
+       (violet     (ewal-get-color 'magenta   -0.2))
+       (cyan       (ewal-get-color 'cyan      0))
+       (dark-cyan  (ewal-get-color 'cyan      -0.2))
+
+       (highlight      blue)
+       (vertical-bar   (doom-darken base1 0.1))
+       (selection      dark-blue)
+       (builtin        magenta)
+       (comments       base5)
+       (doc-comments   (doom-darken comments 0.15))
+       (constants      violet)
+       (functions      magenta)
+       (keywords       red)
+       (methods        cyan)
+       (operators      blue)
+       (type           yellow)
+       (strings        green)
+       (variables      (doom-lighten magenta 0.40))
+       (numbers        orange)
+       ;; (region         `(,(doom-darken (car bg-alt) 0.1) ,@(doom-darken (cdr base0) 0.3)))
+       (error          red)
+       (warning        yellow)
+       (success        green)
+       (vc-modified    orange)
+       (vc-added       green)
+       (vc-deleted     red)
+
+       (temppp `((bg ,bg)
+                 (fg ,fg)
+
+                 (bg-alt    ,bg-alt)
+                 (fg-alt ,fg-alt)
+
+                 (base0 ,base0)
+                 (base1 ,base1)
+                 (base2 ,base2)
+                 (base3 ,base3)
+                 (base4 ,base4)
+                 (base5 ,base5)
+                 (base6 ,base6)
+                 (base7 ,base7)
+                 (base8 ,base8)
+
+                 (grey ,grey)
+                 (red ,red)
+                 (orange ,orange)
+                 (green ,green)
+                 (teal ,teal)
+                 (yellow ,yellow)
+                 (blue ,blue)
+                 (dark-blue ,dark-blue)
+                 (magenta ,magenta)
+                 (violet ,violet)
+                 (cyan ,cyan)
+                 (dark-cyan ,dark-cyan)
+
+                 (highlight ,highlight)
+                 (vertical-bar ,vertical-bar)
+                 (selection ,selection)
+                 (builtin ,builtin)
+                 (comments ,comments)
+                 (doc-comments ,doc-comments)
+                 (constants ,constants)
+                 (functions ,functions)
+                 (keywords ,keywords)
+                 (methods ,methods)
+                 (operators ,operators)
+                 (type ,type)
+                 (strings ,strings)
+                 (variables ,variables)
+                 (numbers ,numbers)
+                 ;; (region ,region)
+                 (error ,error)
+                 (warning ,warning)
+                 (success ,success)
+                 (vc-modified ,vc-modified)
+                 (vc-added ,vc-added)
+                 (vc-deleted ,vc-deleted))))
+  temppp)
+#+end_src
+
+#+RESULTS:
+| bg           | #100f0c |
+| fg           | #d6d1ad |
+| bg-alt       | #0e0d0a |
+| fg-alt       | #aba78a |
+| base0        | #030202 |
+| base1        | #060604 |
+| base2        | #090907 |
+| base3        | #0c0c09 |
+| base4        | #3f3e3c |
+| base5        | #686654 |
+| base6        | #6f6f6d |
+| base7        | #b7b7b6 |
+| base8        | #e7e7e6 |
+| grey         | #3f3e3c |
+| red          | #695938 |
+| orange       | #867a5f |
+| green        | #414162 |
+| teal         | #6b6b85 |
+| yellow       | #796b41 |
+| blue         | #8a734a |
+| dark-blue    | #6e5c3b |
+| magenta      | #839751 |
+| violet       | #687840 |
+| cyan         | #9fa257 |
+| dark-cyan    | #7f8145 |
+| highlight    | #8a734a |
+| vertical-bar | #050503 |
+| selection    | #6e5c3b |
+| builtin      | #839751 |
+| comments     | #686654 |
+| doc-comments | #585647 |
+| constants    | #687840 |
+| functions    | #839751 |
+| keywords     | #695938 |
+| methods      | #9fa257 |
+| operators    | #8a734a |
+| type         | #796b41 |
+| strings      | #414162 |
+| variables    | #b4c096 |
+| numbers      | #867a5f |
+| error        | #695938 |
+| warning      | #796b41 |
+| success      | #414162 |
+| vc-modified  | #867a5f |
+| vc-added     | #414162 |
+| vc-deleted   | #695938 |
+
+* light
+#+begin_src emacs-lisp
+(ewal-load-colors)
+
+(let* ((bg         (ewal-get-color 'background  0))
+       (fg         (ewal-get-color 'foreground  0))
+
+       (bg-alt     (ewal-get-color 'background 0.1))
+       (fg-alt     (ewal-get-color 'foreground 0.8))
+
+       (base0      (ewal-get-color 'background +0.7))
+       (base1      (ewal-get-color 'background +0.2))
+       (base2      (ewal-get-color 'background -0.1))
+       (base3      (ewal-get-color 'background -0.2))
+       (base4      (ewal-get-color 'comment   -0.2))
+       (base5      (ewal-get-color 'background -0.7))
+       (base6      (ewal-get-color 'background -0.77))
+       (base7      (ewal-get-color 'background -0.84))
+       (base8      (ewal-get-color 'background -0.91))
+
+       (grey       base4)
+       (red        (ewal-get-color 'red       0))
+       (orange     (ewal-get-color 'red       -0.2))
+       (green      (ewal-get-color 'green     -0.1))
+       (teal       (ewal-get-color 'green     -0.3))
+       (yellow     (ewal-get-color 'yellow    0))
+       (blue       (ewal-get-color 'blue      0))
+       (dark-blue  (ewal-get-color 'blue      -0.2))
+       (magenta    (ewal-get-color 'magenta   -0.2))
+       (violet     (ewal-get-color 'magenta   -0.4))
+       (cyan       (ewal-get-color 'cyan      0))
+       (dark-cyan  (ewal-get-color 'cyan      -0.2))
+
+       (highlight      blue)
+       (vertical-bar   (doom-darken base2 0.1))
+       (selection      dark-blue)
+       (builtin        magenta)
+       (comments       base4)
+       (doc-comments   (doom-darken comments 0.15))
+       (constants      violet)
+       (functions      magenta)
+       (keywords       red)
+       (methods        cyan)
+       (operators      blue)
+       (type           yellow)
+       (strings        green)
+       (variables      (doom-darken magenta 0.36))
+       (numbers        orange)
+       ;; (region         `(,(doom-darken (car bg-alt) 0.1) ,@(doom-darken (cdr base0) 0.3)))
+       (error          red)
+       (warning        yellow)
+       (success        green)
+       (vc-modified    orange)
+       (vc-added       green)
+       (vc-deleted     red)
+
+       (temppp `((bg ,bg)
+                 (fg ,fg)
+
+                 (bg-alt    ,bg-alt)
+                 (fg-alt ,fg-alt)
+
+                 (base0 ,base0)
+                 (base1 ,base1)
+                 (base2 ,base2)
+                 (base3 ,base3)
+                 (base4 ,base4)
+                 (base5 ,base5)
+                 (base6 ,base6)
+                 (base7 ,base7)
+                 (base8 ,base8)
+
+                 (grey ,grey)
+                 (red ,red)
+                 (orange ,orange)
+                 (green ,green)
+                 (teal ,teal)
+                 (yellow ,yellow)
+                 (blue ,blue)
+                 (dark-blue ,dark-blue)
+                 (magenta ,magenta)
+                 (violet ,violet)
+                 (cyan ,cyan)
+                 (dark-cyan ,dark-cyan)
+
+                 (highlight ,highlight)
+                 (vertical-bar ,vertical-bar)
+                 (selection ,selection)
+                 (builtin ,builtin)
+                 (comments ,comments)
+                 (doc-comments ,doc-comments)
+                 (constants ,constants)
+                 (functions ,functions)
+                 (keywords ,keywords)
+                 (methods ,methods)
+                 (operators ,operators)
+                 (type ,type)
+                 (strings ,strings)
+                 (variables ,variables)
+                 (numbers ,numbers)
+                 ;; (region ,region)
+                 (error ,error)
+                 (warning ,warning)
+                 (success ,success)
+                 (vc-modified ,vc-modified)
+                 (vc-added ,vc-added)
+                 (vc-deleted ,vc-deleted))))
+  temppp)
+#+end_src
