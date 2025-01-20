@@ -97,8 +97,7 @@
   (modeline-bg-alt-inactive `(,(doom-darken (car bg-alt) 0.05) ,@(cdr base1))))
 
   ;;;; Base theme face overrides
- (((font-lock-comment-face &override)
-   :background (if doom-one-light-brighter-comments base0 'unspecified))
+ (((font-lock-comment-face &override) :background 'unspecified)
   ((font-lock-doc-face &override) :slant 'italic)
   ((line-number &override) :foreground (doom-lighten base4 0.15))
   ((line-number-current-line &override) :foreground base8)
