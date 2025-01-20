@@ -20,7 +20,8 @@
 
 (defun ewal-get-color (color &optional shade)
   "Get an `ewal' color.
-Return SHADE of COLOR. SHADE being a float between 0 and 1."
+Return SHADE of COLOR. SHADE being a float between -1 and 1 where -1 is darker,
+1 is lighter."
   (let ((color (alist-get color ewal-base-palette))
         (shade (or shade 0)))
     (if (> shade 0)

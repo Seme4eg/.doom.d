@@ -36,15 +36,15 @@
   ;; These should represent a spectrum from bg to fg, where base0 is a starker
   ;; bg and base8 is a starker fg. For example, if bg is light grey and fg is
   ;; dark grey, base0 should be white and base8 should be black.
-  (base0      `(,(ewal-get-color 'background -1)   "black"   "black"))
-  (base1      `(,(ewal-get-color 'background -0.8) "#1e1e1e" "brightblack"))
+  (base0      `(,(ewal-get-color 'background -0.8)   "black"   "black"))
+  (base1      `(,(ewal-get-color 'background -0.6) "#1e1e1e" "brightblack"))
   (base2      `(,(ewal-get-color 'background -0.4) "#2e2e2e" "brightblack"))
   (base3      `(,(ewal-get-color 'background -0.2) "#262626" "brightblack"))
   (base4      `(,(ewal-get-color 'background +0.2) "#3f3f3f" "brightblack"))
   (base5      `(,(ewal-get-color 'comment     0)   "#525252" "brightblack"))
-  (base6      `(,(ewal-get-color 'background +0.8) "#6b6b6b" "brightblack"))
-  (base7      `(,(ewal-get-color 'background +1)   "#979797" "brightblack"))
-  (base8      `(,(ewal-get-color 'foreground +0.2) "#dfdfdf" "white"))
+  (base6      `(,(ewal-get-color 'background +0.4) "#6b6b6b" "brightblack"))
+  (base7      `(,(ewal-get-color 'background +0.6)   "#979797" "brightblack"))
+  (base8      `(,(ewal-get-color 'background +0.8) "#dfdfdf" "white"))
 
   (grey       base4)
   (red        `(,(ewal-get-color 'red       0) "#ff6655" "red"))
@@ -98,7 +98,8 @@
  ;;;; Base theme face overrides
  (((line-number &override) :foreground base4)
   ((line-number-current-line &override) :foreground fg)
-  ((font-lock-comment-face &override) :foreground comments) ;; in doom-one its 'unspecified'
+  ;; in doom-one its 'unspecified'
+  ((font-lock-comment-face &override) :foreground comments)
   (font-lock-doc-face :inherit 'font-lock-comment-face :foreground doc-comments)
   (mode-line
    :background modeline-bg :foreground modeline-fg)
@@ -120,9 +121,7 @@
   (markdown-header-face :inherit 'bold :foreground red)
   ((markdown-code-face &override) :background (doom-lighten base3 0.05))
   ;;;; solaire-mode
-  (solaire-mode-line-face
-   :inherit 'mode-line
-   :background modeline-bg-alt)
+  (solaire-mode-line-face :inherit 'mode-line :background modeline-bg-alt)
   (solaire-mode-line-inactive-face
    :inherit 'mode-line-inactive
    :background modeline-bg-inactive-alt)
