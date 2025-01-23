@@ -644,7 +644,6 @@ the corresponding action.
 
 What useful comes form doom module (rest i configured myself):
 - :ni [C-return] #'+eww/open-in-other-window
-- :n "yy" #'+eww/copy-current-url
 - :n "zk" #'text-scale-increase
 - :n "zj" #'text-scale-decrease
 
@@ -660,7 +659,6 @@ Bookmarks
 - eww-*list*-bookmarks    (g b)   Display the bookmarks.
 - eww-add-bookmark      (m)   Bookmark the current page.
 - eww-bookmark-kill     (D)      Kill the current bookmark.
-- eww-bookmark-urls     Get the URLs from the current list of bookmarks.
 - eww-bookmark-yank     (P / y u)     Yank a previously killed bookmark to the current line.
 - eww-next-bookmark     (M-n)   Go to the next bookmark in the list.
 - eww-previous-bookmark (M-p)   Go to the previous bookmark in the list.
