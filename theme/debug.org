@@ -114,54 +114,6 @@ Dont forget to keep the values up to date.
   temppp)
 #+end_src
 
-#+RESULTS:
-| bg           | #100f0c |
-| fg           | #d6d1ad |
-| bg-alt       | #0e0d0a |
-| fg-alt       | #aba78a |
-| base0        | #030202 |
-| base1        | #060604 |
-| base2        | #090907 |
-| base3        | #0c0c09 |
-| base4        | #3f3e3c |
-| base5        | #686654 |
-| base6        | #6f6f6d |
-| base7        | #b7b7b6 |
-| base8        | #e7e7e6 |
-| grey         | #3f3e3c |
-| red          | #695938 |
-| orange       | #867a5f |
-| green        | #414162 |
-| teal         | #6b6b85 |
-| yellow       | #796b41 |
-| blue         | #8a734a |
-| dark-blue    | #6e5c3b |
-| magenta      | #839751 |
-| violet       | #687840 |
-| cyan         | #9fa257 |
-| dark-cyan    | #7f8145 |
-| highlight    | #8a734a |
-| vertical-bar | #050503 |
-| selection    | #6e5c3b |
-| builtin      | #839751 |
-| comments     | #686654 |
-| doc-comments | #585647 |
-| constants    | #687840 |
-| functions    | #839751 |
-| keywords     | #695938 |
-| methods      | #9fa257 |
-| operators    | #8a734a |
-| type         | #796b41 |
-| strings      | #414162 |
-| variables    | #b4c096 |
-| numbers      | #867a5f |
-| error        | #695938 |
-| warning      | #796b41 |
-| success      | #414162 |
-| vc-modified  | #867a5f |
-| vc-added     | #414162 |
-| vc-deleted   | #695938 |
-
 * light
 #+begin_src emacs-lisp
 (ewal-load-colors)
