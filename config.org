@@ -52,8 +52,7 @@ Here are some additional functions/macros that could help you configure Doom:
  ;; Unbounded-VariableFont_wght.ttf
  ;; Jura-VariableFont_wght.ttf -> ..
  ;; MontserratAlternates-Regular.ttf
- doom-unicode-font (font-spec :family "bellotatext") ;; Symbola
- doom-big-font (font-spec :family "jetbrainsmono nf" :size 24))
+ doom-unicode-font (font-spec :family "bellotatext")) ;; Symbola
 
 ;; https://www.reddit.com/r/emacs/comments/8tz1r0/how_to_set_font_according_to_languages_that_i/
 ;; https://fonts.google.com/?script=Thai
