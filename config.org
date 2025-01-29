@@ -97,10 +97,10 @@ _describe-function map!_
 (map! :leader :desc "Previous workspace" "-" '+workspace/other)
 (map! :map doom-leader-workspace-map
       :desc "Workspace swap right"
-      :n "]" '+workspace/swap-right)
+      "]" '+workspace/swap-right)
 (map! :map doom-leader-workspace-map
       :desc "Workspace swap left"
-      :n "[" '+workspace/swap-left)
+      "[" '+workspace/swap-left)
 
 ;; diff-hl bindings
 (map! :map doom-leader-git-map :desc "Git show hunk" "v" 'diff-hl-show-hunk)
