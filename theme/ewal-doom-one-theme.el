@@ -130,7 +130,8 @@
   (evil-goggles-default-face
    :inherit 'region
    :background (doom-blend region bg 0.5))
-  (corfu-current :background base4))
+  (corfu-current :background base4)
+  (magit-diff-hunk-heading :background base5))
 
  ;;;; Base theme variable overrides-
  ())
