@@ -577,6 +577,42 @@ Forge:
               (setq truncate-lines nil
                     visual-fill-column-extra-text-width '(0 . 2)))))
 #+end_src
+*** fb2-reader
+
+Mind also the ~fb2-reader-continue~ binding.
+
+#+begin_src emacs-lisp
+(setq fb2-reader-page-width 80
+      fb2-reader-hide-cursor nil
+      fb2-reader-title-alignment 'center)
+
+(after! fb2-reader
+  (map! :map fb2-reader-mode-map
+        :n "r" 'fb2-reader-refresh
+        :n "i" 'fb2-reader-show-info
+        :n "o" 'fb2-reader-show-toc
+        :n "q" 'quit-window
+        :n "H" 'fb2-reader-link-back
+        :n "L" 'fb2-reader-link-forward
+        :n "]]" 'fb2-reader-forward-chapter
+        :n "C-j" 'fb2-reader-forward-chapter
+        :n "[[" 'fb2-reader-backward-chapter
+        :n "C-k" 'fb2-reader-backward-chapter
+        :n "TAB" 'fb2-reader-forward-visible-link
+        :n "<backtab>" 'fb2-reader-backward-visible-link)
+  (map! :map fb2-reader-toc-mode-map
+        ;; o          fb2-reader-toc-select-fb2-window
+        ;; t          fb2-reader-toc-select-fb2-window
+        :n "RET" 'fb2-reader-toc-follow-link-quit
+        :n "C-o" 'fb2-reader-toc-display-link
+        :n "q" 'fb2-reader-toc-quit-and-kill)
+  (map! :map fb2-reader-info-mode-map
+        :n "q" 'quit-window
+        :n "]]" 'fb2-reader-info-forward-category
+        :n "C-j" 'fb2-reader-info-forward-category
+        :n "[[" 'fb2-reader-info-backward-category
+        :n "C-k" 'fb2-reader-info-backward-category))
+#+end_src
 
 ** Evil
 #+begin_src emacs-lisp
