@@ -780,6 +780,8 @@ Specific to the current window's mode line.")
         :n "bE" 'org-table-expand
         :n "bts" 'org-table-toggle-column-width)
   (map! :map evil-org-mode-map
+        :mnv "gj" 'evil-next-visual-line
+        :mnv "gk" 'evil-previous-visual-line
         :mnv "C-k" 'org-backward-element
         :mnv "C-j" 'org-forward-element)
 
