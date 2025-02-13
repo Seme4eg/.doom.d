@@ -19,7 +19,6 @@ Here are some additional functions/macros that could help you configure Doom:
  ;; Some functionality uses this to identify you,
  ;; e.g. GPG configuration, email clients, file templates and snippets.
  user-full-name "earthian"
- user-mail-address "418@duck.com"
 
  org-directory "~/Documents/org/"
  fill-column 80
