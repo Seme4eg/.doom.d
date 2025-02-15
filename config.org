@@ -128,10 +128,8 @@ _describe-function map!_
  consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
                    "--exclude .git --exclude .stversions"))
 
-(after! persp-mode
-  (setq
-   ;; persp-init-frame-behaviour nil <- doens't work
-   persp-emacsclient-init-frame-behaviour-override "main"))
+;; don't ever create new workspaces
+(setq persp-emacsclient-init-frame-behaviour-override -1)
 #+end_src
 
 ** Custom f-s & advices
