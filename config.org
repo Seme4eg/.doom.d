@@ -234,18 +234,17 @@ _describe-function map!_
 #+end_src
 *** Lua
 #+begin_src emacs-lisp
-(after! lua-mode
-  (setq lsp-clients-lua-language-server-command "lua-language-server"
-        lsp-clients-lua-language-server-bin "/usb/bin/lua-language-server"
-        ;; lsp-clients-lua-lsp-server-install-dir "/usb/bin/lua-language-server"
-        lsp-lua-hint-enable t)
-
+(after! lsp-mode
   (lsp-register-client
    (make-lsp-client
     :new-connection (lsp-stdio-connection "lua-language-server")
     :major-modes '(lua-mode)
     :priority 0
-    :server-id 'lua-language-server)))
+    :server-id 'lua-language-server))
+  (setq lsp-clients-lua-language-server-command "lua-language-server"
+        lsp-clients-lua-language-server-bin "/usb/bin/lua-language-server"
+        ;; lsp-clients-lua-lsp-server-install-dir "/usb/bin/lua-language-server"
+        lsp-lua-hint-enable t))
 #+end_src
 
 *** Shell
