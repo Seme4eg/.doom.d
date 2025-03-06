@@ -92,6 +92,10 @@ _describe-function map!_
 
 (define-key global-map (kbd "C-,") 'embark-act)
 
+;; unbind doom/reload bind cuz it breaks perspective and fucs up workspaces all
+;; the time
+(map! :map help-map "r r" nil)
+
 ;; Workspace binds
 (map! :leader :desc "Previous workspace" "-" '+workspace/other)
 (map! :map doom-leader-workspace-map
