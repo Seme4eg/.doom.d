@@ -329,7 +329,7 @@ Forge:
                             concat
                             (with-temp-buffer
                               (insert-file-contents
-                               (expand-file-name org-file org-directory))
+                               (expand-file-name org-file "~/Documents/rss/"))
                               (rmh-elfeed-org-convert-org-to-opml
                                (current-buffer))))))
     (with-temp-file "~/Documents/rss/elfeed.opml"
