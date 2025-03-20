@@ -133,7 +133,8 @@ _describe-function map!_
                    "--exclude .git --exclude .stversions"))
 
 ;; don't ever create new workspaces
-(setq persp-emacsclient-init-frame-behaviour-override -1)
+(after! persp-mode
+  (setq-default persp-emacsclient-init-frame-behaviour-override -1))
 #+end_src
 
 ** Custom f-s & advices
