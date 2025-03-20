@@ -868,29 +868,29 @@ org-gptel integration:
 RET not working - user ~C-m~ - https://github.com/karthink/gptel/issues/75
 
 #+begin_src elisp
-(use-package! gptel
-  :config
-  (map! :leader
-        :prefix ("e" . "gptel")
-        "e" #'gptel
-        "r" #'gptel-rewrite-menu ;; Rewrite or refactor text region using an LLM
-        "a" #'gptel-add ;; Add/remove regions or buffers from gptel’s context
-        "f" #'gptel-add-file ;; Add files to gptel’s context.
-        ;; if region selected send region otherwise whole buf up from the cursor
-        "s" #'gptel-send
-        "m" #'gptel-menu
-        "M" #'gptel-mode)
+;; (add-hook 'gptel-mode-hook (lambda () (setq gptel-api-key (+pass-get-secret "apikeys/openai"))))
 
+(setq gptel-api-key (+pass-get-secret "apikeys/openai"))
+
+(map! :leader
+      :prefix ("e" . "gptel")
+      "e" #'gptel
+      "r" #'gptel-rewrite-menu ;; Rewrite or refactor text region using an LLM
+      "a" #'gptel-add ;; Add/remove regions or buffers from gptel’s context
+      "f" #'gptel-add-file ;; Add files to gptel’s context.
+      ;; if region selected send region otherwise whole buf up from the cursor
+      "s" #'gptel-send
+      "m" #'gptel-menu
+      "M" #'gptel-mode)
+
+(after! gptel
   ;; :key can be a function that returns the API key.
   (gptel-make-gemini "Gemini"
     :key (+pass-get-secret "apikeys/gemini")
     :stream t)
 
-  (add-hook 'gptel-mode-hook (lambda () (setq gptel-api-key (+pass-get-secret "apikeys/openai"))))
-
   (setq! gptel-default-mode 'org-mode
          gptel-model 'gpt-4o))
-         ;; gptel-api-key (+pass-get-secret "apikeys/openai")))
 #+end_src
 
 ** Corfu [[https://github.com/minad/corfu][#gh]]
