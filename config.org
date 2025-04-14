@@ -82,6 +82,8 @@ _describe-function map!_
 #+begin_src emacs-lisp
 (map! :leader :desc "M-x" "x" 'execute-extended-command)
 
+(map! :map global-map "C-i" 'better-jumper-jump-forward)
+
 (map! :map doom-leader-file-map
       :desc "Find file other window"
       "o" 'find-file-other-window)
