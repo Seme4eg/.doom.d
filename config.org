@@ -870,10 +870,6 @@ org-gptel integration:
 RET not working - user ~C-m~ - https://github.com/karthink/gptel/issues/75
 
 #+begin_src elisp
-;; (add-hook 'gptel-mode-hook (lambda () (setq gptel-api-key (+pass-get-secret "apikeys/openai"))))
-
-(setq gptel-api-key (+pass-get-secret "apikeys/openai"))
-
 (map! :leader
       :prefix ("e" . "gptel")
       "e" #'gptel
@@ -892,7 +888,7 @@ RET not working - user ~C-m~ - https://github.com/karthink/gptel/issues/75
     :stream t)
 
   (setq! gptel-default-mode 'org-mode
-         gptel-model 'gpt-4o))
+         gptel-model 'gemini-2.0-flash-thinking-exp-01-21))
 #+end_src
 
 ** Corfu [[https://github.com/minad/corfu][#gh]]
