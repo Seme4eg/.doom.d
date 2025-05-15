@@ -30,7 +30,7 @@ Here are some additional functions/macros that could help you configure Doom:
  projectile-project-search-path '(("~/git" . 3)))
 #+end_src
 
-[[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]]:
+[[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]] (use =doom/describe-char= [[https://github.com/doomemacs/doomemacs/commit/303dd28db808b42a2397c0f4b9fdd71e606026ff][func]]):
 #+begin_src emacs-lisp
 ;; 'pmsl nerd' - get all installed nerd fonts
 
@@ -869,26 +869,23 @@ org-gptel integration:
 
 RET not working - user ~C-m~ - https://github.com/karthink/gptel/issues/75
 
+This module also adds a "pre-generated message" option to magit-commit's
+transient menu. Alternatively, press [[kbd:][M-g]] to generate a message in a commit
+buffer.
+
+binds: [[id:e76a7b8a-af48-4506-9af3-cdf206c6e21f][doom llm binds]]
+
+NOTE: keep in mind to reverse the popup-settings and open buffer action in doom
+config whenever you update
+
 #+begin_src elisp
-(map! :leader
-      :prefix ("e" . "gptel")
-      "e" #'gptel
-      "r" #'gptel-rewrite-menu ;; Rewrite or refactor text region using an LLM
-      "a" #'gptel-add ;; Add/remove regions or buffers from gptel’s context
-      "f" #'gptel-add-file ;; Add files to gptel’s context.
-      ;; if region selected send region otherwise whole buf up from the cursor
-      "s" #'gptel-send
-      "m" #'gptel-menu
-      "M" #'gptel-mode)
-
 (after! gptel
-  ;; :key can be a function that returns the API key.
-  (gptel-make-gemini "Gemini"
-    :key (+pass-get-secret "apikeys/gemini")
-    :stream t)
-
   (setq! gptel-default-mode 'org-mode
-         gptel-model 'gemini-2.0-flash-thinking-exp-01-21))
+         gptel-model 'gemini-2.0-flash-thinking-exp-01-21
+         gptel-backend (gptel-make-gemini "Gemini"
+                         :key (+pass-get-secret "apikeys/gemini")
+                         :stream t))
+  )
 #+end_src
 
 ** Corfu [[https://github.com/minad/corfu][#gh]]

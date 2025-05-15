@@ -80,12 +80,12 @@
        (lookup
         +dictionary
         +docsets)          ; navigate your code and its documentation
+       llm
        (lsp +peek)         ; M-x vscode
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        (pass +auth)        ; password manager for nerds
        pdf                 ; pdf enhancements
-       ;;prodigy           ; FIXME managing external services & code builders
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux

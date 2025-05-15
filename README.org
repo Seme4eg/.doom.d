@@ -114,6 +114,7 @@ FYI:
   - *K* documentation, g *d*[efinition], g *D* - references, g *f*[ile], g
     *I*[mplementations], g *A*[ssignments]
   - ~SPC s ?~ - see all possible movements
+  - in lookup buffers ~C-o/i~ and ~>/<~ - back/forward commands for helpful ([[https://github.com/doomemacs/doomemacs/commit/20381dea16c1ef87fb71e0490e37ed39c79051fe][commit]])
 
 - _+tree-sitter_ maps
   - [[elisp:(helpful-variable '+tree-sitter-goto-previous-map)][+tree-sitter-goto-previous-map]] (~[ g~ prefix)

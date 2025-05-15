@@ -2,7 +2,6 @@
 ;;; $DOOMDIR/packages.el
 
 (package! telega)
-(package! gptel)
 (package! sqlformat :recipe (:host github :repo "purcell/sqlformat"))
 (package! iscroll)
 (package! pacdiff)
