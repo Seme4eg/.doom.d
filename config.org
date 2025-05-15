@@ -310,8 +310,8 @@ Forge:
 #+begin_src emacs-lisp
 (after! elfeed
   (setq
-   rmh-elfeed-org-files '("~/Documents/rss/elfeed.org")
-   elfeed-db-directory "~/Documents/rss/db"
+   rmh-elfeed-org-files '("~/Documents/tech/rss/elfeed.org")
+   elfeed-db-directory "~/Documents/tech/rss/db"
    ;; "@6-month-ago +unread" will show only unread ones
    ;; and thats how you add tags to filter string
    elfeed-search-filter ""))
@@ -332,10 +332,10 @@ Forge:
                             concat
                             (with-temp-buffer
                               (insert-file-contents
-                               (expand-file-name org-file "~/Documents/rss/"))
+                               (expand-file-name org-file "~/Documents/tech/rss/"))
                               (rmh-elfeed-org-convert-org-to-opml
                                (current-buffer))))))
-    (with-temp-file "~/Documents/rss/elfeed.opml"
+    (with-temp-file "~/Documents/tech/rss/elfeed.opml"
       (insert "<?xml version=\"1.0\"?>\n")
       (insert "<opml version=\"1.0\">\n")
       (insert "  <head>\n")
