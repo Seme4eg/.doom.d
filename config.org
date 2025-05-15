@@ -934,6 +934,14 @@ C-l]] and get a buffer with all candidates.
           "C-g" (lambda () (progn (corfu-reset)
                                   (corfu-quit))))))
 #+end_src
+** Org-vcard
+#+begin_src emacs-lisp
+(after! org-vcard
+  (setq org-vcard-append-to-existing-export-buffer nil
+        org-vcard-append-to-existing-import-buffer nil
+        org-vcard-default-export-file "~/Documents/tech/phone/backups/contacts-export.vcf"
+        org-vcard-default-import-file "~/Documents/tech/phone/backups/contacts-import.vcf"))
+#+end_src
 
 ** WAIT Casual Suite
 #+begin_src emacs-lisp

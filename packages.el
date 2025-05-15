@@ -5,6 +5,7 @@
 (package! sqlformat :recipe (:host github :repo "purcell/sqlformat"))
 (package! pacdiff)
 (package! fb2-reader)
+(package! org-vcard)
 
 ;; for eww
 (package! shrface)
