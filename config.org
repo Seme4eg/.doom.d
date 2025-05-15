@@ -763,15 +763,8 @@ Specific to the current window's mode line.")
 
 ** Org
 #+begin_src emacs-lisp
-(defun org-iscroll-setup ()
-  "Set up iscroll mode and keybindings for iscroll in org mode."
-  (iscroll-mode)
-  (map! :n "C-n" (cmd! (iscroll-up 1))
-        :n "C-p" (cmd! (iscroll-down 1))))
-
 (add-hook 'org-mode-hook
           (lambda () (progn
-                       (org-iscroll-setup)
                        (auto-fill-mode)
                        (map! :map evil-org-mode-map
                              :vmn "gl" 'evil-lion-left)))) ;; don't override that

@@ -3,7 +3,6 @@
 
 (package! telega)
 (package! sqlformat :recipe (:host github :repo "purcell/sqlformat"))
-(package! iscroll)
 (package! pacdiff)
 (package! fb2-reader)
 
