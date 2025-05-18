@@ -23,7 +23,6 @@ Here are some additional functions/macros that could help you configure Doom:
  org-directory "~/Documents/org/"
  fill-column 80
  display-fill-column-indicator-column 80
- better-jumper-context 'buffer
  default-input-method "russian-computer"
  browse-url-secondary-browser-function #'browse-url-xdg-open
  browse-url-generic-program #'eww
