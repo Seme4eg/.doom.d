@@ -817,6 +817,7 @@ Specific to the current window's mode line.")
     ("^\\*helpful" :ignore t) ;; Any way to open helpful buffers on top of each other?
     ("^\\*\\(?:Wo\\)?Man " :ignore t)
     ("^\\*Telegram Translation\\*$" :height 0.1)
+    ("^\\*Gemini\\*$" :ignore t)
     ("^\\*info\\*$" :ignore t)))
 #+end_src
 
