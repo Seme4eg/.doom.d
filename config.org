@@ -305,10 +305,6 @@ Forge:
 
 ** Apps
 *** Elfeed
-- https://github.com/skeeto/elfeed#filter-syntax
-- maybe setup [[https://github.com/emacsmirror/spray][spray]] for effective reading? ([[https://noonker.github.io/posts/2020-04-22-elfeed/][source]])
-- [[https://nullprogram.com/blog/2013/11/26/][Elfeed Tips and Tricks]] (from the author himself)
-
 #+begin_src emacs-lisp
 (after! elfeed
   (setq
@@ -324,7 +320,12 @@ Forge:
       "r" #'elfeed-update
       "l" #'elfeed-goodies/toggle-logs
       "e" #'sad/elfeed-org-export-opml
-      "u" #'elfeed-show-tag--unread)
+      "u" #'elfeed-show-tag--unread
+      "O" #'elfeed-search-browse-url ;; open in external browser
+      ;; to force update everything after you changed elfeed.org - unload db,
+      ;; remove the elfeed-db-directory and then elfeed-update
+      "U" #'elfeed-db-unload)
+
 
 ;; maybe call this func in 'elfeed-new-entry-hook', but for now manually
 (defun sad/elfeed-org-export-opml ()
