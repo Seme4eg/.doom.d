@@ -85,7 +85,12 @@ and then ~evil-colleciton-<mode>[-map]~ var
 - =evil-quick-diff= - used to diff and edit two separate blocks of text.
 - [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
   regular expression (regexp) or keywords that you type.
-- Rss/atom reader - [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]]
+- Rss/atom reader
+  - [[file:~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/elfeed/evil-collection-elfeed.el][evil-collection-elfeed.el]]
+  - https://github.com/skeeto/elfeed#filter-syntax
+  - maybe setup [[https://github.com/emacsmirror/spray][spray]] for effective reading? ([[https://noonker.github.io/posts/2020-04-22-elfeed/][source]])
+  - [[https://nullprogram.com/blog/2013/11/26/][Elfeed Tips and Tricks]] (from the author himself)
+
 
 ** evil
 - [[file:~/.config/emacs/modules/editor/evil/config.el::;;; Keybinds][evil/config.el]]
