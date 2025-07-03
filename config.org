@@ -277,6 +277,9 @@ _describe-function map!_
 *** TODO Magit & forge
 Magit:
 #+begin_src emacs-lisp
+(after! magit
+  (map! :map git-commit-mode-map
+        "C-c C-g" #'gptel-magit-generate-message))
 (setq
  ;; Don't restore the wconf after quitting magit, it's jarring
  magit-inhibit-save-previous-winconf t
