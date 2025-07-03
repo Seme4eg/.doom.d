@@ -82,6 +82,7 @@ and then ~evil-colleciton-<mode>[-map]~ var
 - _vertico_ [[file:~/.config/emacs/modules/completion/vertico/README.org::*Vertico keybindings][#kbds]] [[elisp:(helpful-variable 'vertico-map)][#modemap]], also check [[file:~/.config/emacs/modules/completion/vertico/README.org::*Orderless filtering][Orderless filtering]] and
   ~orderless-affix-dispatch-alist~ var, ~C-SPC~ embark-preview
 - [[file:~/.config/emacs/modules/ui/popup/README.org::*Commands][popup]]: C-~ (+popup/raise); C-` (+popup/toggle)
+- when composing commit message in magit DO check the [[elisp:(helpful-variable 'git-commit-mode-map)][git-commit-mode-map]]
 - =evil-quick-diff= - used to diff and edit two separate blocks of text.
 - [[https://www.emacswiki.org/emacs/AproposMode][apropos-mode]] - obtain information about the Emacs entities that match a
   regular expression (regexp) or keywords that you type.
