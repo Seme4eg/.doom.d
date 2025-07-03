@@ -884,12 +884,26 @@ config whenever you update
 
 #+begin_src elisp
 (after! gptel
-  (setq! gptel-default-mode 'org-mode
-         gptel-model 'gemini-2.0-flash-thinking-exp-01-21
-         gptel-backend (gptel-make-gemini "Gemini"
-                         :key (+pass-get-secret "apikeys/gemini")
-                         :stream t))
-  )
+  (defun sad/set-gptel-backend (fn &rest args) ;; &rest _args
+    (unless (or (string= (gptel-backend-name gptel-backend) "Gemini")
+                (string-empty-p (gptel-backend-key gptel-backend)))
+      (setq gptel-backend (gptel-make-gemini "Gemini"
+                            :key (+pass-get-secret "apikeys/gemini")
+                            :stream t)))
+    (apply fn args))
+  (advice-add 'gptel :around #'sad/set-gptel-backend)
+  (setq gptel-default-mode 'org-mode
+        ;; HACK: cuz otherwise advice above isn't working cuz gptel wants key
+        gptel-api-key "1234"
+        gptel-include-reasoning nil
+        gptel-model 'gemini-2.0-flash-thinking-exp-01-21
+        gptel-display-buffer-action '(nil (body-function . select-window))))
+;; gptel-backend (gptel-make-gemini "Gemini"
+;; NOTE: executes too quickly if no lambda func and results in gibberish
+;;   if lambda then it just executes every time i open gptel buffer. Hence using
+;;   advice hack above.
+;;                 :key (lambda () (+pass-get-secret "apikeys/gemini"))
+;;                 :stream t)))
 #+end_src
 
 ** Corfu [[https://github.com/minad/corfu][#gh]]
