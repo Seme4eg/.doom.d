@@ -788,7 +788,8 @@ Specific to the current window's mode line.")
   (setq
    ;; show files like TOC on startup
    org-startup-folded 'content
-   org-startup-indented nil ;; instead of using golden-ration mode
+   ;; org-startup-indented nil ;; instead of using golden-ration mode
+   org-indent-indentation-per-level 1
    org-hide-block-startup t
    org-startup-shrink-all-tables t
    org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
