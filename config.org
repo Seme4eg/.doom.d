@@ -896,19 +896,45 @@ config whenever you update
 
 #+begin_src elisp
 (after! gptel
+
+  ;; DEPRECATED: google somehow blocks my proxy idk
   (defun sad/set-gptel-backend (fn &rest args) ;; &rest _args
     (unless (or (string= (gptel-backend-name gptel-backend) "Gemini")
                 (string-empty-p (gptel-backend-key gptel-backend)))
       (setq gptel-backend (gptel-make-gemini "Gemini"
-                            :key (+pass-get-secret "apikeys/gemini")
+                            :key (+pass-get-secret "ai/gemini")
                             :stream t)))
     (apply fn args))
-  (advice-add 'gptel :around #'sad/set-gptel-backend)
+  ;; (advice-add 'gptel :around #'sad/set-gptel-backend)
+
+  (defun sad/init-deepseek (fn &rest args) ;; &rest _args
+    (unless (or (string= (gptel-backend-name gptel-backend) "DeepSeek")
+                (string-empty-p (gptel-backend-key gptel-backend)))
+      (setq gptel-backend (gptel-make-deepseek "DeepSeek"
+                            :key (+pass-get-field "ai/deepseek" "apikey")
+                            :stream t)))
+    (apply fn args))
+  ;; (advice-add 'gptel :around #'sad/init-deepseek)
+
+  (defun sad/init-sambanova (fn &rest args) ;; &rest _args
+    (unless (or (string= (gptel-backend-name gptel-backend) "Sambanova")
+                (string-empty-p (gptel-backend-key gptel-backend)))
+      (setq gptel-backend (gptel-make-openai "Sambanova"
+                             :host "api.sambanova.ai"
+                             :endpoint "/v1/chat/completions"
+                             :stream t
+                             :key (+pass-get-field "ai/sambanova" "apikey")
+                             :models '(DeepSeek-R1))))
+    (apply fn args))
+  (advice-add 'gptel :around #'sad/init-sambanova)
+
   (setq gptel-default-mode 'org-mode
         ;; HACK: cuz otherwise advice above isn't working cuz gptel wants key
         gptel-api-key "1234"
         gptel-include-reasoning nil
-        gptel-model 'gemini-2.0-flash-thinking-exp-01-21
+        ;; gptel-model 'gemini-2.0-flash-thinking-exp-01-21
+        ;; gptel-model 'deepseek-reasoner
+        gptel-model 'DeepSeek-R1
         gptel-display-buffer-action '(nil (body-function . select-window))))
 ;; gptel-backend (gptel-make-gemini "Gemini"
 ;; NOTE: executes too quickly if no lambda func and results in gibberish
