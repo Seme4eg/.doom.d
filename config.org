@@ -255,8 +255,6 @@ _describe-function map!_
 *** Shell
 #+begin_src emacs-lisp
 (after! sh-script
-  (setq! sh-shellcheck-arguments "-x")
-
   (set-formatter! 'shfmt
     ;; "-ci" for case-indent is the only difference from default formatter
     '("shfmt" "-filename" filepath "-ci" "-ln"
