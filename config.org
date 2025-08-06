@@ -81,8 +81,6 @@ _describe-function map!_
 #+begin_src emacs-lisp
 (map! :leader :desc "M-x" "x" 'execute-extended-command)
 
-(map! :map global-map "C-i" 'better-jumper-jump-forward)
-
 (map! :map doom-leader-file-map
       :desc "Find file other window"
       "o" 'find-file-other-window)
@@ -130,6 +128,7 @@ _describe-function map!_
 (map! :map doom-leader-file-map "l" (cmd! (consult-fd "/")))
 
 (setq
+ completion-ignore-case t
  consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
                    "--exclude .git --exclude .stversions"))
 
