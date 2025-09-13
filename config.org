@@ -330,7 +330,7 @@ Forge:
    elfeed-search-filter ""))
 
 (map! :leader
-      :prefix ("r" . "RSS")
+      :prefix ("R" . "RSS")
       "o" #'=rss
       "r" #'elfeed-update
       "l" #'elfeed-goodies/toggle-logs
