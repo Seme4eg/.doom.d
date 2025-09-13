@@ -534,7 +534,7 @@ Forge:
           thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
           utime stime ctime cutime cstime etime comm)))
 #+end_src
-*** TODO Telega
+*** Telega
 #+begin_src emacs-lisp
 (map! :map doom-leader-open-map "c" 'telega)
 
@@ -543,6 +543,7 @@ Forge:
 ;; (add-to-list 'doom-after-init-hook (telega 1))
 
 (setq telega-server-libs-prefix "/usr") ;; cuz aur package installs there
+
 (map! :after telega :leader
       :prefix ("z" . "telegram")
       "a" #'telega-account-switch
@@ -560,26 +561,31 @@ Forge:
 
 (after! telega
   (telega-notifications-mode)
-  (telega-mode-line-mode)
+  (telega-patrons-mode nil)
+  (telega-active-stories-mode nil)
+  (telega-active-locations-mode nil)
   (global-telega-squash-message-mode)
-  ;; (telega-image-mode) ;; n/p next prev img in chat
   (auto-fill-mode)
 
   (require 'telega-dired-dwim)
 
-  ;; eval-buffer: Cannot open load file: No such file or directory, dashboard
-  ;; (require 'telega-dashboard)
-  ;; (add-to-list 'dashboard-items '(telega-chats . 5))
-
-  (telega-mode-line-mode -1)
-
   (setq
+   ;; paths
    telega-database-dir (expand-file-name "~/.local/share/telega")
    telega-directory (expand-file-name "~/.local/share/telega")
+   telega-msg-save-dir (expand-file-name "~/Downloads")
    telega-temp-dir (expand-file-name "~/.local/share/telega/temp")
    telega-cache-dir (expand-file-name "~/.local/share/telega/cache")
    telega-voip-logfile (expand-file-name "~/.local/share/telega/telega-voip.log")
    telega-server-logfile (expand-file-name "~/.local/share/telega/telega-server.log")
+   ;; debloat
+   ;; view aux? linkpreviewoption voicerecognition
+   telega-chat-buffers-limit 1
+   telega-msg-temex-show-reactions '(return nil)
+   telega-sticker-set-show-cover nil
+   telega-filters-custom '(("Main" . main)
+                           ("lng_filters_type_no_archived" . archive))
+   ;; other
    telega-completing-read-function #'completing-read
    telega-notifications-delay 1
    ;; to not get notified on outgoing messages form phone
@@ -588,9 +594,8 @@ Forge:
    telega-url-shorten-use-images t
    telega-translate-to-language-by-default "ru"
    telega-video-player-command '(concat "mpv"
-                                 (when telega-ffplay-media-timestamp
-                                   (format "%f" telega-ffplay-media-timestamp))))
-
+                                        (when telega-ffplay-media-timestamp
+                                          (format "%f" telega-ffplay-media-timestamp)))
 
   (add-hook 'telega-chat-mode-hook
             (lambda ()

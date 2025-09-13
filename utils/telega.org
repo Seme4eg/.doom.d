@@ -1,5 +1,12 @@
 #+TITLE: Telega
 
+[[https://github.com/zevlg/telega.el/blob/master/docs/telega-manual.org][manual]], or [[file:~/dotfiles/.config/emacs/.local/straight/repos/telega.el/docs/telega-manual.org][this local file]] (same)
+
+- =C-c /= - telega-chatbuf-filter - [[https://github.com/zevlg/telega.el/blob/master/docs/telega-manual.org#filtering-chat-messages-aka-shared-media][filtering]], same as search in mobile app -
+  filter all messages based on some query
+- @gif <query> - find some gifs to send (=telega-known-inline-bots= var to see
+  available bots)
+
 * Telega [[https://zevlg.github.io/telega.el/][#docs]] [[file:~/.config/emacs/.local/straight/repos/evil-collection/modes/telega/evil-collection-telega.el][evil-collection-telega.el]]
 _Chat Filters_ (~\/~ prefix) are used to match chats, same as regexps are used to
 match strings. Chat Filters uses S-exp notation similar to rx package for
@@ -100,34 +107,7 @@ Important customizable options:
 ~C-M-a~ (telega-chatbuf-*beginning-of-thing*) Move backward to the beginning of the
 chat
 
-_Apply markup_ to the input when sending message. This is controlled by
-number of =C-u= pressed before RET and value of the:
-
-=telega-chat-input-markups= Markups to apply when sending input with RET. (Default
-value: (nil "markdown1" "markdown2"))
-
-Markdown markup syntax for "markdown1" and "markdown2" markups:
-#+begin_src
-1. *bold text*
-2. _italic text_
-2.1) __underline text__    (only for "markdown2")
-2.2) ~strike through text~ (only for "markdown2")
-3. `inlined code`
-4. ```<language-name-not-displayed>
-    first line of multiline preformatted code
-    second line
-    last line```
-5. [link text](http://actual.url)
-6. [username](tg://user?id=<USER-ID>)"
-#+end_src
-
-telega-chat-markup-functions - List of markups to use on C-c C-a markup RET.
-
-=telega-chat-ret-always-sends-message= - Non-nil to make RET always send a
-message. Otherwise RET sends a message only if point is at the end of the
-chatbuf input or inserts newline otherwise. (Default value: t)
-
-~a~ (=telega-msg-mark-toggle=) - *mark* messages for further actions..
+[[https://github.com/zevlg/telega.el/blob/master/docs/telega-manual.org#sending-ordinary-messages][using markup + syntax]] or see [[file:~/dotfiles/.config/emacs/.local/straight/repos/telega.el/docs/telega-manual.org][this file]]
 
 Only for _supergroups_:
 - = (telega-msg-diff-edits) Display edits to MSG user did
