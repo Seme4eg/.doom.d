@@ -289,9 +289,12 @@ Forge:
 #+begin_src emacs-lisp
 ;; my attempts to make forge work with custom gitlab url...
 ;; did not suffice elisp knowledge to do that (not all forge functions were working..)
-(after! forge
-  (push '("gitlab.medpoint24.ru" "gitlab.medpoint24.ru/api/v4"
-          "gitlab.medpoint24.ru" forge-gitlab-repository) forge-alist))
+;; (after! forge
+;;   (push '("gitlab.medpoint24.ru"
+;;           "gitlab.medpoint24.ru/api/v4"
+;;           "gitlab.medpoint24.ru"
+;;           forge-gitlab-repository)
+;;         forge-alist))
 #+end_src
 
 *** Docker
