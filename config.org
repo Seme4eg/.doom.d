@@ -595,26 +595,26 @@ Forge:
    telega-url-shorten-use-images t
    telega-translate-to-language-by-default "ru"
    telega-video-player-command '(concat "mpv"
-                                        (when telega-ffplay-media-timestamp
-                                          (format "%f" telega-ffplay-media-timestamp)))
-   telega-chat-footer-insexp '(progn
-                                (when telega-chatbuf--messages-compact-view (telega-ins "\n"))
-                                ;; nope, thank you
-                                ;; (telega-chatbuf-footer-ins-sponsored-messages)
-                                (telega-chatbuf-footer-ins-prompt-delim t t)
-                                (telega-chatbuf-footer-ins-pending-join-requests)
-                                (telega-chatbuf-footer-ins-action-bar)
-                                (telega-chatbuf-footer-ins-active-vvnote)
-                                (telega-chatbuf-footer-ins-active-video-chat)
-                                (telega-chatbuf-footer-ins-active-stories)
-                                (telega-chatbuf-footer-ins-pinned-stories)
-                                (telega-chatbuf-footer-ins-invite-forbidden-users)
-                                (telega-chatbuf-footer-ins-auto-delete-messages)
-                                (telega-chatbuf-footer-ins-reply-markup-buttons)
-                                (telega-chatbuf-footer-ins-restriction-reason)
-                                (telega-chatbuf-footer-ins-modes) (telega-chatbuf-footer-ins-bot-description)
-                                (telega-chatbuf-footer-ins-join-button)
-                                (telega-chatbuf-footer-ins-aux-plist :with-avatar-p telega-chat-show-avatars)))
+                                 (when telega-ffplay-media-timestamp
+                                   (format "%f" telega-ffplay-media-timestamp))))
+  ;; telega-chat-footer-insexp '(progn
+  ;;                              (when telega-chatbuf--messages-compact-view (telega-ins "\n"))
+  ;;                              ;; nope, thank you
+  ;;                              ;; (telega-chatbuf-footer-ins-sponsored-messages)
+  ;;                              (telega-chatbuf-footer-ins-prompt-delim t t)
+  ;;                              (telega-chatbuf-footer-ins-pending-join-requests)
+  ;;                              (telega-chatbuf-footer-ins-action-bar)
+  ;;                              (telega-chatbuf-footer-ins-active-vvnote)
+  ;;                              (telega-chatbuf-footer-ins-active-video-chat)
+  ;;                              (telega-chatbuf-footer-ins-active-stories)
+  ;;                              (telega-chatbuf-footer-ins-pinned-stories)
+  ;;                              (telega-chatbuf-footer-ins-invite-forbidden-users)
+  ;;                              (telega-chatbuf-footer-ins-auto-delete-messages)
+  ;;                              (telega-chatbuf-footer-ins-reply-markup-buttons)
+  ;;                              (telega-chatbuf-footer-ins-restriction-reason)
+  ;;                              (telega-chatbuf-footer-ins-modes) (telega-chatbuf-footer-ins-bot-description)
+  ;;                              (telega-chatbuf-footer-ins-join-button)
+  ;;                              (telega-chatbuf-footer-ins-aux-plist :with-avatar-p telega-chat-show-avatars)))
 
   (add-hook 'telega-chat-mode-hook
             (lambda ()
