@@ -842,7 +842,7 @@ Specific to the current window's mode line.")
                                         :clock-keep t
                                         :empty-lines 1))
   (add-to-list 'org-capture-templates '("c" "Country" entry
-                                        (file "~/mem-arch/travel/readme.org")
+                                        (file "~/Documents/travel/readme.org")
                                         "* %?\n- _SIM_:\n- _ATM_:\n- _Taxi_:\n- _Words_:\n- _Water_:"
                                         :immediate-finish t
                                         :empty-lines-after 1))
