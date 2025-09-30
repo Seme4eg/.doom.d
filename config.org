@@ -922,42 +922,31 @@ NOTE: keep in mind to reverse the popup-settings and open buffer action in doom
 config whenever you update
 
 #+begin_src elisp
+
+
+;; (setq sambanova_key (+pass-get-field "ai/sambanova" "apikey")
+;;       gemini_key (+pass-get-secret "ai/gemini")
+;;       deepseek_key (+pass-get-field "ai/deepseek" "apikey"))
+
 (after! gptel
-
-  (defun priv/gptel-init-gemini (fn &rest args) ;; &rest _args
-    (unless (or (string= (gptel-backend-name gptel-backend) "Gemini")
-                (string-empty-p (gptel-backend-key gptel-backend)))
-      (setq gptel-backend (gptel-make-gemini "Gemini"
-                            :key (+pass-get-secret "ai/gemini")
-                            :stream t)))
-    (apply fn args))
-  (advice-add 'gptel :around #'priv/gptel-init-gemini)
-
-  (defun priv/gptel-init-deepseek (fn &rest args) ;; &rest _args
-    (unless (or (string= (gptel-backend-name gptel-backend) "DeepSeek")
-                (string-empty-p (gptel-backend-key gptel-backend)))
-      (setq gptel-backend (gptel-make-deepseek "DeepSeek"
-                            :key (+pass-get-field "ai/deepseek" "apikey")
-                            :stream t)))
-    (apply fn args))
-  ;; (advice-add 'gptel :around #'priv/gptel-init-deepseek)
-
-  (defun priv/gptel-init-sambanova (fn &rest args) ;; &rest _args
-    (unless (or (string= (gptel-backend-name gptel-backend) "Sambanova")
-                (string-empty-p (gptel-backend-key gptel-backend)))
-      (setq gptel-backend (gptel-make-openai "Sambanova"
-                            :host "api.sambanova.ai"
-                            :endpoint "/v1/chat/completions"
-                            :stream t
-                            :key (+pass-get-field "ai/sambanova" "apikey")
-                            :models '(DeepSeek-R1))))
-    (apply fn args))
-  ;; (advice-add 'gptel :around #'priv/gptel-init-sambanova)
-
+  (gptel-make-openai "Sambanova"
+    :host "api.sambanova.ai"
+    :endpoint "/v1/chat/completions"
+    :stream t
+    :key (lambda () (+pass-get-field "ai/sambanova" "apikey"))
+    :models '(DeepSeek-R1))
+  (gptel-make-gemini "Gemini"
+    :key (lambda () (+pass-get-secret "ai/gemini"))
+    :stream t)
+  (gptel-make-deepseek "DeepSeek"
+    :key (lambda () (+pass-get-field "ai/deepseek" "apikey"))
+    :stream t)
   (setq gptel-default-mode 'org-mode
         ;; HACK: cuz otherwise advice above isn't working cuz gptel wants key
-        gptel-api-key "1234"
+        ;; gptel-api-key "1234"
+        ;; gptel-proxy "localhost:20171" ;; v2raya-lite user service
         gptel-include-reasoning nil
+        gptel-backend (gptel-get-backend "Gemini")
         gptel-model 'gemini-2.0-flash-thinking-exp-01-21
         ;; gptel-model 'deepseek-reasoner
         ;; gptel-model 'DeepSeek-R1
