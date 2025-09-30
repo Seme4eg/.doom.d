@@ -1,43 +1,26 @@
 
 !!! ~spc h~ sir
 
+- _press ~<key sequence> ?~ to see all keys under that prefix_
+
+- :n  "zx"    #'kill-current-buffer
+- :n  "ZX"    #'doom/save-and-kill-buffer
+
 * Shortcuts
 ** Minibuffer
 [[elisp:(helpful-variable 'minibuffer-local-map)][minibuffer]] map + some keybings from [[elisp:(helpful-variable 'global-map)][global-map]]:
-- { 'ctrl+b',      function() prev_char() end             },
-- { 'ctrl+f',      function() next_char() end             },
-- { 'alt+b',       prev_word                              },
-- { 'alt+f',       next_word                              },
-- { 'ctrl+a',      go_home                                },
-- { 'ctrl+e',      go_end                                 },
-- { 'ctrl+d',      del_char_right                         },
-- { 'ctrl+u',      del_to_start                           },
-- { 'alt+d',       del_next_word                          },
-
-** <leader> [[elisp:(helpful-variable 'doom-leader-map)][#keymap]]
-- _press ~<leader> <key> ?~ to see all keys under that prefix_
-- *TAB* [[elisp:(helpful-variable 'doom-leader-workspace-map)][workspace]] ([[file:~/.config/emacs/modules/ui/workspaces/README.org::*Commands & Keybindings][doom]] & C-t - new, gt/T)
-- *b* [[elisp:(helpful-variable 'doom-leader-buffer-map)][buffers]]
-- *f* [[elisp:(helpful-variable
- 'doom-leader-file-map)][file]]
-- *g* [[elisp:(helpful-variable 'doom-leader-git-map)][git]]
-- *i* [[elisp:(helpful-variable 'doom-leader-insert-map)][insert]]
-- *n* [[elisp:(helpful-variable 'doom-leader-notes-map)][notes]]
-- *o* [[elisp:(helpful-variable 'doom-leader-open-map)][open]]
-- *p* [[elisp:(helpful-variable 'doom-leader-project-map)][project]]
-- *q* [[elisp:(helpful-variable 'doom-leader-quit/session-map)][quit/session]]
-- *s* [[elisp:(helpful-variable 'doom-leader-search-map)][search]]
-- *t* [[elisp:(helpful-variable
- 'doom-leader-toggle-map)][toggle]] (+ *s*[pell] checker)
-- *c* [[elisp:(helpful-variable 'doom-leader-code-map)][code]] (+ *J*[ump] to symbol in any workspace)
-- *w* [[elisp:(helpful-variable
- 'evil-window-map)][window]]
-
-_Mine_: [[elisp:(helpful-variable 'doom-leader-digraph-map)][digraph]], [[elisp:(helpful-variable 'doom-leader-listen-map)][listen]]
+- ctrl+b',      prev_char
+- ctrl+f',      next_char
+- alt+b',       prev_word
+- alt+f',       next_word
+- ctrl+a',      go_home
+- ctrl+e',      go_end
+- ctrl+d',      del_char_right
+- ctrl+u',      del_to_start
+- alt+d',       del_next_word
 
 ** ~g~ prefix
-_Move the cursor_ ... :
-- g e/E :: to the end of the COUNT-th previous word/WORD.
+very useful, look it up using which key.
 
 _Yank, paste, (re)selection_:
 - gy :: yank unindented
@@ -46,7 +29,6 @@ _Yank, paste, (re)selection_:
 - g n/N :: Select next/previous match.
 
 Other stuff:
-- g u/U :: Convert text to lower/upper case.
 - g i :: Switch to Insert state at previous insertion point.
 - g J :: Join the selected lines without changing whitespace.
 - g ;/, :: Go back/forward in changes history.
@@ -64,15 +46,6 @@ _Objects_:
   *m*[ethod] start, *M*[ethod] end
 - *d* git gutter hunk / diff
 - hl *t*[odo]
-
-** other - text scale, narrowing
-- ~C-+~   #'doom/reset-font-size
-
-Custom evil keybinds:
-- :nv "zn"    #'+evil:narrow-buffer
-- :n  "zN"    #'doom/widen-indirectly-narrowed-buffer
-- :n  "zx"    #'kill-current-buffer
-- :n  "ZX"    #'doom/save-and-kill-buffer
 
 * Packages
 For any package / mode you are interested in keybindings for try first ~SPC h m~
