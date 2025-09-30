@@ -566,7 +566,7 @@ Forge:
   (telega-active-stories-mode nil)
   (telega-active-locations-mode nil)
   (global-telega-squash-message-mode)
-  (auto-fill-mode)
+  ;; (auto-fill-mode)
 
   (require 'telega-dired-dwim)
 
