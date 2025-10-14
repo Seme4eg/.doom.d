@@ -100,6 +100,8 @@ and then ~evil-colleciton-<mode>[-map]~ var
 
 - all _mode-specific_ keybinds reside under (SPC m ..)
 
+- [[https://github.com/doomemacs/doomemacs/commit/87b616e5d8dcb9763a8caf7b83e1e8e9016b6d1d][rainbow-delimeters]] - removed from doom, if need back - the link is to the commit
+
 - [[elisp:(helpful-variable 'sh-mode-map)][sh-mode-map]]
 
 - Restclient [[https://github.com/pashky/restclient.el][#github]] [[https://codelearn.me/2017/10/22/restclient.html][#examples]] [[https://www.youtube.com/watch?v=fTvQTMOGJaw][#vid-demo]]

@@ -48,6 +48,7 @@
        parinfer            ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
+       (whitespace +guess +trim)  ; a butler for your whitespace
        ;;word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
@@ -56,6 +57,7 @@
        eww                     ; the internet is gross
        (ibuffer +icons)        ; interactive buffer management
        undo                    ; persistent, smarter undo for your inevitable mistakes
+       tramp                   ; remote files at your arthritic fingertips
        vc                      ; version-control and Emacs, sitting in a tree
 
        :term
@@ -73,7 +75,7 @@
        ;;collab            ; buffers with friends
        (debugger +lsp)  ; stepping through code, to help you add bugs
        ;;direnv
-       (docker +lsp)
+       (docker +lsp +tree-sitter)
        editorconfig        ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -134,7 +136,7 @@
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
        (lua +lsp +tree-sitter) ; one-based indices? one-based indices
-       markdown          ; writing docs for people to ignore
+       (markdown +tree-sitter)          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
