@@ -29,6 +29,11 @@ spc u spc f s - save file _without formatting it_
 
 spc i s - yasnippet-consult (*instead of yas/lookup tables*)
 
+_golang_:
+- <normal-state> SPC m r i a    go-import-add
+- <normal-state> SPC m g d      +go/generate-dir
+- <normal-state> SPC m g f      +go/generate-file
+
 g f - lookup file ([[https://github.com/doomemacs/doomemacs/commit/0a2bcf928c868db5cf41041bd707d3f395504130][gh commit]])
 
 spc h - _help_:
