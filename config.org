@@ -185,23 +185,32 @@ _describe-function map!_
       :desc "Inlay hints mode" "I" 'lsp-inlay-hints-mode)
 #+end_src
 
-*** Golang
+*** TODO Golang (setup golangci lint & fix)
 #+begin_src emacs-lisp
 ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
-(after! go-mode
+
+(after! go-ts-mode
   (setq
-   gofmt-command "golines"
-   gofmt-args '("-m" "80"))
-  ;; (add-hook 'go-mode-hook #'flymake-golangci-load-backend)
-  (add-hook 'go-mode-hook
-            (lambda () (add-hook 'before-save-hook 'gofmt-before-save)))
-  (map! :map go-mode-map :localleader :n "z" 'dap-breakpoint-toggle))
+   lsp-go-use-gofumpt t)
+  ;; (add-hook 'go-ts-mode-hook #'flymake-golangci-load-backend)
+  (add-hook 'go-ts-mode-hook #'lsp-deferred)
+
+  (set-formatter! 'parsefix '("parsefix" "-f" filepath) :modes '(go-mode go-ts-mode))
+  (setq-hook! 'go-ts-mode-hook +format-with 'parsefix)
+  (set-formatter! 'golines '("golines" "-m" "80" filepath) :modes '(go-mode go-ts-mode))
+  (setq-hook! 'go-ts-mode-hook +format-with 'golines)
+
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'go-ts-mode-hook #'lsp-go-install-save-hooks)
+
+  (map! :map go-ts-mode-map :localleader :n "z" 'dap-breakpoint-toggle))
 
 (after! lsp-mode
   ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
   (lsp-register-custom-settings
    '(("gopls.completeUnimported" t t)
-     ;; ("gopls.vulncheck" "imports")
      ("gopls.usePlaceholders" t t)
      ("gopls.hints.assignVariableTypes" t t)
      ("gopls.hints.compositeLiteralFields" t t)
