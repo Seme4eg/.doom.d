@@ -198,7 +198,7 @@ _describe-function map!_
   (set-formatter! 'parsefix '("parsefix" "-f" filepath) :modes '(go-mode go-ts-mode))
   (set-formatter! 'golines '("golines" "-m" "80" filepath) :modes '(go-mode go-ts-mode))
   (set-formatter! 'goimports '("goimports" filepath) :modes '(go-mode go-ts-mode))
-  (setq-hook! 'go-ts-mode-hook +format-with '(golines goimports lsp))
+  (setq-hook! 'go-ts-mode-hook +format-with '(goimports golines lsp))
 
   (defun lsp-go-install-save-hooks ()
     (add-hook 'before-save-hook #'lsp-format-buffer t t)
