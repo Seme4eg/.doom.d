@@ -127,6 +127,9 @@ _describe-function map!_
 
 (map! :map doom-leader-file-map "l" (cmd! (consult-fd "/")))
 
+(add-to-list 'safe-local-variable-directories "~/git/work_mg/royaltymvp/")
+(add-to-list 'safe-local-variable-directories "~/git/homelab/")
+
 (setq
  completion-ignore-case t
  consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
