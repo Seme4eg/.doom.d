@@ -443,44 +443,6 @@ Forge:
         :desc "url (ie for streaming)" "u" #'emms-play-url)))
 #+end_src
 
-**** Shrface
-#+begin_src emacs-lisp
-;; (add-hook 'eww-after-render-hook #'org-indent-mode) ;; FIXME
-(add-hook 'eww-mode-hook #'shrface-mode)
-(add-hook 'mu4e-view-mode-hook (lambda () (progn)
-                                       (require 'eww)
-                                       (shrface-mode)))
-
-(after! shrface
-  ;; (unless shrface-toggle-bullets
-  ;;   (shrface-regexp)
-  ;;   (setq-local imenu-create-index-function #'shrface-imenu-get-tree)))
-  (require 'shr-tag-pre-highlight)
-  (add-hook 'outline-view-change-hook 'shrface-outline-visibility-changed)
-  (setq!
-   shr-max-width 100
-   shr-cookie-policy nil
-   ;; shr-width 65
-   shr-indentation 3
-   tab-width 2
-   ;; shrface-toggle-bullets nil
-   shr-use-fonts nil
-   shrface-href-versatile t
-
-   shr-external-rendering-functions (append '((title . eww-tag-title)
-                                              (form . eww-tag-form)
-                                              (input . eww-tag-input)
-                                              (button . eww-form-submit)
-                                              (textarea . eww-tag-textarea)
-                                              (select . eww-tag-select)
-                                              (link . eww-tag-link)
-                                              (meta . eww-tag-meta)
-                                              ;; (a . eww-tag-a)
-                                              (code . shrface-tag-code)
-                                              (pre . shr-tag-pre-highlight))
-                                            shrface-supported-faces-alist)))
-#+end_src
-
 *** Eww
 #+begin_src emacs-lisp
 ;; from within eww its just 'o'
@@ -528,6 +490,44 @@ Forge:
 (after! dash-docs (setq dash-docs-browser-func #'eww))
 #+end_src
 
+**** Shrface
+#+begin_src emacs-lisp
+;; (add-hook 'eww-after-render-hook #'org-indent-mode) ;; FIXME
+(add-hook 'eww-mode-hook #'shrface-mode)
+(add-hook 'mu4e-view-mode-hook (lambda () (progn)
+                                       (require 'eww)
+                                       (shrface-mode)))
+
+(after! shrface
+  ;; (unless shrface-toggle-bullets
+  ;;   (shrface-regexp)
+  ;;   (setq-local imenu-create-index-function #'shrface-imenu-get-tree)))
+  (require 'shr-tag-pre-highlight)
+  (add-hook 'outline-view-change-hook 'shrface-outline-visibility-changed)
+  (setq!
+   shr-max-width 100
+   shr-cookie-policy nil
+   ;; shr-width 65
+   shr-indentation 3
+   tab-width 2
+   ;; shrface-toggle-bullets nil
+   shr-use-fonts nil
+   shrface-href-versatile t
+
+   shr-external-rendering-functions (append '((title . eww-tag-title)
+                                              (form . eww-tag-form)
+                                              (input . eww-tag-input)
+                                              (button . eww-form-submit)
+                                              (textarea . eww-tag-textarea)
+                                              (select . eww-tag-select)
+                                              (link . eww-tag-link)
+                                              (meta . eww-tag-meta)
+                                              ;; (a . eww-tag-a)
+                                              (code . shrface-tag-code)
+                                              (pre . shr-tag-pre-highlight))
+                                            shrface-supported-faces-alist)))
+#+end_src
+
 *** Mu4e
 #+begin_src emacs-lisp
 (load-file "~/.config/doom/mu4e.el")
@@ -550,6 +550,7 @@ Forge:
           thcount vsize rss ttname tpgid minflt majflt cminflt cmajflt start time
           utime stime ctime cutime cstime etime comm)))
 #+end_src
+
 *** Telega
 #+begin_src emacs-lisp
 (map! :map doom-leader-open-map "c" 'telega)
