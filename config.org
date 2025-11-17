@@ -402,7 +402,10 @@ Forge:
    ;; covers
    emms-browser-covers #'emms-browser-cache-thumbnail-async
    emms-browser-thumbnail-small-size 32
-   emms-browser-thumbnail-medium-size 64))
+   emms-browser-thumbnail-medium-size 64)
+
+  (map! :map emms-playlist-mode-map
+        :n "q" #'quit-window))
 
 ;; run the 'emms-cache-set-from-mpd-all' to fill the Emms cache with the
 ;; contents of your MusicPD database. The music in your MusicPD database should
