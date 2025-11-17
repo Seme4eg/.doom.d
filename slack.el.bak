@@ -1,0 +1,145 @@
+;;; evil-collection-emacs-slack.el --- Bindings for `emacs-slack' -*- lexical-binding: t -*-
+
+;; --- WHEN DONE TESTING PUT THIS FILE INTO
+;; ~/dotfiles/.config/emacs/.local/straight/repos/evil-collection/modes/slack/evil-collection-slack.el
+
+;; - inspired by https://github.com/emacs-evil/evil-collection/blob/a4065859dd7af481d4876b221cac2f32dbf184ab/modes/telega/evil-collection-telega.el
+;; - writing bindings for new mode: https://github.com/emacs-evil/evil-collection?tab=readme-ov-file#writing-a-new-binding
+;; ---
+
+;; Copyright (C) 2022 James Nguyen
+
+;; Author: James Nguyen <james@jojojames.com>
+;; Maintainer: James Nguyen <james@jojojames.com>
+;; URL: https://github.com/emacs-evil/evil-collection
+;; Version: 0.0.2
+;; Package-Requires: ((emacs "27.1"))
+;; Keywords: evil, emacs, convenience, tools
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+;;; Bindings for emacs-slack.
+
+;;; Code:
+(require 'evil-collection)
+(require 'emacs-slack nil t)
+
+;; slack-dialog-buffer-mode                          Major-mode.
+;; slack-message-attachment-preview-buffer-mode      Major-mode.
+;; slack-room-info-buffer-mode                       Major-mode.
+;; slack-dialog-edit-element-buffer-mode             Major-mode.
+
+;; slack-message-share-buffer-mode                   derived from ‘slack-edit-message-mode’
+;; slack-message-edit-buffer-mode                    derived from ‘slack-edit-message-mode’
+;; slack-message-compose-buffer-mode                 derived from ‘slack-edit-message-mode’
+;; slack-all-threads-buffer-mode                     derived from ‘slack-buffer-mode’
+;; slack-stars-buffer-mode                           derived from ‘slack-buffer-mode’
+;; slack-file-info-buffer-mode                       derived from ‘slack-buffer-mode’
+;; slack-file-list-buffer-mode                       derived from ‘slack-buffer-mode’
+;; slack-pinned-items-buffer-mode                    derived from ‘slack-buffer-mode’
+;; slack-activity-feed-buffer-mode                   derived from ‘slack-buffer-mode’
+;; slack-search-result-buffer-mode                   derived from ‘slack-buffer-mode’
+;; slack-thread-message-buffer-mode                  derived from ‘slack-buffer-mode’
+;; slack-scheduled-messages-buffer-mode              for listing scheduled Slack messages (drafts).
+
+(defconst evil-collection-slack-maps
+  '(slack-mode-map
+    slack-message-buffer-mode-map
+    slack-buffer-mode-map
+    slack-thread-message-buffer-mode-map
+    slack-edit-message-mode-map
+    slack-file-info-buffer-mode-map
+    slack-user-profile-buffer-mode-map))
+
+(defconst evil-collection-slack-modes
+  '(slack-mode                       ;; major mode
+    slack-message-buffer-mode        ;; derived from 'slack-mode'
+    slack-buffer-mode                ;; derived from 'lui-mode'
+    slack-thread-message-buffer-mode ;; derived from 'slack-buffer-mode'
+    slack-edit-message-mode          ;; major mode
+    slack-file-info-buffer-mode      ;; derived from 'slack-buffer-mode'
+    slack-user-profile-buffer-mode)) ;; derived from 'slack-buffer-mode'
+
+(defun evil-collection-slack-setup ()
+  "Set up `evil' bindings for `emacs-slack'."
+  (dolist (mode evil-collection-slack-modes)
+    (evil-set-initial-state mode 'normal))
+
+  (evil-collection-define-key 'normal 'slack-mode-map
+    (kbd "RET") 'slack-message-send-from-buffer
+    "q" 'kill-current-buffer)
+
+  (evil-collection-define-key 'normal 'slack-message-buffer-mode-map
+    "R" 'slack-quote-and-reply-with-link ;; there is also just 'slack-quote-and-reply
+    "mr" 'slack-message-redisplay
+    "m<" 'slack-buffer-goto-first-message
+    "m>" 'slack-buffer-goto-last-message
+    (kbd "C-j") 'slack-buffer-goto-next-message
+    (kbd "C-k") 'slack-buffer-goto-prev-message
+    "mj" 'slack-buffer-goto-next-message
+    "mk" 'slack-buffer-goto-prev-message
+    "mi" 'slack-message-edit
+    "md" 'slack-message-delete
+    "mL" 'slack-message-copy-link
+    "mt" 'slack-thread-show-or-create
+    "mo" 'slack-jump-to-browser
+    "m?" 'slack-display-user-profile-info
+    (kbd "C-c '") 'slack-message-write-another-buffer)
+
+  (evil-collection-define-key 'normal 'slack-buffer-mode-map
+    "gr" 'slack-message-redisplay
+    "q" 'kill-current-buffer)
+
+  (evil-collection-define-key 'normal 'slack-thread-message-buffer-mode-map
+    (kbd "C-c '") 'slack-message-write-another-buffer
+    "q" 'slack-thread-message-buffer-jump-to-channel-buffer)
+
+  (evil-collection-define-key 'normal 'slack-edit-message-mode-map
+    (kbd "RET") 'slack-message-send-from-buffer
+    "q" 'slack-message-cancel-edit)
+
+  (evil-collection-define-key 'normal 'slack-file-info-buffer-mode-map
+    "q" 'slack-file-list)
+
+  (evil-collection-define-key 'normal 'slack-dialog-cancel-button-map
+    "q" 'slack-dialog-buffer-cancel)
+
+  (evil-collection-define-key 'normal 'slack-user-profile-buffer-mode-map
+    "q" 'slack-user-profile-buffer-display-im)
+
+  ;; --- Not 'evil' kbds, but those i consider to be 'sane defaults' : ---
+
+  (evil-collection-define-key 'insert 'slack-mode-map
+    "@" 'slack-message-embed-mention
+    "#" 'slack-message-embed-channel)
+
+  (evil-collection-define-key 'insert 'slack-thread-message-buffer-mode-map
+    "@" 'slack-message-embed-mention
+    "#" 'slack-message-embed-channel)
+
+  (evil-collection-define-key 'insert 'slack-edit-message-mode-map
+    "@" 'slack-message-embed-mention
+    "#" 'slack-message-embed-channel)
+
+  (evil-collection-define-key nil 'slack-message-buffer-mode-map
+    (kbd "C-c C-f") 'slack-file-upload-quick
+    (kbd "C-c C-l") 'slack-insert-link)
+
+  (evil-collection-define-key 'insert 'slack-message-buffer-mode-map
+    (kbd "C-c C-v") 'slack-clipboard-image-upload))
+
+
+(provide 'evil-collection-slack)
+;;; evil-collection-slack.el ends here

@@ -674,6 +674,72 @@ Mind also the ~fb2-reader-continue~ binding.
         :n "[[" 'fb2-reader-info-backward-category
         :n "C-k" 'fb2-reader-info-backward-category))
 #+end_src
+*** Slack
+_Some rarely used commands under prefix_:
+- TODO: slack-message-... - commands for message compose map which is currently borked
+- slack-...-update - update whatever
+- slack-dialog-buffer-...
+  - slack-dialog-edit-...
+- slack-channel-...
+- slack-file-...
+- slack-activity-feed-...
+- slack-group-...
+- slack-room-...
+
+#+begin_src emacs-lisp
+(defun my/slack ()
+  (interactive)
+  (unless (boundp 'slack-team)
+    (slack-register-team
+     :name "MUSE"
+     :token (+pass-get-field "work/mg/slack" "token")
+     :cookie (+pass-get-field "work/mg/slack" "cookie")
+     :full-and-display-names t
+     :visible-threads t
+     :default t
+     :subscribed-channels nil)
+    (oset slack-current-team enterprise-token (+pass-get-field "work/mg/slack" "enterprise-token"))
+    (slack-start))
+  (slack-im-select))
+
+(defun my/slack-notifier (msg room team)
+  (let ((title (concat team " | " room)))
+    (notifications-notify :title title :body msg)))
+
+(map! :map doom-leader-open-map "s" 'my/slack)
+
+(map! :after slack :leader
+      :prefix ("v" . "slack")
+      "S" #'slack-stop
+      "c" #'slack-im-select
+      "C" #'slack-im-open
+      "r" #'slack-select-rooms
+      "u" #'slack-select-unread-rooms
+      "t" #'slack-all-threads
+      "f" #'slack-file-upload-quick
+      "X" #'slack-kill-all-buffers)
+
+(add-hook 'slack-message-buffer-mode-hook 'visual-line-mode)
+
+;; (advice-add 'slack-im-select :before #'slack-im-list-update)
+
+(after! slack
+  ;; (slack-extra-subscribed-channels (mapcar 'intern (list "some-channel")))
+  (make-directory "/tmp/emacs-slack-images/" t)
+  (setq
+   slack-dnd-sign "Zzz"
+   slack-enable-wysiwyg t
+   slack-display-team-name nil
+   slack-buffer-function 'switch-to-buffer
+   slack-log-time-format "[%d-%m %H:%M:%S]"
+   slack-message-custom-notifier #'my/slack-notifier
+   slack-typing-visibility 'never
+   slack-prefer-current-team t
+   slack-image-file-directory "/tmp/emacs-slack-images/"
+   slack-file-dir "~/Downloads/slack"))
+
+;; using slack-extra-subscribed-channels because I can change it dynamically
+#+end_src
 
 ** Evil
 #+begin_src emacs-lisp
@@ -874,6 +940,7 @@ Specific to the current window's mode line.")
 #+begin_src emacs-lisp
 (set-popup-rules!
   '(("^\\*eww" :ignore t)
+    ("^\\*slack*Edit*" :side bottom :height 0.16 :width 40 :quit t :select ignore :ttl 5)
     ("^\\*helpful" :ignore t) ;; Any way to open helpful buffers on top of each other?
     ("^\\*\\(?:Wo\\)?Man " :ignore t)
     ("^\\*Telegram Translation\\*$" :height 0.1)

@@ -2,6 +2,7 @@
 ;;; $DOOMDIR/packages.el
 
 (package! telega)
+(package! slack)
 (package! sqlformat :recipe (:host github :repo "purcell/sqlformat"))
 (package! pacdiff)
 (package! fb2-reader)
