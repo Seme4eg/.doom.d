@@ -127,8 +127,8 @@ _describe-function map!_
 
 (map! :map doom-leader-file-map "l" (cmd! (consult-fd "/")))
 
-(add-to-list 'safe-local-variable-directories "~/git/work_mg/royaltymvp/")
-(add-to-list 'safe-local-variable-directories "~/git/homelab/")
+(add-to-list 'safe-local-variable-values '(sqlformat-command . sqlfluff))
+(add-to-list 'safe-local-variable-values '(sqlformat-args . ("--config=/home/earthian/.config/sqlfluff/config.cfg")))
 
 (setq
  completion-ignore-case t
