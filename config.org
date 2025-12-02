@@ -1005,8 +1005,6 @@ NOTE: keep in mind to reverse the popup-settings and open buffer action in doom
 config whenever you update
 
 #+begin_src elisp
-
-
 ;; (setq sambanova_key (+pass-get-field "ai/sambanova" "apikey")
 ;;       gemini_key (+pass-get-secret "ai/gemini")
 ;;       deepseek_key (+pass-get-field "ai/deepseek" "apikey"))
@@ -1029,10 +1027,8 @@ config whenever you update
         ;; gptel-api-key "1234"
         ;; gptel-proxy "localhost:20171" ;; v2raya-lite user service
         gptel-include-reasoning nil
-        gptel-backend (gptel-get-backend "Gemini")
-        gptel-model 'gemini-2.0-flash-thinking-exp-01-21
-        ;; gptel-model 'deepseek-reasoner
-        ;; gptel-model 'DeepSeek-R1
+        gptel-api-key (lambda () (+pass-get-field "ai/openai" "apikey"))
+        gptel-model 'gpt-4-turbo ;; 'deepseek-chat
         gptel-display-buffer-action '(nil (body-function . select-window))))
 #+end_src
 
