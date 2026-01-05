@@ -692,13 +692,13 @@ _Some rarely used commands under prefix_:
   (unless (boundp 'slack-team)
     (slack-register-team
      :name "MUSE"
-     :token (+pass-get-field "work/mg/slack" "token")
-     :cookie (+pass-get-field "work/mg/slack" "cookie")
+     :token (+pass-get-field "main/work/mg/slack" "token")
+     :cookie (+pass-get-field "main/work/mg/slack" "cookie")
      :full-and-display-names t
      :visible-threads t
      :default t
      :subscribed-channels nil)
-    (oset slack-current-team enterprise-token (+pass-get-field "work/mg/slack" "enterprise-token"))
+    (oset slack-current-team enterprise-token (+pass-get-field "main/work/mg/slack" "enterprise-token"))
     (slack-start))
   (slack-im-select))
 
@@ -1005,29 +1005,29 @@ NOTE: keep in mind to reverse the popup-settings and open buffer action in doom
 config whenever you update
 
 #+begin_src elisp
-;; (setq sambanova_key (+pass-get-field "ai/sambanova" "apikey")
-;;       gemini_key (+pass-get-secret "ai/gemini")
-;;       deepseek_key (+pass-get-field "ai/deepseek" "apikey"))
+;; (setq sambanova_key (+pass-get-field "main/ai/sambanova" "apikey")
+;;       gemini_key (+pass-get-secret "main/ai/gemini")
+;;       deepseek_key (+pass-get-field "main/ai/deepseek" "apikey"))
 
 (after! gptel
   (gptel-make-openai "Sambanova"
     :host "api.sambanova.ai"
     :endpoint "/v1/chat/completions"
     :stream t
-    :key (lambda () (+pass-get-field "ai/sambanova" "apikey"))
+    :key (lambda () (+pass-get-field "main/ai/sambanova" "apikey"))
     :models '(DeepSeek-R1))
   (gptel-make-gemini "Gemini"
-    :key (lambda () (+pass-get-secret "ai/gemini"))
+    :key (lambda () (+pass-get-secret "main/ai/gemini"))
     :stream t)
   (gptel-make-deepseek "DeepSeek"
-    :key (lambda () (+pass-get-field "ai/deepseek" "apikey"))
+    :key (lambda () (+pass-get-field "main/ai/deepseek" "apikey"))
     :stream t)
   (setq gptel-default-mode 'org-mode
         ;; HACK: cuz otherwise advice above isn't working cuz gptel wants key
         ;; gptel-api-key "1234"
         ;; gptel-proxy "localhost:20171" ;; v2raya-lite user service
         gptel-include-reasoning nil
-        gptel-api-key (lambda () (+pass-get-field "ai/openai" "apikey"))
+        gptel-api-key (lambda () (+pass-get-field "main/ai/openai" "apikey"))
         gptel-model 'gpt-4-turbo ;; 'deepseek-chat
         gptel-display-buffer-action '(nil (body-function . select-window))))
 #+end_src
@@ -1119,13 +1119,13 @@ C-l]] and get a buffer with all candidates.
   (setq circe-network-options
     `(("Libera Chat"
        :nick "earthian"
-       :sasl-username ,(+pass-get-user "social/irc/libera.chat")
-       :sasl-password ,(+pass-get-secret "social/irc/libera.chat"))
+       :sasl-username ,(+pass-get-user "main/social/irc/libera.chat")
+       :sasl-password ,(+pass-get-secret "main/social/irc/libera.chat"))
        ;; :channels ("#emacs" "#systemcrafters"))
       ("OFTC"
        :nick "earthian"
-       :sasl-username ,(+pass-get-user "social/irc/libera.chat")
-       :sasl-password ,(+pass-get-secret "social/irc/libera.chat")))))
+       :sasl-username ,(+pass-get-user "main/social/irc/libera.chat")
+       :sasl-password ,(+pass-get-secret "main/social/irc/libera.chat")))))
        ;; :channels ("#emacs" "#systemcrafters")))))
 
   ;; in case circe will start supporting DCC
