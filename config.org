@@ -925,7 +925,7 @@ Specific to the current window's mode line.")
                                         :empty-lines 1))
   (add-to-list 'org-capture-templates '("c" "Country" entry
                                         (file "~/Documents/travel/readme.org")
-                                        "* %?\n- _SIM_:\n- _ATM_:\n- _Transportation_:\n- _Words_:\n- _Water_:"
+                                        "* %?\n- _SIM_:\n- _Money_:\n  - ATM:\n- _Transportation_:\n- _Words_:\n- _Water_:\n- Food:"
                                         :immediate-finish t
                                         :empty-lines-after 1))
 
