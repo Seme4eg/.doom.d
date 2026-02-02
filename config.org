@@ -82,11 +82,11 @@ _describe-function map!_
 (map! :leader :desc "M-x" "x" 'execute-extended-command)
 
 (map! :map doom-leader-file-map
-      :desc "Find file other window"
+      "x" 'doom/toggle-scratch-buffer
       "o" 'find-file-other-window)
 
 (map! :map doom-leader-buffer-map
-      :desc "Switch to true last buffer"
+      "x" 'doom/toggle-scratch-buffer
       "o" 'sad-true-switch-last-buffer)
 
 (define-key global-map (kbd "C-,") 'embark-act)
