@@ -8,6 +8,7 @@
 (package! fb2-reader)
 (package! org-vcard)
 (package! caddyfile-mode)
+(package! cheat-sh)
 
 ;; for eww
 (package! shrface)

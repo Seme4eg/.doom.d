@@ -109,6 +109,8 @@ _describe-function map!_
 (map! :map doom-leader-git-map :desc "Git show hunk" "{" 'diff-hl-show-hunk-previous)
 (map! :map doom-leader-git-map :desc "Git show hunk" "}" 'diff-hl-show-hunk-next)
 
+(map! :map doom-leader-map :desc "Cheat-sh" "h h" 'cheat-sh-search-topic)
+
 ;; Other packages
 (map! :map evil-window-map :desc "Ace window" "w" 'ace-window)
 #+end_src
