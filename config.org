@@ -2,8 +2,8 @@
 
 Here are some additional functions/macros that could help you configure Doom:
 - ~load!~ for loading external *.el files relative to this one
-- ~use-package!~ for configuring packages
-- ~after!~ for running code after a package has loaded
+- ~use-package~ for configuring packages
+- ~with-eval-after-load~ for running code after a package has loaded
 - ~add-load-path!~ for adding directories to the `load-path', relative to
   this file. Emacs searches the `load-path' when you load packages with
   `require' or `use-package'.
@@ -138,7 +138,7 @@ _describe-function map!_
                    "--exclude .git --exclude .stversions"))
 
 ;; don't ever create new workspaces
-(after! persp-mode
+(with-eval-after-load 'persp-mode
   (setq-default persp-emacsclient-init-frame-behaviour-override -1))
 #+end_src
 
@@ -194,7 +194,7 @@ _describe-function map!_
 #+begin_src emacs-lisp
 ;; https://github.com/golang/tools/blob/master/gopls/doc/settings.md
 
-(after! go-ts-mode
+(with-eval-after-load 'go-ts-mode
   (setq
    lsp-go-use-gofumpt t)
   ;; (add-hook 'go-ts-mode-hook #'flymake-golangci-load-backend)
@@ -254,7 +254,7 @@ _describe-function map!_
 #+end_src
 *** Lua
 #+begin_src emacs-lisp
-(after! lsp-mode
+(with-eval-after-load 'lsp-mode
   (lsp-register-client
    (make-lsp-client
     :new-connection (lsp-stdio-connection "lua-language-server")
@@ -269,7 +269,7 @@ _describe-function map!_
 
 *** Shell
 #+begin_src emacs-lisp
-(after! sh-script
+(with-eval-after-load 'sh-script
   (set-formatter! 'shfmt
     ;; "-ci" for case-indent is the only difference from default formatter
     '("shfmt" "-filename" filepath "-ci" "-ln"
@@ -289,7 +289,7 @@ _describe-function map!_
 *** TODO Magit & forge
 Magit:
 #+begin_src emacs-lisp
-(after! magit
+(with-eval-after-load 'magit
   (map! :map git-commit-mode-map
         "C-c C-g" #'gptel-magit-generate-message))
 (setq
@@ -307,7 +307,7 @@ Magit:
 #+end_src
 *** QML | Quickshell
 #+begin_src emacs-lisp
-(after! lsp-mode
+(with-eval-after-load 'lsp-mode
   (add-to-list 'lsp-language-id-configuration '(qml-mode . "qml"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "qmlls6")
@@ -324,7 +324,7 @@ Magit:
 ** Apps
 *** Elfeed
 #+begin_src emacs-lisp
-(after! elfeed
+(with-eval-after-load 'elfeed
   (setq
    rmh-elfeed-org-files '("~/Documents/tech/rss/elfeed.org")
    elfeed-db-directory "~/Documents/tech/rss/db"
@@ -372,7 +372,7 @@ Magit:
 #+begin_src emacs-lisp
 (add-to-list 'doom-after-init-hook #'+emms/mpd-start-music-daemon)
 
-(after! emms
+(with-eval-after-load 'emms
   (add-to-list 'emms-player-list 'emms-player-mpd)
   (add-to-list 'emms-info-functions 'emms-info-mpd)
   (add-hook 'emms-player-started-hook #'emms-mpris-enable)
@@ -440,7 +440,7 @@ Magit:
 
 (setq! +lookup-open-url-fn #'eww)
 
-(after! eww
+(with-eval-after-load 'eww
   (setq!
    ;; make emacs always use its own browser for opening URL links
    browse-url-browser-function 'eww-browse-url
@@ -477,7 +477,7 @@ Magit:
         ;; different from 'headline-consult' since uses separate buffer
         :n "h" #'shrface-occur))
 
-(after! dash-docs (setq dash-docs-browser-func #'eww))
+(with-eval-after-load 'dash-docs (setq dash-docs-browser-func #'eww))
 #+end_src
 
 **** Shrface
@@ -488,7 +488,7 @@ Magit:
                                        (require 'eww)
                                        (shrface-mode)))
 
-(after! shrface
+(with-eval-after-load 'shrface
   ;; (unless shrface-toggle-bullets
   ;;   (shrface-regexp)
   ;;   (setq-local imenu-create-index-function #'shrface-imenu-get-tree)))
@@ -566,7 +566,7 @@ Magit:
 (map! :after telega :map telega-msg-button-map
       "D" #'telega-msg-delete-dwim)
 
-(after! telega
+(with-eval-after-load 'telega
   (telega-notifications-mode)
   (telega-patrons-mode nil)
   (telega-active-stories-mode nil)
@@ -637,7 +637,7 @@ Mind also the ~fb2-reader-continue~ binding.
       fb2-reader-hide-cursor nil
       fb2-reader-title-alignment 'center)
 
-(after! fb2-reader
+(with-eval-after-load 'fb2-reader
   (map! :map fb2-reader-mode-map
         :n "r" 'fb2-reader-refresh
         :n "i" 'fb2-reader-show-info
@@ -713,7 +713,7 @@ _Some rarely used commands under prefix_:
 
 ;; (advice-add 'slack-im-select :before #'slack-im-list-update)
 
-(after! slack
+(with-eval-after-load 'slack
   ;; (slack-extra-subscribed-channels (mapcar 'intern (list "some-channel")))
   (make-directory "/tmp/emacs-slack-images/" t)
   (setq
@@ -762,7 +762,7 @@ _Some rarely used commands under prefix_:
 
 ** Langtool
 #+begin_src emacs-lisp
-(after! langtool
+(with-eval-after-load 'langtool
   (setq langtool-default-language "ru-RU"
         langtool-disabled-rules '(
                                   "Many_PNN"
@@ -883,7 +883,7 @@ Specific to the current window's mode line.")
                        (map! :map evil-org-mode-map
                              :vmn "gl" 'evil-lion-left)))) ;; don't override that
 
-(after! org
+(with-eval-after-load 'org
   (map! :map org-mode-map
         :localleader
         :n "bS" 'org-table-shrink
@@ -941,7 +941,7 @@ Specific to the current window's mode line.")
 ** Dired + Dirvish
 #+begin_src emacs-lisp
 (remove-hook 'dired-mode-hook #'dired-omit-mode)
-(after! dirvish
+(with-eval-after-load 'dirvish
   (setq dirvish-hide-details t
         dirvish-default-layout '(0 0 0.55))
   (map! :map doom-leader-search-map "f" #'dirvish-fd-jump)
@@ -955,7 +955,7 @@ Specific to the current window's mode line.")
 
 ** Syntax + flymake
 #+begin_src emacs-lisp
-(after! flymake
+(with-eval-after-load 'flymake
   (setq flymake-popon-method (if (modulep! :checkers syntax +childframe)
                                  'postframe
                                'popon)
@@ -969,7 +969,7 @@ Specific to the current window's mode line.")
 #+end_src
 ** Winner
 #+begin_src emacs-lisp
-(after! winner
+(with-eval-after-load 'winner
   (setq winner-ring-size 10))
 
 (map! :map evil-window-map :desc "Winner redo" "r" 'winner-redo)
@@ -999,7 +999,7 @@ config whenever you update
 ;;       gemini_key (+pass-get-secret "ai/gemini")
 ;;       deepseek_key (+pass-get-field "ai/deepseek" "apikey"))
 
-(after! gptel
+(with-eval-after-load 'gptel
   (gptel-make-openai "Sambanova"
     :host "api.sambanova.ai"
     :endpoint "/v1/chat/completions"
@@ -1030,7 +1030,7 @@ Using Vertico , one could use this to export with [[doom-package:embark]] via [[
 C-l]] and get a buffer with all candidates.
 
 #+begin_src emacs-lisp
-(after! corfu
+(with-eval-after-load 'corfu
   (remove-hook 'corfu-mode-hook #'corfu-history-mode)
 
   (setq
@@ -1077,7 +1077,7 @@ C-l]] and get a buffer with all candidates.
 #+end_src
 ** Org-vcard
 #+begin_src emacs-lisp
-(after! org-vcard
+(with-eval-after-load 'org-vcard
   (setq org-vcard-append-to-existing-export-buffer nil
         org-vcard-append-to-existing-import-buffer nil
         org-vcard-default-export-file "~/Documents/tech/phone/backups/contacts-export.vcf"
@@ -1101,7 +1101,7 @@ C-l]] and get a buffer with all candidates.
 (map! :map doom-leader-open-map :desc "IRC" "i" '=irc)
 
 ;; if you omit =:host=, ~SERVER~ will be used instead.
-(after! circe
+(with-eval-after-load 'circe
   (setq circe-default-part-message "(⌣_⌣”)"
         circe-default-quit-message "o/")
 
@@ -1141,7 +1141,7 @@ C-l]] and get a buffer with all candidates.
 - in [[https://github.com/Phundrak/config.phundrak.com/blob/87b3deeed34305985e4cc5253d71ca6640efb1f3/docs/emacs/keybinding-managers.org#L155][this]] setup same code works
 
 #+begin_src emacs-lisp :tangle no
-(use-package! evil-colemak-basics
+(use-package evil-colemak-basics
   :after evil
   :init
   (setq evil-colemak-basics-layout-mod 'mod-dh) ;; swap h and m
@@ -1174,7 +1174,7 @@ C-l]] and get a buffer with all candidates.
 #+end_src
 ** WAIT Elm
 #+begin_src emacs-lisp :tangle no
-(after! elm-mode
+(with-eval-after-load 'elm-mode
   (add-hook 'elm-mode-hook 'elm-format-on-save-mode))
 #+end_src
 
