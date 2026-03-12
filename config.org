@@ -32,6 +32,7 @@ Here are some additional functions/macros that could help you configure Doom:
 
 (setq
  completion-ignore-case t
+ ssh-deploy-async 1
  consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
                    "--exclude .git --exclude .stversions"))
 
