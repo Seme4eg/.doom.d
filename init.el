@@ -86,7 +86,7 @@
        llm
        (lsp +peek)         ; M-x vscode
        ;; https://github.com/doomemacs/doomemacs/issues/8421
-       (magit)             ; a git porcelain for Emacs
+       magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        (pass +auth)        ; password manager for nerds
        pdf                 ; pdf enhancements

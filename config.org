@@ -19,7 +19,6 @@ Here are some additional functions/macros that could help you configure Doom:
  ;; Some functionality uses this to identify you,
  ;; e.g. GPG configuration, email clients, file templates and snippets.
  user-full-name "earthian"
-
  org-directory "~/Documents/org/"
  fill-column 80
  display-fill-column-indicator-column 80
@@ -27,12 +26,25 @@ Here are some additional functions/macros that could help you configure Doom:
  browse-url-secondary-browser-function #'browse-url-xdg-open
  browse-url-generic-program #'eww
  projectile-project-search-path '(("~/git" . 3)))
+
+(add-to-list 'safe-local-variable-values '(sqlformat-command . sqlfluff))
+(add-to-list 'safe-local-variable-values '(sqlformat-args . ("--config=/home/earthian/.config/sqlfluff/config.cfg")))
+
+(setq
+ completion-ignore-case t
+ consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
+                   "--exclude .git --exclude .stversions"))
+
+;; don't ever create new workspaces
+(with-eval-after-load 'persp-mode
+  (setq-default persp-emacsclient-init-frame-behaviour-override -1))
 #+end_src
 
-[[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]] (use =doom/describe-char= [[https://github.com/doomemacs/doomemacs/commit/303dd28db808b42a2397c0f4b9fdd71e606026ff][func]]):
-#+begin_src emacs-lisp
-;; 'pmsl nerd' - get all installed nerd fonts
+*** [[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]] (use =doom/describe-char= [[https://github.com/doomemacs/doomemacs/commit/303dd28db808b42a2397c0f4b9fdd71e606026ff][func]]):
 
+'pmsl nerd' - get all installed nerd fonts
+
+#+begin_src emacs-lisp
 (setq
  ;; firacode nerd font
  ;; saucecodepro nerd font - copy of source code pro but with better composite glyphs
@@ -64,10 +76,8 @@ Here are some additional functions/macros that could help you configure Doom:
   (add-to-list 'face-font-rescale-alist item))
 #+end_src
 
-Hlissner:
+*** Hlissner [[https://github.com/hlissner/.doom.d][#source]]
 #+begin_src emacs-lisp
-;; https://github.com/hlissner/.doom.d
-
 (setq
  ;; Line numbers are pretty slow all around. The performance boost of
  ;; disabling them outweighs the utility of always keeping them on.
@@ -88,6 +98,8 @@ _describe-function map!_
 (map! :map doom-leader-buffer-map
       "x" 'doom/toggle-scratch-buffer
       "o" 'sad-true-switch-last-buffer)
+
+(map! :map doom-leader-file-map "l" (cmd! (consult-fd "/")))
 
 (define-key global-map (kbd "C-,") 'embark-act)
 
@@ -121,25 +133,11 @@ _describe-function map!_
 (global-auto-revert-mode)
 #+end_src
 
-** Other settings
+** Hooks
 #+begin_src emacs-lisp
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 (add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode 1)))
-
-(map! :map doom-leader-file-map "l" (cmd! (consult-fd "/")))
-
-(add-to-list 'safe-local-variable-values '(sqlformat-command . sqlfluff))
-(add-to-list 'safe-local-variable-values '(sqlformat-args . ("--config=/home/earthian/.config/sqlfluff/config.cfg")))
-
-(setq
- completion-ignore-case t
- consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
-                   "--exclude .git --exclude .stversions"))
-
-;; don't ever create new workspaces
-(with-eval-after-load 'persp-mode
-  (setq-default persp-emacsclient-init-frame-behaviour-override -1))
 #+end_src
 
 ** Custom f-s & advices
@@ -203,12 +201,12 @@ _describe-function map!_
   (set-formatter! 'parsefix '("parsefix" "-f" filepath) :modes '(go-mode go-ts-mode))
   (set-formatter! 'golines '("golines" "-m" "80" filepath) :modes '(go-mode go-ts-mode))
   (set-formatter! 'goimports '("goimports" filepath) :modes '(go-mode go-ts-mode))
-  (setq-hook! 'go-ts-mode-hook +format-with '(goimports golines lsp))
+  (setq-hook! 'go-ts-mode-hook +format-with '(goimports golines))
 
-  (defun lsp-go-install-save-hooks ()
-    (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t))
-  (add-hook 'go-ts-mode-hook #'lsp-go-install-save-hooks)
+  ;; (defun lsp-go-install-save-hooks ()
+  ;;   (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  ;;   (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  ;; (add-hook 'go-ts-mode-hook #'lsp-go-install-save-hooks)
 
   (map! :map go-ts-mode-map :localleader :n "z" 'dap-breakpoint-toggle))
 
