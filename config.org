@@ -32,13 +32,17 @@ Here are some additional functions/macros that could help you configure Doom:
 
 (setq
  completion-ignore-case t
- ;; ssh-deploy-async 1
- ;; ssh-deploy-verbose 0
- ssh-deploy-force-on-explicit-save 1
  +zen-text-scale 0.5
  enable-recursive-minibuffers t ;; helps emacs not hang when vertico recursing
  consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
                    "--exclude .git --exclude .stversions"))
+
+(with-eval-after-load 'ssh-deploy
+  ;; ssh-deploy-async 1
+  ;; ssh-deploy-verbose 0
+  ssh-deploy-automatically-detect-remote-changes 0
+  ssh-deploy-force-on-explicit-save 1
+  (add-to-list 'ssh-deploy-exclude-list "\.org$"))
 
 ;; don't ever create new workspaces
 (with-eval-after-load 'persp-mode
@@ -143,6 +147,7 @@ _describe-function map!_
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 (add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode 1)))
+
 #+end_src
 
 ** Custom f-s & advices
