@@ -6,6 +6,17 @@
 - :n  "zx"    #'kill-current-buffer
 - :n  "ZX"    #'doom/save-and-kill-buffer
 
+3 ways of setting buffer/dir local variables:
+- =.dir-locals.el= file with something like ~((yaml-mode . ((apheleia-inhibit .
+  t))))~
+- adding ~# -*- apheleia-inhibit: t -*-~ to top of the file
+- or that to the bottom:
+  #+begin_src
+# Local Variables:
+# apheleia-inhibit: t
+# End:
+  #+end_src
+
 * Shortcuts
 ** Minibuffer
 [[elisp:(helpful-variable 'minibuffer-local-map)][minibuffer]] map + some keybings from [[elisp:(helpful-variable 'global-map)][global-map]]:
