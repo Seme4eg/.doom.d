@@ -35,6 +35,7 @@ Here are some additional functions/macros that could help you configure Doom:
  ;; ssh-deploy-async 1
  ;; ssh-deploy-verbose 0
  ssh-deploy-force-on-explicit-save 1
+ +zen-text-scale 0.5
  consult-fd-args '("fd" "--color=never --full-path --absolute-path --hidden"
                    "--exclude .git --exclude .stversions"))
 
