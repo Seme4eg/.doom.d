@@ -1031,8 +1031,8 @@ config whenever you update
         ;; gptel-api-key "1234"
         ;; gptel-proxy "localhost:20171" ;; v2raya-lite user service
         gptel-include-reasoning nil
-        gptel-api-key (lambda () (+pass-get-field "ai/openai" "apikey"))
-        gptel-model 'gpt-4-turbo ;; 'deepseek-chat
+        gptel-api-key (lambda () (+pass-get-field "ai/deepseek" "apikey"))
+        gptel-model 'deepseek-chat ;; 'gpt-4-turbo
         gptel-display-buffer-action '(nil (body-function . select-window))))
 #+end_src
 
