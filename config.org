@@ -48,6 +48,11 @@ Here are some additional functions/macros that could help you configure Doom:
 ;; don't ever create new workspaces
 (with-eval-after-load 'persp-mode
   (setq-default persp-emacsclient-init-frame-behaviour-override -1))
+
+(with-eval-after-load 'lsp-mode
+  (set-formatter! 'yamlfmt '("yamlfmt" "-in") :modes '(yaml-mode yaml-ts-mode))
+  (setq-hook! 'yaml-mode-hook +format-with '(yamlfmt)))
+
 #+end_src
 
 *** [[id:310c1ee3-2e64-4a4a-b494-53b90b813d7e][Fonts]] (use =doom/describe-char= [[https://github.com/doomemacs/doomemacs/commit/303dd28db808b42a2397c0f4b9fdd71e606026ff][func]]):
