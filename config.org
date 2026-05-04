@@ -38,10 +38,11 @@ Here are some additional functions/macros that could help you configure Doom:
                    "--exclude .git --exclude .stversions"))
 
 (with-eval-after-load 'ssh-deploy
-  ;; ssh-deploy-async 1
-  ;; ssh-deploy-verbose 0
-  ssh-deploy-automatically-detect-remote-changes 0
-  ssh-deploy-force-on-explicit-save 1
+  (setq
+   ;; ssh-deploy-async 1
+   ;; ssh-deploy-verbose 0
+   ssh-deploy-automatically-detect-remote-changes 0
+   ssh-deploy-force-on-explicit-save 1)
   (add-to-list 'ssh-deploy-exclude-list "\.org$"))
 
 ;; don't ever create new workspaces
