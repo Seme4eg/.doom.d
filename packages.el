@@ -3,7 +3,7 @@
 
 (package! telega)
 (package! slack)
-(package! sqlformat :recipe (:host github :repo "purcell/sqlformat"))
+(package! sqlformat)
 (package! pacdiff)
 (package! fb2-reader)
 (package! org-vcard)
