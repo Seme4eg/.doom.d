@@ -591,6 +591,15 @@ Magit:
 
   (require 'telega-dired-dwim)
 
+  ;; https://zevlg.github.io/telega.el/#using-proxy-to-access-telegram
+  (when (string-equal (getenv "USE_PROXY") "true")
+    (add-hook 'telega-before-auth-hook
+              (lambda ()
+                (telega--addProxy
+                    '(:server "127.0.0.1" :port 20170 :enable t
+                      :type (:@type "proxyTypeSocks5"))
+                    t))))   ; t = enable-p
+
   (setq
    ;; paths
    telega-database-dir (expand-file-name "~/.local/share/telega")
