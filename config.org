@@ -277,10 +277,9 @@ _describe-function map!_
     :major-modes '(lua-mode)
     :priority 0
     :server-id 'lua-language-server))
-  (setq lsp-clients-lua-language-server-command "lua-language-server"
-        lsp-clients-lua-language-server-bin "/usb/bin/lua-language-server"
-        ;; lsp-clients-lua-lsp-server-install-dir "/usb/bin/lua-language-server"
-        lsp-lua-hint-enable t))
+  (setq
+   lsp-clients-lua-language-server-bin "/usr/bin/lua-language-server"
+   lsp-lua-hint-enable t))
 #+end_src
 
 *** Shell
