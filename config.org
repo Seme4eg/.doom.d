@@ -25,6 +25,8 @@ Here are some additional functions/macros that could help you configure Doom:
  default-input-method "russian-computer"
  browse-url-secondary-browser-function #'browse-url-xdg-open
  browse-url-generic-program #'eww
+ trash-directory "~/.local/share/Trash"
+ delete-by-moving-to-trash t
  projectile-project-search-path '(("~/git" . 3)))
 
 (add-to-list 'safe-local-variable-values '(sqlformat-command . sqlfluff))
