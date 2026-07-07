@@ -596,7 +596,7 @@ Magit:
   (require 'telega-dired-dwim)
 
   ;; https://zevlg.github.io/telega.el/#using-proxy-to-access-telegram
-  (when (string-equal (getenv "USE_PROXY") "true")
+  (when (string-equal (getenv "AT_HOME") "true")
     (add-hook 'telega-before-auth-hook
               (lambda ()
                 (telega--addProxy
@@ -1048,7 +1048,7 @@ config whenever you update
         gptel-api-key (lambda () (+pass-get-field "ai/deepseek" "apikey"))
         gptel-model 'deepseek-chat ;; 'deepseek-reasoner 'gpt-4-turbo
         gptel-display-buffer-action '(nil (body-function . select-window)))
-  (when (string-equal (getenv "USE_PROXY") "true")
+  (when (string-equal (getenv "AT_HOME") "true")
     ;; v2raya-lite user service
     (setq gptel-proxy "localhost:20171")))
 #+end_src
