@@ -1115,6 +1115,75 @@ C-l]] and get a buffer with all candidates.
         org-vcard-default-import-file "~/Documents/tech/phone/backups/contacts-import.vcf"))
 #+end_src
 
+** Helpful var update funcs & binds
+#+begin_src emacs-lisp
+;;; --- Edit a variable's value from a Helpful buffer -------------------
+
+(defvar-local my/edit-var--symbol nil
+  "Symbol whose value is being edited in this buffer.")
+
+(define-minor-mode my/edit-var-mode
+  "Minor mode for editing a variable's value then applying it."
+  :lighter " EditVar"
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "C-c C-c") #'my/edit-var-commit)
+            (define-key map (kbd "C-c C-k") #'my/edit-var-abort)
+            map))
+
+(defun my/edit-var-commit ()
+  "Read the buffer as a Lisp value and assign it to the variable."
+  (interactive)
+  (let* ((sym my/edit-var--symbol)
+         (val (condition-case err
+                  (read (buffer-substring-no-properties (point-min) (point-max)))
+                (error (user-error "Can't read value: %s"
+                                   (error-message-string err))))))
+    ;; Respect :set handlers on defcustoms; plain set-default otherwise.
+    (if (custom-variable-p sym)
+        (customize-set-variable sym val)
+      (set-default sym val))
+    (let ((b (current-buffer)))
+      (quit-window) (kill-buffer b))
+    (helpful-update)
+    (message "Set %s to %S" sym val)))
+
+(defun my/edit-var-abort ()
+  "Cancel editing without touching the variable."
+  (interactive)
+  (let ((b (current-buffer)))
+    (quit-window) (kill-buffer b))
+  (message "Aborted"))
+
+(defun my/helpful-edit-variable ()
+  "Edit, in an elisp scratch buffer, the variable shown in this Helpful buffer.
+The value (array, string, int, list, anything readable) is pretty-printed;
+press \\[my/edit-var-commit] to apply or \\[my/edit-var-abort] to cancel."
+  (interactive)
+  (unless (derived-mode-p 'helpful-mode)
+    (user-error "Not in a Helpful buffer"))
+  (when (bound-and-true-p helpful--callable-p)
+    (user-error "%s is a function, not a variable" helpful--sym))
+  (let ((sym helpful--sym))
+    (unless (boundp sym)
+      (user-error "%s is not bound" sym))
+    (let ((buf (get-buffer-create (format "*edit: %s*" sym)))
+          (val (symbol-value sym)))
+      (with-current-buffer buf
+        (emacs-lisp-mode)
+        (erase-buffer)
+        (insert (pp-to-string val))
+        (goto-char (point-min))
+        (setq my/edit-var--symbol sym)
+        (my/edit-var-mode 1)
+        (setq-local header-line-format
+                    (format " Editing %s — C-c C-c apply · C-c C-k cancel" sym)))
+      (pop-to-buffer buf))))
+
+(map! :map helpful-mode-map
+      :leader
+      :desc "Edit value" "e" #'my/helpful-edit-variable)
+#+end_src
+
 ** WAIT Casual Suite
 #+begin_src emacs-lisp
 ;; (require 'casual-suite)
