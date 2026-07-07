@@ -577,6 +577,7 @@ Magit:
       "S" #'telega-chatbuf-attach-scheduled
       "f" #'telega-buffer-file-send
       "s" #'telega-saved-messages
+      "/" #'telega-chatbuf-filter-search ;; _ key to cancel search
       "t" #'telega
       "z" #'telega-translate-region
       "u" #'telega-switch-unread-chat)
