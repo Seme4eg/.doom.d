@@ -274,15 +274,15 @@ _describe-function map!_
 *** Lua
 #+begin_src emacs-lisp
 (with-eval-after-load 'lsp-mode
+  (setq
+   lsp-clients-lua-language-server-bin "/usr/bin/lua-language-server"
+   lsp-lua-hint-enable t)
   (lsp-register-client
    (make-lsp-client
     :new-connection (lsp-stdio-connection "lua-language-server")
-    :major-modes '(lua-mode)
-    :priority 0
-    :server-id 'lua-language-server))
-  (setq
-   lsp-clients-lua-language-server-bin "/usr/bin/lua-language-server"
-   lsp-lua-hint-enable t))
+    :major-modes '(lua-mode lua-ts-mode)
+    :priority 1
+    :server-id 'lua-ls-local)))
 #+end_src
 
 *** Shell
