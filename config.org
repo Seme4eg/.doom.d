@@ -618,6 +618,7 @@ Magit:
    telega-chat-buffers-limit 1
    telega-msg-temex-show-reactions '(return nil)
    telega-sticker-set-show-cover nil
+   telega-vvnote-play-speeds '(2 1.5 2.5 1) ;; 1 being last deliberately
    telega-filters-custom '(("Main" . main)
                            ("lng_filters_type_no_archived" . archive))
    ;; other
