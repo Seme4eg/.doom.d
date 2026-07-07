@@ -1,8 +1,5 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
-;; needs to be loaded before main config otherwise no effect
-(setq evil-respect-visual-line-mode t)
-
 (doom! :input
        ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
        ;;chinese

@@ -773,6 +773,13 @@ _Some rarely used commands under prefix_:
        :desc "Insert COUNT digraphs" "i" 'evil-insert-digraph
        :desc "Shows a list of all available digraphs" "s" 'evil-ex-show-digraphs
        :desc "Read two keys from keyboard forming a digraph" "r" 'evil-read-digraph-char))
+
+;; NOTE: don't use the 'evil-respect-visual-line-mode var as then deleting /
+;; yanking lines behavior also repects visual line and is very inconvenient. The
+;; only thing i actually need is the movement.
+(map! :map evil-motion-state-map
+      :g "j" 'next-line
+      :g "k" 'previous-line)
 #+end_src
 
 ** Ewal theme
@@ -907,7 +914,7 @@ Specific to the current window's mode line.")
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook
           (lambda () (progn
-                       (auto-fill-mode)
+                       ;; (auto-fill-mode)
                        (map! :map evil-org-mode-map
                              :vmn "gl" 'evil-lion-left)))) ;; don't override that
 
@@ -950,7 +957,6 @@ Specific to the current window's mode line.")
   ;; now after typing 'C-c C-,' u will will get a new option to chose from
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp\n")))
 #+end_src
-
 ** Popup
 - see doom package readme, but here is settings [[https://github.com/amosbird/serverconfig/blob/master/.config/doom/config.el#L1657][example]]
 - current popup settings see in ~display-buffer-alist~ var
