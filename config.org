@@ -45,7 +45,10 @@ Here are some additional functions/macros that could help you configure Doom:
    ;; ssh-deploy-verbose 0
    ssh-deploy-automatically-detect-remote-changes 0
    ssh-deploy-force-on-explicit-save 1)
-  (add-to-list 'ssh-deploy-exclude-list "\.org$"))
+  (add-to-list 'ssh-deploy-exclude-list "\.org$")
+  (add-to-list 'ssh-deploy-exclude-list "\.gitattributes$")
+  (add-to-list 'ssh-deploy-exclude-list "\\.claude/")
+  (add-to-list 'ssh-deploy-exclude-list "\\.git-crypt/"))
 
 ;; don't ever create new workspaces
 (with-eval-after-load 'persp-mode
